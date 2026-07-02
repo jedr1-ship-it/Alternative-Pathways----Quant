@@ -1,0 +1,68 @@
+====================================================================
+PANEL OCCUPATIONAL-EXIT ANALYSIS  (PSID 1976-1982, real panel)
+====================================================================
+Individuals            : 595
+Person-years           : 4165
+Linked t->t+1 pairs    : 3570
+Any occupation switch  :  4.90% of pairs
+
+At-risk (white-collar in t): 1746 person-years
+EXIT rate (white->non-white):  4.81%
+
+--- Mean characteristics: stayer vs leaver ---
+               stayer  leaver   diff
+experience     18.395  19.750  1.355
+weeks          46.874  47.155  0.281
+education      14.720  12.214 -2.506
+lwage           6.789   6.562 -0.227
+union           0.168   0.369  0.201
+married         0.785   0.786  0.001
+south           0.268   0.286  0.018
+smsa            0.760   0.655 -0.105
+manufacturing   0.274   0.452  0.178
+afam            0.049   0.071  0.023
+female          0.142   0.131 -0.011
+
+--- Probit (cluster-robust SE by individual) ---
+                Coef.  Std.Err.       z   P>|z|  [0.025  0.975]
+Intercept      2.7667    1.5791  1.7521  0.0798 -0.3283  5.8618
+experience    -0.0024    0.0075 -0.3266  0.7440 -0.0171  0.0122
+weeks          0.0103    0.0162  0.6342  0.5260 -0.0215  0.0421
+education     -0.1857    0.0335 -5.5424  0.0000 -0.2513 -0.1200
+lwage         -0.3225    0.2125 -1.5176  0.1291 -0.7389  0.0940
+union          0.4119    0.1638  2.5146  0.0119  0.0909  0.7330
+married       -0.2489    0.2193 -1.1348  0.2565 -0.6788  0.1810
+south         -0.0077    0.1569 -0.0492  0.9608 -0.3152  0.2998
+smsa          -0.2309    0.1503 -1.5357  0.1246 -0.5255  0.0638
+manufacturing  0.3524    0.1370  2.5732  0.0101  0.0840  0.6209
+afam          -0.1623    0.2772 -0.5857  0.5581 -0.7056  0.3809
+female        -0.3471    0.2605 -1.3324  0.1827 -0.8578  0.1635
+
+--- Average marginal effects, ranked by |z| ---
+                  AME      se       z       p   abs_z
+education     -0.0154  0.0032 -4.7713  0.0000  4.7713
+manufacturing  0.0293  0.0112  2.6190  0.0088  2.6190
+union          0.0342  0.0136  2.5143  0.0119  2.5143
+lwage         -0.0268  0.0177 -1.5142  0.1300  1.5142
+smsa          -0.0192  0.0127 -1.5094  0.1312  1.5094
+female        -0.0288  0.0217 -1.3264  0.1847  1.3264
+married       -0.0207  0.0182 -1.1376  0.2553  1.1376
+weeks          0.0009  0.0014  0.6317  0.5276  0.6317
+afam          -0.0135  0.0230 -0.5868  0.5573  0.5868
+experience    -0.0002  0.0006 -0.3267  0.7439  0.3267
+south         -0.0006  0.0130 -0.0492  0.9608  0.0492
+
+Strongest predictor of exit : education (AME=-0.0154, p=0.000)
+
+--- Profile of highest-risk decile (typical leaver) ---
+experience       22.638
+weeks            47.190
+education        10.741
+lwage             6.490
+union             0.506
+married           0.897
+south             0.287
+smsa              0.552
+manufacturing     0.690
+afam              0.103
+female            0.034
