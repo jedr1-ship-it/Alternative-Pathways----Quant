@@ -1,21 +1,23 @@
 """
-Build a linked 12-month CPS panel of school teachers (2024 -> 2025).
+Build a linked 12-month CPS panel of school teachers, 2021 -> 2025.
 
 Source: official Current Population Survey basic monthly public-use microdata,
 downloaded from https://www2.census.gov/programs-surveys/cps/datasets/<year>/basic/
-(files <mon><yy>pub.dat.gz, fixed-width; positions from the 2025 record layout).
+(files <mon><yy>pub.dat.gz, fixed-width; positions from the 2025 record layout,
+stable for these variables across 2021-2025; teacher occupation codes
+2300-2330 are identical in the 2010 and 2020 Census classifications).
 
 CPS rotation design (4-8-4): a household interviewed in month-in-sample (MIS)
 1-4 of month t is re-interviewed exactly 12 months later with MIS 5-8. We link
-persons across the year via (HRHHID, HRHHID2, PULINENO) and validate the match
-with sex, race, and an age increase of 0-2 years (Madrian-Lefgren criterion).
+persons across each year pair via (HRHHID, HRHHID2, PULINENO) and validate the
+match with sex, race, and an age increase of 0-2 years (Madrian-Lefgren).
 
-Teachers = employed with primary-job occupation (2020 Census codes):
-  2300 preschool/kindergarten, 2310 elementary/middle, 2320 secondary,
-  2330 special education.
+Analytic teacher sample: employed school teachers (occ 2300 preschool/K,
+2310 elementary/middle, 2320 secondary, 2330 special education) holding at
+least a bachelor's degree (PEEDUCA >= 43) -- the standard restriction in the
+teacher-attrition literature.
 """
 import glob
-import gzip
 import os
 import numpy as np
 import pandas as pd
@@ -23,6 +25,8 @@ import pandas as pd
 RAWDIR = "data/raw/cps"
 OUTDIR = "data/processed"
 os.makedirs(OUTDIR, exist_ok=True)
+
+YEAR_PAIRS = [(2021, 2022), (2022, 2023), (2023, 2024), (2024, 2025)]
 
 # (name, start, end) 1-indexed inclusive, from 2025 Basic CPS record layout
 COLS = [
@@ -81,7 +85,9 @@ def main():
     frames = []
     for f in files:
         d = read_month(f)
-        print(f"  {os.path.basename(f):18s} {len(d):>7,} adult records")
+        yr = d["HRYEAR4"].mode().iat[0]
+        assert 2021 <= yr <= 2025, f"unexpected year {yr} in {f}"
+        print(f"  {os.path.basename(f):18s} {len(d):>7,} adult records  (year {yr})")
         frames.append(d)
     cps = pd.concat(frames, ignore_index=True)
 
@@ -89,26 +95,28 @@ def main():
     cps["teacher"] = ((cps["employed"] == 1)
                       & cps["PTIO1OCD"].isin(TEACHER_OCC)).astype(int)
 
-    # --- period t: 2024, MIS 1-4 ; period t+12: 2025 same month, MIS 5-8 ---
     key = ["HRHHID", "HRHHID2", "PULINENO", "HRMONTH"]
-    t0 = cps[(cps["HRYEAR4"] == 2024) & (cps["HRMIS"].between(1, 4))].copy()
-    t1 = cps[(cps["HRYEAR4"] == 2025) & (cps["HRMIS"].between(5, 8))].copy()
+    panels = []
+    for y0, y1 in YEAR_PAIRS:
+        t0 = cps[(cps["HRYEAR4"] == y0) & (cps["HRMIS"].between(1, 4))]
+        t1 = cps[(cps["HRYEAR4"] == y1) & (cps["HRMIS"].between(5, 8))]
+        m = t0.merge(t1, on=key, suffixes=("_0", "_1"))
+        m = m[m["HRMIS_1"] - m["HRMIS_0"] == 4]
+        valid = ((m["PESEX_0"] == m["PESEX_1"])
+                 & (m["PTDTRACE_0"] == m["PTDTRACE_1"])
+                 & (m["PRTAGE_1"] - m["PRTAGE_0"]).between(0, 2))
+        m = m[valid].copy()
+        m["base_year"] = y0
+        panels.append(m)
+        print(f"\n{y0}->{y1}: validated links {len(m):,}")
+    linked = pd.concat(panels, ignore_index=True)
+    print(f"\nTOTAL validated links: {len(linked):,}")
 
-    m = t0.merge(t1, on=key, suffixes=("_0", "_1"))
-    # same person within household: MIS advances exactly 4, demographics agree
-    m = m[m["HRMIS_1"] - m["HRMIS_0"] == 4]
-    valid = ((m["PESEX_0"] == m["PESEX_1"])
-             & (m["PTDTRACE_0"] == m["PTDTRACE_1"])
-             & (m["PRTAGE_1"] - m["PRTAGE_0"]).between(0, 2))
-    print(f"\nlinked pairs (raw)      : {len(m):,}")
-    m = m[valid].copy()
-    print(f"linked pairs (validated): {len(m):,}")
-
-    # --- teacher attrition sample ---
-    tch = m[m["teacher_0"] == 1].copy()
+    # --- teacher attrition sample: employed teacher at t with BA+ ---
+    tch = linked[(linked["teacher_0"] == 1)
+                 & (linked["PEEDUCA_0"] >= 43)].copy()
     tch["still_teacher"] = tch["teacher_1"]
     tch["leaver"] = 1 - tch["teacher_1"]
-    # decomposition of leavers at t+12
     tch["dest"] = np.select(
         [tch["teacher_1"] == 1,
          (tch["employed_1"] == 1) & (tch["teacher_1"] == 0),
@@ -117,19 +125,16 @@ def main():
         ["still teacher", "other occupation", "unemployed", "out of labor force"],
         default="other/unknown")
 
-    print(f"\nteachers in t linked to t+12 : {len(tch):,}")
     w = tch["PWSSWGT_0"]
-    print(f"attrition rate (unweighted)  : {tch['leaver'].mean():6.2%}")
-    print(f"attrition rate (weighted)    : {np.average(tch['leaver'], weights=w):6.2%}")
+    print(f"\nteachers (BA+) linked 12 months : {len(tch):,}")
+    print("by base year:", tch.groupby("base_year").size().to_dict())
+    print(f"attrition rate (weighted)       : "
+          f"{np.average(tch['leaver'], weights=w):6.2%}")
     print("\ndestination at t+12 (weighted %):")
     print((tch.groupby('dest')['PWSSWGT_0'].sum() / w.sum() * 100).round(2))
 
     tch.to_csv(f"{OUTDIR}/cps_teacher_panel.csv", index=False)
     print(f"\nsaved {OUTDIR}/cps_teacher_panel.csv  ({len(tch):,} rows)")
-
-    # also save the full linked panel for context (all occupations)
-    m[["HRMONTH", "teacher_0", "teacher_1", "employed_0", "employed_1",
-       "PWSSWGT_0"]].to_csv(f"{OUTDIR}/cps_linked_all.csv", index=False)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,12 @@
-"""Shared covariate construction for the CPS teacher-attrition panel."""
+"""Shared covariate construction for the CPS teacher-attrition panel.
+
+Analytic sample: school teachers holding at least a bachelor's degree
+(PEEDUCA >= 43), the standard restriction in the teacher-attrition
+literature. Education enters as master's+ vs the bachelor's-only reference.
+"""
 
 COVS = ["age", "age2", "female", "married", "black", "hispanic", "noncitizen",
-        "ba", "ma_plus", "parttime", "hours_missing", "faminc75k",
+        "ma_plus", "parttime", "hours_missing", "faminc75k",
         "preschool_kg", "secondary", "special_ed"]
 
 # human-readable names for figures/tables
@@ -13,7 +18,6 @@ LABELS = {
     "black": "Black",
     "hispanic": "Hispanic",
     "noncitizen": "Non-citizen",
-    "ba": "Bachelor's degree",
     "ma_plus": "Master's degree or higher",
     "parttime": "Part-time (<35 h/week)",
     "hours_missing": "Hours not reported",
@@ -35,7 +39,6 @@ def add_covariates(df):
     df["hispanic"] = (df["PEHSPNON_0"] == 1).astype(int)
     df["noncitizen"] = (df["PRCITSHP_0"] == 5).astype(int)
     # PEEDUCA: 43 bachelor's; 44 master's; 45 professional; 46 doctorate
-    df["ba"] = (df["PEEDUCA_0"] == 43).astype(int)
     df["ma_plus"] = (df["PEEDUCA_0"] >= 44).astype(int)
     df["hours"] = df["PEHRUSL1_0"].where(df["PEHRUSL1_0"] > 0)
     df["parttime"] = (df["hours"] < 35).astype(int).where(df["hours"].notna(), 0)

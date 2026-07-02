@@ -72,26 +72,26 @@ plt.close(fig)
 groups = [
     ("Weekly hours", [("Full-time", df[df.parttime == 0]),
                       ("Part-time", df[df.parttime == 1])]),
-    ("Highest degree", [("No bachelor's", df[(df.ba == 0) & (df.ma_plus == 0)]),
-                        ("Bachelor's", df[df.ba == 1]),
+    ("Highest degree", [("Bachelor's", df[df.ma_plus == 0]),
                         ("Master's+", df[df.ma_plus == 1])]),
     ("Teaching level", [("Preschool/K", df[df.preschool_kg == 1]),
                         ("Elem./middle", df[(df.preschool_kg == 0) & (df.secondary == 0) & (df.special_ed == 0)]),
                         ("Secondary", df[df.secondary == 1]),
                         ("Special ed.", df[df.special_ed == 1])]),
 ]
+xmax = max(wrate(d) for _, rows in groups for _, d in rows) * 1.3
 fig, axes = plt.subplots(1, 3, figsize=(9.2, 2.5),
-                         gridspec_kw={"width_ratios": [2, 3, 4]})
+                         gridspec_kw={"width_ratios": [2, 2, 4]})
 for ax, (title, rows) in zip(axes, groups):
     names = [n for n, _ in rows][::-1]
     vals = [wrate(d) for _, d in rows][::-1]
     bars = ax.barh(names, vals, height=0.55, color=BLUE, zorder=3)
     for b, v in zip(bars, vals):
-        ax.text(v + 1.2, b.get_y() + b.get_height() / 2, f"{v:.0f}%",
+        ax.text(v + xmax * 0.02, b.get_y() + b.get_height() / 2, f"{v:.0f}%",
                 va="center", fontsize=10, color=INK, fontweight="bold")
     ax.set_title(title, loc="left", fontsize=10.5, color=NAVY,
                  fontweight="bold", pad=8)
-    ax.set_xlim(0, 62)
+    ax.set_xlim(0, xmax)
     style_barh(ax)
 sample_line = np.average(df["leaver"], weights=df[W]) * 100
 for ax in axes:
@@ -103,7 +103,7 @@ fig.savefig("report/figures/fig2_rates_by_group.pdf")
 plt.close(fig)
 
 # ---------- probit (shared by figures 3-5 and the table) ----------
-formula = "leaver ~ " + " + ".join(COVS)
+formula = "leaver ~ " + " + ".join(COVS) + " + C(base_year)"
 m = smf.probit(formula, data=df).fit(
     cov_type="cluster", cov_kwds={"groups": df["HRHHID"]}, disp=False)
 me = m.get_margeff(at="overall")
@@ -148,12 +148,13 @@ base = df[COVS].mean()
 Xa = pd.DataFrame([base] * len(ages))
 Xa["age"] = ages
 Xa["age2"] = ages ** 2 / 100.0
+Xa["base_year"] = int(df["base_year"].mode().iat[0])
 pr = m.predict(Xa) * 100
-# delta-method CI via parameter draws
+# simulation-based CI via parameter draws on the model's design matrix
 rng = np.random.default_rng(7)
 draws = rng.multivariate_normal(m.params, m.cov_params(), size=400)
-Xmat = pd.concat([pd.Series(1.0, index=Xa.index, name="Intercept"),
-                  Xa[COVS]], axis=1).to_numpy()
+from patsy import dmatrix
+Xmat = np.asarray(dmatrix(m.model.data.design_info, Xa))
 from scipy.stats import norm
 sims = norm.cdf(Xmat @ draws.T) * 100
 lo, hi = np.percentile(sims, [2.5, 97.5], axis=1)
@@ -237,6 +238,7 @@ with open("report/table_probit.tex", "w") as f:
 {table}
 \\midrule
 Constant & {coefs['Intercept']:.3f}{stars(pvals['Intercept'])} & ({ses['Intercept']:.3f}) & \\\\
+Base-year fixed effects & \\multicolumn{{3}}{{c}}{{Yes}} \\\\
 Observations & \\multicolumn{{3}}{{c}}{{{int(m.nobs):,}}} \\\\
 Pseudo $R^2$ & \\multicolumn{{3}}{{c}}{{{m.prsquared:.3f}}} \\\\
 \\bottomrule
