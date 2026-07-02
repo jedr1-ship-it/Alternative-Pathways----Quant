@@ -15,12 +15,23 @@ being a white-collar worker in year t and NOT a white-collar worker in t+1.
 Swap PSID7682 for a teacher-coded panel and the same code answers the real
 research question.
 """
+import os
+import urllib.request
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 
+URL = ("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/"
+       "master/csv/AER/PSID7682.csv")
 RAW = "data/raw/PSID7682.csv"
 OUT = "outputs"
+
+# self-download the panel if not present (only GitHub is reachable here)
+os.makedirs("data/raw", exist_ok=True)
+os.makedirs(OUT, exist_ok=True)
+if not os.path.exists(RAW):
+    print(f"downloading {URL}")
+    urllib.request.urlretrieve(URL, RAW)
 
 df = pd.read_csv(RAW)
 df = df.rename(columns={c: c.strip() for c in df.columns})
