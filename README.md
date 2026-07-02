@@ -7,13 +7,18 @@ docentes → observar quién deja la docencia en el tiempo → **probit** de aba
 con la mayor cantidad de características observadas.
 
 ## Estado actual
-- **Fase de datos.** Ver [`docs/DATA_ACCESS.md`](docs/DATA_ACCESS.md). La política
-  de egress del entorno solo permite GitHub/PyPI, así que las fuentes con
-  docentes (NCES SASS/TFS, CPS, EPA, PSID completo) no son descargables aún.
-- **Maquinaria validada** sobre un panel real (PSID 1976-1982) en
-  `src/01_panel_attrition_demo.py`: transiciones t→t+1, probit cluster-robusto,
-  efectos marginales y perfil del que abandona. Lista para sustituir por datos
-  de docentes.
+- **Estudio completo sobre microdatos oficiales de la CPS 2005–2025** (Census
+  Bureau + mirror NBER): 20 paneles rotantes enlazados, 8,2M de enlaces
+  individuales validados, **174.872 docentes con grado+ seguidos 12 meses**
+  (129.897 con re-entrevista posterior).
+- **Variable principal: *leaver persistente*** (fuera de la docencia en t+12 y
+  en todas las re-entrevistas posteriores observables) = **15,1%** anual;
+  definición convencional a 12 meses (17,6%) como robustez. Predictor más
+  fuerte: tiempo parcial (+12,2 pp). Tendencia: ~13% (2005–10) → ~17% (2022–24).
+- **Informe** estilo policy brief en `report/teacher_attrition_brief.pdf`
+  (LaTeX, 6 figuras validadas, 1 tabla de regresión).
+- Nota histórica: `src/01_panel_attrition_demo.py` fue la demo inicial de la
+  metodología sobre el PSID 1976–1982; ver `docs/DATA_ACCESS.md`.
 
 ## Reproducir
 ```bash
