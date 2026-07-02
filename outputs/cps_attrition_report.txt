@@ -1,0 +1,91 @@
+======================================================================
+TEACHER ATTRITION, LINKED CPS PANEL 2024->2025 (official microdata)
+======================================================================
+Teachers followed 12 months : 6,426
+Attrition rate  (weighted)  : 24.04%
+Attrition rate  (unweighted): 23.08%
+
+Destination at t+12 (weighted %):
+dest
+other occupation      16.27
+out of labor force     6.52
+still teacher         75.96
+unemployed             1.25
+
+NOTE: 'other occupation' in the CPS is inflated by independent
+re-coding of occupation at the second rotation; treat levels with
+caution, comparisons across characteristics remain informative.
+
+--- Mean characteristics at t: stayer vs leaver ---
+               stayer  leaver   diff
+age            44.719  46.964  2.245
+age2           21.387  24.272  2.886
+female          0.788   0.802  0.014
+married         0.696   0.630 -0.065
+black           0.066   0.098  0.032
+hispanic        0.079   0.126  0.047
+noncitizen      0.020   0.047  0.027
+ba              0.403   0.368 -0.035
+ma_plus         0.530   0.383 -0.147
+parttime        0.072   0.235  0.163
+hours_missing   0.034   0.076  0.041
+faminc75k       0.864   0.778 -0.085
+preschool_kg    0.085   0.185  0.100
+secondary       0.183   0.153 -0.030
+special_ed      0.055   0.059  0.004
+
+--- Probit (cluster-robust SE by household) ---
+                Coef.  Std.Err.       z   P>|z|  [0.025  0.975]
+Intercept      0.6845    0.3145  2.1763  0.0295  0.0680  1.3010
+age           -0.0503    0.0138 -3.6598  0.0003 -0.0773 -0.0234
+age2           0.0626    0.0145  4.3288  0.0000  0.0342  0.0909
+female        -0.0940    0.0701 -1.3402  0.1802 -0.2314  0.0435
+married       -0.0272    0.0655 -0.4154  0.6778 -0.1555  0.1011
+black          0.2754    0.1071  2.5715  0.0101  0.0655  0.4854
+hispanic       0.2290    0.0955  2.3978  0.0165  0.0418  0.4163
+noncitizen     0.4002    0.1674  2.3907  0.0168  0.0721  0.7284
+ba            -0.6590    0.0963 -6.8443  0.0000 -0.8477 -0.4703
+ma_plus       -0.7396    0.0999 -7.4019  0.0000 -0.9355 -0.5438
+parttime       0.6664    0.0769  8.6658  0.0000  0.5156  0.8171
+hours_missing  0.5139    0.1149  4.4741  0.0000  0.2888  0.7390
+faminc75k     -0.0222    0.0821 -0.2700  0.7872 -0.1831  0.1388
+preschool_kg   0.1276    0.0984  1.2969  0.1947 -0.0652  0.3204
+secondary     -0.0673    0.0760 -0.8858  0.3757 -0.2163  0.0816
+special_ed     0.0727    0.1167  0.6226  0.5336 -0.1561  0.3015
+
+--- Average marginal effects (pp change in P(leave)), ranked ---
+                AME_pp      se       z       p
+parttime       18.0035  0.0202  8.9162  0.0000
+ma_plus       -19.9838  0.0263 -7.6106  0.0000
+ba            -17.8048  0.0254 -6.9978  0.0000
+hours_missing  13.8844  0.0309  4.4897  0.0000
+age2            1.6909  0.0039  4.3716  0.0000
+age            -1.3598  0.0037 -3.6870  0.0002
+black           7.4419  0.0289  2.5744  0.0100
+hispanic        6.1881  0.0258  2.4008  0.0164
+noncitizen     10.8137  0.0451  2.3961  0.0166
+female         -2.5393  0.0190 -1.3396  0.1804
+preschool_kg    3.4472  0.0266  1.2973  0.1945
+secondary      -1.8187  0.0205 -0.8864  0.3754
+special_ed      1.9638  0.0315  0.6226  0.5335
+married        -0.7348  0.0177 -0.4155  0.6778
+faminc75k      -0.5990  0.0222 -0.2700  0.7872
+
+Strongest predictor: parttime (AME = +18.00 pp, p = 0.0000)
+
+--- Profile of the highest-risk decile ('typical leaver') ---
+age              50.734
+female            0.860
+married           0.475
+black             0.151
+hispanic          0.224
+noncitizen        0.095
+ba                0.193
+ma_plus           0.150
+parttime          0.545
+hours_missing     0.125
+faminc75k         0.606
+preschool_kg      0.397
+secondary         0.115
+special_ed        0.044
+mean predicted P(leave) in decile: 59.12% vs sample 23.00%
