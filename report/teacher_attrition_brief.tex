@@ -1,0 +1,214 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- EsadeEcPol-inspired policy-brief look ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
+\usepackage[margin=2.3cm,top=2.0cm,bottom=2.4cm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,tcolorbox,caption,enumitem,setspace}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{ecnavy}{HTML}{12355B}
+\definecolor{ecyellow}{HTML}{FFCD00}
+\definecolor{eccoral}{HTML}{E34948}
+\definecolor{ecblue}{HTML}{2A78D6}
+\definecolor{ecink}{HTML}{1A2430}
+\definecolor{ecgray}{HTML}{5A6572}
+\definecolor{ecpale}{HTML}{FFF8DC}
+
+\captionsetup{font={small},labelfont={bf,color=ecnavy},
+              justification=raggedright,singlelinecheck=false}
+\makeatletter\setlength{\@fptop}{0pt}\makeatother  % floats start at page top
+\setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
+\linespread{1.12}
+\color{ecink}
+
+\newcommand{\heronum}[2]{%
+  \begin{minipage}[t]{0.30\textwidth}\raggedright
+  {\fontsize{30}{32}\selectfont\bfseries\color{ecnavy}#1}\\[2pt]
+  {\small\color{ecgray}#2}
+  \end{minipage}}
+
+\begin{document}
+
+% ---------- cover band ----------
+\begin{tcolorbox}[colback=ecyellow,colframe=ecyellow,sharp corners,
+                  left=14pt,right=14pt,top=16pt,bottom=16pt]
+  \raggedright
+  {\small\bfseries\color{ecnavy}POLICY BRIEF \;·\; TEACHER LABOR MARKETS \;·\; JULY 2026}\\[10pt]
+  {\fontsize{22}{26}\selectfont\bfseries\color{ecnavy}%
+  Who leaves teaching? Predictors and the profile of teacher attrition in the United States, 2024--2025\par}\vspace{10pt}
+  {\normalsize\color{ecink}Evidence from 6{,}426 school teachers followed for
+  twelve months in linked Current Population Survey microdata}
+\end{tcolorbox}
+
+\vspace{10pt}
+
+% ---------- executive summary ----------
+\begin{tcolorbox}[colback=ecpale,colframe=ecpale,sharp corners,
+                  left=12pt,right=12pt,top=10pt,bottom=10pt]
+{\bfseries\color{ecnavy}EXECUTIVE SUMMARY}
+
+\begin{itemize}[leftmargin=14pt,itemsep=2pt]
+  \item Linking individuals across the CPS rotation design, \textbf{24\% of school
+  teachers observed in 2024 were no longer teaching twelve months later}: 16.3
+  percentage points (pp) moved to another occupation, 6.5\,pp left the labor
+  force and 1.2\,pp were unemployed.
+  \item \textbf{Working part-time is the strongest single predictor} of leaving
+  ($+18$\,pp), while holding a graduate degree is the strongest protective
+  factor ($-20$\,pp). Exit risk is U-shaped in age, lowest around age 40.
+  \item The \textbf{typical leaver} is female, in her early fifties or her
+  twenties, teaching part-time, without a graduate credential, and
+  disproportionately in preschool/kindergarten; teachers in the top predicted-risk
+  decile face a 59\% exit probability, 2.5 times the average.
+  \item Retention policy should focus on \textbf{converting involuntary part-time
+  positions into full-time contracts and subsidizing graduate credentials} for
+  the least-attached segments of the teaching workforce.
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{6pt}
+\noindent
+\heronum{24\,\%}{of 2024 teachers had left the profession by 2025}\hfill
+\heronum{$+$18\,pp}{extra exit risk from part-time work}\hfill
+\heronum{$-$20\,pp}{lower exit risk with a master's degree}
+
+\vspace{4pt}
+\section*{\color{ecnavy}1. Data: a 12-month panel of teachers}
+
+We use official \textbf{Current Population Survey (CPS) basic monthly
+microdata} (U.S. Census Bureau), January 2024 to December 2025 (23 monthly
+files; October 2025 was not released). Exploiting the CPS 4--8--4 rotation
+design, each adult interviewed in 2024 is re-interviewed in the same calendar
+month of 2025 and can be linked by household and person identifiers, with
+matches validated on sex, race and age progression (Madrian--Lefgren
+criterion). This yields \textbf{298{,}586 validated individual links}, of which
+\textbf{6{,}426 were school teachers} at baseline (preschool to secondary,
+including special education; Census occupation codes 2300--2330). A
+\emph{leaver} is a baseline teacher who, twelve months later, is not employed
+as a school teacher. Reported rates use CPS final person weights.
+
+\textit{Caveat:} occupation in the returning rotation is re-coded
+independently, which inflates measured occupation switching; the 24\% level
+should be read as an upper bound, while \emph{comparisons across groups} --- the
+object of this brief --- are far less affected.
+
+\begin{figure}[h!]
+  \caption{\textbf{Most leavers move to other jobs rather than out of work.}
+  Destination twelve months later, share of 2024 teachers (weighted).}
+  \includegraphics[width=0.82\textwidth]{figures/fig1_destinations.pdf}
+  \par{\footnotesize\color{ecgray}Source: authors' calculations, linked CPS
+  basic monthly files 2024--2025.}
+\end{figure}
+
+\section*{\color{ecnavy}2. Who leaves: raw differences}
+
+Attrition is heavily concentrated in three margins: \textbf{hours},
+\textbf{credentials} and \textbf{teaching level}. Part-time teachers leave at
+more than twice the rate of full-time teachers; teachers without a bachelor's
+degree leave at nearly three times the rate of those with a master's; and
+preschool/kindergarten teachers are the most exposed level.
+
+\begin{figure}[h!]
+  \caption{\textbf{Attrition doubles without full-time hours, and falls
+  steeply with credentials.} Weighted 12-month attrition rate by baseline
+  characteristics.}
+  \includegraphics[width=\textwidth]{figures/fig2_rates_by_group.pdf}
+  \par{\footnotesize\color{ecgray}Source: authors' calculations, linked CPS
+  2024--2025. Dashed line: all-teacher average (24\%).}
+\end{figure}
+
+\section*{\color{ecnavy}3. A probit model of leaving teaching}
+
+We estimate a probit for the probability of leaving, with all covariates
+measured at baseline and standard errors clustered by household
+(Table~\ref{tab:probit}). Figure~\ref{fig:ame} plots the average marginal
+effects. Three results stand out. First, \textbf{part-time status raises exit
+probability by 18\,pp}, the largest effect in the model --- attachment to
+full-time hours, not demographics, is the dominant margin. Second,
+\textbf{credentials protect}: a bachelor's degree lowers exit risk by 18\,pp
+and a graduate degree by 20\,pp relative to teachers without a degree,
+consistent with higher occupation-specific investment raising the cost of
+leaving. Third, \textbf{minority and non-citizen teachers are significantly
+more likely to leave} ($+6$ to $+11$\,pp), pointing to a retention gap with
+direct implications for workforce diversity.
+
+\begin{figure}[h!]
+  \caption{\textbf{Hours and credentials dominate demographics.} Average
+  marginal effects on the probability of leaving teaching within 12 months,
+  with 95\% confidence intervals.}
+  \label{fig:ame}
+  \includegraphics[width=0.94\textwidth]{figures/fig3_ame.pdf}
+  \par{\footnotesize\color{ecgray}Source: probit of Table~\ref{tab:probit}.
+  Age terms shown in Figure~\ref{fig:age}.}
+\end{figure}
+
+Age enters with a robust U-shape (Figure~\ref{fig:age}): predicted risk falls
+through the twenties and thirties, bottoms out at 18\% around age 40, and
+accelerates after 55 as retirement margins open --- the familiar U-shaped
+attrition profile of the teacher-turnover literature.
+
+\begin{figure}[h!]
+  \caption{\textbf{Exit risk is U-shaped in age, lowest near 40.} Predicted
+  probability of leaving by age, other covariates at sample means; shaded band:
+  95\% CI.}
+  \label{fig:age}
+  \includegraphics[width=0.80\textwidth]{figures/fig4_age_profile.pdf}
+  \par{\footnotesize\color{ecgray}Source: probit of Table~\ref{tab:probit},
+  simulation-based confidence band.}
+\end{figure}
+
+\begin{table}[h!]
+  \caption{\textbf{Probit estimates: probability of leaving teaching within
+  12 months.}}
+  \label{tab:probit}
+  \centering\small
+  \input{table_probit}
+  \par\vspace{4pt}{\footnotesize\color{ecgray}Cluster-robust standard errors
+  (by household) in parentheses. AME: average marginal effect in percentage
+  points. Reference categories: full-time, no bachelor's degree,
+  elementary/middle school. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
+\end{table}
+
+\section*{\color{ecnavy}4. The profile of the typical leaver}
+
+Ranking teachers by predicted risk, the top decile --- with a mean exit
+probability of 59\%, against 23\% for the average teacher --- is
+overwhelmingly female (86\%), five times more likely to work part-time (55\%
+vs.\ 11\%), three times less likely to hold a graduate degree (15\% vs.\
+50\%), and four times more concentrated in preschool/kindergarten (40\% vs.\
+11\%), with Hispanic and Black teachers over-represented.
+
+\begin{figure}[t!]
+  \caption{\textbf{The highest-risk teacher: part-time, less credentialed,
+  early-years.} Characteristics of the top predicted-risk decile vs.\ all
+  teachers.}
+  \includegraphics[width=0.92\textwidth]{figures/fig5_profile.pdf}
+  \par{\footnotesize\color{ecgray}Source: predicted probabilities from the
+  probit of Table~\ref{tab:probit}.}
+\end{figure}
+
+\section*{\color{ecnavy}5. Policy implications}
+
+The results locate teacher attrition in \textbf{weak attachment} --- part-time
+hours, missing credentials, the early-childhood segment --- rather than in
+broad demographics. Three levers follow directly: (i) \textbf{full-time
+conversion} of involuntary part-time teaching positions; (ii)
+\textbf{credentialing subsidies} (tuition support for master's programs)
+targeted at non-credentialed teachers, whose exit risk is highest; and (iii)
+\textbf{retention packages for preschool and kindergarten teachers}, the level
+where pay and conditions gaps versus other levels are largest. The
+significant minority and non-citizen retention gaps warrant specific
+monitoring, since they compound into the diversity of the future teaching
+workforce.
+
+\vspace{8pt}
+\begin{tcolorbox}[colback=ecnavy,colframe=ecnavy,sharp corners,
+                  left=12pt,right=12pt,top=8pt,bottom=8pt]
+{\small\color{white}\textbf{Methods in one line.} Linked CPS 4--8--4 rotation
+panel, 2024$\to$2025 · 6{,}426 teachers · probit, household-clustered SE ·
+fully reproducible: \texttt{src/02\_build\_cps\_panel.py} $\to$
+\texttt{src/04\_figures.py}.}
+\end{tcolorbox}
+
+\end{document}
