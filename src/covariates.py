@@ -28,6 +28,31 @@ LABELS = {
 }
 
 
+def load_panel():
+    """Load the teacher panel with covariates and both leaver definitions.
+
+    - leaver12   (definition A): not an employed school teacher at t+12.
+    - leaver_p   (definition B, main): additionally not observed teaching in
+      any of the up-to-3 monthly re-interviews after t+12. Only defined on
+      the subsample with a potential follow-up interview (baseline MIS 1-3),
+      flagged by `sampleB`. Leavers whose follow-up interview is missing
+      (~4%) are kept as persistent.
+    """
+    import pandas as pd
+    df = pd.read_csv("data/processed/cps_teacher_panel.csv",
+                     dtype={"HRHHID": str, "HRHHID2": str})
+    df = add_covariates(df)
+    df["leaver12"] = df["leaver"]
+    ret = pd.read_csv("data/processed/cps_returns.csv",
+                      dtype={"HRHHID": str, "HRHHID2": str})
+    df = df.merge(ret, on=["HRHHID", "HRHHID2", "PULINENO",
+                           "HRMONTH", "base_year"], how="left")
+    df["sampleB"] = df["HRMIS_0"] <= 3
+    df["leaver_p"] = ((df["leaver12"] == 1)
+                      & (df["returned"].fillna(0) == 0)).astype(int)
+    return df
+
+
 def add_covariates(df):
     """Build model covariates (measured at t) on the linked teacher panel."""
     df = df.copy()

@@ -80,6 +80,10 @@ obs = m.groupby("fid").agg(n_obs=("tch", "size"), returned=("tch", "max"))
 lv = lv.merge(obs, on="fid", how="left")
 lv_obs = lv[lv["n_obs"].notna()].copy()   # at least one observed follow-up
 
+# ---------- export return flags for the model scripts ----------
+ret = lv[KEY + ["HRMONTH", "base_year", "n_obs", "returned"]].copy()
+ret.to_csv("data/processed/cps_returns.csv", index=False)
+
 print(f"leavers total                    : {(df['leaver']==1).sum():,}")
 print(f"leavers with observed follow-up  : {len(lv_obs):,}")
 ret_w = np.average(lv_obs["returned"], weights=lv_obs[w])
@@ -88,6 +92,18 @@ for g, name in [(1, "women"), (0, "men")]:
     s = lv_obs[lv_obs["female"] == g]
     print(f"  {name:6s}: {np.average(s['returned'], weights=s[w]):6.2%}")
 
+# ---------- persistent-leaver (definition B) on the MIS 1-3 subsample ----------
+ret_all = df.merge(lv[KEY + ["HRMONTH", "base_year", "returned"]],
+                   on=KEY + ["HRMONTH", "base_year"], how="left")
+B = ret_all[ret_all["HRMIS_0"] <= 3].copy()
+B["leaver_p"] = ((B["leaver"] == 1)
+                 & (B["returned"].fillna(0) == 0)).astype(int)
+print(f"\nsample B (baseline MIS 1-3)      : {len(B):,}")
+print(f"persistent attrition (weighted)  : "
+      f"{np.average(B['leaver_p'], weights=B[w]):6.2%}")
+print(f"12-month attrition, same sample  : "
+      f"{np.average(B['leaver'], weights=B[w]):6.2%}")
+
 # ---------- yearly series ----------
 def wavg(d, col):
     return np.average(d[col], weights=d[w]) * 100
@@ -95,17 +111,18 @@ def wavg(d, col):
 years = sorted(df["base_year"].unique())
 ev = []
 for y in years:
-    dy = df[df["base_year"] == y]
+    dy, by = df[df["base_year"] == y], B[B["base_year"] == y]
     ly = lv_obs[lv_obs["base_year"] == y]
     ev.append({
         "base_year": y,
-        "attr_all": wavg(dy, "leaver"),
-        "attr_f": wavg(dy[dy.female == 1], "leaver"),
-        "attr_m": wavg(dy[dy.female == 0], "leaver"),
+        "attr12_all": wavg(dy, "leaver"),
+        "attrp_all": wavg(by, "leaver_p"),
+        "attrp_f": wavg(by[by.female == 1], "leaver_p"),
+        "attrp_m": wavg(by[by.female == 0], "leaver_p"),
         "ret_all": wavg(ly, "returned"),
         "ret_f": wavg(ly[ly.female == 1], "returned"),
         "ret_m": wavg(ly[ly.female == 0], "returned"),
-        "n": len(dy), "n_lv_obs": len(ly),
+        "n": len(dy), "nB": len(by), "n_lv_obs": len(ly),
     })
 ev = pd.DataFrame(ev)
 ev.round(2).to_csv("outputs/evolution_by_year_gender.csv", index=False)
@@ -113,27 +130,43 @@ print("\n", ev.round(1).to_string(index=False))
 
 # ---------- figure: two panels ----------
 fig, axes = plt.subplots(1, 2, figsize=(9.6, 3.4))
-for ax, (a_f, a_m, title) in zip(axes, [
-        ("attr_f", "attr_m", "Leaving teaching within 12 months, %"),
-        ("ret_f", "ret_m", "Leavers back in teaching within 3 months, %")]):
-    ax.plot(ev.base_year, ev[a_f], color=CORAL, lw=2, solid_capstyle="round")
-    ax.plot(ev.base_year, ev[a_m], color=BLUE, lw=2, solid_capstyle="round")
-    for col, c in [(a_f, CORAL), (a_m, BLUE)]:
-        ax.scatter([ev.base_year.iloc[-1]], [ev[col].iloc[-1]], s=42,
-                   color=c, zorder=4, edgecolor=SURFACE, linewidth=2)
-        ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
-                f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
-                color=INK, fontweight="bold")
-    ax.set_title(title, loc="left", fontsize=10.5, color=NAVY,
-                 fontweight="bold", pad=8)
+ax = axes[0]
+ax.plot(ev.base_year, ev.attr12_all, color=GRAY, lw=2, ls=(0, (4, 3)))
+ax.plot(ev.base_year, ev.attrp_f, color=CORAL, lw=2, solid_capstyle="round")
+ax.plot(ev.base_year, ev.attrp_m, color=BLUE, lw=2, solid_capstyle="round")
+for col, c in [("attrp_f", CORAL), ("attrp_m", BLUE)]:
+    ax.scatter([ev.base_year.iloc[-1]], [ev[col].iloc[-1]], s=42,
+               color=c, zorder=4, edgecolor=SURFACE, linewidth=2)
+    ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
+            f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
+            color=INK, fontweight="bold")
+ax.set_title("Persistent attrition (leaves and does not return), %",
+             loc="left", fontsize=10.5, color=NAVY, fontweight="bold", pad=8)
+handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)] + \
+          [plt.Line2D([], [], color=GRAY, lw=2, ls=(0, (4, 3)))]
+ax.legend(handles, ["Women", "Men", "12-month def. (all)"],
+          loc="lower left", frameon=False, fontsize=8.5)
+
+ax = axes[1]
+ax.plot(ev.base_year, ev.ret_f, color=CORAL, lw=2, solid_capstyle="round")
+ax.plot(ev.base_year, ev.ret_m, color=BLUE, lw=2, solid_capstyle="round")
+for col, c in [("ret_f", CORAL), ("ret_m", BLUE)]:
+    ax.scatter([ev.base_year.iloc[-1]], [ev[col].iloc[-1]], s=42,
+               color=c, zorder=4, edgecolor=SURFACE, linewidth=2)
+    ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
+            f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
+            color=INK, fontweight="bold")
+ax.set_title("Leavers back in teaching within 3 months, %",
+             loc="left", fontsize=10.5, color=NAVY, fontweight="bold", pad=8)
+ax.legend(handles[:2], ["Women", "Men"], loc="lower left", frameon=False,
+          fontsize=8.5)
+
+for ax in axes:
     ax.set_xlim(2004.5, 2027)
     ax.set_ylim(0, None)
     ax.set_xticks([2005, 2010, 2015, 2020, 2024])
     ax.tick_params(length=0)
     ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
-handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)]
-axes[0].legend(handles, ["Women", "Men"], loc="lower left", frameon=False,
-               fontsize=9)
 axes[0].text(2020, axes[0].get_ylim()[1] * 0.95, "COVID", ha="center",
              fontsize=8, color=SUBTLE)
 fig.tight_layout(w_pad=2.5)

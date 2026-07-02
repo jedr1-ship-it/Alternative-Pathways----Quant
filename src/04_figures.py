@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
-from covariates import add_covariates, COVS, LABELS
+from covariates import load_panel, COVS, LABELS
 
 BLUE, CORAL, GOLD, GRAY = "#2a78d6", "#e34948", "#eda100", "#8a8f98"
 INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
@@ -30,14 +30,14 @@ mpl.rcParams.update({
 })
 os.makedirs("report/figures", exist_ok=True)
 
-df = pd.read_csv("data/processed/cps_teacher_panel.csv",
-                 dtype={"HRHHID": str, "HRHHID2": str})
-df = add_covariates(df)
+# main analysis sample: definition B (persistent leaver), baseline MIS 1-3
+df = load_panel()
+df = df[df["sampleB"]].copy()
 W = "PWSSWGT_0"
 
 
 def wrate(d):
-    return np.average(d["leaver"], weights=d[W]) * 100
+    return np.average(d["leaver_p"], weights=d[W]) * 100
 
 
 def style_barh(ax):
@@ -47,11 +47,12 @@ def style_barh(ax):
 
 # ---------- Figure 1: where leavers go (single coral series) ----------
 dest = {
-    "Moved to another occupation": wrate(df) * 0 + np.average(
-        df["dest"].eq("other occupation"), weights=df[W]) * 100,
-    "Left the labor force": np.average(
-        df["dest"].eq("out of labor force"), weights=df[W]) * 100,
-    "Unemployed": np.average(df["dest"].eq("unemployed"), weights=df[W]) * 100,
+    lab: np.average((df["dest"].eq(code)
+                     & (df["leaver_p"] == 1)).astype(float),
+                    weights=df[W]) * 100
+    for lab, code in [("Moved to another occupation", "other occupation"),
+                      ("Left the labor force", "out of labor force"),
+                      ("Unemployed", "unemployed")]
 }
 fig, ax = plt.subplots(figsize=(6.4, 2.1))
 names = list(dest)[::-1]
@@ -93,7 +94,7 @@ for ax, (title, rows) in zip(axes, groups):
                  fontweight="bold", pad=8)
     ax.set_xlim(0, xmax)
     style_barh(ax)
-sample_line = np.average(df["leaver"], weights=df[W]) * 100
+sample_line = np.average(df["leaver_p"], weights=df[W]) * 100
 for ax in axes:
     ax.axvline(sample_line, color=SUBTLE, lw=1, ls=(0, (4, 3)), zorder=2)
 axes[0].text(sample_line + 1.5, -0.68, f"all teachers: {sample_line:.0f}%",
@@ -103,7 +104,7 @@ fig.savefig("report/figures/fig2_rates_by_group.pdf")
 plt.close(fig)
 
 # ---------- probit (shared by figures 3-5 and the table) ----------
-formula = "leaver ~ " + " + ".join(COVS) + " + C(base_year)"
+formula = "leaver_p ~ " + " + ".join(COVS) + " + C(base_year)"
 m = smf.probit(formula, data=df).fit(
     cov_type="cluster", cov_kwds={"groups": df["HRHHID"]}, disp=False)
 me = m.get_margeff(at="overall")
@@ -130,7 +131,7 @@ for yi, (v, c, p) in enumerate(zip(d3["AME"], colors, d3["p"])):
         ax.text(v, yi + 0.32, f"{v:+.1f}", ha="center", fontsize=9,
                 color=INK, fontweight="bold")
 ax.set_yticks(y, [LABELS[v] for v in d3.index], fontsize=10)
-ax.set_xlabel("Change in P(leaving teaching within 12 months), percentage points")
+ax.set_xlabel("Change in P(persistently leaving teaching), percentage points")
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c) for c in

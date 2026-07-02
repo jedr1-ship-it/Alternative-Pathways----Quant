@@ -18,7 +18,10 @@ con la mayor cantidad de características observadas.
 ## Reproducir
 ```bash
 pip install pandas numpy statsmodels matplotlib
-python3 src/01_panel_attrition_demo.py   # descarga el panel y genera outputs/
+python3 src/02_build_cps_panel.py    # descarga/enlaza CPS 2005-2025
+python3 src/05_evolution.py          # retornos + evolución (exporta flags)
+python3 src/03_model_attrition.py    # probit leaver persistente + robustez
+python3 src/04_figures.py            # figuras y tabla del brief
 ```
 
 ## Estructura
