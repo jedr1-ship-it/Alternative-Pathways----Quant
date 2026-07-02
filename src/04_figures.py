@@ -62,7 +62,7 @@ for b, v in zip(bars, vals):
             va="center", ha="left", fontsize=10.5, color=INK,
             fontweight="bold")
 ax.set_xlim(0, 19)
-ax.set_xlabel("Share of 2024 teachers, 12 months later (weighted %)")
+ax.set_xlabel("Share of baseline teachers, 12 months later (weighted %)")
 style_barh(ax)
 fig.tight_layout()
 fig.savefig("report/figures/fig1_destinations.pdf")

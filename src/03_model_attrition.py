@@ -21,7 +21,7 @@ def log(*a):
 
 w = df["PWSSWGT_0"]
 log("=" * 70)
-log("TEACHER ATTRITION, LINKED CPS PANEL 2021->2025 (teachers with BA+)")
+log("TEACHER ATTRITION, LINKED CPS PANEL 2005->2025 (teachers with BA+)")
 log("=" * 70)
 log(f"Teachers followed 12 months : {len(df):,}")
 log("By base year                :",
