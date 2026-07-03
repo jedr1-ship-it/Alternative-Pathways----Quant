@@ -141,7 +141,7 @@ def load_year(year, mis_lo, mis_hi):
 
 def stage2_link():
     key = ["HRHHID", "HRHHID2", "PULINENO", "HRMONTH"]
-    panels, total_links = [], 0
+    panels, flows, total_links = [], [], 0
     for y0 in range(FIRST_BASE, LAST_BASE + 1):
         y1 = y0 + 1
         t0, t1 = load_year(y0, 1, 4), load_year(y1, 5, 8)
@@ -160,9 +160,24 @@ def stage2_link():
             m[f"employed{t}"] = m[f"PEMLR{t}"].isin([1, 2]).astype(int)
             m[f"teacher{t}"] = ((m[f"employed{t}"] == 1)
                                 & m[f"PTIO1OCD{t}"].isin(TEACHER_OCC)).astype(int)
-        tch = m[(m["teacher_0"] == 1) & (m["PEEDUCA_0"] >= 43)].copy()
+        # BA+ teacher indicators at each end of the link
+        m["tchBA_0"] = ((m["teacher_0"] == 1) & (m["PEEDUCA_0"] >= 43)).astype(int)
+        m["tchBA_1"] = ((m["teacher_1"] == 1) & (m["PEEDUCA_1"] >= 43)).astype(int)
+        tch = m[m["tchBA_0"] == 1].copy()
         tch["base_year"] = y0
         panels.append(tch)
+
+        # gross flows within the linked sample (weighted, population scale)
+        w0, w1 = m["PWSSWGT_0"].astype(float), m["PWSSWGT_1"].astype(float)
+        flows.append({
+            "base_year": y0,
+            "teachers_t_w": w0[m["tchBA_0"] == 1].sum(),
+            "teachers_t1_w": w1[m["tchBA_1"] == 1].sum(),
+            "leavers_w": w0[(m["tchBA_0"] == 1) & (m["teacher_1"] == 0)].sum(),
+            "entrants_w": w1[(m["tchBA_1"] == 1) & (m["teacher_0"] == 0)].sum(),
+            "links_w": w0.sum(),
+            "n_teachers": int(m["tchBA_0"].sum()),
+        })
         print(f"{y0}->{y1}: links {len(m):>7,} | teachers (BA+) {len(tch):>5,}",
               flush=True)
         del m, t0, t1
@@ -186,7 +201,9 @@ def stage2_link():
     print("\ndestination at t+12 (weighted %):")
     print((tch.groupby('dest')['PWSSWGT_0'].sum() / w.sum() * 100).round(2))
     tch.to_csv(f"{OUTDIR}/cps_teacher_panel.csv", index=False)
-    print(f"\nsaved {OUTDIR}/cps_teacher_panel.csv  ({len(tch):,} rows)")
+    pd.DataFrame(flows).to_csv(f"{OUTDIR}/cps_flows.csv", index=False)
+    print(f"\nsaved {OUTDIR}/cps_teacher_panel.csv  ({len(tch):,} rows)"
+          f" and {OUTDIR}/cps_flows.csv")
 
 
 if __name__ == "__main__":

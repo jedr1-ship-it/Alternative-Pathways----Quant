@@ -79,20 +79,48 @@
 \heronum{1 in 6}{12-month leavers is back teaching within 3 months}
 
 \vspace{4pt}
-\section*{\color{ecnavy}1. Data: twenty annual panels of teachers}
+\section*{\color{ecnavy}1. The population we observe --- who can be followed,
+and for how long}
 
 We use official \textbf{Current Population Survey (CPS) basic monthly
 microdata}: 251 monthly files covering January 2005 to December 2025, from the
 U.S. Census Bureau (2024--2025) and the NBER mirror (2005--2023); October 2025
-was never released. Exploiting the CPS 4--8--4 rotation design, each adult
-interviewed in year $t$ is re-interviewed in the same calendar month of
-$t{+}1$ and can be linked by household and person identifiers, with matches
-validated on sex, race and age progression (Madrian--Lefgren criterion). This
-yields \textbf{8.2 million validated individual links}, of which
-\textbf{174{,}872 were school teachers} at baseline --- preschool to secondary,
-including special education (occupation codes 2300--2330, identical across the
-2002, 2010 and 2020 classifications) --- \textbf{holding at least a bachelor's
-degree}, the standard restriction in the attrition literature.
+was never released. The CPS interviews each household on a \textbf{4--8--4
+rotation} (Figure~\ref{fig:design}): four consecutive months in sample, eight
+months out, four months back in --- so any person is observable for at most
+\textbf{16 months}, once. Within that window, each adult interviewed in year
+$t$ is re-interviewed in the same calendar month of $t{+}1$ and can be linked
+by household and person identifiers, with matches validated on sex, race and
+age progression (Madrian--Lefgren criterion). No one can be followed across
+multiple years: each base year is a \emph{fresh cohort}, which is why every
+rate in this brief is computed wave by wave.
+
+\begin{figure}[h!]
+  \caption{\textbf{The CPS follows each person for at most 16 months.}
+  Interview calendar of one rotation group; numbers are months since first
+  interview.}
+  \label{fig:design}
+  \includegraphics[width=0.95\textwidth]{figures/fig0_design.pdf}
+  \par{\footnotesize\color{ecgray}The 12-month link compares months $m$ and
+  $m{+}12$ ($m \le 4$); the return window re-observes leavers in months
+  $m{+}13$ to 16.}
+\end{figure}
+
+Table~\ref{tab:pop} shows the full population funnel, pooling all 251 months.
+
+\begin{table}[h!]
+  \caption{\textbf{From the CPS universe to the analytic sample.}}
+  \label{tab:pop}
+  \centering\small
+  \input{table_population}
+  \par\vspace{4pt}{\footnotesize\color{ecgray}Teachers are identified as
+  employed persons whose primary-job occupation is preschool/kindergarten,
+  elementary/middle, secondary, or special-education teacher (Census codes
+  2300--2330, identical across the 2002, 2010 and 2020 classifications),
+  holding a bachelor's degree or higher. Only rotations in months-in-sample
+  1--4 can be linked forward; 67\% of linkable teachers are found and
+  validated 12 months later.}
+\end{table}
 
 \textbf{Defining a leaver.} The conventional measure (\emph{12-month leaver},
 as in the NCES Teacher Follow-up Survey) counts anyone not employed as a
@@ -100,18 +128,60 @@ school teacher twelve months after baseline. But temporary exits --- parental
 leave, short unemployment spells, sabbaticals --- inflate it: re-observing
 leavers in their up-to-three remaining monthly interviews, 15.7\% are already
 teaching again. Our main measure is therefore the \emph{persistent leaver}:
-out of teaching at $t{+}12$ \emph{and} in every subsequent re-interview. It is
+out of teaching at $t{+}12$ \emph{and} in every subsequent re-interview,
 computed on the 129{,}897 teachers whose rotation allows at least one
-re-interview (baseline months-in-sample 1--3). The CPS observation window for
-any person is capped at 16 months by design, so exits longer than a year that
-end in a return cannot be detected --- persistent attrition remains a
-(much tighter) upper bound on permanent exit. Rates use CPS final person
-weights.
+re-interview. Exits longer than a year that end in a return cannot be
+detected --- persistent attrition remains a (much tighter) upper bound on
+permanent exit. Rates use CPS final person weights.
 
 \textit{Caveat:} occupation in the returning rotation is re-coded
 independently, which inflates measured occupation switching; levels should be
 read as upper bounds, while \emph{comparisons across groups and over time} ---
 the object of this brief --- are far less affected.
+
+\section*{\color{ecnavy}2. The teacher workforce: stock, composition, flows}
+
+Weighted to population, the CPS counts a stable stock of degree-holding
+school teachers (Figure~\ref{fig:stock}), dominated by elementary/middle
+school teaching (Figure~\ref{fig:levels}).
+
+\begin{figure}[h!]
+  \caption{\textbf{The stock of school teachers.} Estimated number of
+  employed school teachers with a bachelor's degree or higher, annual average
+  of monthly estimates.}
+  \label{fig:stock}
+  \includegraphics[width=0.80\textwidth]{figures/fig7_stock.pdf}
+  \par{\footnotesize\color{ecgray}Source: CPS basic monthly files, person
+  weights. Teachers = employed, primary-job occupation codes 2300--2330
+  (preschool/kindergarten, elementary/middle, secondary, special education),
+  bachelor's degree or higher.}
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{\textbf{Teachers by teaching level.} Same identification, by
+  occupation code.}
+  \label{fig:levels}
+  \includegraphics[width=0.84\textwidth]{figures/fig8_by_level.pdf}
+  \par{\footnotesize\color{ecgray}Source: CPS basic monthly files, person
+  weights.}
+\end{figure}
+
+The linked pairs also reveal both sides of the turnover ledger
+(Figure~\ref{fig:flows}): the profession simultaneously loses and recruits
+15--20\% of its stock every year --- a high-churn occupation in which exits
+have been trending above entries in recent years.
+
+\begin{figure}[h!]
+  \caption{\textbf{Teaching loses and recruits 15--20\% of its stock every
+  year.} Gross annual flows into and out of school teaching, linked pairs
+  (12-month definitions).}
+  \label{fig:flows}
+  \includegraphics[width=0.84\textwidth]{figures/fig9_flows.pdf}
+  \par{\footnotesize\color{ecgray}Source: linked CPS pairs. Entering = school
+  teacher (BA+) at $t{+}12$ who was not a school teacher at $t$; leaving =
+  the reverse. Linked samples under-count movers, so both flows are
+  conservative.}
+\end{figure}
 
 \begin{figure}[h!]
   \caption{\textbf{Most persistent leavers move to other jobs rather than out
@@ -122,7 +192,7 @@ the object of this brief --- are far less affected.
   basic monthly files 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}2. Attrition is rising --- and part of it is churn}
+\section*{\color{ecnavy}3. Attrition is rising --- and part of it is churn}
 
 One in six 12-month leavers is teaching again within three months (women
 16.1\%, men 14.0\%; Figure~\ref{fig:evol}, right) --- temporary exits that the
@@ -145,7 +215,7 @@ small and unstable; in the most recent year men (19.8\%) exceeded women
   21{,}873 of 30{,}244).}
 \end{figure}
 
-\section*{\color{ecnavy}3. Who leaves: raw differences}
+\section*{\color{ecnavy}4. Who leaves: raw differences}
 
 Attrition concentrates in three margins: \textbf{hours}, \textbf{teaching
 level} and, more weakly once degree holders only are considered,
@@ -160,7 +230,7 @@ full-time teachers; preschool/kindergarten is the most exposed level.
   2005--2025. Dashed line: all-teacher average (15.1\%).}
 \end{figure}
 
-\section*{\color{ecnavy}4. A probit model of leaving teaching}
+\section*{\color{ecnavy}5. A probit model of leaving teaching}
 
 We estimate a probit for the probability of \emph{persistently} leaving, with
 covariates measured at baseline, base-year fixed effects, and standard errors
@@ -217,7 +287,7 @@ of the teacher-turnover literature.
   elementary/middle school. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 
-\section*{\color{ecnavy}5. The profile of the typical leaver}
+\section*{\color{ecnavy}6. The profile of the typical leaver}
 
 Ranking teachers by predicted risk, the top decile --- with a mean persistent
 exit probability of 35\%, against 15\% for the average teacher --- is
@@ -236,7 +306,7 @@ preschool/kindergarten (20\% vs.\ 8\%), with Black teachers over-represented
   probit of Table~\ref{tab:probit}.}
 \end{figure}
 
-\section*{\color{ecnavy}6. Policy implications}
+\section*{\color{ecnavy}7. Policy implications}
 
 The results locate teacher attrition in \textbf{weak attachment} --- part-time
 hours, the early-childhood segment, both career extremes --- rather than in
