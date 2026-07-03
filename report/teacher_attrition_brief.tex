@@ -23,6 +23,10 @@
 \linespread{1.12}
 \color{ecink}
 
+% journal-style justified note under figures and tables
+\newcommand{\fignote}[1]{\par\vspace{4pt}%
+  \begin{minipage}{\linewidth}\footnotesize\color{ecgray}#1\end{minipage}}
+
 \newcommand{\heronum}[2]{%
   \begin{minipage}[t]{0.30\textwidth}\raggedright
   {\fontsize{30}{32}\selectfont\bfseries\color{ecnavy}#1}\\[2pt]
@@ -94,9 +98,11 @@ cohort and every rate in this brief is computed wave by wave.
   calendar of one rotation group; numbers are months since first interview.}
   \label{fig:design}
   \includegraphics[width=0.95\textwidth]{figures/fig0_design.pdf}
-  \par{\footnotesize\color{ecgray}The 12-month link compares months $m$ and
-  $m{+}12$ ($m \le 4$). The return window re-observes leavers in months
-  $m{+}13$ to 16.}
+  \fignote{Notes: A household entering the survey is interviewed in four
+  consecutive months, rests for eight, and is interviewed again in four more.
+  The 12-month link compares an interview from the first block with the
+  interview held exactly one year later; the return window uses the remaining
+  interviews of the second block.}
 \end{figure}
 
 Table~\ref{tab:pop} shows the population funnel, pooling all 251 months.
@@ -106,15 +112,17 @@ Table~\ref{tab:pop} shows the population funnel, pooling all 251 months.
   \label{tab:pop}
   \centering\small
   \input{table_population}
-  \par\vspace{4pt}{\footnotesize\color{ecgray}Teachers are employed persons
-  whose primary-job occupation is preschool/kindergarten, elementary/middle,
-  secondary or special-education teacher (Census codes 2300--2330, identical
-  across the 2002, 2010 and 2020 classifications), with a bachelor's degree or
-  higher. Only rotations in months-in-sample 1--4 can be linked forward. 67\%
-  of linkable teachers are found and validated 12 months later; most losses
-  occur because the CPS samples addresses and does not follow people who
-  move. Linked teachers keep their population weights, so weighted rates
-  remain representative of the 4.6M teachers.}
+  \fignote{Notes: Teachers are employed persons whose main job is teaching at
+  the preschool or kindergarten, elementary or middle school, secondary
+  school, or special education level (Census occupation codes 2300 to 2330,
+  which are identical across the 2002, 2010 and 2020 classifications) and who
+  hold at least a bachelor's degree. Only persons in the first four months of
+  their rotation can be linked one year ahead; 67 percent of them are found
+  and validated twelve months later. Most losses occur because the survey
+  samples addresses and does not follow people who move. Linked teachers keep
+  their population weights, so weighted rates remain representative of the
+  4.6 million teachers. Source: authors' calculations from CPS basic monthly
+  microdata, 2005--2025.}
 \end{table}
 
 Table~\ref{tab:desc} describes the variables available for each linked
@@ -127,10 +135,11 @@ credentialed, with fewer young children at home.
   \label{tab:desc}
   \centering\small
   \input{table_descriptives}
-  \par\vspace{4pt}{\footnotesize\color{ecgray}Linked teachers with a potential
-  re-interview after $t{+}12$. All variables measured at baseline. Weighted
-  with CPS person weights. Children are own children under 18 living in the
-  household, as recorded by the CPS.}
+  \fignote{Notes: The sample is all linked teachers whose rotation includes at
+  least one interview after the twelve-month link. All variables are measured
+  at baseline and weighted with CPS person weights. Children are own children
+  under eighteen living in the household at the time of the interview. Source:
+  authors' calculations from CPS basic monthly microdata, 2005--2025.}
 \end{table}
 
 \textit{Defining a leaver.} The conventional measure, used by the NCES Teacher
@@ -160,18 +169,19 @@ elementary and middle school (Figure~\ref{fig:levels}).
   bachelor's degree or higher, annual average of monthly estimates.}
   \label{fig:stock}
   \includegraphics[width=0.80\textwidth]{figures/fig7_stock.pdf}
-  \par{\footnotesize\color{ecgray}Source: CPS basic monthly files, person
-  weights. Teachers: employed, primary-job occupation codes 2300--2330,
-  bachelor's degree or higher.}
+  \fignote{Notes: Teachers are employed persons whose main job is school
+  teaching (Census occupation codes 2300 to 2330) and who hold at least a
+  bachelor's degree, weighted to population. Source: authors' calculations
+  from CPS basic monthly microdata, 2005--2025.}
 \end{figure}
 
 \begin{figure}[h!]
   \caption{Teachers by teaching level.}
   \label{fig:levels}
   \includegraphics[width=0.84\textwidth]{figures/fig8_by_level.pdf}
-  \par{\footnotesize\color{ecgray}Source: CPS basic monthly files, person
-  weights. Same identification as Figure~\ref{fig:stock}, split by occupation
-  code.}
+  \fignote{Notes: Same identification as in Figure~\ref{fig:stock}, split by
+  teaching level. Source: authors' calculations from CPS basic monthly
+  microdata, 2005--2025.}
 \end{figure}
 
 The linked pairs also show both sides of turnover (Figure~\ref{fig:flows}).
@@ -185,9 +195,11 @@ points leave the labor force and 0.6 become unemployed.
   linked pairs, 12-month definitions.}
   \label{fig:flows}
   \includegraphics[width=0.84\textwidth]{figures/fig9_flows.pdf}
-  \par{\footnotesize\color{ecgray}Source: linked CPS pairs. Entering: school
-  teacher (BA+) at $t{+}12$ who was not a school teacher at $t$. Leaving: the
-  reverse. Linked samples under-count movers, so both flows are conservative.}
+  \fignote{Notes: A person enters teaching if she is a degree-holding school
+  teacher at the second interview but was not one a year earlier; leaving is
+  the reverse. Because the linked sample misses people who move, both flows
+  are conservative. Source: authors' calculations from linked CPS pairs,
+  2005--2025.}
 \end{figure}
 
 \section*{\color{ecnavy}3. Attrition over time}
@@ -204,12 +216,42 @@ recent year men (19.8\%) exceeded women (17.4\%).
   \caption{Persistent attrition by year and gender.}
   \label{fig:evol}
   \includegraphics[width=0.84\textwidth]{figures/fig6_evolution.pdf}
-  \par{\footnotesize\color{ecgray}Source: authors' calculations, linked CPS
-  2005--2025. The return window is capped at three monthly interviews after
-  $t{+}12$; 21{,}873 of 30{,}244 leavers are re-interviewed at least once.}
+  \fignote{Notes: The return window is capped by the survey design at three
+  monthly interviews after the twelve-month link; 21{,}873 of the 30{,}244
+  leavers are re-interviewed at least once. Source: authors' calculations
+  from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}4. Who leaves}
+\section*{\color{ecnavy}4. Where leavers go}
+
+The linked design tells apart those who abandon the labor force from those
+who change occupation, and for the latter it records the destination
+occupation (Figure~\ref{fig:where}). Three facts stand out. First, the single
+largest destination, 30 percent, is another education job: postsecondary
+teaching, tutoring and instruction, teaching assistance, librarianship or
+school administration. A large share of exits from classroom teaching are
+therefore not exits from education. Second, retirement accounts for 17
+percent (mean age 62), and only 4 percent are unemployed a year later.
+Third, the gender contrast is sharp exactly where the family results of the
+model point: 14 percent of women who leave are out of the labor force for
+reasons other than retirement or disability (mean age 39, consistent with
+family care), against 5 percent of men, while men move more often into
+management and professional jobs (26 vs 19 percent).
+
+\begin{figure}[h!]
+  \caption{Situation of persistent leavers twelve months after teaching.}
+  \label{fig:where}
+  \includegraphics[width=0.88\textwidth]{figures/fig10_where.pdf}
+  \fignote{Notes: Education jobs other than school teaching include
+  postsecondary teaching, tutoring and instruction, teaching assistance,
+  librarians and education administration. The remaining employed leavers are
+  grouped into broad occupation classes. Retirement, disability,
+  unemployment and other non-participation come from the labor force status
+  recorded at the second interview. Source: authors' calculations from linked
+  CPS pairs, 2005--2025.}
+\end{figure}
+
+\section*{\color{ecnavy}5. Who leaves}
 
 Attrition concentrates in three margins: hours, teaching level and, more
 weakly among degree holders, credentials. Part-time teachers leave at more
@@ -220,11 +262,11 @@ most exposed level (Figure~\ref{fig:groups}).
   \caption{Persistent attrition by baseline characteristics, 2005--2025.}
   \label{fig:groups}
   \includegraphics[width=\textwidth]{figures/fig2_rates_by_group.pdf}
-  \par{\footnotesize\color{ecgray}Source: authors' calculations, linked CPS
-  2005--2025. Dashed line: all-teacher average (15.1\%).}
+  \fignote{Notes: The dashed line marks the all-teacher average of 15.1
+  percent. Source: authors' calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}5. The model}
+\section*{\color{ecnavy}6. The model}
 
 We estimate a probit for the probability of persistently leaving, with
 covariates measured at baseline, base-year fixed effects and standard errors
@@ -255,8 +297,8 @@ measured.
   leaving teaching, with 95\% confidence intervals.}
   \label{fig:ame}
   \includegraphics[width=0.94\textwidth]{figures/fig3_ame.pdf}
-  \par{\footnotesize\color{ecgray}Source: probit of Table~\ref{tab:probit}.
-  Age terms shown in Figure~\ref{fig:age}.}
+  \fignote{Notes: Estimates from the probit of Table~\ref{tab:probit}. The
+  age profile is shown separately in Figure~\ref{fig:age}.}
 \end{figure}
 
 Age enters with a robust U-shape (Figure~\ref{fig:age}). Predicted risk falls
@@ -268,8 +310,9 @@ approaches, and reaches 28\% at 70.
   sample means. Shaded band: 95\% confidence interval.}
   \label{fig:age}
   \includegraphics[width=0.80\textwidth]{figures/fig4_age_profile.pdf}
-  \par{\footnotesize\color{ecgray}Source: probit of Table~\ref{tab:probit},
-  simulation-based confidence band.}
+  \fignote{Notes: Predicted probabilities from the probit of
+  Table~\ref{tab:probit}, holding all other covariates at their sample means.
+  The confidence band is simulation based.}
 \end{figure}
 
 \begin{table}[h!]
@@ -286,7 +329,7 @@ approaches, and reaches 28\% at 70.
   elementary/middle school. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 
-\section*{\color{ecnavy}6. The typical leaver}
+\section*{\color{ecnavy}7. The typical leaver}
 
 Ranking teachers by predicted risk, the top decile has a mean exit probability
 of 35\%, against 15\% for the average teacher. It is overwhelmingly female
@@ -302,7 +345,7 @@ teachers over-represented (14\% vs 6\%).
   probit of Table~\ref{tab:probit}.}
 \end{figure}
 
-\section*{\color{ecnavy}7. Policy implications}
+\section*{\color{ecnavy}8. Policy implications}
 
 The results locate attrition in weak attachment (part-time hours, the
 early-childhood segment, both career extremes) rather than in broad

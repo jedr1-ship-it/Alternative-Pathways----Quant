@@ -60,7 +60,10 @@ DESC = [
     ("Hispanic", "hispanic", "pct"),
     ("Non-citizen", "noncitizen", "pct"),
     ("Master's degree or higher", "ma_plus", "pct"),
+    ("Professional degree or doctorate", "prof_phd", "pct"),
     ("Part-time ($<$35 h/week)", "parttime", "pct"),
+    ("Holds more than one job", "multjob", "pct"),
+    ("Public-sector employer", "public", "pct"),
     ("Family income \\$75k+", "faminc75k", "pct"),
     ("Elementary / middle school", "elem", "pct"),
     ("Preschool / kindergarten", "preschool_kg", "pct"),
@@ -98,6 +101,21 @@ mtab = mtab.reindex(mtab["z"].abs().sort_values(ascending=False).index)
 log("\n--- AMEs, persistent leaver (pp), ranked ---")
 log((mtab.assign(AME_pp=mtab["AME"] * 100)
          [["AME_pp", "se", "z", "p"]].round(4)).to_string())
+
+# ---------- wage sub-analysis (earnings only asked at MIS 4/8) ----------
+# baseline earnings exist only for teachers whose first linked interview is
+# their 4th month in sample, so this runs on the 12-month definition
+Wg = df[(df["HRMIS_0"] == 4) & df["wkearn"].notna()].copy()
+Wg["log_wkearn"] = np.log(Wg["wkearn"].clip(lower=50))
+mW = smf.probit("leaver12 ~ log_wkearn + " + rhs, data=Wg).fit(
+    cov_type="cluster", cov_kwds={"groups": Wg["HRHHID"]}, disp=False)
+meW = mW.get_margeff(at="overall")
+iW = list(meW.summary_frame().index).index("log_wkearn")
+log(f"\n--- Wage sub-model (MIS-4 subsample, n={len(Wg):,}) ---")
+log(f"AME of log weekly earnings: {meW.margeff[iW]*100:+.2f} pp "
+    f"(p={meW.pvalues[iW]:.4f})")
+log("(a 10% higher weekly wage changes P(leave) by "
+    f"{meW.margeff[iW]*100*0.10:+.2f} pp)")
 
 # ---------- robustness: 12-month leaver, full sample ----------
 mA = smf.probit("leaver12 ~ " + rhs, data=df).fit(

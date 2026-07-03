@@ -7,7 +7,8 @@ literature. Education enters as master's+ vs the bachelor's-only reference.
 
 COVS = ["age", "age2", "female", "married", "n_children", "child_u6",
         "fem_child_u6", "black", "hispanic", "noncitizen",
-        "ma_plus", "parttime", "hours_missing", "faminc75k",
+        "ma_plus", "prof_phd", "parttime", "hours_missing", "multjob",
+        "public", "faminc75k", "midwest", "south", "west",
         "preschool_kg", "secondary", "special_ed"]
 
 # human-readable names for figures/tables
@@ -23,9 +24,15 @@ LABELS = {
     "hispanic": "Hispanic",
     "noncitizen": "Non-citizen",
     "ma_plus": "Master's degree or higher",
+    "prof_phd": "Professional degree or doctorate",
     "parttime": "Part-time (<35 h/week)",
     "hours_missing": "Hours not reported",
+    "multjob": "Holds more than one job",
+    "public": "Public-sector employer",
     "faminc75k": "Family income $75k+",
+    "midwest": "Midwest",
+    "south": "South",
+    "west": "West",
     "preschool_kg": "Preschool / kindergarten",
     "secondary": "Secondary school",
     "special_ed": "Special education",
@@ -81,6 +88,21 @@ def add_covariates(df):
     df["parttime"] = (df["hours"] < 35).astype(int).where(df["hours"].notna(), 0)
     df["hours_missing"] = df["hours"].isna().astype(int)
     df["faminc75k"] = (df["HEFAMINC_0"] >= 13).astype(int)
+    # PEEDUCA 45 = professional degree, 46 = doctorate
+    df["prof_phd"] = (df["PEEDUCA_0"] >= 45).astype(int)
+    # class of worker: 1-3 = federal/state/local government
+    df["public"] = df["PEIO1COW_0"].isin([1, 2, 3]).astype(int)
+    df["multjob"] = (df["PEMJOT_0"] == 1).astype(int)
+    # census regions from state FIPS (ref.: Northeast)
+    NE = {9, 23, 25, 33, 44, 50, 34, 36, 42}
+    MW = {17, 18, 26, 39, 55, 19, 20, 27, 29, 31, 38, 46}
+    SO = {10, 11, 12, 13, 24, 37, 45, 51, 54, 1, 21, 28, 47, 5, 22, 40, 48}
+    df["midwest"] = df["GESTFIPS_0"].isin(MW).astype(int)
+    df["south"] = df["GESTFIPS_0"].isin(SO).astype(int)
+    df["west"] = (~df["GESTFIPS_0"].isin(NE | MW | SO)).astype(int)
+    # weekly earnings, only asked in outgoing rotations (MIS 4 and 8);
+    # PTERNWA has two implied decimals
+    df["wkearn"] = df["PTERNWA_0"].where(df["PTERNWA_0"] > 0) / 100.0
     df["preschool_kg"] = (df["PTIO1OCD_0"] == 2300).astype(int)
     df["secondary"] = (df["PTIO1OCD_0"] == 2320).astype(int)
     df["special_ed"] = (df["PTIO1OCD_0"] == 2330).astype(int)

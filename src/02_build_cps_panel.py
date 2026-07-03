@@ -59,10 +59,15 @@ COLS = [
     ("PEHSPNON", 157, 158, int),
     ("PRCITSHP", 172, 173, int),
     ("PEMLR", 180, 181, int),
+    ("PEMJOT", 214, 215, int),     # has more than one job
     ("PEHRUSL1", 218, 219, int),
+    ("PEIO1COW", 432, 433, int),   # class of worker (public/private/self-emp)
+    ("PTERNWA", 527, 534, float),  # weekly earnings, outgoing rotations only
+    ("PEERNLAB", 561, 562, int),   # union member, outgoing rotations only
     ("PWSSWGT", 613, 622, float),
     ("PRCHLD", 633, 634, int),     # presence of own children <18 by age group
     ("PRNMCHLD", 635, 636, int),   # number of own children <18
+    ("PEIO1ICD", 856, 859, int),   # industry code for primary job
     ("PTIO1OCD", 860, 863, int),
 ]
 COLSPECS = [(s - 1, e) for _, s, e, _ in COLS]
