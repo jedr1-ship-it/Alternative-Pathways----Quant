@@ -111,26 +111,44 @@ me = m.get_margeff(at="overall")
 ame = pd.DataFrame({"AME": me.margeff * 100, "se": me.margeff_se * 100,
                     "p": me.pvalues}, index=me.summary_frame().index)
 
-# ---------- Figure 3: AME dot plot (dummies only; age shown in fig 4) -----
-plot_vars = [v for v in COVS if v not in ("age", "age2", "hours_missing")]
-d3 = ame.loc[plot_vars].sort_values("AME")
+# ---------- Figure 3: AME dot plot grouped by block ----------
+BLOCKS = [
+    ("THE JOB", ["parttime", "public", "hours_missing", "multjob"]),
+    ("EDUCATION", ["ma_plus", "prof_phd"]),
+    ("FAMILY", ["married", "n_children", "child_u6", "fem_child_u6"]),
+    ("DEMOGRAPHICS", ["female", "black", "hispanic", "noncitizen"]),
+    ("TEACHING LEVEL", ["preschool_kg", "secondary", "special_ed"]),
+    ("INCOME AND REGION", ["faminc75k", "midwest", "south", "west"]),
+]
+rows, ypos, ylabels, headers = [], [], [], []
+y = 0.0
+for title, vs in BLOCKS:
+    headers.append((y + 0.85, title))
+    for v in sorted(vs, key=lambda v: -abs(ame.loc[v, "AME"])):
+        rows.append(v); ypos.append(y); ylabels.append(LABELS[v]); y -= 1.0
+    y -= 1.4   # gap between blocks
+d3 = ame.loc[rows]
 d3["lo"] = d3["AME"] - 1.96 * d3["se"]
 d3["hi"] = d3["AME"] + 1.96 * d3["se"]
 colors = [GRAY if p >= 0.05 else (CORAL if a > 0 else BLUE)
           for a, p in zip(d3["AME"], d3["p"])]
-fig, ax = plt.subplots(figsize=(6.8, 4.4))
-y = np.arange(len(d3))
+fig, ax = plt.subplots(figsize=(6.9, 7.2))
 ax.axvline(0, color=SUBTLE, lw=1, zorder=2)
-for yi, (lo, hi, c) in enumerate(zip(d3["lo"], d3["hi"], colors)):
+for yi, (lo, hi, c) in zip(ypos, zip(d3["lo"], d3["hi"], colors)):
     ax.plot([lo, hi], [yi, yi], color=c, lw=2, zorder=3,
             solid_capstyle="round")
-ax.scatter(d3["AME"], y, s=64, color=colors, zorder=4,
+ax.scatter(d3["AME"], ypos, s=64, color=colors, zorder=4,
            edgecolor=SURFACE, linewidth=2)
-for yi, (v, c, p) in enumerate(zip(d3["AME"], colors, d3["p"])):
+for yi, (v, c, p) in zip(ypos, zip(d3["AME"], colors, d3["p"])):
     if p < 0.05:
-        ax.text(v, yi + 0.32, f"{v:+.1f}", ha="center", fontsize=9,
+        ax.text(v, yi + 0.34, f"{v:+.1f}", ha="center", fontsize=8.8,
                 color=INK, fontweight="bold")
-ax.set_yticks(y, [LABELS[v] for v in d3.index], fontsize=10)
+xmin = min(d3["lo"].min(), -3) - 1
+for hy, title in headers:
+    ax.text(xmin, hy, title, fontsize=8.2, color=NAVY, fontweight="bold",
+            ha="left", va="center")
+ax.set_yticks(ypos, ylabels, fontsize=9.5)
+ax.set_ylim(min(ypos) - 1, 1.7)
 ax.set_xlabel("Change in P(persistently leaving teaching), percentage points")
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
@@ -142,6 +160,35 @@ ax.legend(handles, ["Raises exit risk", "Lowers exit risk",
 fig.tight_layout()
 fig.savefig("report/figures/fig3_ame.pdf")
 plt.close(fig)
+
+# ---------- Figure 11: attrition by birth cohort and sex ----------
+df["birth_year"] = df["base_year"] - df["age"]
+df["cohort"] = (df["birth_year"] // 5) * 5
+coh = []
+for (c, f), g in df.groupby(["cohort", "female"]):
+    if len(g) < 400:
+        continue
+    coh.append({"cohort": c, "female": f,
+                "rate": np.average(g["leaver_p"], weights=g[W]) * 100,
+                "n": len(g)})
+coh = pd.DataFrame(coh)
+fig, ax = plt.subplots(figsize=(6.9, 3.4))
+for f, c, lab in [(1, CORAL, "Women"), (0, BLUE, "Men")]:
+    s = coh[coh.female == f].sort_values("cohort")
+    ax.plot(s.cohort, s.rate, color=c, lw=2, solid_capstyle="round")
+    ax.scatter([s.cohort.iloc[-1]], [s.rate.iloc[-1]], s=42, color=c,
+               zorder=4, edgecolor=SURFACE, linewidth=2)
+handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)]
+ax.legend(handles, ["Women", "Men"], loc="upper center", frameon=False,
+          fontsize=9)
+ax.set_xlabel("Birth cohort (five-year bins)")
+ax.set_ylabel("% leaving per year")
+ax.set_ylim(0, None)
+ax.tick_params(length=0)
+fig.tight_layout()
+fig.savefig("report/figures/fig11_cohort.pdf")
+plt.close(fig)
+coh.round(2).to_csv("outputs/attrition_by_cohort_sex.csv", index=False)
 
 # ---------- Figure 4: predicted exit probability by age ----------
 ages = np.arange(23, 71)

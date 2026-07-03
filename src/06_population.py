@@ -189,6 +189,105 @@ fig.tight_layout()
 fig.savefig("report/figures/fig9_flows.pdf")
 plt.close(fig)
 
+# ---------- fig12: portrait of the teaching workforce, 2021-2025 ----------
+# teachers vs other college-educated employed
+CHLD_U6 = {1, 2, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15}
+NEs = {9, 23, 25, 33, 44, 50, 34, 36, 42}
+MWs = {17, 18, 26, 39, 55, 19, 20, 27, 29, 31, 38, 46}
+SOs = {10, 11, 12, 13, 24, 37, 45, 51, 54, 1, 21, 28, 47, 5, 22, 40, 48}
+parts = []
+for f in sorted(glob.glob("data/interim/cps_202[1-5]??.parquet")):
+    d = pd.read_parquet(f)
+    e = d[d["PEMLR"].isin([1, 2]) & (d["PEEDUCA"] >= 43)].copy()
+    e["tch"] = e["PTIO1OCD"].isin(TEACHER_OCC)
+    parts.append(e)
+P = pd.concat(parts, ignore_index=True)
+P["female"] = (P["PESEX"] == 2)
+P["ma_plus"] = P["PEEDUCA"] >= 44
+P["public"] = P["PEIO1COW"].isin([1, 2, 3])
+P["parttime"] = P["PEHRUSL1"].between(1, 34)
+P["married"] = P["PEMARITL"].isin([1, 2])
+P["child_u6"] = P["PRCHLD"].isin(CHLD_U6)
+P["region"] = np.select(
+    [P["GESTFIPS"].isin(NEs), P["GESTFIPS"].isin(MWs), P["GESTFIPS"].isin(SOs)],
+    ["Northeast", "Midwest", "South"], default="West")
+
+
+def wsh(g, col):
+    return np.average(g[col], weights=g["PWSSWGT"]) * 100
+
+
+T, O = P[P["tch"]], P[~P["tch"]]
+fig, axes = plt.subplots(1, 3, figsize=(9.8, 3.3),
+                         gridspec_kw={"width_ratios": [3, 3.4, 2.6]})
+
+# (a) age distribution
+ax = axes[0]
+bins = np.arange(20, 75, 5)
+for g, c in [(O, GRAY), (T, BLUE)]:
+    h, _ = np.histogram(g["PRTAGE"], bins=bins, weights=g["PWSSWGT"])
+    ax.plot(bins[:-1] + 2.5, h / h.sum() * 100, color=c, lw=2,
+            solid_capstyle="round")
+ax.set_title("Age distribution, %", loc="left", fontsize=10, color=NAVY,
+             fontweight="bold", pad=8)
+ax.set_ylim(0, None)
+ax.set_xlabel("Age")
+ax.tick_params(length=0)
+
+# (b) composition dumbbells
+ax = axes[1]
+traits = [("Female", "female"), ("Master's degree+", "ma_plus"),
+          ("Public sector", "public"), ("Married", "married"),
+          ("Child under 6", "child_u6"), ("Part-time", "parttime")]
+yy = np.arange(len(traits))[::-1]
+for yi, (lab, v) in zip(yy, traits):
+    a, b = wsh(O, v), wsh(T, v)
+    ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
+    ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
+               linewidth=2)
+    ax.scatter([b], [yi], s=54, color=BLUE, zorder=3, edgecolor=SURFACE,
+               linewidth=2)
+    off = 3 if b >= a else -3
+    ax.text(b + off, yi, f"{b:.0f}%", va="center",
+            ha="left" if b >= a else "right", fontsize=9, color=INK,
+            fontweight="bold")
+ax.set_yticks(yy, [t for t, _ in traits], fontsize=9.5)
+ax.set_xlim(-2, 108)
+ax.set_title("Share with the trait, %", loc="left", fontsize=10,
+             color=NAVY, fontweight="bold", pad=8)
+ax.tick_params(length=0)
+ax.yaxis.grid(False)
+
+# (c) regional distribution
+ax = axes[2]
+regs = ["Northeast", "Midwest", "South", "West"]
+yy = np.arange(len(regs))[::-1]
+for yi, r in zip(yy, regs):
+    a = np.average(O["region"] == r, weights=O["PWSSWGT"]) * 100
+    b = np.average(T["region"] == r, weights=T["PWSSWGT"]) * 100
+    ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
+    ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
+               linewidth=2)
+    ax.scatter([b], [yi], s=54, color=BLUE, zorder=3, edgecolor=SURFACE,
+               linewidth=2)
+    ax.text(max(a, b) + 1.6, yi, f"{b:.0f}%", va="center", fontsize=9,
+            color=INK, fontweight="bold")
+ax.set_yticks(yy, regs, fontsize=9.5)
+ax.set_xlim(0, 48)
+ax.set_title("Region of residence, %", loc="left", fontsize=10,
+             color=NAVY, fontweight="bold", pad=8)
+ax.tick_params(length=0)
+ax.yaxis.grid(False)
+
+handles = [plt.Line2D([], [], color=c, lw=2) for c in (BLUE, GRAY)]
+axes[0].legend(handles, ["School teachers", "Other college-educated"],
+               loc="lower center", frameon=False, fontsize=8)
+fig.tight_layout(w_pad=2.0)
+fig.savefig("report/figures/fig12_portrait.pdf")
+plt.close(fig)
+print("portrait: teachers female", round(wsh(T, 'female')),
+      "% vs others", round(wsh(O, 'female')), "%")
+
 print("funnel:", funnel, "| linked:", n_linked, "| follow-up:", n_followup)
 print(yr[["total"]].round(2).tail(3).to_string())
 print(fl[["base_year", "entry_rate", "exit_rate"]].round(1).tail(3).to_string(index=False))

@@ -141,8 +141,11 @@ credentialed, with fewer young children at home.
   \fignote{Notes: The sample is all linked teachers whose rotation includes at
   least one interview after the twelve-month link. All variables are measured
   at baseline and weighted with CPS person weights. Children are own children
-  under eighteen living in the household at the time of the interview. Source:
-  authors' calculations from CPS basic monthly microdata, 2005--2025.}
+  under eighteen living in the household at the time of the interview. The
+  last column reports the stayer-leaver difference and the significance of a
+  two-sample test with standard errors clustered by household:
+  $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$. Source: authors' calculations
+  from CPS basic monthly microdata, 2005--2025.}
 \end{table}
 
 \textit{Defining a leaver.} The conventional measure, used by the NCES Teacher
@@ -162,6 +165,26 @@ upper bounds; comparisons across groups and over time, the object of this
 brief, are far less affected.
 
 \section*{\color{ecnavy}2. The teacher workforce}
+
+Before asking who leaves, Figure~\ref{fig:portrait} describes who teaches.
+Compared with other college-educated workers, teachers are overwhelmingly
+women (76 vs 49 percent), more credentialed (54 percent hold a master's
+degree or more, against 36 percent), concentrated in the public sector (75
+vs 14 percent) and mid-career, with a thicker mass between 35 and 55. Their
+geographic distribution tracks the rest of the college workforce, so
+attrition patterns are not driven by teachers living in different parts of
+the country.
+
+\begin{figure}[h!]
+  \caption{Who teaches: school teachers vs other college-educated workers,
+  2021--2025.}
+  \label{fig:portrait}
+  \includegraphics[width=\textwidth]{figures/fig12_portrait.pdf}
+  \fignote{Notes: Both groups are employed persons with at least a bachelor's
+  degree; teachers are identified as in Table~\ref{tab:pop}. Shares are
+  weighted to population and pooled over 2021--2025. Source: authors'
+  calculations from CPS basic monthly microdata.}
+\end{figure}
 
 Weighted to population, the CPS counts a stable stock of about 4.7 million
 degree-holding school teachers (Figure~\ref{fig:stock}), most of them in
@@ -260,6 +283,26 @@ Attrition concentrates in three margins: hours, teaching level and, more
 weakly among degree holders, credentials. Part-time teachers leave at more
 than twice the rate of full-time teachers, and preschool/kindergarten is the
 most exposed level (Figure~\ref{fig:groups}).
+
+The lifecycle shape is not an artifact of how covariates enter the model.
+Plotting raw attrition by birth cohort separately for men and women
+(Figure~\ref{fig:cohort}) shows the same U: cohorts born before 1950,
+observed near retirement, leave at 25 to 35 percent per year; cohorts born
+in the 1960s and 1970s, observed mid-career, at 11 to 13 percent; and the
+youngest cohorts, observed at career entry, climb back to 18 percent. Men
+and women trace nearly the same curve, which anticipates the small
+conditional gender effect in the model.
+
+\begin{figure}[h!]
+  \caption{Attrition by birth cohort and sex.}
+  \label{fig:cohort}
+  \includegraphics[width=0.84\textwidth]{figures/fig11_cohort.pdf}
+  \fignote{Notes: Weighted persistent-attrition rate by five-year birth
+  cohort, pooling all twenty waves; each cohort is observed at the ages it
+  reaches during 2005--2025, so the curve mixes age and cohort variation.
+  Cells with fewer than 400 observations are omitted. Source: authors'
+  calculations from linked CPS pairs, 2005--2025.}
+\end{figure}
 
 \begin{figure}[h!]
   \caption{Persistent attrition by baseline characteristics, 2005--2025.}

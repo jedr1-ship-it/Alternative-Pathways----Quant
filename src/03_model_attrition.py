@@ -72,18 +72,32 @@ DESC = [
 ]
 groups = [("All teachers", B), ("Stayers", B[B["leaver_p"] == 0]),
           ("Persistent leavers", B[B["leaver_p"] == 1])]
+
+
+def dstars(p):
+    return "$^{***}$" if p < 0.01 else "$^{**}$" if p < 0.05 else \
+        "$^{*}$" if p < 0.1 else ""
+
+
 with open("report/table_descriptives.tex", "w") as fh:
-    fh.write("\\begin{tabular}{lccc}\n\\toprule\n & "
-             + " & ".join(g for g, _ in groups) + " \\\\\n\\midrule\n")
+    fh.write("\\begin{tabular}{lcccc}\n\\toprule\n & "
+             + " & ".join(g for g, _ in groups)
+             + " & Difference \\\\\n\\midrule\n")
     for lab, v, kind in DESC:
         cells = []
         for _, g in groups:
             m = np.average(g[v], weights=g["PWSSWGT_0"])
             cells.append(f"{m*100:.1f}\\%" if kind == "pct" else f"{m:.1f}")
+        # test of the stayer-leaver difference, household-clustered SE
+        t = smf.wls(f"{v} ~ leaver_p", data=B, weights=B["PWSSWGT_0"]).fit(
+            cov_type="cluster", cov_kwds={"groups": B["HRHHID"]})
+        d, p = t.params["leaver_p"], t.pvalues["leaver_p"]
+        dtxt = (f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}")
+        cells.append(dtxt + dstars(p))
         fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
     fh.write("\\midrule\nPersons & "
              + " & ".join(f"{len(g):,}" for _, g in groups)
-             + " \\\\\n\\bottomrule\n\\end{tabular}\n")
+             + " & \\\\\n\\bottomrule\n\\end{tabular}\n")
 log("wrote report/table_descriptives.tex")
 
 # ---------- main probit: persistent leaver ----------
