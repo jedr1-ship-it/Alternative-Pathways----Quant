@@ -65,8 +65,6 @@ panel = pd.read_csv("data/processed/cps_teacher_panel.csv",
                     usecols=["HRMIS_0", "PWSSWGT_0"])
 n_linked = len(panel)
 n_followup = int((panel["HRMIS_0"] <= 3).sum())
-fl0 = pd.read_csv("data/processed/cps_flows.csv")
-teachers_per_wave_w = fl0["teachers_t_w"].mean() / 1e6
 
 # ---------- funnel table: persons + population represented ----------
 def month_avg(k):
@@ -83,9 +81,9 @@ for lab, k in [("Adults interviewed in an average month", "adults"),
     rows.append((lab, f"{n:,.0f}", f"{w:.1f}M"))
 rows.append(("Teachers linked to their interview 12 months later "
              "(unique persons, 20 waves)", f"{n_linked:,}",
-             f"{teachers_per_wave_w:.1f}M per wave"))
+             "the same 4.6M"))
 rows.append(("\\quad with re-interviews after $t{+}12$: \\textbf{main sample}",
-             f"{n_followup:,}", ""))
+             f"{n_followup:,}", "the same 4.6M"))
 with open("report/table_population.tex", "w") as fh:
     fh.write("\\begin{tabular}{lrr}\n\\toprule\n"
              " & Persons & Population represented \\\\\n\\midrule\n")

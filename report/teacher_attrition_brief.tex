@@ -58,8 +58,9 @@
   2024.
   \item Part-time work is the strongest predictor of leaving (+12 percentage
   points). Risk is U-shaped in age, lowest around 40. Black, non-citizen and
-  preschool teachers leave more. The results are almost identical under both
-  definitions.
+  preschool teachers leave more. Teachers with children at home leave less,
+  but that protection vanishes for women with a child under 6. The results
+  are almost identical under both definitions.
   \item The typical leaver is a woman in her late career, working part-time,
   without a graduate degree. The highest-risk decile has a 35\% exit
   probability, 2.4 times the average.
@@ -113,7 +114,8 @@ Table~\ref{tab:pop} shows the population funnel, pooling all 251 months.
   higher. Only rotations in months-in-sample 1--4 can be linked forward. 67\%
   of linkable teachers are found and validated 12 months later; most losses
   occur because the CPS samples addresses and does not follow people who
-  move.}
+  move. Linked teachers keep their population weights, so weighted rates
+  remain representative of the 4.6M teachers.}
 \end{table}
 
 Table~\ref{tab:desc} describes the variables available for each linked
@@ -230,16 +232,23 @@ covariates measured at baseline, base-year fixed effects and standard errors
 clustered by household (Table~\ref{tab:probit}). Figure~\ref{fig:ame} plots
 the average marginal effects.
 
-Three results stand out. First, part-time status raises exit probability by
-12.2 points, the largest effect in the model by an order of magnitude:
+Four results stand out. First, part-time status raises exit probability by
+12.4 points, the largest effect in the model by an order of magnitude:
 attachment to full-time hours, not demographics, is the dominant margin.
-Second, minority and non-citizen teachers are significantly more likely to
-leave (Black $+5.9$, non-citizen $+7.6$, Hispanic $+1.5$ points), a retention
-gap that matters for workforce diversity. Third, among degree holders a
-graduate degree adds only 1.1 points of protection, while higher family
-income, secondary school and being a woman also retain modestly. Every effect
-is nearly identical under the conventional 12-month definition (part-time:
-$+14.5$ vs $+12.2$), so the predictors do not depend on how leaving is
+Second, family variables matter but not in the expected direction: each own
+child at home lowers exit risk by about 1 point, and a child under 6 lowers
+it by a further 1.8 points for men, while the interaction shows that women
+with a young child lose that protection entirely ($+1.9$ points). Children in
+the household retain male teachers and leave women, on net, where they were.
+The CPS records resident children at baseline, not new births, so this is a
+stock effect rather than the effect of childbirth itself.
+Third, minority and non-citizen teachers are significantly more likely to
+leave (Black $+6.0$, non-citizen $+7.6$, Hispanic $+1.5$ points), a retention
+gap that matters for workforce diversity. Fourth, among degree holders a
+graduate degree adds only 1 point of protection, while higher family income,
+secondary school and being a woman also retain modestly. Every effect is
+nearly identical under the conventional 12-month definition (part-time:
+$+14.7$ vs $+12.4$), so the predictors do not depend on how leaving is
 measured.
 
 \begin{figure}[h!]
