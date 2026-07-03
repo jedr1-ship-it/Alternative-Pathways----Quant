@@ -181,8 +181,8 @@ plt.close(fig)
 # ---------- Figure 5: high-risk decile vs all teachers (dumbbell) ----------
 df["phat"] = m.predict(df)
 hi10 = df.nlargest(len(df) // 10, "phat")
-traits = ["parttime", "ma_plus", "preschool_kg", "female", "married",
-          "hispanic", "black"]
+traits = ["parttime", "public", "ma_plus", "preschool_kg", "female",
+          "married", "hispanic", "black"]
 fig, ax = plt.subplots(figsize=(6.8, 3.6))
 yy = np.arange(len(traits))[::-1]
 for yi, t in zip(yy, traits):

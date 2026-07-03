@@ -59,21 +59,22 @@
   \item Persistent attrition rose from about 13\% in 2005--2010 to about 17\%
   in 2022--2024, with a peak in the pandemic year and a new high of 18\% in
   2024.
-  \item Part-time work is the strongest predictor of leaving (+12 percentage
-  points). Risk is U-shaped in age, lowest around 40. Black, non-citizen and
-  preschool teachers leave more. Teachers with children at home leave less,
-  but that protection vanishes for women with a child under 6. The results
-  are almost identical under both definitions.
+  \item Part-time work (+11 percentage points) and private-sector employment
+  (+7) are the strongest predictors of leaving; higher pay retains. Risk is
+  U-shaped in age, lowest around 40, and higher for Black and non-citizen
+  teachers. Teachers with children at home leave less, but that protection
+  vanishes for women with a child under 6. The results are almost identical
+  under both definitions.
   \item The typical leaver is a woman in her late career, working part-time,
-  without a graduate degree. The highest-risk decile has a 35\% exit
-  probability, 2.4 times the average.
+  more often in a private school. The highest-risk decile has a 37\% exit
+  probability, 2.5 times the average.
 \end{itemize}
 \end{tcolorbox}
 
 \vspace{6pt}
 \noindent
 \heronum{15.1\,\%}{of teachers leave the profession for good each year}\hfill
-\heronum{$+$12\,pp}{extra exit risk from part-time work}\hfill
+\heronum{$+$11\,pp}{extra exit risk from part-time work}\hfill
 \heronum{1 in 6}{12-month leavers is back teaching within 3 months}
 
 \vspace{4pt}
@@ -117,12 +118,14 @@ Table~\ref{tab:pop} shows the population funnel, pooling all 251 months.
   school, or special education level (Census occupation codes 2300 to 2330,
   which are identical across the 2002, 2010 and 2020 classifications) and who
   hold at least a bachelor's degree. Only persons in the first four months of
-  their rotation can be linked one year ahead; 67 percent of them are found
-  and validated twelve months later. Most losses occur because the survey
-  samples addresses and does not follow people who move. Linked teachers keep
-  their population weights, so weighted rates remain representative of the
-  4.6 million teachers. Source: authors' calculations from CPS basic monthly
-  microdata, 2005--2025.}
+  their rotation can be linked one year ahead. Losses occur because the
+  survey samples addresses and does not follow people who move, but they are
+  not selective against teachers: 78 percent of teachers are found and
+  validated twelve months later, against 74 percent of other college-educated
+  workers and 71 percent of all employed, a ranking that holds in every
+  single year. Linked teachers keep their population weights, so weighted
+  rates remain representative of the 4.6 million teachers. Source: authors'
+  calculations from CPS basic monthly microdata, 2005--2025.}
 \end{table}
 
 Table~\ref{tab:desc} describes the variables available for each linked
@@ -273,24 +276,27 @@ covariates measured at baseline, base-year fixed effects and standard errors
 clustered by household (Table~\ref{tab:probit}). Figure~\ref{fig:ame} plots
 the average marginal effects.
 
-Four results stand out. First, part-time status raises exit probability by
-12.4 points, the largest effect in the model by an order of magnitude:
-attachment to full-time hours, not demographics, is the dominant margin.
-Second, family variables matter but not in the expected direction: each own
-child at home lowers exit risk by about 1 point, and a child under 6 lowers
-it by a further 1.8 points for men, while the interaction shows that women
-with a young child lose that protection entirely ($+1.9$ points). Children in
-the household retain male teachers and leave women, on net, where they were.
-The CPS records resident children at baseline, not new births, so this is a
-stock effect rather than the effect of childbirth itself.
-Third, minority and non-citizen teachers are significantly more likely to
-leave (Black $+6.0$, non-citizen $+7.6$, Hispanic $+1.5$ points), a retention
-gap that matters for workforce diversity. Fourth, among degree holders a
-graduate degree adds only 1 point of protection, while higher family income,
-secondary school and being a woman also retain modestly. Every effect is
-nearly identical under the conventional 12-month definition (part-time:
-$+14.7$ vs $+12.4$), so the predictors do not depend on how leaving is
-measured.
+Five results stand out. First, the job margin dominates: part-time status
+raises exit probability by 11.3 points and private-sector employment by 7.5
+points relative to public schools, the two largest effects in the model.
+Second, pay retains. Weekly earnings are only collected in the outgoing
+rotations, so we estimate the wage effect on that subsample (44{,}823
+teachers): ten percent higher weekly earnings lower the probability of
+leaving by 0.3 points. Third, family variables matter but not in the
+expected direction: each own child at home lowers exit risk by about 1
+point, and a child under 6 lowers it further for men, while the interaction
+shows that women with a young child lose that protection entirely ($+1.9$
+points). The CPS records resident children at baseline, not new births, so
+this is a stock effect rather than the effect of childbirth itself. Fourth,
+minority and non-citizen teachers are significantly more likely to leave
+(Black $+5.7$, non-citizen $+5.7$, Hispanic $+1.4$ points), a retention gap
+that matters for workforce diversity. Fifth, credentials cut both ways:
+relative to a bachelor's degree, a master's retains ($-1.1$) but a
+professional degree or doctorate strongly predicts leaving ($+6.7$ points),
+consistent with better options outside the classroom, including
+postsecondary teaching. Every effect is nearly identical under the
+conventional 12-month definition (part-time: $+13.6$ vs $+11.3$), so the
+predictors do not depend on how leaving is measured.
 
 \begin{figure}[h!]
   \caption{Average marginal effects on the probability of persistently
@@ -303,7 +309,7 @@ measured.
 
 Age enters with a robust U-shape (Figure~\ref{fig:age}). Predicted risk falls
 to a minimum of 9\% around age 39, accelerates after 55 as retirement
-approaches, and reaches 28\% at 70.
+approaches, and reaches 25\% at 70.
 
 \begin{figure}[h!]
   \caption{Predicted probability of leaving by age, other covariates at
@@ -321,22 +327,23 @@ approaches, and reaches 28\% at 70.
   \label{tab:probit}
   \centering\small
   \input{table_probit}
-  \par\vspace{4pt}{\footnotesize\color{ecgray}Outcome: persistent leaver.
-  Cluster-robust standard errors (by household) in parentheses. AME: average
-  marginal effect in percentage points. Sample: school teachers with a
-  bachelor's degree or higher and a potential re-interview after $t{+}12$
-  (baseline MIS 1--3). Reference categories: full-time, bachelor's degree,
-  elementary/middle school. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
+  \fignote{Notes: The outcome is the persistent leaver defined in Section 1.
+  Standard errors, in parentheses, are clustered by household. The AME column
+  reports average marginal effects in percentage points. The sample is all
+  school teachers with a bachelor's degree or higher whose rotation includes
+  at least one interview after the twelve-month link. Reference categories
+  are full-time hours, a bachelor's degree, a private-sector employer,
+  elementary or middle school, and the Northeast region.
+  $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 
 \section*{\color{ecnavy}7. The typical leaver}
 
 Ranking teachers by predicted risk, the top decile has a mean exit probability
-of 35\%, against 15\% for the average teacher. It is overwhelmingly female
-(80\%), late-career (mean age 56), seven times more likely to work part-time
-(64\% vs 9\%), less likely to hold a graduate degree (40\% vs 52\%) and over
-twice as concentrated in preschool/kindergarten (20\% vs 8\%), with Black
-teachers over-represented (14\% vs 6\%).
+of 37\%, against 15\% for the average teacher. It is overwhelmingly female
+(79\%), late-career (mean age 55), six times more likely to work part-time
+(56\% vs 9\%), and only 40\% work in a public school against 78\% of all
+teachers, with Black teachers over-represented (14\% vs 6\%).
 
 \begin{figure}[t!]
   \caption{Characteristics of the top predicted-risk decile vs all teachers.}
@@ -347,13 +354,15 @@ teachers over-represented (14\% vs 6\%).
 
 \section*{\color{ecnavy}8. Policy implications}
 
-The results locate attrition in weak attachment (part-time hours, the
-early-childhood segment, both career extremes) rather than in broad
+The results locate attrition in weak attachment to the job (part-time hours,
+private-sector positions, both career extremes) rather than in broad
 demographics, and show a rising trend since the early 2010s. Four levers
 follow. First, converting involuntary part-time positions to full-time
-attacks the single largest risk factor. Second, retention packages for
-preschool and kindergarten teachers target the most exposed level. Third, the
-Black, Hispanic and non-citizen retention gaps deserve monitoring, since they
+attacks the single largest risk factor, and the wage result implies that pay
+raises retain, though modestly. Second, the private sector is where teaching
+careers break: private-school teachers leave at far higher rates, and the
+preschool exposure partly reflects that composition. Third, the Black,
+Hispanic and non-citizen retention gaps deserve monitoring, since they
 compound into the diversity of the future workforce. Fourth, with one in six
 leavers back within three months, cheap re-entry pathways such as fast-track
 rehiring, credential portability and return bonuses can recover part of the
