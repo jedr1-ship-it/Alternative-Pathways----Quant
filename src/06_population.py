@@ -35,19 +35,23 @@ LEVEL_COLOR = {"Elementary / middle": BLUE, "Secondary": GREEN,
                "Preschool / kindergarten": GOLD, "Special education": CORAL}
 
 # ---------- sweep the monthly cache: funnel + stocks ----------
-funnel = dict(adults=0, employed=0, teachers=0, teachers_ba=0, mis14=0)
+# counts are per-month averages: persons in the sample and, via weights,
+# the population they represent
+funnel = {k: [0, 0.0] for k in
+          ["adults", "employed", "teachers", "teachers_ba"]}
+n_months = 0
 wstock = []          # per (year, month): weighted teachers by level
 for f in sorted(glob.glob("data/interim/cps_??????.parquet")):
     d = pd.read_parquet(f, columns=["PEMLR", "PTIO1OCD", "PEEDUCA", "HRMIS",
                                     "HRYEAR4", "HRMONTH", "PWSSWGT"])
-    funnel["adults"] += len(d)
+    n_months += 1
     e = d[d["PEMLR"].isin([1, 2])]
-    funnel["employed"] += len(e)
     t = e[e["PTIO1OCD"].isin(TEACHER_OCC)]
-    funnel["teachers"] += len(t)
     tb = t[t["PEEDUCA"] >= 43]
-    funnel["teachers_ba"] += len(tb)
-    funnel["mis14"] += int(tb["HRMIS"].between(1, 4).sum())
+    for k, dd in [("adults", d), ("employed", e), ("teachers", t),
+                  ("teachers_ba", tb)]:
+        funnel[k][0] += len(dd)
+        funnel[k][1] += dd["PWSSWGT"].sum()
     g = tb.groupby("PTIO1OCD")["PWSSWGT"].sum()
     wstock.append({"year": int(d["HRYEAR4"].iat[0]),
                    "month": int(d["HRMONTH"].iat[0]),
@@ -58,32 +62,35 @@ yr = stock.groupby("year").mean(numeric_only=True).drop(columns="month") / 1e6
 yr.round(3).to_csv("outputs/teacher_stock_by_year.csv")
 
 panel = pd.read_csv("data/processed/cps_teacher_panel.csv",
-                    usecols=["HRMIS_0"])
+                    usecols=["HRMIS_0", "PWSSWGT_0"])
 n_linked = len(panel)
 n_followup = int((panel["HRMIS_0"] <= 3).sum())
+fl0 = pd.read_csv("data/processed/cps_flows.csv")
+teachers_per_wave_w = fl0["teachers_t_w"].mean() / 1e6
 
-# ---------- funnel table ----------
-rows = [
-    ("Adult interviews (person-months), 2005--2025", funnel["adults"], None),
-    ("\\quad employed", funnel["employed"],
-     funnel["employed"] / funnel["adults"]),
-    ("\\quad\\quad school teachers (occ. 2300--2330)", funnel["teachers"],
-     funnel["teachers"] / funnel["employed"]),
-    ("\\quad\\quad\\quad with bachelor's degree or higher",
-     funnel["teachers_ba"], funnel["teachers_ba"] / funnel["teachers"]),
-    ("\\quad\\quad\\quad\\quad in a linkable rotation (MIS 1--4)",
-     funnel["mis14"], funnel["mis14"] / funnel["teachers_ba"]),
-    ("\\textbf{Linked to their interview 12 months later}", n_linked,
-     None),
-    ("\\quad with re-interviews after $t{+}12$ (MIS 1--3) $\\to$ "
-     "\\textbf{main sample}", n_followup, n_followup / n_linked),
-]
+# ---------- funnel table: persons + population represented ----------
+def month_avg(k):
+    n, w = funnel[k]
+    return n / n_months, w / n_months / 1e6
+
+rows = []
+for lab, k in [("Adults interviewed in an average month", "adults"),
+               ("\\quad employed", "employed"),
+               ("\\quad\\quad school teachers (occ. 2300--2330)", "teachers"),
+               ("\\quad\\quad\\quad with bachelor's degree or higher",
+                "teachers_ba")]:
+    n, w = month_avg(k)
+    rows.append((lab, f"{n:,.0f}", f"{w:.1f}M"))
+rows.append(("Teachers linked to their interview 12 months later "
+             "(unique persons, 20 waves)", f"{n_linked:,}",
+             f"{teachers_per_wave_w:.1f}M per wave"))
+rows.append(("\\quad with re-interviews after $t{+}12$: \\textbf{main sample}",
+             f"{n_followup:,}", ""))
 with open("report/table_population.tex", "w") as fh:
     fh.write("\\begin{tabular}{lrr}\n\\toprule\n"
-             " & Person-months & \\% of previous \\\\\n\\midrule\n")
-    for lab, n, sh in rows:
-        s = f"{sh:.0%}".replace("%", "\\%") if sh is not None else "--"
-        fh.write(f"{lab} & {n:,} & {s} \\\\\n")
+             " & Persons & Population represented \\\\\n\\midrule\n")
+    for lab, n, w in rows:
+        fh.write(f"{lab} & {n} & {w} \\\\\n")
     fh.write("\\bottomrule\n\\end{tabular}\n")
 
 # ---------- fig0: the 4-8-4 design ----------

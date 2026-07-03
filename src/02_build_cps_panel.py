@@ -61,6 +61,8 @@ COLS = [
     ("PEMLR", 180, 181, int),
     ("PEHRUSL1", 218, 219, int),
     ("PWSSWGT", 613, 622, float),
+    ("PRCHLD", 633, 634, int),     # presence of own children <18 by age group
+    ("PRNMCHLD", 635, 636, int),   # number of own children <18
     ("PTIO1OCD", 860, 863, int),
 ]
 COLSPECS = [(s - 1, e) for _, s, e, _ in COLS]

@@ -5,7 +5,8 @@ Analytic sample: school teachers holding at least a bachelor's degree
 literature. Education enters as master's+ vs the bachelor's-only reference.
 """
 
-COVS = ["age", "age2", "female", "married", "black", "hispanic", "noncitizen",
+COVS = ["age", "age2", "female", "married", "n_children", "child_u6",
+        "fem_child_u6", "black", "hispanic", "noncitizen",
         "ma_plus", "parttime", "hours_missing", "faminc75k",
         "preschool_kg", "secondary", "special_ed"]
 
@@ -15,6 +16,9 @@ LABELS = {
     "age2": "Age$^2$/100",
     "female": "Female",
     "married": "Married",
+    "n_children": "Number of own children",
+    "child_u6": "Child under 6 at home",
+    "fem_child_u6": "Female $\\times$ child under 6",
     "black": "Black",
     "hispanic": "Hispanic",
     "noncitizen": "Non-citizen",
@@ -60,6 +64,14 @@ def add_covariates(df):
     df["age2"] = df["age"] ** 2 / 100.0
     df["female"] = (df["PESEX_0"] == 2).astype(int)
     df["married"] = df["PEMARITL_0"].isin([1, 2]).astype(int)
+    # own children <18 in the household (PRNMCHLD; -1 = not a parent -> 0)
+    df["n_children"] = df["PRNMCHLD_0"].clip(lower=0)
+    # PRCHLD codes containing the 0-2 or 3-5 age groups
+    df["child_u6"] = df["PRCHLD_0"].isin(
+        [1, 2, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15]).astype(int)
+    df["fem_child_u6"] = df["female"] * df["child_u6"]
+    df["fem_fertile"] = ((df["female"] == 1)
+                         & df["PRTAGE_0"].between(25, 44)).astype(int)
     df["black"] = (df["PTDTRACE_0"] == 2).astype(int)
     df["hispanic"] = (df["PEHSPNON_0"] == 1).astype(int)
     df["noncitizen"] = (df["PRCITSHP_0"] == 5).astype(int)

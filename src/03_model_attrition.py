@@ -47,6 +47,42 @@ prof["diff"] = prof["leaver"] - prof["stayer"]
 log("\n--- Mean characteristics at t: stayer vs persistent leaver ---")
 log(prof.round(3).to_string())
 
+# ---------- weighted descriptive table for the brief ----------
+B["elem"] = ((B["preschool_kg"] + B["secondary"] + B["special_ed"]) == 0).astype(int)
+DESC = [
+    ("Age, years", "age", "num"),
+    ("Female", "female", "pct"),
+    ("Female aged 25--44", "fem_fertile", "pct"),
+    ("Married", "married", "pct"),
+    ("Number of own children ($<$18) at home", "n_children", "num"),
+    ("Child under 6 at home", "child_u6", "pct"),
+    ("Black", "black", "pct"),
+    ("Hispanic", "hispanic", "pct"),
+    ("Non-citizen", "noncitizen", "pct"),
+    ("Master's degree or higher", "ma_plus", "pct"),
+    ("Part-time ($<$35 h/week)", "parttime", "pct"),
+    ("Family income \\$75k+", "faminc75k", "pct"),
+    ("Elementary / middle school", "elem", "pct"),
+    ("Preschool / kindergarten", "preschool_kg", "pct"),
+    ("Secondary school", "secondary", "pct"),
+    ("Special education", "special_ed", "pct"),
+]
+groups = [("All teachers", B), ("Stayers", B[B["leaver_p"] == 0]),
+          ("Persistent leavers", B[B["leaver_p"] == 1])]
+with open("report/table_descriptives.tex", "w") as fh:
+    fh.write("\\begin{tabular}{lccc}\n\\toprule\n & "
+             + " & ".join(g for g, _ in groups) + " \\\\\n\\midrule\n")
+    for lab, v, kind in DESC:
+        cells = []
+        for _, g in groups:
+            m = np.average(g[v], weights=g["PWSSWGT_0"])
+            cells.append(f"{m*100:.1f}\\%" if kind == "pct" else f"{m:.1f}")
+        fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
+    fh.write("\\midrule\nPersons & "
+             + " & ".join(f"{len(g):,}" for _, g in groups)
+             + " \\\\\n\\bottomrule\n\\end{tabular}\n")
+log("wrote report/table_descriptives.tex")
+
 # ---------- main probit: persistent leaver ----------
 rhs = " + ".join(COVS) + " + C(base_year)"
 mB = smf.probit("leaver_p ~ " + rhs, data=B).fit(
