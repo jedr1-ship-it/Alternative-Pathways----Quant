@@ -128,9 +128,8 @@ ev = pd.DataFrame(ev)
 ev.round(2).to_csv("outputs/evolution_by_year_gender.csv", index=False)
 print("\n", ev.round(1).to_string(index=False))
 
-# ---------- figure: two panels ----------
-fig, axes = plt.subplots(1, 2, figsize=(9.6, 3.4))
-ax = axes[0]
+# ---------- figure: single panel, persistent attrition by gender ----------
+fig, ax = plt.subplots(figsize=(6.9, 3.4))
 ax.plot(ev.base_year, ev.attr12_all, color=GRAY, lw=2, ls=(0, (4, 3)))
 ax.plot(ev.base_year, ev.attrp_f, color=CORAL, lw=2, solid_capstyle="round")
 ax.plot(ev.base_year, ev.attrp_m, color=BLUE, lw=2, solid_capstyle="round")
@@ -140,35 +139,18 @@ for col, c in [("attrp_f", CORAL), ("attrp_m", BLUE)]:
     ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
             f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
             color=INK, fontweight="bold")
-ax.set_title("Persistent attrition (leaves and does not return), %",
-             loc="left", fontsize=10.5, color=NAVY, fontweight="bold", pad=8)
 handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)] + \
           [plt.Line2D([], [], color=GRAY, lw=2, ls=(0, (4, 3)))]
-ax.legend(handles, ["Women", "Men", "12-month def. (all)"],
+ax.legend(handles, ["Women", "Men", "12-month definition (all)"],
           loc="lower left", frameon=False, fontsize=8.5)
-
-ax = axes[1]
-ax.plot(ev.base_year, ev.ret_f, color=CORAL, lw=2, solid_capstyle="round")
-ax.plot(ev.base_year, ev.ret_m, color=BLUE, lw=2, solid_capstyle="round")
-for col, c in [("ret_f", CORAL), ("ret_m", BLUE)]:
-    ax.scatter([ev.base_year.iloc[-1]], [ev[col].iloc[-1]], s=42,
-               color=c, zorder=4, edgecolor=SURFACE, linewidth=2)
-    ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
-            f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
-            color=INK, fontweight="bold")
-ax.set_title("Leavers back in teaching within 3 months, %",
-             loc="left", fontsize=10.5, color=NAVY, fontweight="bold", pad=8)
-ax.legend(handles[:2], ["Women", "Men"], loc="lower left", frameon=False,
-          fontsize=8.5)
-
-for ax in axes:
-    ax.set_xlim(2004.5, 2027)
-    ax.set_ylim(0, None)
-    ax.set_xticks([2005, 2010, 2015, 2020, 2024])
-    ax.tick_params(length=0)
-    ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
-axes[0].text(2020, axes[0].get_ylim()[1] * 0.95, "COVID", ha="center",
-             fontsize=8, color=SUBTLE)
-fig.tight_layout(w_pad=2.5)
+ax.set_xlim(2004.5, 2027)
+ax.set_ylim(0, None)
+ax.set_xticks([2005, 2010, 2015, 2020, 2024])
+ax.set_ylabel("% of teachers per year")
+ax.tick_params(length=0)
+ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
+ax.text(2020, ax.get_ylim()[1] * 0.95, "COVID", ha="center", fontsize=8,
+        color=SUBTLE)
+fig.tight_layout()
 fig.savefig("report/figures/fig6_evolution.pdf")
 print("\nsaved report/figures/fig6_evolution.pdf, outputs/evolution_by_year_gender.csv")
