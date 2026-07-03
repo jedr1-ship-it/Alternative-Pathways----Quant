@@ -56,6 +56,7 @@ DESC = [
     ("Married", "married", "pct"),
     ("Number of own children ($<$18) at home", "n_children", "num"),
     ("Child under 6 at home", "child_u6", "pct"),
+    ("New baby during the year", "new_baby", "pct"),
     ("Black", "black", "pct"),
     ("Hispanic", "hispanic", "pct"),
     ("Non-citizen", "noncitizen", "pct"),
@@ -115,6 +116,14 @@ mtab = mtab.reindex(mtab["z"].abs().sort_values(ascending=False).index)
 log("\n--- AMEs, persistent leaver (pp), ranked ---")
 log((mtab.assign(AME_pp=mtab["AME"] * 100)
          [["AME_pp", "se", "z", "p"]].round(4)).to_string())
+
+# ---------- destination of leavers with a new baby ----------
+nb = B[(B["leaver_p"] == 1) & (B["new_baby"] == 1) & (B["female"] == 1)]
+if len(nb) > 50:
+    sh = (nb.groupby("dest")["PWSSWGT_0"].sum()
+            / nb["PWSSWGT_0"].sum() * 100).round(1)
+    log(f"\n--- Women leavers with a new baby (n={len(nb)}), destination ---")
+    log(sh.to_string())
 
 # ---------- wage sub-analysis (earnings only asked at MIS 4/8) ----------
 # baseline earnings exist only for teachers whose first linked interview is

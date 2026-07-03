@@ -202,46 +202,141 @@ for f in sorted(glob.glob("data/interim/cps_202[1-5]??.parquet")):
     e["tch"] = e["PTIO1OCD"].isin(TEACHER_OCC)
     parts.append(e)
 P = pd.concat(parts, ignore_index=True)
-P["female"] = (P["PESEX"] == 2)
-P["ma_plus"] = P["PEEDUCA"] >= 44
-P["public"] = P["PEIO1COW"].isin([1, 2, 3])
-P["parttime"] = P["PEHRUSL1"].between(1, 34)
-P["married"] = P["PEMARITL"].isin([1, 2])
-P["child_u6"] = P["PRCHLD"].isin(CHLD_U6)
+P["female"] = (P["PESEX"] == 2).astype(int)
+P["ma_only"] = (P["PEEDUCA"] == 44).astype(int)
+P["ma_plus"] = (P["PEEDUCA"] >= 44).astype(int)
+P["prof_phd"] = (P["PEEDUCA"] >= 45).astype(int)
+P["public"] = P["PEIO1COW"].isin([1, 2, 3]).astype(int)
+P["parttime"] = P["PEHRUSL1"].between(1, 34).astype(int)
+P["hours"] = P["PEHRUSL1"].where(P["PEHRUSL1"] > 0)
+P["multjob"] = (P["PEMJOT"] == 1).astype(int)
+P["married"] = P["PEMARITL"].isin([1, 2]).astype(int)
+P["n_children"] = P["PRNMCHLD"].clip(lower=0)
+P["child_u6"] = P["PRCHLD"].isin(CHLD_U6).astype(int)
+P["white"] = (P["PTDTRACE"] == 1).astype(int)
+P["black"] = (P["PTDTRACE"] == 2).astype(int)
+P["asian"] = (P["PTDTRACE"] == 4).astype(int)
+P["hispanic"] = (P["PEHSPNON"] == 1).astype(int)
+P["noncitizen"] = (P["PRCITSHP"] == 5).astype(int)
+P["faminc75k"] = (P["HEFAMINC"] >= 13).astype(int)
+# outgoing rotations only (months in sample 4 and 8)
+P["union"] = (P["PEERNLAB"] == 1).astype(float).where(P["PEERNLAB"] > 0)
+P["wkearn"] = (P["PTERNWA"] / 100.0).where(P["PTERNWA"] > 0)
 P["region"] = np.select(
     [P["GESTFIPS"].isin(NEs), P["GESTFIPS"].isin(MWs), P["GESTFIPS"].isin(SOs)],
     ["Northeast", "Midwest", "South"], default="West")
+P["tch_i"] = P["tch"].astype(int)
 
 
 def wsh(g, col):
     return np.average(g[col], weights=g["PWSSWGT"]) * 100
 
 
-T, O = P[P["tch"]], P[~P["tch"]]
-fig, axes = plt.subplots(1, 3, figsize=(9.8, 3.3),
-                         gridspec_kw={"width_ratios": [3, 3.4, 2.6]})
+def wmean(g, col):
+    m = g[col].notna()
+    return np.average(g.loc[m, col], weights=g.loc[m, "PWSSWGT"])
 
-# (a) age distribution
-ax = axes[0]
-bins = np.arange(20, 75, 5)
+
+def wmedian(g, col):
+    m = g[col].notna()
+    s = g.loc[m].sort_values(col)
+    cw = s["PWSSWGT"].cumsum() / s["PWSSWGT"].sum()
+    return s.loc[cw >= 0.5, col].iloc[0]
+
+
+T, O = P[P["tch"]], P[~P["tch"]]
+
+# ---------- portrait table with tests ----------
+import statsmodels.formula.api as smf
+
+
+def pstars(p):
+    return "$^{***}$" if p < 0.01 else "$^{**}$" if p < 0.05 else \
+        "$^{*}$" if p < 0.1 else ""
+
+
+PORTRAIT = [
+    ("Age, years", "PRTAGE", "num"),
+    ("Female", "female", "pct"),
+    ("White", "white", "pct"),
+    ("Black", "black", "pct"),
+    ("Asian", "asian", "pct"),
+    ("Hispanic", "hispanic", "pct"),
+    ("Non-citizen", "noncitizen", "pct"),
+    ("Married", "married", "pct"),
+    ("Number of own children ($<$18) at home", "n_children", "num"),
+    ("Child under 6 at home", "child_u6", "pct"),
+    ("Master's degree", "ma_only", "pct"),
+    ("Professional degree or doctorate", "prof_phd", "pct"),
+    ("Public-sector employer", "public", "pct"),
+    ("Union member$^{a}$", "union", "pct"),
+    ("Usual weekly hours", "hours", "num"),
+    ("Part-time ($<$35 h/week)", "parttime", "pct"),
+    ("Holds more than one job", "multjob", "pct"),
+    ("Weekly earnings, median$^{a}$", "wkearn", "usd"),
+    ("Family income \\$75k+", "faminc75k", "pct"),
+]
+with open("report/table_portrait.tex", "w") as fh:
+    fh.write("\\begin{tabular}{lccc}\n\\toprule\n"
+             " & School teachers & Other college- & Difference \\\\\n"
+             " & & educated workers & \\\\\n\\midrule\n")
+    for lab, v, kind in PORTRAIT:
+        if kind == "usd":
+            a, b = wmedian(T, v), wmedian(O, v)
+            cells = [f"\\${a:,.0f}", f"\\${b:,.0f}", f"$-$\\${b-a:,.0f}"]
+            sub = P[P[v].notna()]
+            t = smf.wls(f"{v} ~ tch_i", data=sub,
+                        weights=sub["PWSSWGT"]).fit(
+                cov_type="cluster", cov_kwds={"groups": sub["HRHHID"]})
+            cells[2] += pstars(t.pvalues["tch_i"])
+        else:
+            a, b = (wmean(T, v) * 100, wmean(O, v) * 100) if kind == "pct" \
+                else (wmean(T, v), wmean(O, v))
+            fmt = (lambda x: f"{x:.1f}\\%") if kind == "pct" else \
+                  (lambda x: f"{x:.1f}")
+            sub = P[P[v].notna()]
+            t = smf.wls(f"{v} ~ tch_i", data=sub,
+                        weights=sub["PWSSWGT"]).fit(
+                cov_type="cluster", cov_kwds={"groups": sub["HRHHID"]})
+            d = t.params["tch_i"]
+            dtxt = f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}"
+            cells = [fmt(a), fmt(b), dtxt + pstars(t.pvalues["tch_i"])]
+        fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
+    fh.write("\\midrule\nPersons (monthly interviews pooled) & "
+             f"{len(T):,} & {len(O):,} & \\\\\n\\bottomrule\n\\end{{tabular}}\n")
+print("wrote report/table_portrait.tex")
+print(f"union: T {wmean(T,'union')*100:.1f}% vs O {wmean(O,'union')*100:.1f}%")
+print(f"median weekly earnings: T ${wmedian(T,'wkearn'):,.0f} "
+      f"vs O ${wmedian(O,'wkearn'):,.0f}")
+# ---------- fig12a: age distribution, standalone ----------
+fig, ax = plt.subplots(figsize=(6.6, 3.2))
+bins = np.arange(20, 75, 2)
 for g, c in [(O, GRAY), (T, BLUE)]:
     h, _ = np.histogram(g["PRTAGE"], bins=bins, weights=g["PWSSWGT"])
-    ax.plot(bins[:-1] + 2.5, h / h.sum() * 100, color=c, lw=2,
+    ax.plot(bins[:-1] + 1, h / h.sum() * 100, color=c, lw=2,
             solid_capstyle="round")
-ax.set_title("Age distribution, %", loc="left", fontsize=10, color=NAVY,
-             fontweight="bold", pad=8)
+handles = [plt.Line2D([], [], color=c, lw=2) for c in (BLUE, GRAY)]
+ax.legend(handles, ["School teachers", "Other college-educated workers"],
+          loc="upper right", frameon=False, fontsize=9)
 ax.set_ylim(0, None)
 ax.set_xlabel("Age")
+ax.set_ylabel("% of the group")
 ax.tick_params(length=0)
+fig.tight_layout()
+fig.savefig("report/figures/fig12a_age.pdf")
+plt.close(fig)
 
-# (b) composition dumbbells
-ax = axes[1]
+# ---------- fig12b: composition and region dumbbells ----------
+fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.3),
+                         gridspec_kw={"width_ratios": [3.4, 2.6]})
+ax = axes[0]
 traits = [("Female", "female"), ("Master's degree+", "ma_plus"),
-          ("Public sector", "public"), ("Married", "married"),
-          ("Child under 6", "child_u6"), ("Part-time", "parttime")]
+          ("Public sector", "public"), ("Union member", "union"),
+          ("Married", "married"), ("Child under 6", "child_u6"),
+          ("Part-time", "parttime")]
 yy = np.arange(len(traits))[::-1]
 for yi, (lab, v) in zip(yy, traits):
-    a, b = wsh(O, v), wsh(T, v)
+    a, b = wmean(O, v) * 100, wmean(T, v) * 100
     ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
     ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
                linewidth=2)
@@ -258,8 +353,7 @@ ax.set_title("Share with the trait, %", loc="left", fontsize=10,
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
 
-# (c) regional distribution
-ax = axes[2]
+ax = axes[1]
 regs = ["Northeast", "Midwest", "South", "West"]
 yy = np.arange(len(regs))[::-1]
 for yi, r in zip(yy, regs):
@@ -279,11 +373,12 @@ ax.set_title("Region of residence, %", loc="left", fontsize=10,
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
 
-handles = [plt.Line2D([], [], color=c, lw=2) for c in (BLUE, GRAY)]
+handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c)
+           for c in (BLUE, GRAY)]
 axes[0].legend(handles, ["School teachers", "Other college-educated"],
-               loc="lower center", frameon=False, fontsize=8)
-fig.tight_layout(w_pad=2.0)
-fig.savefig("report/figures/fig12_portrait.pdf")
+               loc="lower right", frameon=False, fontsize=8)
+fig.tight_layout(w_pad=2.2)
+fig.savefig("report/figures/fig12b_traits.pdf")
 plt.close(fig)
 print("portrait: teachers female", round(wsh(T, 'female')),
       "% vs others", round(wsh(O, 'female')), "%")

@@ -62,9 +62,10 @@
   \item Part-time work (+11 percentage points) and private-sector employment
   (+7) are the strongest predictors of leaving; higher pay retains. Risk is
   U-shaped in age, lowest around 40, and higher for Black and non-citizen
-  teachers. Teachers with children at home leave less, but that protection
-  vanishes for women with a child under 6. The results are almost identical
-  under both definitions.
+  teachers. A new baby during the year does not move men's exit probability
+  but raises women's by 5 points, and most new mothers who leave exit the
+  labor force entirely. The results are almost identical under both
+  definitions.
   \item The typical leaver is a woman in her late career, working part-time,
   more often in a private school. The highest-risk decile has a 37\% exit
   probability, 2.5 times the average.
@@ -166,25 +167,63 @@ brief, are far less affected.
 
 \section*{\color{ecnavy}2. The teacher workforce}
 
-Before asking who leaves, Figure~\ref{fig:portrait} describes who teaches.
-Compared with other college-educated workers, teachers are overwhelmingly
-women (76 vs 49 percent), more credentialed (54 percent hold a master's
-degree or more, against 36 percent), concentrated in the public sector (75
-vs 14 percent) and mid-career, with a thicker mass between 35 and 55. Their
-geographic distribution tracks the rest of the college workforce, so
-attrition patterns are not driven by teachers living in different parts of
-the country.
+Before asking who leaves, this section describes who teaches, comparing
+teachers with all other college-educated workers in 2021--2025. Teaching is
+a demographically distinct segment of the graduate labor market. Teachers
+are overwhelmingly women (76 vs 49 percent) and disproportionately white;
+Asian and foreign-born graduates are strongly under-represented. They are
+slightly younger on average, more often married and with more children at
+home. Their age distribution (Figure~\ref{fig:agedist}) is more concentrated
+in mid-career, with a thicker mass between 35 and 55 and thinner tails at
+both ends.
 
 \begin{figure}[h!]
-  \caption{Who teaches: school teachers vs other college-educated workers,
-  2021--2025.}
-  \label{fig:portrait}
-  \includegraphics[width=\textwidth]{figures/fig12_portrait.pdf}
+  \caption{Age distribution of school teachers and of other college-educated
+  workers, 2021--2025.}
+  \label{fig:agedist}
+  \includegraphics[width=0.82\textwidth]{figures/fig12a_age.pdf}
   \fignote{Notes: Both groups are employed persons with at least a bachelor's
-  degree; teachers are identified as in Table~\ref{tab:pop}. Shares are
-  weighted to population and pooled over 2021--2025. Source: authors'
-  calculations from CPS basic monthly microdata.}
+  degree; teachers are identified as in Table~\ref{tab:pop}. Weighted to
+  population. Source: authors' calculations from CPS basic monthly
+  microdata, 2021--2025.}
 \end{figure}
+
+As a job, teaching is even more distinctive (Figure~\ref{fig:traits} and
+Table~\ref{tab:portrait}). Three quarters of teachers work for the public
+sector, against 15 percent of comparable graduates, and 47 percent are union
+members, against 8 percent. Half hold a master's degree, twice the rate of
+other graduates. Hours are standard full-time and part-time work is less
+common than elsewhere. The price of this stability is pay: the median
+teacher earns \$1,200 a week, 20 percent less than the \$1,500 of comparable
+college-educated workers. Geographically, teachers are spread across the
+country like the rest of the college workforce, so attrition patterns are
+not driven by where teachers live.
+
+\begin{figure}[h!]
+  \caption{Composition of the teaching workforce vs other college-educated
+  workers, 2021--2025.}
+  \label{fig:traits}
+  \includegraphics[width=\textwidth]{figures/fig12b_traits.pdf}
+  \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
+  is only asked in the outgoing rotations. Shares are weighted to population.
+  Source: authors' calculations from CPS basic monthly microdata,
+  2021--2025.}
+\end{figure}
+
+\begin{table}[h!]
+  \caption{Balance: school teachers vs other college-educated workers,
+  2021--2025 (weighted).}
+  \label{tab:portrait}
+  \centering\small
+  \input{table_portrait}
+  \fignote{Notes: Both groups are employed persons with at least a bachelor's
+  degree. The last column reports the teacher minus non-teacher difference
+  and the significance of a two-sample test with standard errors clustered
+  by household: $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.
+  $^{a}$~Union membership and weekly earnings are only asked in the outgoing
+  rotations (months in sample 4 and 8). Source: authors' calculations from
+  CPS basic monthly microdata, 2021--2025.}
+\end{table}
 
 Weighted to population, the CPS counts a stable stock of about 4.7 million
 degree-holding school teachers (Figure~\ref{fig:stock}), most of them in
@@ -325,12 +364,14 @@ points relative to public schools, the two largest effects in the model.
 Second, pay retains. Weekly earnings are only collected in the outgoing
 rotations, so we estimate the wage effect on that subsample (44{,}823
 teachers): ten percent higher weekly earnings lower the probability of
-leaving by 0.3 points. Third, family variables matter but not in the
-expected direction: each own child at home lowers exit risk by about 1
-point, and a child under 6 lowers it further for men, while the interaction
-shows that women with a young child lose that protection entirely ($+1.9$
-points). The CPS records resident children at baseline, not new births, so
-this is a stock effect rather than the effect of childbirth itself. Fourth,
+leaving by 0.3 points. Third, the family results separate stocks from events. The stock of
+children retains: each own child at home lowers exit risk by about 1 point.
+The event of a birth does the opposite, and only for women: a new baby
+during the year leaves men's exit probability unchanged ($-0.7$ points, not
+significant) but raises women's by 5.1 points, and 58 percent of the new
+mothers who leave exit the labor force entirely, against 30 percent of the
+average leaver. This is the fertility channel the literature emphasizes,
+invisible when only the stock of children is used. Fourth,
 minority and non-citizen teachers are significantly more likely to leave
 (Black $+5.7$, non-citizen $+5.7$, Hispanic $+1.4$ points), a retention gap
 that matters for workforce diversity. Fifth, credentials cut both ways:

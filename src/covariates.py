@@ -6,7 +6,8 @@ literature. Education enters as master's+ vs the bachelor's-only reference.
 """
 
 COVS = ["age", "age2", "female", "married", "n_children", "child_u6",
-        "fem_child_u6", "black", "hispanic", "noncitizen",
+        "fem_child_u6", "new_baby", "fem_newbaby",
+        "black", "hispanic", "noncitizen",
         "ma_plus", "prof_phd", "parttime", "hours_missing", "multjob",
         "public", "faminc75k", "midwest", "south", "west",
         "preschool_kg", "secondary", "special_ed"]
@@ -20,6 +21,8 @@ LABELS = {
     "n_children": "Number of own children",
     "child_u6": "Child under 6 at home",
     "fem_child_u6": "Female $\\times$ child under 6",
+    "new_baby": "New baby during the year",
+    "fem_newbaby": "Female $\\times$ new baby",
     "black": "Black",
     "hispanic": "Hispanic",
     "noncitizen": "Non-citizen",
@@ -79,6 +82,11 @@ def add_covariates(df):
     df["fem_child_u6"] = df["female"] * df["child_u6"]
     df["fem_fertile"] = ((df["female"] == 1)
                          & df["PRTAGE_0"].between(25, 44)).astype(int)
+    # a child aged 0-2 present at t+12 but not at t: a birth during the year
+    U3 = [1, 5, 6, 7, 11, 12, 13, 15]
+    df["new_baby"] = (df["PRCHLD_1"].isin(U3)
+                      & ~df["PRCHLD_0"].isin(U3)).astype(int)
+    df["fem_newbaby"] = df["female"] * df["new_baby"]
     df["black"] = (df["PTDTRACE_0"] == 2).astype(int)
     df["hispanic"] = (df["PEHSPNON_0"] == 1).astype(int)
     df["noncitizen"] = (df["PRCITSHP_0"] == 5).astype(int)
