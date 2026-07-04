@@ -79,9 +79,8 @@ for lab, k in [("Adults interviewed in an average month", "adults"),
                 "teachers_ba")]:
     n, w = month_avg(k)
     rows.append((lab, f"{n:,.0f}", f"{w:.1f}M"))
-rows.append(("Teachers linked to their interview 12 months later "
-             "(unique persons, 20 waves)", f"{n_linked:,}",
-             "the same 4.6M"))
+rows.append(("Linked 12 months later (unique persons, 20 waves)",
+             f"{n_linked:,}", "the same 4.6M"))
 rows.append(("\\quad with re-interviews after $t{+}12$: \\textbf{main sample}",
              f"{n_followup:,}", "the same 4.6M"))
 with open("report/table_population.tex", "w") as fh:
@@ -340,14 +339,16 @@ for yi, (lab, v) in zip(yy, traits):
     ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
     ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
                linewidth=2)
-    ax.scatter([b], [yi], s=54, color=BLUE, zorder=3, edgecolor=SURFACE,
+    ax.scatter([b], [yi], s=54, color=BLUE, zorder=4, edgecolor=SURFACE,
                linewidth=2)
-    off = 3 if b >= a else -3
+    off = 3.2 if b >= a else -3.2
     ax.text(b + off, yi, f"{b:.0f}%", va="center",
             ha="left" if b >= a else "right", fontsize=9, color=INK,
             fontweight="bold")
+    ax.text(a - off, yi, f"{a:.0f}%", va="center",
+            ha="right" if b >= a else "left", fontsize=9, color=SUBTLE)
 ax.set_yticks(yy, [t for t, _ in traits], fontsize=9.5)
-ax.set_xlim(-2, 108)
+ax.set_xlim(-6, 112)
 ax.set_title("Share with the trait, %", loc="left", fontsize=10,
              color=NAVY, fontweight="bold", pad=8)
 ax.tick_params(length=0)
@@ -362,12 +363,14 @@ for yi, r in zip(yy, regs):
     ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
     ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
                linewidth=2)
-    ax.scatter([b], [yi], s=54, color=BLUE, zorder=3, edgecolor=SURFACE,
+    ax.scatter([b], [yi], s=54, color=BLUE, zorder=4, edgecolor=SURFACE,
                linewidth=2)
-    ax.text(max(a, b) + 1.6, yi, f"{b:.0f}%", va="center", fontsize=9,
+    ax.text(max(a, b) + 1.8, yi, f"{b:.0f}%", va="center", fontsize=9,
             color=INK, fontweight="bold")
+    ax.text(min(a, b) - 1.8, yi, f"{a:.0f}%", va="center", ha="right",
+            fontsize=9, color=SUBTLE)
 ax.set_yticks(yy, regs, fontsize=9.5)
-ax.set_xlim(0, 48)
+ax.set_xlim(4, 50)
 ax.set_title("Region of residence, %", loc="left", fontsize=10,
              color=NAVY, fontweight="bold", pad=8)
 ax.tick_params(length=0)

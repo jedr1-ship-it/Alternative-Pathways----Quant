@@ -165,23 +165,33 @@ plt.close(fig)
 # ---------- Figure 11: attrition by birth cohort and sex ----------
 df["birth_year"] = df["base_year"] - df["age"]
 df["cohort"] = (df["birth_year"] // 5) * 5
+df["haskids"] = (df["n_children"] > 0).astype(int)
 coh = []
 for (c, f), g in df.groupby(["cohort", "female"]):
     if len(g) < 400:
         continue
-    coh.append({"cohort": c, "female": f,
+    coh.append({"cohort": c, "group": "Women" if f else "Men",
+                "rate": np.average(g["leaver_p"], weights=g[W]) * 100,
+                "n": len(g)})
+for c, g in df[(df.female == 1) & (df.haskids == 1)].groupby("cohort"):
+    if len(g) < 400:
+        continue
+    coh.append({"cohort": c, "group": "Women with children",
                 "rate": np.average(g["leaver_p"], weights=g[W]) * 100,
                 "n": len(g)})
 coh = pd.DataFrame(coh)
-fig, ax = plt.subplots(figsize=(6.9, 3.4))
-for f, c, lab in [(1, CORAL, "Women"), (0, BLUE, "Men")]:
-    s = coh[coh.female == f].sort_values("cohort")
-    ax.plot(s.cohort, s.rate, color=c, lw=2, solid_capstyle="round")
+fig, ax = plt.subplots(figsize=(6.9, 3.5))
+SERIES = [("Men", BLUE, "-"), ("Women", CORAL, "-"),
+          ("Women with children", GOLD, "-")]
+for lab, c, ls in SERIES:
+    s = coh[coh.group == lab].sort_values("cohort")
+    ax.plot(s.cohort, s.rate, color=c, lw=2, ls=ls,
+            solid_capstyle="round")
     ax.scatter([s.cohort.iloc[-1]], [s.rate.iloc[-1]], s=42, color=c,
                zorder=4, edgecolor=SURFACE, linewidth=2)
-handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)]
-ax.legend(handles, ["Women", "Men"], loc="upper center", frameon=False,
-          fontsize=9)
+handles = [plt.Line2D([], [], color=c, lw=2) for _, c, _ in SERIES]
+ax.legend(handles, [l for l, *_ in SERIES], loc="upper center",
+          frameon=False, fontsize=9)
 ax.set_xlabel("Birth cohort (five-year bins)")
 ax.set_ylabel("% leaving per year")
 ax.set_ylim(0, None)
