@@ -76,7 +76,7 @@ for b, v in zip(bars, order.values):
     ax.text(v + 0.6, b.get_y() + b.get_height() / 2, f"{v:.0f}%",
             va="center", fontsize=10, color=INK, fontweight="bold")
 ax.set_xlim(0, order.max() * 1.18)
-ax.set_xlabel("Share of persistent leavers, 12 months after teaching (%)")
+ax.set_xlabel("Share of non-returning leavers, 12 months after teaching (%)")
 ax.xaxis.grid(True); ax.yaxis.grid(False)
 fig.tight_layout()
 fig.savefig("report/figures/fig10_where.pdf")

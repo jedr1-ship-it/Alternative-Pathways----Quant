@@ -291,7 +291,7 @@ with open("report/table_probit.tex", "w") as f:
 {table}
 \\midrule
 Base-year fixed effects & Yes & Yes \\\\
-Mean of dependent variable & 0.151 & 0.151 \\\\
+Mean of dependent variable & {df['leaver_p'].mean():.3f} & {df['leaver_p'].mean():.3f} \\\\
 Persons & {int(m.nobs):,} & {int(m.nobs):,} \\\\
 Pseudo $R^2$ & {m.prsquared:.3f} & \\\\
 \\bottomrule

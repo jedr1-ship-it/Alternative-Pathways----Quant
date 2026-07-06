@@ -213,7 +213,7 @@ Table~\ref{tab:periods} reports the same evolution by sub-period together
 with formal tests, and every one of these changes is significant at the one
 percent level.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \caption{The changing profile of the teaching workforce.}
   \label{fig:evolution}
@@ -239,7 +239,7 @@ flows roughly balance, although in recent years exits have run persistently
 above entries.
 
 
-\begin{figure}[htbp]
+\begin{figure}[b]
   \centering
   \caption{Teachers entering and leaving each year.}
   \label{fig:flows}
@@ -268,7 +268,7 @@ is of course open, since good schools may retain teachers and stable
 teaching forces may also produce good schools, but the association places
 teacher retention squarely inside the education-quality conversation.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \caption{Where teachers leave: attrition by state, 2005--2025.}
   \label{fig:map}
@@ -279,7 +279,7 @@ teacher retention squarely inside the education-quality conversation.
   pairs, 2005--2025.}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[b]
   \centering
   \caption{States with better NAEP scores lose fewer teachers.}
   \label{fig:naep}
@@ -304,7 +304,7 @@ about 13 percent in 2005--2010 to about 17 percent in 2022--2024, peaking at
 2024. Gender gaps are small and unstable throughout, and in the most recent
 year men, at 19.8 percent, actually exceeded women, at 17.4.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \caption{Attrition net of returns by year and gender.}
   \label{fig:evol}
@@ -331,7 +331,7 @@ labor force for reasons other than retirement or disability, at a mean age
 of 39 consistent with family care, against 5 percent of men, while men move
 more often into management and professional jobs, 26 against 19 percent.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \caption{Situation of non-returning leavers twelve months after teaching.}
   \label{fig:where}
@@ -353,7 +353,7 @@ while exits into non-participation have stayed flat at 4 to 5 percent and
 unemployment spikes only in recessions. Teaching is increasingly losing
 people to other jobs, not to inactivity.
 
-\begin{figure}[htbp]
+\begin{figure}[b]
   \centering
   \caption{Leavers by destination over time.}
   \label{fig:desttime}
@@ -400,7 +400,7 @@ leaves at almost 20 percent, the highest rate shown. Motherhood splits women
 into the most attached group and the most exit-prone one, and the average
 conceals both.
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \caption{Attrition by birth cohort and sex.}
   \label{fig:cohort}
@@ -415,8 +415,9 @@ conceals both.
 
 \section*{6. Why teachers leave}
 
-To weigh all these characteristics against each other at once, I estimate a
-probit model for the probability that teacher $i$, observed in year $t$,
+To weigh all these characteristics against each other at once, and to
+distill them into the portrait of the typical leaver that
+Figure~\ref{fig:profile} will draw, I estimate a probit model for the probability that teacher $i$, observed in year $t$,
 leaves without an observed return,
 \begin{equation}
 \Pr(\text{leave}_{i}=1 \mid x_{i}) \;=\; \Phi\!\left(x_{i}'\beta +
@@ -466,7 +467,17 @@ Figure~\ref{fig:age}). Every effect is nearly identical under the
 conventional 12-month definition, with part-time at $+13.6$ against
 $+11.3$, so the predictors do not depend on how leaving is measured.
 
-\begin{figure}[htbp]
+\begin{figure}[b]
+  \centering
+  \caption{Characteristics of the top predicted-risk decile vs all teachers.}
+  \label{fig:profile}
+  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
+  \fignote{Notes: Predicted probabilities from the probit of
+  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
+  pairs, 2005--2025.}
+\end{figure}
+
+\begin{figure}[t]
   \centering
   \caption{Average marginal effects on the probability of
   leaving teaching, with 95\% confidence intervals.}
@@ -506,18 +517,8 @@ anchored in the public sector, where only 40 percent of the group works
 against 78 percent of all teachers, with Black teachers over-represented at
 14 against 6 percent.
 
-\begin{figure}[htbp]
-  \centering
-  \caption{Characteristics of the top predicted-risk decile vs all teachers.}
-  \label{fig:profile}
-  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
-  \fignote{Notes: Predicted probabilities from the probit of
-  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
-  pairs, 2005--2025.}
-\end{figure}
 
 \section*{8. Policy implications}
-\enlargethispage{\baselineskip}
 
 The results locate attrition in weak attachment to the job, in part-time
 hours, private-sector positions and both career extremes, rather than in
@@ -589,17 +590,19 @@ object of this paper, are far less affected.
 \section*{Appendix B. Additional figures and tables}
 
 This appendix collects the supporting material referenced in the main
-text: the age and composition contrasts behind Table~\ref{tab:big}, the
-level composition of the teaching stock, the sub-period profile of the
-workforce, the stayer-leaver comparison, the subsample estimates, the
-predicted age profile, and the full regression output.
+text, moving from description to estimation. It shows the age and
+composition contrasts behind Table~\ref{tab:big}, the stock of teachers
+and its composition by teaching level, the sub-period profile of the
+workforce and the stayer-leaver comparison, and then the model material,
+namely the predicted age profile, the subsample estimates, the estimator
+robustness checks and the full regression output.
 
 \begin{figure}[htbp]
   \centering
   \caption{Age distribution of school teachers and of other college-educated
   workers, 2021--2025.}
   \label{fig:agedist}
-  \includegraphics[width=0.82\textwidth]{figures/fig12a_age.pdf}
+  \includegraphics[width=0.8\textwidth]{figures/fig12a_age.pdf}
   \fignote{Notes: Both groups are employed persons with at least a bachelor's
   degree, and teachers are identified as in Table~\ref{tab:pop}. Weighted to
   population. Source: author's calculations from CPS basic monthly microdata,
@@ -611,7 +614,7 @@ predicted age profile, and the full regression output.
   \caption{Composition of the teaching workforce vs other college-educated
   workers, 2021--2025.}
   \label{fig:traits}
-  \includegraphics[width=0.86\textwidth]{figures/fig12b_traits.pdf}
+  \includegraphics[width=0.8\textwidth]{figures/fig12b_traits.pdf}
   \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
   is only asked in the outgoing rotations. Shares are weighted to population.
   Source: author's calculations from CPS basic monthly microdata, 2021--2025.}
@@ -623,7 +626,7 @@ predicted age profile, and the full regression output.
   \centering
   \caption{The stock of school teachers.}
   \label{fig:stock}
-  \includegraphics[width=0.78\textwidth]{figures/fig7_stock.pdf}
+  \includegraphics[width=0.8\textwidth]{figures/fig7_stock.pdf}
   \fignote{Notes: Employed school teachers with a bachelor's degree or
   higher, annual average of monthly weighted estimates. Source: author's
   calculations from CPS basic monthly microdata, 2005--2025.}
@@ -631,36 +634,12 @@ predicted age profile, and the full regression output.
 
 \begin{figure}[htbp]
   \centering
-  \caption{The same model estimated on subsamples.}
-  \label{fig:het}
-  \includegraphics[width=\textwidth]{figures/fig15_heterogeneity.pdf}
-  \fignote{Notes: Average marginal effects with 95\% confidence intervals
-  from the probit of Table~\ref{tab:probit} estimated separately on each
-  subsample; lighter marks are not significant at the 5 percent level. The
-  birth and young-child effects are shown only in the sex panel because they
-  are sex-specific. Source: author's calculations from linked CPS pairs,
-  2005--2025.}
-\end{figure}
-
-
-\begin{figure}[htbp]
-  \centering
   \caption{Teachers by teaching level.}
   \label{fig:levels}
-  \includegraphics[width=0.84\textwidth]{figures/fig8_by_level.pdf}
+  \includegraphics[width=0.8\textwidth]{figures/fig8_by_level.pdf}
   \fignote{Notes: Same identification as Figure~\ref{fig:stock}, split by
   occupation code. Source: author's calculations from CPS basic monthly
   microdata, 2005--2025.}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \caption{Predicted probability of leaving by age.}
-  \label{fig:age}
-  \includegraphics[width=0.80\textwidth]{figures/fig4_age_profile.pdf}
-  \fignote{Notes: Predicted probabilities from the probit of
-  Table~\ref{tab:probit}, holding all other covariates at their sample
-  means, with a simulation-based 95\% confidence band.}
 \end{figure}
 
 \begin{table}[htbp]
@@ -696,6 +675,36 @@ predicted age profile, and the full regression output.
   basic monthly microdata, 2005--2025.}
 \end{table}
 
+\begin{figure}[htbp]
+  \centering
+  \caption{Predicted probability of leaving by age.}
+  \label{fig:age}
+  \includegraphics[width=0.8\textwidth]{figures/fig4_age_profile.pdf}
+  \fignote{Notes: Predicted probabilities from the probit of
+  Table~\ref{tab:probit}, holding all other covariates at their sample
+  means, with a simulation-based 95\% confidence band. Source: author's
+  calculations from linked CPS pairs, 2005--2025.}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \caption{The same model estimated on subsamples.}
+  \label{fig:het}
+  \includegraphics[width=\textwidth]{figures/fig15_heterogeneity.pdf}
+  \fignote{Notes: Average marginal effects with 95\% confidence intervals
+  from the probit of Table~\ref{tab:probit} estimated separately on each
+  subsample; lighter marks are not significant at the 5 percent level. The
+  birth and young-child effects are shown only in the sex panel because they
+  are sex-specific. Source: author's calculations from linked CPS pairs,
+  2005--2025.}
+\end{figure}
+
+
+
+
+
+
+
 \begin{table}[htbp]
   \caption{Robustness of the marginal effects to estimator and sample.}
   \label{tab:robust}
@@ -703,10 +712,13 @@ predicted age profile, and the full regression output.
   \renewcommand{\arraystretch}{0.95}
   \input{table_robustness}
   \fignote{Notes: Each column re-estimates the full specification of Appendix
-  Table~\ref{tab:probit}. Columns (1), (2) and (4) report average marginal
-  effects in percentage points from probit and logit models; column (3)
-  reports linear probability model coefficients multiplied by one hundred.
-  Standard errors clustered by household in parentheses.
+  Table~\ref{tab:probit} on the same analytic sample. Columns (1), (2) and
+  (4) report average marginal effects in percentage points from probit and
+  logit models; column (3) reports linear probability model coefficients
+  multiplied by one hundred, so all four columns are directly comparable.
+  Column (4) drops the 2019--2021 base years. All models are estimated
+  without survey weights and include base-year fixed effects; delta-method
+  standard errors clustered by household in parentheses.
   $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 
@@ -714,17 +726,18 @@ predicted age profile, and the full regression output.
   \caption{Determinants of leaving teaching, 2005--2025.}
   \label{tab:probit}
   \centering\footnotesize
-  \renewcommand{\arraystretch}{0.94}
+  \renewcommand{\arraystretch}{0.85}
   \input{table_probit}
   \fignote{Notes: The outcome is the non-returning leaver defined in Section
   1. Column (1) reports probit coefficients and column (2) the corresponding
   average marginal effects in percentage points, with standard errors
-  clustered by household in parentheses below each estimate. The sample is
-  all school teachers with a bachelor's degree or higher whose rotation
-  includes at least one interview after the twelve-month link. Reference
-  categories are full-time hours, a bachelor's degree, a private-sector
-  employer, elementary or middle school, and the Northeast region. These
-  estimates are conditional associations, not causal effects.
+  clustered by household in parentheses below each estimate, delta-method
+  in column (2). The sample is all school teachers with a bachelor's degree
+  or higher whose rotation includes at least one interview after the
+  twelve-month link; the model is estimated without survey weights.
+  Reference categories are full-time hours, a bachelor's degree, a
+  private-sector employer, elementary or middle school, and the Northeast
+  region. These estimates are conditional associations, not causal effects.
   $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 

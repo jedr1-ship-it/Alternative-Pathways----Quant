@@ -66,9 +66,11 @@ with open("report/table_robustness.tex", "w") as fh:
             serow.append(f"({se:.2f})")
         fh.write(" & ".join(row) + " \\\\\n")
         fh.write(" & ".join(serow) + " \\\\[2pt]\n")
+    mdep, mdepx = B["leaver_p"].mean(), Bx["leaver_p"].mean()
     fh.write(f"""\\midrule
 Base-year fixed effects & Yes & Yes & Yes & Yes \\\\
 Full covariate set & Yes & Yes & Yes & Yes \\\\
+Mean of dependent variable & {mdep:.3f} & {mdep:.3f} & {mdep:.3f} & {mdepx:.3f} \\\\
 Persons & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
 \\bottomrule
 \\end{{tabular}}
