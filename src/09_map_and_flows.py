@@ -53,8 +53,8 @@ for col, c, lab in series:
     ax.text(d.year.iloc[-1] + 0.4, d[col].iloc[-1], f"{d[col].iloc[-1]:.0f}%",
             va="center", fontsize=9.5, color=INK, fontweight="bold")
 handles = [plt.Line2D([], [], color=c, lw=2) for _, c, _ in series]
-ax.legend(handles, [lab for *_, lab in series], loc="upper left",
-          frameon=False, fontsize=8.5)
+ax.legend(handles, [lab for *_, lab in series], loc="upper center",
+          bbox_to_anchor=(0.5, 1.16), ncols=3, frameon=False, fontsize=8.5)
 ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
 ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2024])
@@ -121,8 +121,10 @@ NAME2SHARE = dict(zip(st["state"].map(ABBR2NAME), st["share"]))
 gj = json.load(open("data/raw/us_states.geojson"))
 
 cmap = LinearSegmentedColormap.from_list(
-    "ec_blues", ["#dbe9fb", "#5d95d9", "#12355b"])
-norm = Normalize(vmin=st["share"].min(), vmax=st["share"].max())
+    "ec_blues", ["#eef4fc", "#8db6e6", "#3873bd", "#0d2a4a"])
+# clip the tails so mid-range differences get more color intensity
+norm = Normalize(vmin=np.percentile(st["share"], 5),
+                 vmax=np.percentile(st["share"], 95), clip=True)
 
 
 def draw(ax, names):

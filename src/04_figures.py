@@ -191,7 +191,7 @@ for lab, c, ls in SERIES:
                zorder=4, edgecolor=SURFACE, linewidth=2)
 handles = [plt.Line2D([], [], color=c, lw=2) for _, c, _ in SERIES]
 ax.legend(handles, [l for l, *_ in SERIES], loc="upper center",
-          frameon=False, fontsize=9)
+          bbox_to_anchor=(0.5, 1.14), ncols=3, frameon=False, fontsize=9)
 ax.set_xlabel("Birth cohort (five-year bins)")
 ax.set_ylabel("% leaving per year")
 ax.set_ylim(0, None)

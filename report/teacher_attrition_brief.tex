@@ -220,7 +220,7 @@ school-district quality would require restricted geocodes.
   \caption{Composition of the teaching workforce vs other college-educated
   workers, 2021--2025.}
   \label{fig:traits}
-  \includegraphics[width=\textwidth]{figures/fig12b_traits.pdf}
+  \includegraphics[width=0.86\textwidth]{figures/fig12b_traits.pdf}
   \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
   is only asked in the outgoing rotations. Shares are weighted to population.
   Source: authors' calculations from CPS basic monthly microdata,
@@ -512,14 +512,11 @@ leavers back within three months, cheap re-entry pathways such as fast-track
 rehiring, credential portability and return bonuses can recover part of the
 outflow at low cost.
 
-\vspace{8pt}
-\begin{tcolorbox}[colback=ecnavy,colframe=ecnavy,sharp corners,
-                  left=12pt,right=12pt,top=8pt,bottom=8pt]
-{\small\color{white}\textbf{Methods in one line.} Twenty linked CPS 4-8-4
-rotation panels, 2005$\to$2025 · 174{,}872 teachers (129{,}897 with follow-up)
-· persistent-leaver outcome · probit, year FE, household-clustered SE · fully
-reproducible: \texttt{src/02\_build\_cps\_panel.py} $\to$
-\texttt{src/05\_evolution.py} $\to$ \texttt{src/03\_model\_attrition.py}.}
-\end{tcolorbox}
+\vspace{10pt}
+\noindent{\footnotesize\color{ecgray}\textit{Methods.} Twenty linked CPS
+4-8-4 rotation panels, 2005--2025; 174{,}872 teachers, of whom 129{,}897
+with a follow-up interview; persistent-leaver outcome; probit with base-year
+fixed effects and household-clustered standard errors. Fully reproducible
+from the repository scripts.}
 
 \end{document}

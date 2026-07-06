@@ -325,10 +325,8 @@ fig.tight_layout()
 fig.savefig("report/figures/fig12a_age.pdf")
 plt.close(fig)
 
-# ---------- fig12b: composition and region dumbbells ----------
-fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.3),
-                         gridspec_kw={"width_ratios": [3.4, 2.6]})
-ax = axes[0]
+# ---------- fig12b: composition dumbbells (geography lives in the map) ----
+fig, ax = plt.subplots(figsize=(6.9, 3.6))
 traits = [("Female", "female"), ("Master's degree+", "ma_plus"),
           ("Public sector", "public"), ("Union member", "union"),
           ("Married", "married"), ("Child under 6", "child_u6"),
@@ -349,39 +347,15 @@ for yi, (lab, v) in zip(yy, traits):
             ha="right" if b >= a else "left", fontsize=9, color=SUBTLE)
 ax.set_yticks(yy, [t for t, _ in traits], fontsize=9.5)
 ax.set_xlim(-6, 112)
-ax.set_title("Share with the trait, %", loc="left", fontsize=10,
-             color=NAVY, fontweight="bold", pad=8)
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
-
-ax = axes[1]
-regs = ["Northeast", "Midwest", "South", "West"]
-yy = np.arange(len(regs))[::-1]
-for yi, r in zip(yy, regs):
-    a = np.average(O["region"] == r, weights=O["PWSSWGT"]) * 100
-    b = np.average(T["region"] == r, weights=T["PWSSWGT"]) * 100
-    ax.plot([a, b], [yi, yi], color="#d8dbe0", lw=2, zorder=2)
-    ax.scatter([a], [yi], s=54, color=GRAY, zorder=3, edgecolor=SURFACE,
-               linewidth=2)
-    ax.scatter([b], [yi], s=54, color=BLUE, zorder=4, edgecolor=SURFACE,
-               linewidth=2)
-    ax.text(max(a, b) + 1.8, yi, f"{b:.0f}%", va="center", fontsize=9,
-            color=INK, fontweight="bold")
-    ax.text(min(a, b) - 1.8, yi, f"{a:.0f}%", va="center", ha="right",
-            fontsize=9, color=SUBTLE)
-ax.set_yticks(yy, regs, fontsize=9.5)
-ax.set_xlim(4, 50)
-ax.set_title("Region of residence, %", loc="left", fontsize=10,
-             color=NAVY, fontweight="bold", pad=8)
-ax.tick_params(length=0)
-ax.yaxis.grid(False)
-
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c)
            for c in (BLUE, GRAY)]
-axes[0].legend(handles, ["School teachers", "Other college-educated"],
-               loc="lower right", frameon=False, fontsize=8)
-fig.tight_layout(w_pad=2.2)
-fig.savefig("report/figures/fig12b_traits.pdf")
+ax.legend(handles, ["School teachers", "Other college-educated workers"],
+          loc="upper center", bbox_to_anchor=(0.5, -0.08), ncols=2,
+          frameon=False, fontsize=9)
+fig.tight_layout()
+fig.savefig("report/figures/fig12b_traits.pdf", bbox_inches="tight")
 plt.close(fig)
 print("portrait: teachers female", round(wsh(T, 'female')),
       "% vs others", round(wsh(O, 'female')), "%")
