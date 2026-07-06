@@ -80,6 +80,11 @@ def dstars(p):
         "$^{*}$" if p < 0.1 else ""
 
 
+# economic relevance thresholds for highlighting: at least 2 pp for shares,
+# one year of age, or 0.15 children
+ECON_MIN = {"pct": 0.02, "num": 1.0}
+ECON_MIN_VAR = {"n_children": 0.15}
+
 with open("report/table_descriptives.tex", "w") as fh:
     fh.write("\\begin{tabular}{lcccc}\n\\toprule\n & "
              + " & ".join(g for g, _ in groups)
@@ -94,7 +99,11 @@ with open("report/table_descriptives.tex", "w") as fh:
             cov_type="cluster", cov_kwds={"groups": B["HRHHID"]})
         d, p = t.params["leaver_p"], t.pvalues["leaver_p"]
         dtxt = (f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}")
-        cells.append(dtxt + dstars(p))
+        dtxt += dstars(p)
+        thr = ECON_MIN_VAR.get(v, ECON_MIN[kind])
+        if p < 0.05 and abs(d) >= thr:
+            dtxt = "\\cellcolor{sigok}" + dtxt
+        cells.append(dtxt)
         fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
     fh.write("\\midrule\nPersons & "
              + " & ".join(f"{len(g):,}" for _, g in groups)
