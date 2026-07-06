@@ -274,7 +274,7 @@ with open("report/table_portrait.tex", "w") as fh:
     fh.write("\\begin{tabular}{lccc}\n\\toprule\n"
              " & School teachers & Other college- & Difference \\\\\n"
              " & & educated workers & \\\\\n\\midrule\n")
-    for panel, items in PANELS:
+    for ipanel, (panel, items) in enumerate(PANELS):
         rows_out = []
         for lab, v, kind in items:
             sub = P[P[v].notna()]
@@ -295,10 +295,12 @@ with open("report/table_portrait.tex", "w") as fh:
                 dtxt = f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}"
                 cells = [fmt(a), fmt(b), dtxt + pstars(p)]
             rows_out.append((tstat, f"{lab} & " + " & ".join(cells) + " \\\\\n"))
+        if ipanel > 0:
+            fh.write("\\midrule\n")
         fh.write(f"\\multicolumn{{4}}{{l}}{{\\textit{{{panel}}}}} \\\\[2pt]\n")
         for _, line in sorted(rows_out, key=lambda r: -r[0]):
             fh.write(line)
-        fh.write("\\addlinespace[6pt]\n")
+        fh.write("\\addlinespace[3pt]\n")
     fh.write("\\midrule\nPersons (monthly interviews pooled) & "
              f"{len(T):,} & {len(O):,} & \\\\\n\\bottomrule\n\\end{{tabular}}\n")
 print("wrote report/table_portrait.tex")
