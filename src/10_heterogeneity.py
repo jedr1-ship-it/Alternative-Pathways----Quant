@@ -102,7 +102,7 @@ for ax, (split, groups, drop) in zip(axes, SPLITS):
                for _, _, c in groups]
     ax.legend(handles, [g for g, *_ in groups], loc="lower right",
               frameon=False, fontsize=8.5)
-axes[1].set_xlabel("Change in P(persistently leaving teaching), "
+axes[1].set_xlabel("Change in P(leaving teaching), "
                    "percentage points")
 fig.tight_layout(w_pad=1.6)
 fig.savefig("report/figures/fig15_heterogeneity.pdf")

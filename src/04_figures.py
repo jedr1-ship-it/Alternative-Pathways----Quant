@@ -150,7 +150,7 @@ for hy, title in headers:
             ha="left", va="center")
 ax.set_yticks(ypos, ylabels, fontsize=9.5)
 ax.set_ylim(min(ypos) - 1, 1.7)
-ax.set_xlabel("Change in P(persistently leaving teaching), percentage points")
+ax.set_xlabel("Change in P(leaving teaching), percentage points")
 ax.tick_params(length=0)
 ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c) for c in
@@ -280,26 +280,31 @@ def stars(p):
         "$^{*}$" if p < 0.1 else ""
 
 
+# American-Economic-Review-style layout: one column per estimate, standard
+# error in parentheses on the line below, stars on the estimate
 LABELS_TEX = {**LABELS,
               "faminc75k": "Family income \\$75k+",
               "parttime": "Part-time ($<$35 h/week)"}
 rows = []
 for v in COVS:
+    a_se = ame.loc[v, "se"]
     rows.append(
-        f"{LABELS_TEX[v]} & {coefs[v]:.3f}{stars(pvals[v])} & ({ses[v]:.3f}) & "
-        f"{ame.loc[v,'AME']:+.2f}{stars(ame.loc[v,'p'])} \\\\")
+        f"{LABELS_TEX[v]} & {coefs[v]:.3f}{stars(pvals[v])} & "
+        f"{ame.loc[v,'AME']:.2f}{stars(ame.loc[v,'p'])} \\\\")
+    rows.append(f" & ({ses[v]:.3f}) & ({a_se:.2f}) \\\\[2pt]")
 table = "\n".join(rows)
+wmean_dep = float(np.average(df['leaver_p'], weights=df[W]))
 with open("report/table_probit.tex", "w") as f:
-    f.write(f"""\\begin{{tabular}}{{lccc}}
+    f.write(f"""\\begin{{tabular}}{{lcc}}
 \\toprule
- & Probit coef. & (SE) & AME (pp) \\\\
+ & (1) & (2) \\\\
+ & Probit coefficient & Marginal effect (pp) \\\\
 \\midrule
 {table}
 \\midrule
-Constant & {coefs['Intercept']:.3f}{stars(pvals['Intercept'])} & ({ses['Intercept']:.3f}) & \\\\
-Base-year fixed effects & \\multicolumn{{3}}{{c}}{{Yes}} \\\\
-Observations & \\multicolumn{{3}}{{c}}{{{int(m.nobs):,}}} \\\\
-Pseudo $R^2$ & \\multicolumn{{3}}{{c}}{{{m.prsquared:.3f}}} \\\\
+Base-year fixed effects & Yes & Yes \\\\
+Mean of dependent variable & \\multicolumn{{2}}{{c}}{{{wmean_dep:.3f}}} \\\\
+Observations & \\multicolumn{{2}}{{c}}{{{int(m.nobs):,}}} \\\\
 \\bottomrule
 \\end{{tabular}}
 """)
