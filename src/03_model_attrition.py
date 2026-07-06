@@ -98,7 +98,7 @@ with open("report/table_descriptives.tex", "w") as fh:
         t = smf.wls(f"{v} ~ leaver_p", data=B, weights=B["PWSSWGT_0"]).fit(
             cov_type="cluster", cov_kwds={"groups": B["HRHHID"]})
         d, p = t.params["leaver_p"], t.pvalues["leaver_p"]
-        dtxt = (f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}")
+        dtxt = (f"{d*100:.1f}" if kind == "pct" else f"{d:.2f}")
         dtxt += dstars(p)
         thr = ECON_MIN_VAR.get(v, ECON_MIN[kind])
         if p < 0.05 and abs(d) >= thr:

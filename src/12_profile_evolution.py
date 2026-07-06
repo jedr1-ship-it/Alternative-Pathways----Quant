@@ -87,7 +87,7 @@ with open("report/table_profile_periods.tex", "w") as fh:
         t = smf.wls(f"{v} ~ late", data=sub, weights=sub["PWSSWGT"]).fit(
             cov_type="cluster", cov_kwds={"groups": sub["HRHHID"]})
         d, p = t.params["late"], t.pvalues["late"]
-        dtxt = f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}"
+        dtxt = f"{d*100:.1f}" if kind == "pct" else f"{d:.2f}"
         cells.append(dtxt + pstars(p))
         fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
     fh.write("\\midrule\nPersons & "

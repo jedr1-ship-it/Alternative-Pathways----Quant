@@ -139,11 +139,10 @@ with open("report/table_bigpicture.tex", "w") as fh:
                 vals = [wmean(g, v) for g in GROUPS]
                 if kind == "pct":
                     cells = [f"{x*100:.1f}\\%" for x in vals]
-                    cells.append(f"{(vals[2]-vals[3])*100:+.1f}\\,pp"
-                                 + pstars(p))
+                    cells.append(f"{(vals[2]-vals[3])*100:.1f}" + pstars(p))
                 else:
                     cells = [f"{x:.1f}" for x in vals]
-                    cells.append(f"{vals[2]-vals[3]:+.2f}" + pstars(p))
+                    cells.append(f"{vals[2]-vals[3]:.2f}" + pstars(p))
             if v == "female":
                 cells[0], cells[1] = "", ""
             fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
