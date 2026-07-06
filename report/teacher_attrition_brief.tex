@@ -20,6 +20,10 @@
 \captionsetup{font={small},labelfont={bf},
               justification=justified,singlelinecheck=false}
 \makeatletter\setlength{\@fptop}{0pt}\makeatother  % floats start at page top
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.8}
 \setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
 \linespread{1.14}
 \color{ecink}
@@ -105,7 +109,7 @@ on sex, race and a plausible age progression. Because nobody is followed
 across several years, each base year forms a fresh cohort, and I compute
 every rate in this paper wave by wave over twenty waves.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{The CPS follows each person for at most 16 months.}
   \label{fig:design}
@@ -157,7 +161,7 @@ while the price of this stability is pay, since the median teacher earns
 workers. The full age distributions and a visual summary of these contrasts
 are in Appendix Figures~\ref{fig:agedist} and~\ref{fig:traits}.
 
-\begin{table}[H]
+\begin{table}[htbp]
   \caption{Balance: school teachers vs other college-educated workers,
   2021--2025 (weighted).}
   \label{tab:portrait}
@@ -177,6 +181,30 @@ are in Appendix Figures~\ref{fig:agedist} and~\ref{fig:traits}.
 
 
 
+The profile has also been moving. Table~\ref{tab:periods} compares
+teachers across three sub-periods and shows a workforce that is aging, with
+the share under 35 down from 31 to 27 percent, becoming more Hispanic, from
+6 to 10 percent, and steadily more credentialed, with master's degrees up
+from 48 to 54 percent, while two anchors of the traditional teaching career
+erode at the same time, since public-sector employment falls from 80 to 75
+percent of teachers and union membership from 53 to 47 percent. The
+gender mix, in contrast, has not moved at all. Teaching is drifting toward
+the private, non-union segment where, as the results below show, careers
+break most often.
+
+\begin{table}[htbp]
+  \caption{The changing profile of the teaching workforce.}
+  \label{tab:periods}
+  \centering\small
+  \input{table_profile_periods}
+  \fignote{Notes: Weighted means of monthly teacher interviews in each
+  sub-period. The last column reports the change between 2005--2011 and
+  2019--2025 and the significance of a two-sample test with standard errors
+  clustered by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$). Union
+  membership is only asked in the outgoing rotations. Source: author's
+  calculations from CPS basic monthly microdata, 2005--2025.}
+\end{table}
+
 Weighted to population, the stock is remarkably stable at about 4.7 million
 teachers over the whole period (Appendix Figure~\ref{fig:stock}), with the
 composition by teaching level equally steady and dominated by elementary and
@@ -189,7 +217,7 @@ flows roughly balance, although in recent years exits have run persistently
 above entries.
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Teachers entering and leaving each year.}
   \label{fig:flows}
@@ -202,32 +230,34 @@ above entries.
   pairs, 2005--2025.}
 \end{figure}
 
-Geography adds a final layer to the portrait. As the map in
-Figure~\ref{fig:map} shows, teachers are a visibly larger share of state
-employment in New England, New York and parts of the rural South and Plains,
-up to 3.8 percent in Connecticut, Vermont or Mississippi, and a smaller one
-in Nevada, Florida and much of the West Coast, down to 2.2 percent. This
-variation turns out to be related to what schools produce. Linking each
-state to its official NAEP grade-8 mathematics score, the standard state
-measure of school quality, Figure~\ref{fig:naep} shows that states with
-better scores retain their teachers better, with a correlation of $-0.47$
-and roughly one percentage point less attrition for every ten NAEP points.
-The direction of causality is of course open, since good schools may retain
-teachers and stable teaching forces may also produce good schools, but the
-association places teacher retention squarely inside the education-quality
-conversation.
+Geography adds a final layer to the portrait, and here the interesting map
+is not where teachers live but where they quit. Teachers are a somewhat
+larger share of employment in New England and parts of the rural South,
+around 3.8 percent in Connecticut, Vermont or Mississippi, than in Nevada or
+Florida, at 2.2 percent, but attrition varies far more. As
+Figure~\ref{fig:map} shows, annual exit rates range from about 11 percent in
+the most retentive states to above 19 in the least, and the variation lines
+up with what schools produce. Linking each state to its official NAEP
+grade-8 mathematics score, the standard state measure of school quality,
+Figure~\ref{fig:naep} shows that states with better scores retain their
+teachers better, with a correlation of $-0.47$ and roughly one percentage
+point less attrition for every ten NAEP points. The direction of causality
+is of course open, since good schools may retain teachers and stable
+teaching forces may also produce good schools, but the association places
+teacher retention squarely inside the education-quality conversation.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \caption{Teachers as a share of state employment, 2021--2025.}
+  \caption{Where teachers leave: attrition by state, 2005--2025.}
   \label{fig:map}
-  \includegraphics[width=0.9\textwidth]{figures/fig14_map.pdf}
-  \fignote{Notes: Employed school teachers with a bachelor's degree or higher
-  as a share of total state employment, weighted and pooled over 2021--2025.
-  Source: author's calculations from CPS basic monthly microdata.}
+  \includegraphics[width=0.9\textwidth]{figures/fig14b_attrition_map.pdf}
+  \fignote{Notes: Weighted non-returning attrition rate by state, pooling all
+  twenty waves. Rates for the smallest states rest on fewer observations and
+  should be read with care. Source: author's calculations from linked CPS
+  pairs, 2005--2025.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{States with better NAEP scores lose fewer teachers.}
   \label{fig:naep}
@@ -252,7 +282,7 @@ about 13 percent in 2005--2010 to about 17 percent in 2022--2024, peaking at
 2024. Gender gaps are small and unstable throughout, and in the most recent
 year men, at 19.8 percent, actually exceeded women, at 17.4.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Attrition net of returns by year and gender.}
   \label{fig:evol}
@@ -279,7 +309,7 @@ labor force for reasons other than retirement or disability, at a mean age
 of 39 consistent with family care, against 5 percent of men, while men move
 more often into management and professional jobs, 26 against 19 percent.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Situation of non-returning leavers twelve months after teaching.}
   \label{fig:where}
@@ -301,7 +331,7 @@ while exits into non-participation have stayed flat at 4 to 5 percent and
 unemployment spikes only in recessions. Teaching is increasingly losing
 people to other jobs, not to inactivity.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Leavers by destination over time.}
   \label{fig:desttime}
@@ -335,7 +365,7 @@ more than twice the rate of full-time teachers, 32 against 13 percent, and
 preschool and kindergarten teachers face 21 percent against 15 for
 elementary and 13 for secondary school.
 
-\begin{table}[H]
+\begin{table}[htbp]
   \caption{Descriptive statistics of the analytic sample (weighted means).}
   \label{tab:desc}
   \centering\small
@@ -365,7 +395,7 @@ leaves at almost 20 percent, the highest rate shown. Motherhood splits women
 into the most attached group and the most exit-prone one, and the average
 conceals both.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Attrition by birth cohort and sex.}
   \label{fig:cohort}
@@ -431,7 +461,7 @@ Figure~\ref{fig:age}). Every effect is nearly identical under the
 conventional 12-month definition, with part-time at $+13.6$ against
 $+11.3$, so the predictors do not depend on how leaving is measured.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Average marginal effects on the probability of
   leaving teaching, with 95\% confidence intervals.}
@@ -442,6 +472,13 @@ $+11.3$, so the predictors do not depend on how leaving is measured.
   and the hours-not-reported indicator are included in the model but not
   displayed.}
 \end{figure}
+
+None of this depends on the estimator. Re-estimating the same equation as
+a logit or as a linear probability model, or dropping the pandemic years
+2019--2021 altogether, leaves every marginal effect essentially unchanged
+(Appendix Table~\ref{tab:robust}); the part-time effect, for instance,
+moves between 10.8 and 14.7 points across the four variants and the female
+new-baby effect stays between 5.1 and 5.3.
 
 Estimating the same model on subsamples, as Appendix Figure~\ref{fig:het} does,
 confirms that the job effects are strikingly universal, with part-time work
@@ -464,7 +501,7 @@ anchored in the public sector, where only 40 percent of the group works
 against 78 percent of all teachers, with Black teachers over-represented at
 14 against 6 percent.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Characteristics of the top predicted-risk decile vs all teachers.}
   \label{fig:profile}
@@ -491,12 +528,6 @@ within three months, cheap re-entry pathways such as fast-track rehiring,
 credential portability and return bonuses can recover part of the outflow at
 low cost.
 
-\vspace{10pt}
-\noindent{\footnotesize\color{ecgray}\textit{Methods.} Twenty linked CPS
-4-8-4 rotation panels, 2005--2025, with 174{,}872 teachers of whom 129{,}897
-have a follow-up interview. The outcome is the non-returning leaver, estimated
-by probit with base-year fixed effects and household-clustered standard
-errors. Fully reproducible from the repository scripts.}
 
 \clearpage
 \appendix
@@ -527,7 +558,7 @@ moving is correlated with changing jobs my attrition rates are conservative
 on this margin. Linked persons keep their population weights, so all
 weighted rates remain representative of the 4.6 million teachers.
 
-\begin{table}[H]
+\begin{table}[htbp]
   \caption{From the CPS universe to the analytic sample.}
   \label{tab:pop}
   \centering\small
@@ -558,7 +589,7 @@ text: the age and composition contrasts behind Table~\ref{tab:portrait},
 the level composition of the teaching stock, the subsample estimates,
 the predicted age profile, and the full regression output.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Age distribution of school teachers and of other college-educated
   workers, 2021--2025.}
@@ -570,7 +601,7 @@ the predicted age profile, and the full regression output.
   2021--2025.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Composition of the teaching workforce vs other college-educated
   workers, 2021--2025.}
@@ -583,7 +614,7 @@ the predicted age profile, and the full regression output.
 
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{The stock of school teachers.}
   \label{fig:stock}
@@ -593,7 +624,7 @@ the predicted age profile, and the full regression output.
   calculations from CPS basic monthly microdata, 2005--2025.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{The same model estimated on subsamples.}
   \label{fig:het}
@@ -607,7 +638,7 @@ the predicted age profile, and the full regression output.
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Teachers by teaching level.}
   \label{fig:levels}
@@ -617,7 +648,7 @@ the predicted age profile, and the full regression output.
   microdata, 2005--2025.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \caption{Predicted probability of leaving by age.}
   \label{fig:age}
@@ -627,7 +658,21 @@ the predicted age profile, and the full regression output.
   means, with a simulation-based 95\% confidence band.}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
+  \caption{Robustness of the marginal effects to estimator and sample.}
+  \label{tab:robust}
+  \centering\footnotesize
+  \renewcommand{\arraystretch}{0.95}
+  \input{table_robustness}
+  \fignote{Notes: Each column re-estimates the full specification of Appendix
+  Table~\ref{tab:probit}. Columns (1), (2) and (4) report average marginal
+  effects in percentage points from probit and logit models; column (3)
+  reports linear probability model coefficients multiplied by one hundred.
+  Standard errors clustered by household in parentheses.
+  $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
+\end{table}
+
+\begin{table}[htbp]
   \caption{Determinants of leaving teaching, 2005--2025.}
   \label{tab:probit}
   \centering\footnotesize

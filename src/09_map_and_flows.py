@@ -150,3 +150,52 @@ cb.outline.set_visible(False)
 fig.savefig("report/figures/fig14_map.pdf")
 plt.close(fig)
 print("fig14 saved; top:", st.nlargest(3, 'share')[['state', 'share']].round(2).to_dict('records'))
+
+
+# ---------- fig14b: attrition by state (the outcome, mapped) ----------
+att = (B.assign(state=B["GESTFIPS_0"].map(FIPS))
+        .groupby("state")
+        .apply(lambda g: np.average(g["leaver_p"], weights=g["PWSSWGT_0"]) * 100,
+               include_groups=False))
+NAME2ATT = {ABBR2NAME[k]: v for k, v in att.items() if k in ABBR2NAME}
+
+cmap_att = LinearSegmentedColormap.from_list(
+    "attr_reds", ["#F5E3E1", "#D08A82", "#B5443C", "#5E1F1B"])
+norm_att = Normalize(vmin=np.percentile(list(NAME2ATT.values()), 5),
+                     vmax=np.percentile(list(NAME2ATT.values()), 95),
+                     clip=True)
+
+
+def draw_att(ax, names):
+    patches, vals = [], []
+    for ft in gj["features"]:
+        nm = ft["properties"]["name"]
+        if nm not in names or nm not in NAME2ATT:
+            continue
+        geom = ft["geometry"]
+        polys = ([geom["coordinates"]] if geom["type"] == "Polygon"
+                 else geom["coordinates"])
+        for poly in polys:
+            patches.append(MplPolygon(np.asarray(poly[0]), closed=True))
+            vals.append(NAME2ATT[nm])
+    pc = PatchCollection(patches, edgecolor=SURFACE, linewidth=0.6)
+    pc.set_array(np.asarray(vals)); pc.set_cmap(cmap_att); pc.set_norm(norm_att)
+    ax.add_collection(pc); ax.autoscale(); ax.set_aspect(1.25); ax.axis("off")
+
+
+fig = plt.figure(figsize=(7.6, 4.4))
+ax = fig.add_axes([0.02, 0.06, 0.82, 0.92]); draw_att(ax, lower48)
+axk = fig.add_axes([0.03, 0.05, 0.20, 0.24]); draw_att(axk, ["Alaska"])
+axk.set_xlim(-180, -128)
+axh = fig.add_axes([0.26, 0.04, 0.12, 0.14]); draw_att(axh, ["Hawaii"])
+axh.set_xlim(-161, -154)
+cax = fig.add_axes([0.88, 0.22, 0.022, 0.56])
+cb = fig.colorbar(ScalarMappable(norm=norm_att, cmap=cmap_att), cax=cax)
+cb.set_label("Attrition net of returns, %", fontsize=9, color=SUBTLE)
+cb.ax.tick_params(labelsize=9)
+cb.outline.set_visible(False)
+fig.savefig("report/figures/fig14b_attrition_map.pdf")
+plt.close(fig)
+att.round(2).to_csv("outputs/attrition_by_state.csv")
+print("fig14b attrition map saved; range",
+      round(att.min(), 1), "-", round(att.max(), 1))
