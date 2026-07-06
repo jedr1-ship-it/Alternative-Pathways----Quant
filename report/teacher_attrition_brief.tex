@@ -24,6 +24,11 @@
 \renewcommand{\bottomfraction}{0.6}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\floatpagefraction}{0.8}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{26pt plus 6pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
 \setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
 \linespread{1.14}
 \color{ecink}
@@ -145,35 +150,48 @@ that make my rates upper bounds on permanent exit.
 
 \section*{2. The typical teacher}
 
-Before asking who leaves, it helps to know who teaches, and the comparison
-that makes teachers legible is the rest of the college-educated workforce.
-Table~\ref{tab:portrait} draws that profile. The typical teacher is a
-woman, married, in her early forties and with children at home, and she
+Before asking who leaves, it helps to know who teaches.
+Table~\ref{tab:big} draws that portrait on every person I observe in a
+school-teaching occupation over the two decades, 116{,}649 individuals who
+represent about 5.2 million teachers in an average month, split by sex and
+set against the rest of the college-educated workforce. The typical teacher
+is a married woman in her early forties with children at home, and she
 differs from other graduates on almost every margin the survey measures.
-Teaching is overwhelmingly female, at 76 against 49 percent,
+Teaching is overwhelmingly female, at 78 against 47 percent,
 disproportionately white, and markedly less open to Asian and foreign-born
-graduates. Half of all teachers hold a master's degree, twice the rate of
-other graduates, three quarters work for the public sector against 15
-percent elsewhere, and 47 percent are union members against 8 percent.
-Hours are standard full-time and part-time work is rarer than elsewhere,
-while the price of this stability is pay, since the median teacher earns
-\$1{,}200 a week, 20 percent less than comparable college-educated
-workers. The full age distributions and a visual summary of these contrasts
-are in Appendix Figures~\ref{fig:agedist} and~\ref{fig:traits}.
+graduates. Credentials cluster in the middle, since 88 percent of teachers
+hold at least a bachelor's degree and 45 percent a master's, ten points
+above other graduates, while doctorates remain rare. Almost three quarters
+work for the public sector against 15 percent elsewhere, and 45 percent are
+union members against 9 percent. Hours are standard full-time, and the
+price of this stability is pay, since the median teacher earns \$1{,}154 a
+week, roughly a quarter less than comparable college-educated workers. The
+sex split carries its own message, because the minority of men who teach
+look systematically more attached to the core of the job, more often
+public-sector, unionized, full-time and holding a master's degree, and 11
+percent of them hold a second job against 6 percent of women. The full age
+distributions and a visual summary of these contrasts are in Appendix
+Figures~\ref{fig:agedist} and~\ref{fig:traits}.
 
 \begin{table}[htbp]
-  \caption{Balance: school teachers vs other college-educated workers,
-  2021--2025 (weighted).}
-  \label{tab:portrait}
+  \caption{Portrait of the American teaching workforce, 2005--2025.}
+  \label{tab:big}
   \centering\small
-  \input{table_portrait}
-  \fignote{Notes: Both groups are employed persons with at least a bachelor's
-  degree. The last column reports the teacher minus non-teacher difference
-  and the significance of a two-sample test with standard errors clustered
-  by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$).
-  $^{a}$~Union membership and weekly earnings are only asked in the outgoing
-  rotations, months in sample 4 and 8. Source: author's calculations from CPS
-  basic monthly microdata, 2021--2025.}
+  \input{table_bigpicture}
+  \fignote{Notes: Weighted means over every employed person observed in a
+  school-teaching occupation, with no degree restriction, pooling all 251
+  survey months; the comparison group is employed persons outside teaching
+  holding at least a bachelor's degree. Sample sizes are unique persons,
+  and a small number of persons with inconsistent sex codes across
+  interviews appear in both sex columns. The last column reports the
+  difference between all teachers and the comparison group and the
+  significance of a two-sample test with standard errors clustered by
+  household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$). $^{a}$~Union
+  membership and weekly earnings are only asked in the outgoing rotations,
+  months in sample 4 and 8. $^{b}$~Measured over 2021--2025 only, to avoid
+  mixing twenty years of price levels. $^{c}$~Population represented by the
+  group in an average month. Source: author's calculations from CPS basic
+  monthly microdata, 2005--2025.}
 \end{table}
 
 
@@ -208,8 +226,9 @@ percent level.
   CPS basic monthly microdata, 2005--2025.}
 \end{figure}
 
-Weighted to population, the stock is remarkably stable at about 4.7 million
-teachers over the whole period (Appendix Figure~\ref{fig:stock}), with the
+Weighted to population, the stock of degree-holding teachers, the group my
+attrition analysis follows, is remarkably stable at about 4.7 million over
+the whole period (Appendix Figure~\ref{fig:stock}), with the
 composition by teaching level equally steady and dominated by elementary and
 middle school (shown in Appendix Figure~\ref{fig:levels}). Stability of the
 stock, however, hides a great deal of movement underneath. Tracking the
@@ -385,7 +404,7 @@ conceals both.
   \centering
   \caption{Attrition by birth cohort and sex.}
   \label{fig:cohort}
-  \includegraphics[width=0.84\textwidth]{figures/fig11_cohort.pdf}
+  \includegraphics[width=0.80\textwidth]{figures/fig11_cohort.pdf}
   \fignote{Notes: Weighted non-returning attrition rate by five-year birth
   cohort, pooling all twenty waves, so each cohort is observed at the ages it
   reaches during 2005--2025 and the curve mixes age and cohort variation.
@@ -491,28 +510,27 @@ against 78 percent of all teachers, with Black teachers over-represented at
   \centering
   \caption{Characteristics of the top predicted-risk decile vs all teachers.}
   \label{fig:profile}
-  \includegraphics[width=0.92\textwidth]{figures/fig5_profile.pdf}
+  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
   \fignote{Notes: Predicted probabilities from the probit of
   Table~\ref{tab:probit}. Source: author's calculations from linked CPS
   pairs, 2005--2025.}
 \end{figure}
 
 \section*{8. Policy implications}
+\enlargethispage{\baselineskip}
 
 The results locate attrition in weak attachment to the job, in part-time
 hours, private-sector positions and both career extremes, rather than in
-broad demographics, and they show a structurally rising trend that consists
-almost entirely of teachers moving to other occupations. Four levers follow
-directly. Converting involuntary part-time positions to full-time attacks
-the single largest risk factor, and the wage result implies that pay raises
-retain, though modestly. The private sector is where teaching careers break,
-since private-school teachers leave at far higher rates and part of the
-preschool exposure reflects that composition. The Black, Hispanic and
-non-citizen retention gaps deserve specific monitoring because they compound
-into the diversity of the future workforce. And with one in six leavers back
-within three months, cheap re-entry pathways such as fast-track rehiring,
-credential portability and return bonuses can recover part of the outflow at
-low cost.
+broad demographics, with a rising trend made almost entirely of moves to
+other occupations. Four levers follow directly. Converting involuntary
+part-time positions to full-time attacks the single largest risk factor,
+and the wage result implies that pay raises retain, though modestly. The
+private sector is where teaching careers break, and part of the preschool
+exposure reflects that composition. The Black, Hispanic and non-citizen
+retention gaps deserve monitoring for the diversity of the future
+workforce. And with one in six leavers back within three months, cheap
+re-entry pathways such as fast-track rehiring and return bonuses can
+recover part of the outflow at low cost.
 
 
 \clearpage

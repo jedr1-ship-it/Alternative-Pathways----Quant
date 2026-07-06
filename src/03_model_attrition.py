@@ -72,7 +72,7 @@ DESC = [
     ("Special education", "special_ed", "pct"),
 ]
 groups = [("All teachers", B), ("Stayers", B[B["leaver_p"] == 0]),
-          ("Persistent leavers", B[B["leaver_p"] == 1])]
+          ("Non-returning leavers", B[B["leaver_p"] == 1])]
 
 
 def dstars(p):
