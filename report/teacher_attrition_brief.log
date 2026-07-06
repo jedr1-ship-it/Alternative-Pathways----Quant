@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  6 JUL 2026 14:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  6 JUL 2026 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -732,64 +732,63 @@ Package pdftex.def Info: figures/fig0_design.pdf  used on input line 121.
  [2
 
  <./figures/fig0_design.pdf>] (./table_bigpicture.tex)
-<figures/fig17_profile_evolution.pdf, id=105, 683.68001pt x 382.68538pt>
+<figures/fig17_profile_evolution.pdf, id=103, 683.68001pt x 382.68538pt>
 File: figures/fig17_profile_evolution.pdf Graphic file (type pdf)
 <use figures/fig17_profile_evolution.pdf>
 Package pdftex.def Info: figures/fig17_profile_evolution.pdf  used on input lin
-e 220.
+e 206.
 (pdftex.def)             Requested size: 455.24411pt x 254.8271pt.
-<figures/fig9_flows.pdf, id=110, 491.19386pt x 223.20155pt>
+ [3 <./figures/fig17_profile_evolution.pdf>]
+<figures/fig9_flows.pdf, id=169, 491.19386pt x 223.20155pt>
 File: figures/fig9_flows.pdf Graphic file (type pdf)
 <use figures/fig9_flows.pdf>
-Package pdftex.def Info: figures/fig9_flows.pdf  used on input line 246.
+Package pdftex.def Info: figures/fig9_flows.pdf  used on input line 247.
 (pdftex.def)             Requested size: 382.40338pt x 173.76613pt.
-<figures/fig14b_attrition_map.pdf, id=113, 549.25201pt x 317.98799pt>
+ [4]
+<figures/fig14b_attrition_map.pdf, id=186, 549.25201pt x 317.98799pt>
 File: figures/fig14b_attrition_map.pdf Graphic file (type pdf)
 <use figures/fig14b_attrition_map.pdf>
 Package pdftex.def Info: figures/fig14b_attrition_map.pdf  used on input line 2
-75.
+76.
 (pdftex.def)             Requested size: 409.71692pt x 237.20459pt.
-<figures/fig16_naep.pdf, id=114, 496.9509pt x 295.98344pt>
+<figures/fig16_naep.pdf, id=187, 496.9509pt x 295.98344pt>
 File: figures/fig16_naep.pdf Graphic file (type pdf)
 <use figures/fig16_naep.pdf>
-Package pdftex.def Info: figures/fig16_naep.pdf  used on input line 286.
+Package pdftex.def Info: figures/fig16_naep.pdf  used on input line 287.
 (pdftex.def)             Requested size: 364.19667pt x 216.9197pt.
- [3]
-<figures/fig6_evolution.pdf, id=133, 491.04218pt x 237.90285pt>
+<figures/fig6_evolution.pdf, id=190, 491.04218pt x 237.90285pt>
 File: figures/fig6_evolution.pdf Graphic file (type pdf)
 <use figures/fig6_evolution.pdf>
-Package pdftex.def Info: figures/fig6_evolution.pdf  used on input line 311.
+Package pdftex.def Info: figures/fig6_evolution.pdf  used on input line 312.
 (pdftex.def)             Requested size: 382.40338pt x 185.26942pt.
-
-[4] [5 <./figures/fig17_profile_evolution.pdf> <./figures/fig9_flows.pdf>]
+ [5 <./figures/fig9_flows.pdf>]
 <figures/fig10_where.pdf, id=239, 498.663pt x 260.17201pt>
 File: figures/fig10_where.pdf Graphic file (type pdf)
 <use figures/fig10_where.pdf>
-Package pdftex.def Info: figures/fig10_where.pdf  used on input line 338.
+Package pdftex.def Info: figures/fig10_where.pdf  used on input line 339.
 (pdftex.def)             Requested size: 400.61703pt x 209.0192pt.
 <figures/fig13_dest_time.pdf, id=241, 498.663pt x 238.49101pt>
 File: figures/fig13_dest_time.pdf Graphic file (type pdf)
 <use figures/fig13_dest_time.pdf>
-Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 360.
+Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 361.
 (pdftex.def)             Requested size: 382.40338pt x 182.88898pt.
-
-[6 <./figures/fig14b_attrition_map.pdf>]
+ [6 <./figures/fig14b_attrition_map.pdf>]
 <figures/fig11_cohort.pdf, id=279, 498.663pt x 252.945pt>
 File: figures/fig11_cohort.pdf Graphic file (type pdf)
 <use figures/fig11_cohort.pdf>
-Package pdftex.def Info: figures/fig11_cohort.pdf  used on input line 407.
+Package pdftex.def Info: figures/fig11_cohort.pdf  used on input line 408.
 (pdftex.def)             Requested size: 364.19667pt x 184.73708pt.
- [7 <./figures/fig16_naep.pdf>]
-[8 <./figures/fig6_evolution.pdf> <./figures/fig10_where.pdf>]
+ [7 <./figures/fig16_naep.pdf>] [8 <./figures/fig6_evolution.pdf> <./figures/fi
+g10_where.pdf>]
 <figures/fig5_profile.pdf, id=487, 485.2341pt x 251.08493pt>
 File: figures/fig5_profile.pdf Graphic file (type pdf)
 <use figures/fig5_profile.pdf>
-Package pdftex.def Info: figures/fig5_profile.pdf  used on input line 474.
+Package pdftex.def Info: figures/fig5_profile.pdf  used on input line 475.
 (pdftex.def)             Requested size: 373.3035pt x 193.17123pt.
 <figures/fig3_ame.pdf, id=489, 523.83865pt x 515.34555pt>
 File: figures/fig3_ame.pdf Graphic file (type pdf)
 <use figures/fig3_ame.pdf>
-Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 485.
+Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 486.
 (pdftex.def)             Requested size: 427.93057pt x 421.00551pt.
  [9 <./figures/fig13_dest_time.pdf>] [10 <./figures/fig11_cohort.pdf> <./figure
 s/fig5_profile.pdf>] [11 <./figures/fig3_ame.pdf>] (./table_population.tex) [12
@@ -798,41 +797,37 @@ s/fig5_profile.pdf>] [11 <./figures/fig3_ame.pdf>] (./table_population.tex) [12
 <figures/fig12a_age.pdf, id=791, 469.31038pt x 220.26398pt>
 File: figures/fig12a_age.pdf Graphic file (type pdf)
 <use figures/fig12a_age.pdf>
-Package pdftex.def Info: figures/fig12a_age.pdf  used on input line 605.
+Package pdftex.def Info: figures/fig12a_age.pdf  used on input line 606.
 (pdftex.def)             Requested size: 364.19667pt x 170.93806pt.
 <figures/fig12b_traits.pdf, id=793, 492.03952pt x 252.66667pt>
 File: figures/fig12b_traits.pdf Graphic file (type pdf)
 <use figures/fig12b_traits.pdf>
-Package pdftex.def Info: figures/fig12b_traits.pdf  used on input line 617.
+Package pdftex.def Info: figures/fig12b_traits.pdf  used on input line 618.
 (pdftex.def)             Requested size: 364.19667pt x 187.02052pt.
 <figures/fig7_stock.pdf, id=795, 476.98201pt x 216.81pt>
 File: figures/fig7_stock.pdf Graphic file (type pdf)
 <use figures/fig7_stock.pdf>
-Package pdftex.def Info: figures/fig7_stock.pdf  used on input line 629.
+Package pdftex.def Info: figures/fig7_stock.pdf  used on input line 630.
 (pdftex.def)             Requested size: 364.19667pt x 165.54482pt.
 <figures/fig8_by_level.pdf, id=796, 491.16325pt x 237.21338pt>
 File: figures/fig8_by_level.pdf Graphic file (type pdf)
 <use figures/fig8_by_level.pdf>
-Package pdftex.def Info: figures/fig8_by_level.pdf  used on input line 639.
+Package pdftex.def Info: figures/fig8_by_level.pdf  used on input line 640.
 (pdftex.def)             Requested size: 364.19667pt x 175.89348pt.
-
-(./table_profile_periods.tex) (./table_descriptives.tex)
+ (./table_profile_periods.tex)
+(./table_descriptives.tex)
 <figures/fig4_age_profile.pdf, id=798, 462.52798pt x 231.26399pt>
 File: figures/fig4_age_profile.pdf Graphic file (type pdf)
 <use figures/fig4_age_profile.pdf>
-Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 682.
+Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 683.
 (pdftex.def)             Requested size: 364.19667pt x 182.10722pt.
-<figures/fig15_heterogeneity.pdf, id=800, 746.15047pt x 323.74794pt>
+<figures/fig15_heterogeneity.pdf, id=800, 727.41048pt x 323.74794pt>
 File: figures/fig15_heterogeneity.pdf Graphic file (type pdf)
 <use figures/fig15_heterogeneity.pdf>
 Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 69
-3.
-(pdftex.def)             Requested size: 455.24411pt x 197.5304pt.
-
-(./table_robustness.tex) (./table_probit.tex)
-
-LaTeX Warning: Float too large for page by 6.06621pt on input line 742.
-
+4.
+(pdftex.def)             Requested size: 455.24411pt x 202.61365pt.
+ (./table_robustness.tex) (./table_probit.tex)
 [13
 
  <./figures/fig12a_age.pdf> <./figures/fig12b_traits.pdf>] [14] [15 <./figures/
@@ -848,13 +843,13 @@ Package rerunfilecheck Info: File `teacher_attrition_brief.out' has not changed
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 21961 strings out of 476182
- 410391 string characters out of 5795596
+ 21962 strings out of 476182
+ 410401 string characters out of 5795596
  1980975 words of memory out of 5000000
- 43558 multiletter control sequences out of 15000+600000
+ 43559 multiletter control sequences out of 15000+600000
  607734 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 83i,11n,87p,468b,445s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,11n,87p,468b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
@@ -870,9 +865,9 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texm
 f/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex
 -gyre/qtmr.pfb>
-Output written on teacher_attrition_brief.pdf (18 pages, 576471 bytes).
+Output written on teacher_attrition_brief.pdf (18 pages, 576152 bytes).
 PDF statistics:
- 1208 PDF objects out of 1440 (max. 8388607)
+ 1206 PDF objects out of 1440 (max. 8388607)
  374 compressed objects within 4 object streams
  56 named destinations out of 1000 (max. 500000)
  98 words of extra memory for PDF output out of 10000 (max. 10000000)

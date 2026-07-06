@@ -56,6 +56,10 @@ res = pd.DataFrame(results)
 res.round(4).to_csv("outputs/heterogeneity_ames.csv", index=False)
 
 # ---------- figure: one panel per split ----------
+# short row labels so the panels keep as much x-axis room as possible
+SHORT = {"parttime": "Part-time", "public": "Public sector",
+         "new_baby": "New baby", "child_u6": "Child under 6",
+         "black": "Black", "ma_plus": "Master's degree+"}
 fig, axes = plt.subplots(1, 3, figsize=(10.0, 4.6), sharey=False)
 for ax, (split, groups, drop) in zip(axes, SPLITS):
     sub = res[res["split"] == split]
@@ -76,10 +80,12 @@ for ax, (split, groups, drop) in zip(axes, SPLITS):
                        edgecolor=SURFACE, linewidth=1.5)
             y -= 0.62
         ypos.append(y + 0.62 * len(groups) / 2 + 0.31)
-        ylab.append(LABELS[v])
+        ylab.append(SHORT[v])
         y -= 0.55
     ax.axvline(0, color=SUBTLE, lw=1, zorder=2)
-    ax.set_xlim(-12, 17)
+    ax.set_xlim(-12, 16)
+    ax.set_xticks([-10, -5, 0, 5, 10, 15])
+    ax.tick_params(axis="x", labelsize=8.5)
     ax.set_yticks(ypos, ylab, fontsize=9)
     ax.set_title(split, loc="left", fontsize=10.5, color=NAVY,
                  fontweight="bold", pad=8)

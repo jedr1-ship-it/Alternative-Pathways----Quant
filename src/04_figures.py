@@ -139,6 +139,11 @@ ax.set_yticks(ypos, ylabels, fontsize=9.5)
 ax.set_ylim(min(ypos) - 1, 1.7)
 ax.set_xlabel("Change in P(leaving teaching), percentage points")
 ax.yaxis.grid(False)
+# this figure carries a lot of ink, so its axes stay gray to breathe
+for sp in ax.spines.values():
+    sp.set_color(GRAY)
+ax.tick_params(colors=GRAY, labelcolor=SUBTLE)
+ax.xaxis.label.set_color(SUBTLE)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c) for c in
            (CORAL, BLUE, GRAY)]
 ax.legend(handles, ["Raises exit risk", "Lowers exit risk",
