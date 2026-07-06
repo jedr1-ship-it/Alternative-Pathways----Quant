@@ -28,62 +28,59 @@
 \newcommand{\fignote}[1]{\par\vspace{4pt}%
   \begin{minipage}{\linewidth}\footnotesize\color{ecgray}#1\end{minipage}}
 
-\newcommand{\heronum}[2]{%
-  \begin{minipage}[t]{0.30\textwidth}\raggedright
-  {\fontsize{30}{32}\selectfont\bfseries\color{ecnavy}#1}\\[2pt]
-  {\small\color{ecgray}#2}
-  \end{minipage}}
 
 \begin{document}
 
-% ---------- cover band ----------
-\begin{tcolorbox}[colback=ecyellow,colframe=ecyellow,sharp corners,
-                  left=14pt,right=14pt,top=16pt,bottom=16pt]
-  \raggedright
-  {\fontsize{26}{30}\selectfont\bfseries\color{ecnavy}%
-  Who leaves teaching?\par}\vspace{8pt}
-  {\normalsize\color{ecink}Teacher attrition in the United States, 2005--2025}
-\end{tcolorbox}
+% ---------- title page ----------
+\begin{center}
+{\fontsize{19}{24}\selectfont\bfseries\color{ecnavy}%
+Who Leaves Teaching, and Why?\\[4pt]
+The Profile of Teacher Attrition in the United States, 2005--2025\par}
 
-\vspace{10pt}
-
-% ---------- executive summary ----------
-\begin{tcolorbox}[colback=ecpale,colframe=ecpale,sharp corners,
-                  left=12pt,right=12pt,top=10pt,bottom=10pt]
-{\bfseries\color{ecnavy}EXECUTIVE SUMMARY}
-
-\begin{itemize}[leftmargin=14pt,itemsep=2pt]
-  \item Each year, \textbf{15.1\%} of degree-holding school teachers leave the
-  profession and do not return within our observation window. The conventional
-  12-month measure gives 17.6\%, but one in six of those leavers is teaching
-  again within three months.
-  \item Persistent attrition rose from about 13\% in 2005--2010 to about 17\%
-  in 2022--2024, with a peak in the pandemic year and a new high of 18\% in
-  2024. The rise is almost entirely a rise in switching to other occupations.
-  \item Part-time work (+11 percentage points) and private-sector employment
-  (+7) are the strongest predictors of leaving, in every subsample, and
-  higher pay retains. A new baby during the year does not move men's exit
-  probability but raises women's by 5 points, and most new mothers who leave
-  exit the labor force entirely.
-  \item The typical leaver is a woman in her late career, working part-time,
-  more often in a private school. The highest-risk decile has a 37\% exit
-  probability, 2.5 times the average.
-\end{itemize}
-\end{tcolorbox}
+\vspace{16pt}
+{\large José Elías Durán Roa\footnote{PhD Candidate in Economics,
+University of Alicante, and Research Intern at the OECD Directorate for
+Education and Skills. The views expressed here are mine and do not represent
+those of the OECD. All remaining errors are my own.}}
 
 \vspace{6pt}
-\noindent
-\heronum{15.1\,\%}{of teachers leave the profession for good each year}\hfill
-\heronum{$+$11\,pp}{extra exit risk from part-time work}\hfill
-\heronum{1 in 6}{12-month leavers is back teaching within 3 months}
+{\small\color{ecgray}July 2026}
+\end{center}
 
-\vspace{4pt}
+\vspace{14pt}
+\begin{center}
+\begin{minipage}{0.88\textwidth}
+{\small
+\noindent{\bfseries\color{ecnavy}Abstract}\par\vspace{4pt}
+Who leaves the teaching profession, and why? I build twenty annual panels of
+American school teachers by linking consecutive rotations of the Current
+Population Survey between 2005 and 2025, following 174{,}872 degree-holding
+teachers for twelve months each, and I measure attrition with a strict
+definition that counts as leavers only those who do not return to teaching
+in any later interview. Every year 15.1 percent of teachers persistently
+leave the profession, a rate that has risen by four points in two decades
+almost entirely through switching to other occupations rather than exits
+from the labor force. A probit on the full set of observed characteristics
+shows that weak attachment to the job, rather than demographics, drives
+exit, since part-time work raises the probability of leaving by 11 points
+and private-sector employment by 7, in every subsample, while higher pay
+retains. Fertility operates only through women, as a new baby raises
+mothers' exit probability by 5 points and leaves fathers unchanged, and
+Black and non-citizen teachers leave significantly more. The typical leaver
+is a late-career woman, working part-time and disproportionately in a
+private school, whose predicted exit probability of 37 percent is two and a
+half times the average. One in six measured leavers is back teaching within
+three months, so cheap re-entry pathways can recover part of the outflow.}
+\end{minipage}
+\end{center}
+
+\vspace{8pt}
 \section*{\color{ecnavy}1. Data}
 
-Our data are the basic monthly microdata of the Current Population Survey
-(CPS), the household survey behind the official employment statistics of the
-United States, which we assemble for every month between January 2005 and
-December 2025.\footnote{The files come from the
+I use the basic monthly microdata of the Current Population Survey (CPS),
+the household survey behind the official employment statistics of the United
+States, which I assemble for every month between January 2005 and December
+2025.\footnote{The files come from the
 \href{https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html}{U.S.
 Census Bureau} for 2024--2025 and from the
 \href{https://www.nber.org/research/data/current-population-survey-cps-basic-monthly-data-nber}{NBER
@@ -94,11 +91,11 @@ Figure~\ref{fig:design}. Each household is interviewed during four
 consecutive months, rests for eight, and is interviewed again during four
 more, so that any person can be observed for at most sixteen months and only
 once in a lifetime. Within that window, an adult interviewed in year $t$ is
-re-interviewed in the same calendar month of $t{+}1$, and the two interviews
-can be linked through household and person identifiers, with every match
-validated on sex, race and a plausible age progression. Because nobody is
-followed across several years, each base year forms a fresh cohort, and
-every rate in this brief is computed wave by wave over twenty waves.
+re-interviewed in the same calendar month of $t{+}1$, and I link the two
+interviews through household and person identifiers, validating every match
+on sex, race and a plausible age progression. Because nobody is followed
+across several years, each base year forms a fresh cohort, and I compute
+every rate in this paper wave by wave over twenty waves.
 
 \begin{figure}[h!]
   \caption{The CPS follows each person for at most 16 months.}
@@ -111,26 +108,31 @@ every rate in this brief is computed wave by wave over twenty waves.
 \end{figure}
 
 Table~\ref{tab:pop} traces how this design narrows the CPS universe down to
-our analytic sample. In an average month the survey interviews close to
+my analytic sample. In an average month the survey interviews close to
 95{,}000 adults who represent 241 million people, of whom about 1{,}850 are
 employed school teachers with at least a bachelor's degree, representing the
-4.6 million teachers of the country. Teachers are identified by the
-occupation of their main job, which covers preschool and kindergarten,
-elementary and middle school, secondary school and special education
-(occupation codes 2300 to 2330, identical across the three classification
-vintages the period spans), and the degree requirement, standard in the
-attrition literature, removes a small group of daycare and substitute
-personnel. Only the half of the sample that is in its first rotation block
-can be linked one year ahead. The linkage itself succeeds for 78 percent of
-teachers, and reassuringly it succeeds less often for everyone else, 74
-percent among other college-educated workers and 71 percent among all
-employed, a ranking that holds in every single year. Losses arise because
-the CPS samples addresses rather than people, so movers drop out, but they
-do not select against teachers, and because linked persons keep their
-population weights, all weighted rates remain representative of the 4.6
-million teachers. Pooling the twenty waves delivers 174{,}872 linked
-teachers, of whom 129{,}897 have at least one further interview after the
-12-month link and form our main sample.
+4.6 million teachers of the country. I identify teachers by the occupation
+of their main job, which covers classroom teaching from preschool and
+kindergarten through elementary, middle and secondary school, together with
+special education,\footnote{These are Census occupation codes 2300 to 2330,
+where 2300 designates preschool and kindergarten teachers, 2310 elementary
+and middle school teachers, 2320 secondary school teachers and 2330 special
+education teachers. The codes are identical in the 2002, 2010 and 2020
+occupational classifications used over the period, which keeps the series
+comparable for twenty-one years.} and I require at least a bachelor's
+degree, the standard restriction in the attrition literature, which removes
+a small group of daycare and substitute personnel. Only the half of the
+sample that is in its first rotation block can be linked one year ahead. The
+linkage itself succeeds for 78 percent of teachers, and reassuringly it
+succeeds less often for everyone else, 74 percent among other
+college-educated workers and 71 percent among all employed, a ranking that
+holds in every single year. Losses arise because the CPS samples addresses
+rather than people, so movers drop out, but they do not select against
+teachers, and because linked persons keep their population weights, all
+weighted rates remain representative of the 4.6 million teachers. Pooling
+the twenty waves delivers 174{,}872 linked teachers, of whom 129{,}897 have
+at least one further interview after the 12-month link and form my main
+sample.
 
 \begin{table}[h!]
   \caption{From the CPS universe to the analytic sample.}
@@ -148,7 +150,7 @@ A leaver could simply be anyone not employed as a school teacher twelve
 months after baseline, which is the convention of the NCES Teacher Follow-up
 Survey, but temporary exits such as parental leave or a short unemployment
 spell inflate that measure, and indeed 15.7\% of such leavers are teaching
-again within three months. Our main outcome is therefore the persistent
+again within three months. My main outcome is therefore the persistent
 leaver, a teacher who is out of teaching at $t{+}12$ and in every later
 re-interview, computed on the 129{,}897 teachers whose rotation allows at
 least one re-interview. Exits longer than a year that end in a return remain
@@ -160,7 +162,7 @@ comparisons across groups and over time, the object of this brief, are far
 less affected.
 
 The richness of the linked file is summarized in Table~\ref{tab:desc}, which
-compares stayers and persistent leavers across every characteristic we
+compares stayers and persistent leavers across every characteristic I
 observe, with the differences that are both statistically significant and
 economically meaningful shaded in green. Read as a whole, the table already
 sketches the profile of the leaver. Leavers are three years older on
@@ -176,7 +178,7 @@ are preschool and kindergarten teachers, while credentials matter in both
 directions, since leavers are less likely to hold a master's degree but
 almost twice as likely to hold a professional degree or doctorate. Most of
 these gaps are not marginal, as ten of them exceed two percentage points,
-the threshold we use for economic relevance.
+the threshold I use for economic relevance.
 
 \begin{table}[h!]
   \caption{Descriptive statistics of the analytic sample (weighted means).}
@@ -191,7 +193,7 @@ the threshold we use for economic relevance.
   two-sample test with standard errors clustered by household
   ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$); green cells mark differences
   that are significant at 5 percent and larger than two percentage points
-  (one year of age, 0.15 children). Source: authors' calculations from CPS
+  (one year of age, 0.15 children). Source: author's calculations from CPS
   basic monthly microdata, 2005--2025.}
 \end{table}
 
@@ -215,7 +217,7 @@ home.
   \includegraphics[width=0.82\textwidth]{figures/fig12a_age.pdf}
   \fignote{Notes: Both groups are employed persons with at least a bachelor's
   degree, and teachers are identified as in Table~\ref{tab:pop}. Weighted to
-  population. Source: authors' calculations from CPS basic monthly microdata,
+  population. Source: author's calculations from CPS basic monthly microdata,
   2021--2025.}
 \end{figure}
 
@@ -236,7 +238,7 @@ Table~\ref{tab:portrait} shows to be highly significant.
   \includegraphics[width=0.86\textwidth]{figures/fig12b_traits.pdf}
   \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
   is only asked in the outgoing rotations. Shares are weighted to population.
-  Source: authors' calculations from CPS basic monthly microdata, 2021--2025.}
+  Source: author's calculations from CPS basic monthly microdata, 2021--2025.}
 \end{figure}
 
 \begin{table}[h!]
@@ -250,7 +252,7 @@ Table~\ref{tab:portrait} shows to be highly significant.
   and the significance of a two-sample test with standard errors clustered
   by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$).
   $^{a}$~Union membership and weekly earnings are only asked in the outgoing
-  rotations, months in sample 4 and 8. Source: authors' calculations from CPS
+  rotations, months in sample 4 and 8. Source: author's calculations from CPS
   basic monthly microdata, 2021--2025.}
 \end{table}
 
@@ -282,7 +284,7 @@ above entries.
   definitions. A person enters teaching if she is a degree-holding school
   teacher at the second interview but was not one a year earlier, and leaves
   in the reverse case. Because the linked sample misses people who move,
-  both flows are conservative. Source: authors' calculations from linked CPS
+  both flows are conservative. Source: author's calculations from linked CPS
   pairs, 2005--2025.}
 \end{figure}
 
@@ -307,7 +309,7 @@ conversation.
   \includegraphics[width=0.9\textwidth]{figures/fig14_map.pdf}
   \fignote{Notes: Employed school teachers with a bachelor's degree or higher
   as a share of total state employment, weighted and pooled over 2021--2025.
-  Source: authors' calculations from CPS basic monthly microdata.}
+  Source: author's calculations from CPS basic monthly microdata.}
 \end{figure}
 
 \begin{figure}[h!]
@@ -320,7 +322,7 @@ conversation.
   from the \href{https://www.nationsreportcard.gov}{Nation's Report Card}
   data service; the vertical axis is the weighted persistent-attrition rate
   pooled over 2005--2025. The fitted line is weighted by sample size.
-  Source: authors' calculations from linked CPS pairs and NAEP.}
+  Source: author's calculations from linked CPS pairs and NAEP.}
 \end{figure}
 
 \section*{\color{ecnavy}3. Attrition over time}
@@ -369,7 +371,7 @@ more often into management and professional jobs, 26 against 19 percent.
   librarians and education administration, and the remaining employed leavers
   are grouped into broad occupation classes. Retirement, disability,
   unemployment and other non-participation come from the labor force status
-  recorded at the second interview. Source: authors' calculations from linked
+  recorded at the second interview. Source: author's calculations from linked
   CPS pairs, 2005--2025.}
 \end{figure}
 
@@ -393,18 +395,13 @@ people to other jobs, not to inactivity.
 \section*{\color{ecnavy}5. Who leaves}
 
 Raw attrition concentrates along three margins, hours, teaching level and,
-more weakly among degree holders, credentials. As Figure~\ref{fig:groups}
-shows, part-time teachers leave at more than twice the rate of full-time
-teachers, 32 against 13 percent, and preschool and kindergarten is the most
-exposed level.
-
-\begin{figure}[h!]
-  \caption{Persistent attrition by baseline characteristics, 2005--2025.}
-  \label{fig:groups}
-  \includegraphics[width=\textwidth]{figures/fig2_rates_by_group.pdf}
-  \fignote{Notes: The dashed line marks the all-teacher average of 15.1
-  percent. Source: authors' calculations from linked CPS pairs, 2005--2025.}
-\end{figure}
+more weakly among degree holders, credentials. Part-time teachers leave at
+more than twice the rate of full-time teachers, 32 against 13 percent,
+teachers in preschool and kindergarten face 21 percent against 15 for
+elementary and 13 for secondary school, and holders of a master's degree
+leave three points less often than teachers with only a bachelor's. These
+are the same margins the green cells of Table~\ref{tab:desc} flagged, now
+expressed as exit rates.
 
 The lifecycle shape is visible in the raw data as well. Plotting attrition
 by birth cohort separately for men and women in Figure~\ref{fig:cohort}
@@ -428,12 +425,12 @@ conceals both.
   reaches during 2005--2025 and the curve mixes age and cohort variation.
   Women with children are those with at least one own child under eighteen at
   home at baseline, and cells with fewer than 400 observations are omitted.
-  Source: authors' calculations from linked CPS pairs, 2005--2025.}
+  Source: author's calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
 \section*{\color{ecnavy}6. The model}
 
-We estimate a probit for the probability of persistently leaving, with all
+I estimate a probit for the probability of persistently leaving, with all
 covariates measured at baseline, base-year fixed effects and standard errors
 clustered by household. Table~\ref{tab:probit} reports the estimates and
 Figure~\ref{fig:ame} plots the average marginal effects, organized by the
@@ -443,7 +440,7 @@ Five results stand out. First, the job margin dominates, since part-time
 status raises exit probability by 11.3 points and private-sector employment
 by 7.5 points relative to public schools, the two largest effects in the
 model. Second, pay retains. Weekly earnings are only collected in the
-outgoing rotations, so we estimate the wage effect on that subsample of
+outgoing rotations, so I estimate the wage effect on that subsample of
 44{,}823 teachers, where ten percent higher weekly earnings lower the
 probability of leaving by 0.3 points. Third, the family results separate
 stocks from events. The stock of children retains, at about one point less
@@ -491,7 +488,7 @@ private schools.
   from the probit of Table~\ref{tab:probit} estimated separately on each
   subsample; lighter marks are not significant at the 5 percent level. The
   birth and young-child effects are shown only in the sex panel because they
-  are sex-specific. Source: authors' calculations from linked CPS pairs,
+  are sex-specific. Source: author's calculations from linked CPS pairs,
   2005--2025.}
 \end{figure}
 
@@ -527,7 +524,7 @@ against 78 percent of all teachers, with Black teachers over-represented at
   \label{fig:profile}
   \includegraphics[width=0.92\textwidth]{figures/fig5_profile.pdf}
   \fignote{Notes: Predicted probabilities from the probit of
-  Table~\ref{tab:probit}. Source: authors' calculations from linked CPS
+  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
   pairs, 2005--2025.}
 \end{figure}
 
@@ -566,7 +563,7 @@ errors. Fully reproducible from the repository scripts.}
   \label{fig:levels}
   \includegraphics[width=0.84\textwidth]{figures/fig8_by_level.pdf}
   \fignote{Notes: Same identification as Figure~\ref{fig:stock}, split by
-  occupation code. Source: authors' calculations from CPS basic monthly
+  occupation code. Source: author's calculations from CPS basic monthly
   microdata, 2005--2025.}
 \end{figure}
 
