@@ -41,7 +41,7 @@ Who Leaves Teaching, and Why?\par}
 The Profile of Teacher Attrition in the United States, 2005--2025\par}
 
 \vspace{26pt}
-{\large José Elías Durán Roa\footnote{PhD Candidate in Economics,
+{\large \href{https://sites.google.com/view/joseeliasduranroa}{José Elías Durán Roa}\footnote{PhD Candidate in Economics,
 University of Alicante, and Research Intern at the OECD Directorate for
 Education and Skills. E-mail\,
 \href{mailto:joseelias.duranroa@ocde.org}{joseelias.duranroa@ocde.org} and
@@ -56,7 +56,7 @@ own.}}
 \vspace{26pt}
 \begin{center}
 \begin{minipage}{0.86\textwidth}
-{\small
+{\fontsize{10.5}{14.5}\selectfont
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
 Who leaves the teaching profession, and why? I build twenty annual panels of
 American school teachers by linking consecutive rotations of the Current
@@ -142,43 +142,38 @@ that make my rates upper bounds on permanent exit.
 
 Before asking who leaves, it helps to know who teaches, and the comparison
 that makes teachers legible is the rest of the college-educated workforce.
-Demographically, teaching is a distinct segment of the graduate labor
-market. As Figure~\ref{fig:agedist} shows, its age distribution piles up in
-mid-career, with a thicker mass between 35 and 55 and thinner tails at both
-ends than among other graduates, while the full balance in Appendix Table~\ref{tab:portrait} adds that teachers are overwhelmingly women, at 76
-against 49 percent, disproportionately white, and markedly less likely to be
-Asian or foreign-born. They are more often married and have more children at
-home.
+Table~\ref{tab:portrait} draws that profile. The typical teacher is a
+woman, married, in her early forties and with children at home, and she
+differs from other graduates on almost every margin the survey measures.
+Teaching is overwhelmingly female, at 76 against 49 percent,
+disproportionately white, and markedly less open to Asian and foreign-born
+graduates. Half of all teachers hold a master's degree, twice the rate of
+other graduates, three quarters work for the public sector against 15
+percent elsewhere, and 47 percent are union members against 8 percent.
+Hours are standard full-time and part-time work is rarer than elsewhere,
+while the price of this stability is pay, since the median teacher earns
+\$1{,}200 a week, 20 percent less than comparable college-educated
+workers. The full age distributions and a visual summary of these contrasts
+are in Appendix Figures~\ref{fig:agedist} and~\ref{fig:traits}.
 
-\begin{figure}[h!]
-  \caption{Age distribution of school teachers and of other college-educated
-  workers, 2021--2025.}
-  \label{fig:agedist}
-  \includegraphics[width=0.82\textwidth]{figures/fig12a_age.pdf}
+\begin{table}[h!]
+  \caption{Balance: school teachers vs other college-educated workers,
+  2021--2025 (weighted).}
+  \label{tab:portrait}
+  \centering\small
+  \input{table_portrait}
   \fignote{Notes: Both groups are employed persons with at least a bachelor's
-  degree, and teachers are identified as in Table~\ref{tab:pop}. Weighted to
-  population. Source: author's calculations from CPS basic monthly microdata,
-  2021--2025.}
-\end{figure}
+  degree. The last column reports the teacher minus non-teacher difference
+  and the significance of a two-sample test with standard errors clustered
+  by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$).
+  $^{a}$~Union membership and weekly earnings are only asked in the outgoing
+  rotations, months in sample 4 and 8. Source: author's calculations from CPS
+  basic monthly microdata, 2021--2025.}
+\end{table}
 
-As a job, teaching is even more distinctive. Figure~\ref{fig:traits}
-condenses the contrast. Three quarters of teachers work for the public
-sector against 15 percent of comparable graduates, 47 percent are union
-members against 8 percent, and half hold a master's degree, twice the rate
-of other graduates. Hours are standard full-time, part-time work is less
-common than elsewhere, and the price of all this stability is pay, since the
-median teacher earns \$1{,}200 a week, 20 percent less than the \$1{,}500 of
-comparable college-educated workers, a gap Appendix Table~\ref{tab:portrait} shows to be highly significant.
 
-\begin{figure}[h!]
-  \caption{Composition of the teaching workforce vs other college-educated
-  workers, 2021--2025.}
-  \label{fig:traits}
-  \includegraphics[width=0.86\textwidth]{figures/fig12b_traits.pdf}
-  \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
-  is only asked in the outgoing rotations. Shares are weighted to population.
-  Source: author's calculations from CPS basic monthly microdata, 2021--2025.}
-\end{figure}
+
+
 
 
 Weighted to population, the stock is remarkably stable at about 4.7 million
@@ -557,22 +552,30 @@ which mechanically inflates measured switching, so levels should again be
 read as upper bounds while comparisons across groups and over time, the
 object of this paper, are far less affected.
 
-\section*{Appendix B. Additional figures and tables}
+\section*{Appendix B. Additional figures}
 
-\begin{table}[h!]
-  \caption{Balance: school teachers vs other college-educated workers,
-  2021--2025 (weighted).}
-  \label{tab:portrait}
-  \centering\small
-  \input{table_portrait}
+\begin{figure}[h!]
+  \caption{Age distribution of school teachers and of other college-educated
+  workers, 2021--2025.}
+  \label{fig:agedist}
+  \includegraphics[width=0.82\textwidth]{figures/fig12a_age.pdf}
   \fignote{Notes: Both groups are employed persons with at least a bachelor's
-  degree. The last column reports the teacher minus non-teacher difference
-  and the significance of a two-sample test with standard errors clustered
-  by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$).
-  $^{a}$~Union membership and weekly earnings are only asked in the outgoing
-  rotations, months in sample 4 and 8. Source: author's calculations from CPS
-  basic monthly microdata, 2021--2025.}
-\end{table}
+  degree, and teachers are identified as in Table~\ref{tab:pop}. Weighted to
+  population. Source: author's calculations from CPS basic monthly microdata,
+  2021--2025.}
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{Composition of the teaching workforce vs other college-educated
+  workers, 2021--2025.}
+  \label{fig:traits}
+  \includegraphics[width=0.86\textwidth]{figures/fig12b_traits.pdf}
+  \fignote{Notes: Same groups as Figure~\ref{fig:agedist}. Union membership
+  is only asked in the outgoing rotations. Shares are weighted to population.
+  Source: author's calculations from CPS basic monthly microdata, 2021--2025.}
+\end{figure}
+
+
 
 \begin{figure}[h!]
   \caption{The stock of school teachers.}

@@ -12,19 +12,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from covariates import load_panel
 
-BLUE, CORAL, GRAY = "#2a78d6", "#e34948", "#8a8f98"
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 
 STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA",
           "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA",
@@ -88,7 +76,6 @@ for s in ["CT", "MS", "NV", "MA", "TX", "FL", "WY"]:
                     color=SUBTLE)
 ax.set_xlabel("NAEP grade-8 mathematics, average scale score (2005--2024)")
 ax.set_ylabel("Persistent attrition, %")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig16_naep.pdf")
 print("fig16 saved; slope per 10 NAEP points:", round(b1 * 10, 2), "pp")

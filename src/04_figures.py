@@ -14,20 +14,7 @@ import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
 from covariates import load_panel, COVS, LABELS
 
-BLUE, CORAL, GOLD, GRAY = "#2a78d6", "#e34948", "#eda100", "#8a8f98"
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 os.makedirs("report/figures", exist_ok=True)
 
 # main analysis sample: definition B (persistent leaver), baseline MIS 1-3
@@ -42,7 +29,6 @@ def wrate(d):
 
 def style_barh(ax):
     ax.xaxis.grid(True); ax.yaxis.grid(False)
-    ax.tick_params(length=0)
 
 
 # ---------- Figure 1: where leavers go (single coral series) ----------
@@ -152,7 +138,6 @@ for hy, title in headers:
 ax.set_yticks(ypos, ylabels, fontsize=9.5)
 ax.set_ylim(min(ypos) - 1, 1.7)
 ax.set_xlabel("Change in P(leaving teaching), percentage points")
-ax.tick_params(length=0)
 ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c) for c in
            (CORAL, BLUE, GRAY)]
@@ -197,7 +182,6 @@ ax.legend(handles, [l for l, *_ in SERIES], loc="upper center",
 ax.set_xlabel("Birth cohort (five-year bins)")
 ax.set_ylabel("% leaving per year")
 ax.set_ylim(0, None)
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig11_cohort.pdf")
 plt.close(fig)
@@ -233,7 +217,6 @@ ax.text(ages[-1], pr.iloc[-1] + 1.2, f"{pr.iloc[-1]:.0f}%", ha="right",
 ax.set_xlabel("Age")
 ax.set_ylabel("Predicted P(leave), %")
 ax.set_ylim(0, float(hi.max()) * 1.06)
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig4_age_profile.pdf")
 plt.close(fig)
@@ -261,7 +244,6 @@ for yi, t in zip(yy, traits):
 ax.set_yticks(yy, [LABELS[t] for t in traits], fontsize=10)
 ax.set_xlim(-4, 104)
 ax.set_xlabel("Share with the trait, %")
-ax.tick_params(length=0)
 ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c)
            for c in (BLUE, GOLD)]
@@ -300,14 +282,18 @@ wmean_dep = float(np.average(df['leaver_p'], weights=df[W]))
 with open("report/table_probit.tex", "w") as f:
     f.write(f"""\\begin{{tabular}}{{lcc}}
 \\toprule
+ & \\multicolumn{{2}}{{c}}{{Leaves teaching with no observed return}} \\\\
+\\cmidrule(lr){{2-3}}
  & (1) & (2) \\\\
- & Probit coefficient & Marginal effect (pp) \\\\
+ & Probit & Marginal effect \\\\
+ & coefficients & (percentage points) \\\\
 \\midrule
 {table}
 \\midrule
 Base-year fixed effects & Yes & Yes \\\\
-Mean of dependent variable & \\multicolumn{{2}}{{c}}{{{wmean_dep:.3f}}} \\\\
-Observations & \\multicolumn{{2}}{{c}}{{{int(m.nobs):,}}} \\\\
+Mean of dependent variable & 0.151 & 0.151 \\\\
+Observations & {int(m.nobs):,} & {int(m.nobs):,} \\\\
+Pseudo $R^2$ & {m.prsquared:.3f} & \\\\
 \\bottomrule
 \\end{{tabular}}
 """)

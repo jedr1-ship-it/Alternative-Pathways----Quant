@@ -11,19 +11,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from covariates import load_panel
 
-BLUE, CORAL, GOLD, GRAY = "#2a78d6", "#e34948", "#eda100", "#8a8f98"
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 TEACHER_OCC = {2300, 2310, 2320, 2330}
 
 # ---------- fig13: where leavers go, over time ----------
@@ -60,7 +48,6 @@ ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2024])
 ax.set_xlim(2004.5, 2026.5)
 ax.set_ylabel("% of teachers per year")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig13_dest_time.pdf")
 plt.close(fig)

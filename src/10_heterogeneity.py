@@ -10,20 +10,7 @@ import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
 from covariates import load_panel, COVS, LABELS
 
-BLUE, CORAL, GOLD, GREEN, GRAY = ("#2a78d6", "#e34948", "#eda100",
-                                  "#1baf7a", "#8a8f98")
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 
 df = load_panel()
 B = df[df["sampleB"]].copy()
@@ -96,7 +83,6 @@ for ax, (split, groups, drop) in zip(axes, SPLITS):
     ax.set_yticks(ypos, ylab, fontsize=9)
     ax.set_title(split, loc="left", fontsize=10.5, color=NAVY,
                  fontweight="bold", pad=8)
-    ax.tick_params(length=0)
     ax.yaxis.grid(False)
     handles = [plt.Line2D([], [], marker="o", ls="", ms=7, color=c)
                for _, _, c in groups]

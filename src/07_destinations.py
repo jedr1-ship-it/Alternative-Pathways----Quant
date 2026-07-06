@@ -15,19 +15,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from covariates import load_panel
 
-BLUE, CORAL, GOLD = "#2a78d6", "#e34948", "#eda100"
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 
 # education-adjacent occupations across code vintages
 EDU_ADJ = {230,                       # education administrators
@@ -90,7 +78,6 @@ for b, v in zip(bars, order.values):
 ax.set_xlim(0, order.max() * 1.18)
 ax.set_xlabel("Share of persistent leavers, 12 months after teaching (%)")
 ax.xaxis.grid(True); ax.yaxis.grid(False)
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig10_where.pdf")
 print("\nsaved report/figures/fig10_where.pdf")

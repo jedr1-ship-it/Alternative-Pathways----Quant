@@ -13,20 +13,7 @@ import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-BLUE, GREEN, GOLD, CORAL = "#2a78d6", "#1baf7a", "#eda100", "#e34948"
-GRAY = "#8a8f98"
-INK, SUBTLE, SURFACE = "#1a2430", "#5a6572", "#fcfcfb"
-NAVY = "#12355b"
-mpl.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "text.color": INK, "axes.edgecolor": "#d8dbe0", "axes.labelcolor": SUBTLE,
-    "xtick.color": SUBTLE, "ytick.color": SUBTLE,
-    "axes.grid": True, "grid.color": "#e9ebee", "grid.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.spines.left": False,
-    "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE, "font.size": 10,
-})
+from paperstyle import *
 
 TEACHER_OCC = {2300, 2310, 2320, 2330}
 LEVELS = {2300: "Preschool / kindergarten", 2310: "Elementary / middle",
@@ -132,7 +119,6 @@ ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2025])
 ax.set_xlim(2004.5, 2027)
 ax.set_ylabel("Teachers, millions")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig7_stock.pdf")
 plt.close(fig)
@@ -153,7 +139,6 @@ ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2025])
 ax.set_xlim(2004.5, 2028)
 ax.set_ylabel("Teachers, millions")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig8_by_level.pdf", bbox_inches="tight")
 plt.close(fig)
@@ -183,7 +168,6 @@ ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2024])
 ax.set_xlim(2004.5, 2027)
 ax.set_ylabel("% per year")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig9_flows.pdf", bbox_inches="tight")
 plt.close(fig)
@@ -321,7 +305,6 @@ ax.legend(handles, ["School teachers", "Other college-educated workers"],
 ax.set_ylim(0, None)
 ax.set_xlabel("Age")
 ax.set_ylabel("% of the group")
-ax.tick_params(length=0)
 fig.tight_layout()
 fig.savefig("report/figures/fig12a_age.pdf", bbox_inches="tight")
 plt.close(fig)
@@ -348,7 +331,6 @@ for yi, (lab, v) in zip(yy, traits):
             ha="right" if b >= a else "left", fontsize=9, color=SUBTLE)
 ax.set_yticks(yy, [t for t, _ in traits], fontsize=9.5)
 ax.set_xlim(-6, 112)
-ax.tick_params(length=0)
 ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c)
            for c in (BLUE, GRAY)]

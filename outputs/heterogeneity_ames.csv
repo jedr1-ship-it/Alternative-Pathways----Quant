@@ -1,35 +1,35 @@
 split,group,color,var,ame,se,p,n
-By sex,Women,#e34948,parttime,11.3519,0.4652,0.0,100190
-By sex,Women,#e34948,public,-7.4113,0.387,0.0,100190
-By sex,Women,#e34948,new_baby,4.2147,1.0322,0.0,100190
-By sex,Women,#e34948,child_u6,0.0288,0.5706,0.9597,100190
-By sex,Women,#e34948,black,5.4744,0.6541,0.0,100190
-By sex,Women,#e34948,ma_plus,-1.1099,0.3562,0.0018,100190
-By sex,Men,#2a78d6,parttime,10.9096,1.0106,0.0,29707
-By sex,Men,#2a78d6,public,-7.6774,0.7202,0.0,29707
-By sex,Men,#2a78d6,new_baby,0.0364,2.0327,0.9857,29707
-By sex,Men,#2a78d6,child_u6,-0.7415,1.0237,0.4688,29707
-By sex,Men,#2a78d6,black,6.4873,1.1774,0.0,29707
-By sex,Men,#2a78d6,ma_plus,-1.1464,0.6473,0.0765,29707
-By sector,Public,#2a78d6,parttime,11.0026,0.4728,0.0,102889
-By sector,Public,#2a78d6,new_baby,-0.17,2.0377,0.9335,102889
-By sector,Public,#2a78d6,child_u6,-1.438,0.9149,0.116,102889
-By sector,Public,#2a78d6,black,4.8712,0.5934,0.0,102889
-By sector,Public,#2a78d6,ma_plus,-1.0711,0.3277,0.0011,102889
-By sector,Private,#eda100,parttime,13.505,0.965,0.0,27008
-By sector,Private,#eda100,new_baby,-1.5177,5.9853,0.7998,27008
-By sector,Private,#eda100,child_u6,-1.1498,2.3986,0.6317,27008
-By sector,Private,#eda100,black,8.4943,1.5783,0.0,27008
-By sector,Private,#eda100,ma_plus,-0.9975,0.8433,0.2369,27008
-By age,Under 40,#1baf7a,parttime,11.9864,0.6983,0.0,47430
-By age,Under 40,#1baf7a,public,-8.343,0.5176,0.0,47430
-By age,Under 40,#1baf7a,new_baby,0.5587,2.0227,0.7824,47430
-By age,Under 40,#1baf7a,child_u6,-0.5503,1.1426,0.6301,47430
-By age,Under 40,#1baf7a,black,6.6228,0.8696,0.0,47430
-By age,Under 40,#1baf7a,ma_plus,-0.8934,0.5071,0.0781,47430
-By age,40 and older,#12355b,parttime,11.0647,0.5296,0.0,82467
-By age,40 and older,#12355b,public,-6.8842,0.4534,0.0,82467
-By age,40 and older,#12355b,new_baby,1.7404,6.1612,0.7776,82467
-By age,40 and older,#12355b,child_u6,-1.6035,1.5245,0.2929,82467
-By age,40 and older,#12355b,black,4.9773,0.749,0.0,82467
-By age,40 and older,#12355b,ma_plus,-1.204,0.4023,0.0028,82467
+By sex,Women,#B5443C,parttime,11.3519,0.4652,0.0,100190
+By sex,Women,#B5443C,public,-7.4113,0.387,0.0,100190
+By sex,Women,#B5443C,new_baby,4.2147,1.0322,0.0,100190
+By sex,Women,#B5443C,child_u6,0.0288,0.5706,0.9597,100190
+By sex,Women,#B5443C,black,5.4744,0.6541,0.0,100190
+By sex,Women,#B5443C,ma_plus,-1.1099,0.3562,0.0018,100190
+By sex,Men,#3268A8,parttime,10.9096,1.0106,0.0,29707
+By sex,Men,#3268A8,public,-7.6774,0.7202,0.0,29707
+By sex,Men,#3268A8,new_baby,0.0364,2.0327,0.9857,29707
+By sex,Men,#3268A8,child_u6,-0.7415,1.0237,0.4688,29707
+By sex,Men,#3268A8,black,6.4873,1.1774,0.0,29707
+By sex,Men,#3268A8,ma_plus,-1.1464,0.6473,0.0765,29707
+By sector,Public,#3268A8,parttime,11.0026,0.4728,0.0,102889
+By sector,Public,#3268A8,new_baby,-0.17,2.0377,0.9335,102889
+By sector,Public,#3268A8,child_u6,-1.438,0.9149,0.116,102889
+By sector,Public,#3268A8,black,4.8712,0.5934,0.0,102889
+By sector,Public,#3268A8,ma_plus,-1.0711,0.3277,0.0011,102889
+By sector,Private,#D9A21B,parttime,13.505,0.965,0.0,27008
+By sector,Private,#D9A21B,new_baby,-1.5177,5.9853,0.7998,27008
+By sector,Private,#D9A21B,child_u6,-1.1498,2.3986,0.6317,27008
+By sector,Private,#D9A21B,black,8.4943,1.5783,0.0,27008
+By sector,Private,#D9A21B,ma_plus,-0.9975,0.8433,0.2369,27008
+By age,Under 40,#3A8A62,parttime,11.9864,0.6983,0.0,47430
+By age,Under 40,#3A8A62,public,-8.343,0.5176,0.0,47430
+By age,Under 40,#3A8A62,new_baby,0.5587,2.0227,0.7824,47430
+By age,Under 40,#3A8A62,child_u6,-0.5503,1.1426,0.6301,47430
+By age,Under 40,#3A8A62,black,6.6228,0.8696,0.0,47430
+By age,Under 40,#3A8A62,ma_plus,-0.8934,0.5071,0.0781,47430
+By age,40 and older,#000000,parttime,11.0647,0.5296,0.0,82467
+By age,40 and older,#000000,public,-6.8842,0.4534,0.0,82467
+By age,40 and older,#000000,new_baby,1.7404,6.1612,0.7776,82467
+By age,40 and older,#000000,child_u6,-1.6035,1.5245,0.2929,82467
+By age,40 and older,#000000,black,4.9773,0.749,0.0,82467
+By age,40 and older,#000000,ma_plus,-1.204,0.4023,0.0028,82467
