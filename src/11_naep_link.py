@@ -62,20 +62,36 @@ r = np.corrcoef(sc["naep_m8"], sc["attr"])[0, 1]
 print(f"\nstates: {len(sc)}, corr(NAEP, attrition) = {r:.2f}")
 sc.round(2).to_csv("outputs/naep_vs_attrition.csv", index=False)
 
-fig, ax = plt.subplots(figsize=(6.8, 3.8))
-ax.scatter(sc["naep_m8"], sc["attr"], s=sc["n"] / 60, color=BLUE,
-           alpha=0.75, edgecolor=SURFACE, linewidth=1.2, zorder=3)
+fig, ax = plt.subplots(figsize=(7.0, 4.2))
+# weighted fit with a bootstrap confidence band
 b1, b0 = np.polyfit(sc["naep_m8"], sc["attr"], 1, w=sc["n"])
-xs = np.linspace(sc["naep_m8"].min() - 1, sc["naep_m8"].max() + 1, 20)
+xs = np.linspace(sc["naep_m8"].min() - 2, sc["naep_m8"].max() + 2, 60)
+rng = np.random.default_rng(11)
+boot = np.empty((400, len(xs)))
+for i in range(400):
+    idx = rng.integers(0, len(sc), len(sc))
+    bb1, bb0 = np.polyfit(sc["naep_m8"].iloc[idx], sc["attr"].iloc[idx], 1,
+                          w=sc["n"].iloc[idx])
+    boot[i] = bb0 + bb1 * xs
+lo, hi = np.percentile(boot, [2.5, 97.5], axis=0)
+ax.fill_between(xs, lo, hi, color=CORAL, alpha=0.12, linewidth=0)
 ax.plot(xs, b0 + b1 * xs, color=CORAL, lw=2, zorder=2)
-for s in ["CT", "MS", "NV", "MA", "TX", "FL", "WY"]:
-    row = sc[sc["state"] == s]
+ax.scatter(sc["naep_m8"], sc["attr"], s=sc["n"] / 45, color=BLUE,
+           alpha=0.85, edgecolor=SURFACE, linewidth=1.2, zorder=3)
+r = np.corrcoef(sc["naep_m8"], sc["attr"])[0, 1]
+ax.text(0.03, 0.06,
+        f"correlation $= {r:.2f}$\nslope $= {b1*10:+.1f}$ pp per 10 points",
+        transform=ax.transAxes, fontsize=9.5, va="bottom",
+        bbox=dict(facecolor="white", edgecolor="#cccccc", boxstyle="round,pad=0.45"))
+for st_ab in ["CT", "VT", "MS", "NV", "MA", "TX", "FL", "WY", "NJ", "AZ"]:
+    row = sc[sc["state"] == st_ab]
     if not row.empty:
-        ax.annotate(s, (row["naep_m8"].iat[0], row["attr"].iat[0]),
+        ax.annotate(st_ab, (row["naep_m8"].iat[0], row["attr"].iat[0]),
                     textcoords="offset points", xytext=(6, 4), fontsize=8.5,
                     color=SUBTLE)
 ax.set_xlabel("NAEP grade-8 mathematics, average scale score (2005--2024)")
-ax.set_ylabel("Persistent attrition, %")
+ax.set_ylabel("Attrition net of returns, %")
+ax.set_xlim(xs.min(), xs.max())
 fig.tight_layout()
-fig.savefig("report/figures/fig16_naep.pdf")
+fig.savefig("report/figures/fig16_naep.pdf", bbox_inches="tight")
 print("fig16 saved; slope per 10 NAEP points:", round(b1 * 10, 2), "pp")

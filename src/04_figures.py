@@ -133,8 +133,8 @@ for yi, (v, c, p) in zip(ypos, zip(d3["AME"], colors, d3["p"])):
                 color=INK, fontweight="bold")
 xmin = min(d3["lo"].min(), -3) - 1
 for hy, title in headers:
-    ax.text(xmin, hy, title, fontsize=8.2, color=NAVY, fontweight="bold",
-            ha="left", va="center")
+    ax.text(xmin + 1.8, hy, title, fontsize=8.2, color=NAVY,
+            fontweight="bold", ha="left", va="center")
 ax.set_yticks(ypos, ylabels, fontsize=9.5)
 ax.set_ylim(min(ypos) - 1, 1.7)
 ax.set_xlabel("Change in P(leaving teaching), percentage points")

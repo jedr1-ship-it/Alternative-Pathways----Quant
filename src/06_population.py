@@ -238,53 +238,67 @@ def pstars(p):
         "$^{*}$" if p < 0.1 else ""
 
 
-PORTRAIT = [
-    ("Age, years", "PRTAGE", "num"),
-    ("Female", "female", "pct"),
-    ("White", "white", "pct"),
-    ("Black", "black", "pct"),
-    ("Asian", "asian", "pct"),
-    ("Hispanic", "hispanic", "pct"),
-    ("Non-citizen", "noncitizen", "pct"),
-    ("Married", "married", "pct"),
-    ("Number of own children ($<$18) at home", "n_children", "num"),
-    ("Child under 6 at home", "child_u6", "pct"),
-    ("Master's degree", "ma_only", "pct"),
-    ("Professional degree or doctorate", "prof_phd", "pct"),
-    ("Public-sector employer", "public", "pct"),
-    ("Union member$^{a}$", "union", "pct"),
-    ("Usual weekly hours", "hours", "num"),
-    ("Part-time ($<$35 h/week)", "parttime", "pct"),
-    ("Holds more than one job", "multjob", "pct"),
-    ("Weekly earnings, median$^{a}$", "wkearn", "usd"),
-    ("Family income \\$75k+", "faminc75k", "pct"),
+PANELS = [
+    ("Panel A. Demographics", [
+        ("Age, years", "PRTAGE", "num"),
+        ("Female", "female", "pct"),
+        ("White", "white", "pct"),
+        ("Black", "black", "pct"),
+        ("Asian", "asian", "pct"),
+        ("Hispanic", "hispanic", "pct"),
+        ("Non-citizen", "noncitizen", "pct"),
+    ]),
+    ("Panel B. Family", [
+        ("Married", "married", "pct"),
+        ("Number of own children ($<$18) at home", "n_children", "num"),
+        ("Child under 6 at home", "child_u6", "pct"),
+    ]),
+    ("Panel C. Education", [
+        ("Master's degree", "ma_only", "pct"),
+        ("Professional degree or doctorate", "prof_phd", "pct"),
+    ]),
+    ("Panel D. The job", [
+        ("Public-sector employer", "public", "pct"),
+        ("Union member$^{a}$", "union", "pct"),
+        ("Usual weekly hours", "hours", "num"),
+        ("Part-time ($<$35 h/week)", "parttime", "pct"),
+        ("Holds more than one job", "multjob", "pct"),
+    ]),
+    ("Panel E. Pay and income", [
+        ("Weekly earnings, median$^{a}$", "wkearn", "usd"),
+        ("Family income \\$75k+", "faminc75k", "pct"),
+    ]),
 ]
+
 with open("report/table_portrait.tex", "w") as fh:
     fh.write("\\begin{tabular}{lccc}\n\\toprule\n"
              " & School teachers & Other college- & Difference \\\\\n"
              " & & educated workers & \\\\\n\\midrule\n")
-    for lab, v, kind in PORTRAIT:
-        if kind == "usd":
-            a, b = wmedian(T, v), wmedian(O, v)
-            cells = [f"\\${a:,.0f}", f"\\${b:,.0f}", f"$-$\\${b-a:,.0f}"]
+    for panel, items in PANELS:
+        rows_out = []
+        for lab, v, kind in items:
             sub = P[P[v].notna()]
             t = smf.wls(f"{v} ~ tch_i", data=sub,
                         weights=sub["PWSSWGT"]).fit(
                 cov_type="cluster", cov_kwds={"groups": sub["HRHHID"]})
-            cells[2] += pstars(t.pvalues["tch_i"])
-        else:
-            a, b = (wmean(T, v) * 100, wmean(O, v) * 100) if kind == "pct" \
-                else (wmean(T, v), wmean(O, v))
-            fmt = (lambda x: f"{x:.1f}\\%") if kind == "pct" else \
-                  (lambda x: f"{x:.1f}")
-            sub = P[P[v].notna()]
-            t = smf.wls(f"{v} ~ tch_i", data=sub,
-                        weights=sub["PWSSWGT"]).fit(
-                cov_type="cluster", cov_kwds={"groups": sub["HRHHID"]})
-            d = t.params["tch_i"]
-            dtxt = f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}"
-            cells = [fmt(a), fmt(b), dtxt + pstars(t.pvalues["tch_i"])]
-        fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
+            d, p = t.params["tch_i"], t.pvalues["tch_i"]
+            tstat = abs(t.tvalues["tch_i"])
+            if kind == "usd":
+                a, b = wmedian(T, v), wmedian(O, v)
+                cells = [f"\\${a:,.0f}", f"\\${b:,.0f}",
+                         f"$-$\\${b-a:,.0f}" + pstars(p)]
+            else:
+                a, b = (wmean(T, v) * 100, wmean(O, v) * 100) \
+                    if kind == "pct" else (wmean(T, v), wmean(O, v))
+                fmt = (lambda x: f"{x:.1f}\\%") if kind == "pct" else \
+                      (lambda x: f"{x:.1f}")
+                dtxt = f"{d*100:+.1f}\\,pp" if kind == "pct" else f"{d:+.2f}"
+                cells = [fmt(a), fmt(b), dtxt + pstars(p)]
+            rows_out.append((tstat, f"{lab} & " + " & ".join(cells) + " \\\\\n"))
+        fh.write(f"\\multicolumn{{4}}{{l}}{{\\textit{{{panel}}}}} \\\\[2pt]\n")
+        for _, line in sorted(rows_out, key=lambda r: -r[0]):
+            fh.write(line)
+        fh.write("\\addlinespace[6pt]\n")
     fh.write("\\midrule\nPersons (monthly interviews pooled) & "
              f"{len(T):,} & {len(O):,} & \\\\\n\\bottomrule\n\\end{{tabular}}\n")
 print("wrote report/table_portrait.tex")
