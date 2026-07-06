@@ -181,29 +181,32 @@ are in Appendix Figures~\ref{fig:agedist} and~\ref{fig:traits}.
 
 
 
-The profile has also been moving. Table~\ref{tab:periods} compares
-teachers across three sub-periods and shows a workforce that is aging, with
-the share under 35 down from 31 to 27 percent, becoming more Hispanic, from
-6 to 10 percent, and steadily more credentialed, with master's degrees up
-from 48 to 54 percent, while two anchors of the traditional teaching career
-erode at the same time, since public-sector employment falls from 80 to 75
-percent of teachers and union membership from 53 to 47 percent. The
-gender mix, in contrast, has not moved at all. Teaching is drifting toward
-the private, non-union segment where, as the results below show, careers
-break most often.
+The profile has also been moving, and Figure~\ref{fig:evolution} traces
+that movement year by year. The workforce is aging, with the share under 35
+down from 32 to 29 percent, becoming markedly more Hispanic, from 6 to 13
+percent, and steadily more credentialed, with bachelor's degrees edging up
+and master's degrees rising from 40 to 47 percent, while two anchors of the
+traditional teaching career erode at the same time, since public-sector
+employment falls from 75 to 69 percent of teachers and union membership
+from 49 to 42 percent. The gender mix, in contrast, has not moved at all.
+Teaching is drifting toward the private, non-union segment where, as the
+results below show, careers break most often. Appendix
+Table~\ref{tab:periods} reports the same evolution by sub-period together
+with formal tests, and every one of these changes is significant at the one
+percent level.
 
-\begin{table}[htbp]
+\begin{figure}[htbp]
+  \centering
   \caption{The changing profile of the teaching workforce.}
-  \label{tab:periods}
-  \centering\small
-  \input{table_profile_periods}
-  \fignote{Notes: Weighted means of monthly teacher interviews in each
-  sub-period. The last column reports the change between 2005--2011 and
-  2019--2025 and the significance of a two-sample test with standard errors
-  clustered by household ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$). Union
-  membership is only asked in the outgoing rotations. Source: author's
-  calculations from CPS basic monthly microdata, 2005--2025.}
-\end{table}
+  \label{fig:evolution}
+  \includegraphics[width=\textwidth]{figures/fig17_profile_evolution.pdf}
+  \fignote{Notes: Weighted annual means over all employed persons observed
+  in a school-teaching occupation, with no degree restriction. Union
+  membership is only asked in the outgoing rotations. The shaded band marks
+  2020. Appendix Table~\ref{tab:periods} reports the underlying numbers by
+  sub-period with tests of the change. Source: author's calculations from
+  CPS basic monthly microdata, 2005--2025.}
+\end{figure}
 
 Weighted to population, the stock is remarkably stable at about 4.7 million
 teachers over the whole period (Appendix Figure~\ref{fig:stock}), with the
@@ -343,11 +346,11 @@ people to other jobs, not to inactivity.
 
 \section*{5. Who leaves}
 
-Table~\ref{tab:desc} opens the question by comparing stayers and non-returning
-leavers across every characteristic I observe, shading in green the
-differences that are both statistically significant and economically
-meaningful. Read as a whole, the table already sketches the profile of the
-leaver. Leavers are three years older on average, they are far more attached
+Appendix Table~\ref{tab:desc} opens the question by comparing stayers and
+non-returning leavers across every characteristic I observe, shading in
+green the differences that are both statistically significant and
+economically meaningful. Read as a whole, the table already sketches the
+profile of the leaver. Leavers are three years older on average, they are far more attached
 to the margins of the job than to its core, since working part-time is
 eleven points more common among them and private-sector employment fifteen
 points more common, and their family situation differs in a precise way,
@@ -364,23 +367,6 @@ for economic relevance. Expressed as exit rates, part-time teachers leave at
 more than twice the rate of full-time teachers, 32 against 13 percent, and
 preschool and kindergarten teachers face 21 percent against 15 for
 elementary and 13 for secondary school.
-
-\begin{table}[htbp]
-  \caption{Descriptive statistics of the analytic sample (weighted means).}
-  \label{tab:desc}
-  \centering\small
-  \input{table_descriptives}
-  \fignote{Notes: The sample is all linked teachers whose rotation includes at
-  least one interview after the twelve-month link. All variables are measured
-  at baseline and weighted with CPS person weights. Children are own children
-  under eighteen living in the household at the time of the interview. The
-  last column reports the stayer-leaver difference and the significance of a
-  two-sample test with standard errors clustered by household
-  ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$); green cells mark differences
-  that are significant at 5 percent and larger than two percentage points
-  (one year of age, 0.15 children). Source: author's calculations from CPS
-  basic monthly microdata, 2005--2025.}
-\end{table}
 
 The lifecycle shape is visible in the raw data as well. Plotting attrition
 by birth cohort separately for men and women in Figure~\ref{fig:cohort}
@@ -585,9 +571,10 @@ object of this paper, are far less affected.
 \section*{Appendix B. Additional figures and tables}
 
 This appendix collects the supporting material referenced in the main
-text: the age and composition contrasts behind Table~\ref{tab:portrait},
-the level composition of the teaching stock, the subsample estimates,
-the predicted age profile, and the full regression output.
+text: the age and composition contrasts behind Table~\ref{tab:big}, the
+level composition of the teaching stock, the sub-period profile of the
+workforce, the stayer-leaver comparison, the subsample estimates, the
+predicted age profile, and the full regression output.
 
 \begin{figure}[htbp]
   \centering
@@ -657,6 +644,39 @@ the predicted age profile, and the full regression output.
   Table~\ref{tab:probit}, holding all other covariates at their sample
   means, with a simulation-based 95\% confidence band.}
 \end{figure}
+
+\begin{table}[htbp]
+  \caption{The changing profile of the teaching workforce, by sub-period.}
+  \label{tab:periods}
+  \centering\small
+  \input{table_profile_periods}
+  \fignote{Notes: Weighted means over all employed persons observed in a
+  school-teaching occupation, with no degree restriction, in each
+  sub-period. Sample sizes are unique persons. The last column reports the
+  change between 2005--2011 and 2019--2025 and the significance of a
+  two-sample test with standard errors clustered by household
+  ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$). Union membership is only
+  asked in the outgoing rotations. Source: author's calculations from CPS
+  basic monthly microdata, 2005--2025.}
+\end{table}
+
+\begin{table}[htbp]
+  \caption{Stayers vs non-returning leavers in the analytic sample
+  (weighted means).}
+  \label{tab:desc}
+  \centering\small
+  \input{table_descriptives}
+  \fignote{Notes: The sample is all linked teachers whose rotation includes at
+  least one interview after the twelve-month link. All variables are measured
+  at baseline and weighted with CPS person weights. Children are own children
+  under eighteen living in the household at the time of the interview. The
+  last column reports the stayer-leaver difference and the significance of a
+  two-sample test with standard errors clustered by household
+  ($^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$); green cells mark differences
+  that are significant at 5 percent and larger than two percentage points
+  (one year of age, 0.15 children). Source: author's calculations from CPS
+  basic monthly microdata, 2005--2025.}
+\end{table}
 
 \begin{table}[htbp]
   \caption{Robustness of the marginal effects to estimator and sample.}

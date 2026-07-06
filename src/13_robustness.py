@@ -69,7 +69,7 @@ with open("report/table_robustness.tex", "w") as fh:
     fh.write(f"""\\midrule
 Base-year fixed effects & Yes & Yes & Yes & Yes \\\\
 Full covariate set & Yes & Yes & Yes & Yes \\\\
-Observations & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
+Persons & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
 \\bottomrule
 \\end{{tabular}}
 """)

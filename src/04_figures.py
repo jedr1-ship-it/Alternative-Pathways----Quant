@@ -292,7 +292,7 @@ with open("report/table_probit.tex", "w") as f:
 \\midrule
 Base-year fixed effects & Yes & Yes \\\\
 Mean of dependent variable & 0.151 & 0.151 \\\\
-Observations & {int(m.nobs):,} & {int(m.nobs):,} \\\\
+Persons & {int(m.nobs):,} & {int(m.nobs):,} \\\\
 Pseudo $R^2$ & {m.prsquared:.3f} & \\\\
 \\bottomrule
 \\end{{tabular}}
