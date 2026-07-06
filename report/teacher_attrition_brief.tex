@@ -1,10 +1,10 @@
 \documentclass[11pt,a4paper]{article}
 
-% ---------- EsadeEcPol-inspired policy-brief look ----------
+% ---------- academic paper look ----------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
-\usepackage[margin=2.3cm,top=2.0cm,bottom=2.4cm]{geometry}
+\usepackage{tgtermes}
+\usepackage[margin=2.5cm,top=2.4cm,bottom=2.6cm]{geometry}
 \usepackage{graphicx,booktabs,xcolor,colortbl,tcolorbox,caption,enumitem,setspace}
 \usepackage[hidelinks]{hyperref}
 
@@ -17,8 +17,8 @@
 \definecolor{ecpale}{HTML}{FFF8DC}
 \definecolor{sigok}{HTML}{DDF2E4}
 
-\captionsetup{font={small},labelfont={bf,color=ecnavy},
-              justification=raggedright,singlelinecheck=false}
+\captionsetup{font={small},labelfont={bf},
+              justification=justified,singlelinecheck=false}
 \makeatletter\setlength{\@fptop}{0pt}\makeatother  % floats start at page top
 \setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
 \linespread{1.14}
@@ -32,26 +32,32 @@
 \begin{document}
 
 % ---------- title page ----------
+\vspace*{30pt}
 \begin{center}
-{\fontsize{19}{24}\selectfont\bfseries\color{ecnavy}%
-Who Leaves Teaching, and Why?\\[4pt]
+{\fontsize{20}{26}\selectfont\bfseries
+Who Leaves Teaching, and Why?\par}
+\vspace{8pt}
+{\fontsize{15}{20}\selectfont\bfseries
 The Profile of Teacher Attrition in the United States, 2005--2025\par}
 
-\vspace{16pt}
+\vspace{26pt}
 {\large José Elías Durán Roa\footnote{PhD Candidate in Economics,
 University of Alicante, and Research Intern at the OECD Directorate for
-Education and Skills. The views expressed here are mine and do not represent
-those of the OECD. All remaining errors are my own.}}
+Education and Skills. E-mail\,
+\href{mailto:joseelias.duranroa@ocde.org}{joseelias.duranroa@ocde.org} and
+\href{mailto:joduran@ua.es}{joduran@ua.es}. The views expressed here are
+mine and do not represent those of the OECD. All remaining errors are my
+own.}}
 
-\vspace{6pt}
-{\small\color{ecgray}July 2026}
+\vspace{8pt}
+{\small July 2026}
 \end{center}
 
-\vspace{14pt}
+\vspace{26pt}
 \begin{center}
-\begin{minipage}{0.88\textwidth}
+\begin{minipage}{0.86\textwidth}
 {\small
-\noindent{\bfseries\color{ecnavy}Abstract}\par\vspace{4pt}
+\begin{center}\bfseries Abstract\end{center}\vspace{2pt}
 Who leaves the teaching profession, and why? I build twenty annual panels of
 American school teachers by linking consecutive rotations of the Current
 Population Survey between 2005 and 2025, following 174{,}872 degree-holding
@@ -74,8 +80,8 @@ three months, so cheap re-entry pathways can recover part of the outflow.}
 \end{minipage}
 \end{center}
 
-\vspace{8pt}
-\section*{\color{ecnavy}1. Data}
+\clearpage
+\section*{1. Data}
 
 I use the basic monthly microdata of the Current Population Survey (CPS),
 the household survey behind the official employment statistics of the United
@@ -142,7 +148,7 @@ sample.
   \fignote{Notes: Monthly figures are averages over the 251 available months,
   with weighted population totals beside the sample counts. Teachers are
   employed persons whose main job is school teaching (Census occupation codes
-  2300 to 2330) holding a bachelor's degree or higher. Source: authors'
+  2300 to 2330) holding a bachelor's degree or higher. Source: author's
   calculations from CPS basic monthly microdata, 2005--2025.}
 \end{table}
 
@@ -197,7 +203,7 @@ the threshold I use for economic relevance.
   basic monthly microdata, 2005--2025.}
 \end{table}
 
-\section*{\color{ecnavy}2. The teacher workforce}
+\section*{2. The teacher workforce}
 
 Before asking who leaves, it helps to know who teaches, and the comparison
 that makes teachers legible is the rest of the college-educated workforce.
@@ -272,7 +278,7 @@ above entries.
   \label{fig:stock}
   \includegraphics[width=0.78\textwidth]{figures/fig7_stock.pdf}
   \fignote{Notes: Employed school teachers with a bachelor's degree or
-  higher, annual average of monthly weighted estimates. Source: authors'
+  higher, annual average of monthly weighted estimates. Source: author's
   calculations from CPS basic monthly microdata, 2005--2025.}
 \end{figure}
 
@@ -325,7 +331,7 @@ conversation.
   Source: author's calculations from linked CPS pairs and NAEP.}
 \end{figure}
 
-\section*{\color{ecnavy}3. Attrition over time}
+\section*{3. Attrition over time}
 
 One in six 12-month leavers is teaching again within three months, 16.1
 percent of women and 14.0 percent of men, and these temporary exits are
@@ -342,11 +348,11 @@ year men, at 19.8 percent, actually exceeded women, at 17.4.
   \includegraphics[width=0.84\textwidth]{figures/fig6_evolution.pdf}
   \fignote{Notes: The return window is capped by the survey design at three
   monthly interviews after the twelve-month link, and 21{,}873 of the
-  30{,}244 leavers are re-interviewed at least once. Source: authors'
+  30{,}244 leavers are re-interviewed at least once. Source: author's
   calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}4. Where leavers go}
+\section*{4. Where leavers go}
 
 The linked design distinguishes those who abandon the labor force from those
 who change occupation, and for the latter it records the destination.
@@ -388,11 +394,11 @@ people to other jobs, not to inactivity.
   \label{fig:desttime}
   \includegraphics[width=0.84\textwidth]{figures/fig13_dest_time.pdf}
   \fignote{Notes: Persistent leavers as a share of baseline teachers in each
-  year, split by their situation twelve months later. Source: authors'
+  year, split by their situation twelve months later. Source: author's
   calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}5. Who leaves}
+\section*{5. Who leaves}
 
 Raw attrition concentrates along three margins, hours, teaching level and,
 more weakly among degree holders, credentials. Part-time teachers leave at
@@ -428,7 +434,7 @@ conceals both.
   Source: author's calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}6. The model}
+\section*{6. The model}
 
 I estimate a probit for the probability of persistently leaving, with all
 covariates measured at baseline, base-year fixed effects and standard errors
@@ -508,7 +514,7 @@ private schools.
   $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.}
 \end{table}
 
-\section*{\color{ecnavy}7. The typical leaver}
+\section*{7. The typical leaver}
 
 Ranking teachers by their predicted risk gives the model's portrait of the
 typical leaver, drawn in Figure~\ref{fig:profile}. The top decile faces a
@@ -528,7 +534,7 @@ against 78 percent of all teachers, with Black teachers over-represented at
   pairs, 2005--2025.}
 \end{figure}
 
-\section*{\color{ecnavy}8. Policy implications}
+\section*{8. Policy implications}
 
 The results locate attrition in weak attachment to the job, in part-time
 hours, private-sector positions and both career extremes, rather than in
@@ -554,7 +560,7 @@ errors. Fully reproducible from the repository scripts.}
 
 \clearpage
 \appendix
-\section*{\color{ecnavy}Appendix}
+\section*{Appendix}
 \renewcommand{\thefigure}{A\arabic{figure}}
 \setcounter{figure}{0}
 
