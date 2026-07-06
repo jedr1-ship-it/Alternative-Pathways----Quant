@@ -119,8 +119,9 @@ BLOCKS = [
                 "new_baby", "fem_newbaby"]),
     ("DEMOGRAPHICS", ["female", "black", "hispanic", "noncitizen"]),
     ("TEACHING LEVEL", ["preschool_kg", "secondary", "special_ed"]),
-    ("INCOME AND REGION", ["faminc75k", "midwest", "south", "west"]),
+    ("FAMILY INCOME", ["faminc75k"]),
 ]
+# region indicators stay in the model but are not displayed
 rows, ypos, ylabels, headers = [], [], [], []
 y = 0.0
 for title, vs in BLOCKS:
@@ -157,9 +158,10 @@ handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c) for c in
            (CORAL, BLUE, GRAY)]
 ax.legend(handles, ["Raises exit risk", "Lowers exit risk",
                     "Not significant (p≥0.05)"],
-          loc="lower right", frameon=False, fontsize=9)
+          loc="upper center", bbox_to_anchor=(0.5, 1.05), ncols=3,
+          frameon=False, fontsize=9)
 fig.tight_layout()
-fig.savefig("report/figures/fig3_ame.pdf")
+fig.savefig("report/figures/fig3_ame.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------- Figure 11: attrition by birth cohort and sex ----------
@@ -264,9 +266,10 @@ ax.yaxis.grid(False)
 handles = [plt.Line2D([], [], marker="o", ls="", ms=8, color=c)
            for c in (BLUE, GOLD)]
 ax.legend(handles, ["All teachers", "Highest-risk decile"],
-          loc="lower right", frameon=False, fontsize=9)
+          loc="upper center", bbox_to_anchor=(0.5, 1.12), ncols=2,
+          frameon=False, fontsize=9)
 fig.tight_layout()
-fig.savefig("report/figures/fig5_profile.pdf")
+fig.savefig("report/figures/fig5_profile.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------- LaTeX regression table ----------

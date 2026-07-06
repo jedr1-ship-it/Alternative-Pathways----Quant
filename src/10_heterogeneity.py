@@ -100,12 +100,13 @@ for ax, (split, groups, drop) in zip(axes, SPLITS):
     ax.yaxis.grid(False)
     handles = [plt.Line2D([], [], marker="o", ls="", ms=7, color=c)
                for _, _, c in groups]
-    ax.legend(handles, [g for g, *_ in groups], loc="lower right",
-              frameon=False, fontsize=8.5)
+    ax.legend(handles, [g for g, *_ in groups], loc="upper center",
+              bbox_to_anchor=(0.5, -0.10), ncols=2, frameon=False,
+              fontsize=8.5)
 axes[1].set_xlabel("Change in P(leaving teaching), "
                    "percentage points")
 fig.tight_layout(w_pad=1.6)
-fig.savefig("report/figures/fig15_heterogeneity.pdf")
+fig.savefig("report/figures/fig15_heterogeneity.pdf", bbox_inches="tight")
 print("\nsaved fig15; key contrasts:")
 for v in ["new_baby", "parttime", "public"]:
     s = res[res["var"] == v][["split", "group", "ame", "p"]]

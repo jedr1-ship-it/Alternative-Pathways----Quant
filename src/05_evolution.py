@@ -142,7 +142,8 @@ for col, c in [("attrp_f", CORAL), ("attrp_m", BLUE)]:
 handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)] + \
           [plt.Line2D([], [], color=GRAY, lw=2, ls=(0, (4, 3)))]
 ax.legend(handles, ["Women", "Men", "12-month definition (all)"],
-          loc="lower left", frameon=False, fontsize=8.5)
+          loc="upper center", bbox_to_anchor=(0.5, 1.14), ncols=3,
+          frameon=False, fontsize=9)
 ax.set_xlim(2004.5, 2027)
 ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2024])
@@ -152,5 +153,5 @@ ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
 ax.text(2020, ax.get_ylim()[1] * 0.95, "COVID", ha="center", fontsize=8,
         color=SUBTLE)
 fig.tight_layout()
-fig.savefig("report/figures/fig6_evolution.pdf")
+fig.savefig("report/figures/fig6_evolution.pdf", bbox_inches="tight")
 print("\nsaved report/figures/fig6_evolution.pdf, outputs/evolution_by_year_gender.csv")

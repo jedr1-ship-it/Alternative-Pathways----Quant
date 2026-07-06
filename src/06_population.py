@@ -147,15 +147,15 @@ for lev in order:
     ax.text(yr.index[-1] + 0.4, yr[lev].iloc[-1], f"{yr[lev].iloc[-1]:.2f}M",
             va="center", fontsize=9, color=INK, fontweight="bold")
 handles = [plt.Line2D([], [], color=LEVEL_COLOR[l], lw=2) for l in order]
-ax.legend(handles, order, loc="upper left", frameon=False, fontsize=9,
-          ncol=2)
+ax.legend(handles, order, loc="upper center",
+          bbox_to_anchor=(0.5, 1.16), ncols=2, frameon=False, fontsize=9)
 ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2025])
 ax.set_xlim(2004.5, 2028)
 ax.set_ylabel("Teachers, millions")
 ax.tick_params(length=0)
 fig.tight_layout()
-fig.savefig("report/figures/fig8_by_level.pdf")
+fig.savefig("report/figures/fig8_by_level.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------- fig9: entering vs leaving ----------
@@ -175,9 +175,9 @@ for col, c in [("entry_rate", GREEN), ("exit_rate", CORAL)]:
             f"{fl[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
             color=INK, fontweight="bold")
 handles = [plt.Line2D([], [], color=c, lw=2) for c in (GREEN, CORAL)]
-ax.legend(handles, ["Entering teaching (share of year-$t{+}1$ teachers)",
-                    "Leaving teaching (share of year-$t$ teachers)"],
-          loc="lower left", frameon=False, fontsize=8.5)
+ax.legend(handles, ["Entering teaching", "Leaving teaching"],
+          loc="upper center", bbox_to_anchor=(0.5, 1.14), ncols=2,
+          frameon=False, fontsize=9)
 ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
 ax.set_ylim(0, None)
 ax.set_xticks([2005, 2010, 2015, 2020, 2024])
@@ -185,7 +185,7 @@ ax.set_xlim(2004.5, 2027)
 ax.set_ylabel("% per year")
 ax.tick_params(length=0)
 fig.tight_layout()
-fig.savefig("report/figures/fig9_flows.pdf")
+fig.savefig("report/figures/fig9_flows.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------- fig12: portrait of the teaching workforce, 2021-2025 ----------
@@ -316,13 +316,14 @@ for g, c in [(O, GRAY), (T, BLUE)]:
             solid_capstyle="round")
 handles = [plt.Line2D([], [], color=c, lw=2) for c in (BLUE, GRAY)]
 ax.legend(handles, ["School teachers", "Other college-educated workers"],
-          loc="upper right", frameon=False, fontsize=9)
+          loc="upper center", bbox_to_anchor=(0.5, 1.16), ncols=2,
+          frameon=False, fontsize=9)
 ax.set_ylim(0, None)
 ax.set_xlabel("Age")
 ax.set_ylabel("% of the group")
 ax.tick_params(length=0)
 fig.tight_layout()
-fig.savefig("report/figures/fig12a_age.pdf")
+fig.savefig("report/figures/fig12a_age.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ---------- fig12b: composition dumbbells (geography lives in the map) ----
