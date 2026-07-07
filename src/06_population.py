@@ -66,7 +66,7 @@ for lab, k in [("Adults interviewed in an average month", "adults"),
                 "teachers_ba")]:
     n, w = month_avg(k)
     rows.append((lab, f"{n:,.0f}", f"{w:.1f}M"))
-rows.append(("Linked 12 months later (unique persons, 20 waves)",
+rows.append(("Linked 12 months later (54,944 teachers, 20 waves)",
              f"{n_linked:,}", "the same 4.6M"))
 rows.append(("\\quad with re-interviews after $t{+}12$: \\textbf{main sample}",
              f"{n_followup:,}", "the same 4.6M"))

@@ -71,7 +71,8 @@ with open("report/table_robustness.tex", "w") as fh:
 Base-year fixed effects & Yes & Yes & Yes & Yes \\\\
 Full covariate set & Yes & Yes & Yes & Yes \\\\
 Mean of dependent variable & {mdep:.3f} & {mdep:.3f} & {mdep:.3f} & {mdepx:.3f} \\\\
-Persons & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
+Observations & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
+Unique teachers & {B.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} & {B.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} & {B.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} & {Bx.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} \\\\
 \\bottomrule
 \\end{{tabular}}
 """)

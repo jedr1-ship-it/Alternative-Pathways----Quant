@@ -69,8 +69,8 @@ own.}}
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
 Who leaves the teaching profession, and why? I build twenty annual panels of
 American school teachers by linking consecutive rotations of the Current
-Population Survey between 2005 and 2025, following 174{,}872 degree-holding
-teachers for twelve months each, and I measure attrition with a strict
+Population Survey between 2005 and 2025, following 54{,}944 degree-holding
+teachers for twelve months each through 174{,}872 linked observations, and I measure attrition with a strict
 definition that counts as leavers only those who do not return to teaching
 in any later interview, although the survey design caps observation at
 sixteen months, so returns after more than a year go undetected. Every year
@@ -132,8 +132,8 @@ observed in year $t$ can be re-interviewed in the same calendar month of
 $t{+}1$. I assemble all 251 monthly files between January 2005 and
 December 2025, link the interviews twelve months apart through household
 and person identifiers with demographic validation in the spirit of
-Madrian and Lefgren (2000), and obtain twenty annual panels covering
-174{,}872 linked teachers. Because one in six apparent leavers is teaching
+Madrian and Lefgren (2000), and obtain twenty annual panels with
+174{,}872 linked observations of 54{,}944 distinct teachers. Because one in six apparent leavers is teaching
 again within three months, I measure attrition with a strict definition
 that counts as a leaver only a teacher who is out of teaching at the
 twelve-month link and in every re-interview after it. The design observes
@@ -200,7 +200,12 @@ more, so that any person can be observed for at most sixteen months and only
 once in a lifetime. Within that window, an adult interviewed in year $t$ is
 re-interviewed in the same calendar month of $t{+}1$, and I link the two
 interviews through household and person identifiers, validating every match
-on sex, race and a plausible age progression (Madrian and Lefgren, 2000). Because nobody is followed
+on sex, race and a plausible age progression (Madrian and Lefgren, 2000). Linking the public CPS files
+across months is the standard way to use the survey's panel dimension,
+since the Census Bureau does not release a longitudinal person identifier;
+the official labor force flows of the Bureau of Labor Statistics and the
+longitudinal keys distributed by IPUMS are constructed the same way
+(Rivera Drew, Flood and Warren, 2014). Because nobody is followed
 across several years, each base year forms a fresh cohort, and I compute
 every rate in this paper wave by wave over twenty waves.
 
@@ -225,15 +230,19 @@ education teachers. The codes are identical in the 2002, 2010 and 2020
 occupational classifications used over the period, which keeps the series
 comparable for twenty-one years.} and I require at least a bachelor's
 degree, the standard restriction in the attrition literature. Pooling the
-twenty waves delivers 174{,}872 linked teachers who represent the 4.6
-million teachers of the country. A leaver could simply be anyone not
+twenty waves delivers 174{,}872 linked observations of 54{,}944 distinct
+teachers, representing the 4.6 million teachers of the country; a person
+interviewed in the four months of her first block contributes up to four
+linked baselines, and standard errors are clustered by household
+throughout, which nests the person. A leaver could simply be anyone not
 employed as a school teacher twelve months after baseline, which is the
 convention of the NCES Teacher Follow-up Survey (NCES, 2024), but temporary exits such as
 parental leave or a short unemployment spell inflate that measure, and
 indeed 15.7\% of such leavers are teaching again within three months. My
 main outcome is therefore the non-returning leaver, a teacher who is out of
 teaching at $t{+}12$ and in every later re-interview, computed on the
-129{,}897 teachers whose rotation allows at least one re-interview.
+129{,}897 baseline observations, from 52{,}238 distinct teachers, whose
+rotation allows at least one re-interview.
 Appendix~A traces the full population funnel, shows that linkage failure
 does not select against teachers, reconciles my rates with the published
 benchmarks, and discusses the measurement caveats that make them upper
@@ -697,6 +706,10 @@ Follow-up Survey.'' NCES 2024-039, U.S. Department of Education.}
 Springer. 2020. ``The Correlates of Teacher Turnover: An Updated and
 Expanded Meta-analysis of the Literature.'' \textit{Educational Research
 Review}, 31, 100355.}
+\bibentry{Rivera Drew, Julia A., Sarah Flood, and John Robert Warren.
+2014. ``Making Full Use of the Longitudinal Design of the Current
+Population Survey: Methods for Linking Records Across 16 Months.''
+\textit{Journal of Economic and Social Measurement}, 39(3), 121--144.}
 \bibentry{Rivkin, Steven G., Eric A. Hanushek, and John F. Kain. 2005.
 ``Teachers, Schools, and Academic Achievement.'' \textit{Econometrica},
 73(2), 417--458.}
@@ -762,51 +775,85 @@ read as upper bounds while comparisons across groups and over time, the
 object of this paper, are far less affected.
 
 How do these rates compare with the published benchmarks?
-Table~\ref{tab:reconcile} walks the distance step by step. Restricting my
-conventional 12-month rate to the universe the Teacher Follow-up Survey
-covers, public school teachers outside preschool, lowers it from 17.6 to
-15.2 percent, purging observed returns lowers it to 15.1, and counting as
-leavers only those found in no education occupation at $t{+}12$ lowers it
-to 10.5. The remaining gap to the 8.0 percent of the follow-up survey and
-to the 7.6 to 7.7 percent of the retrospective CPS studies reflects the
-measurement instrument itself. My design re-codes occupation independently
-at the second interview, which inflates measured switching, while the
-retrospective question compares two answers given in a single interview,
-which is known to understate occupational change, so the truth plausibly
-lies between the two families of estimates. To pin down the role of the
-instrument with my own data, I replicate the retrospective measure on the
-2022--2024 March supplements, defining a teacher by the longest job of the
-previous calendar year and a leaver by the occupation of the survey week.
-The same survey that yields 17.6 percent under the linked design yields
-5.8 percent under the retrospective question, and the decomposition is
-telling, since the retrospective instrument records only 1.9 percentage
+Table~\ref{tab:reconcile} walks the distance step by step, and every step
+is an institutional difference between the sources rather than an
+adjustment. The Teacher Follow-up Survey samples K--12 classroom teachers
+from school rosters, explicitly excluding short-term substitutes, student
+teachers and teacher aides, and reports that 8.0 percent of public school
+teachers left the classroom between 2020--21 and 2021--22 (NCES, 2024).
+My universe is instead anyone whose main job is school teaching,
+substitutes included. Purging observed returns lowers my conventional
+17.6 percent to 15.1, restricting to public K--12 teachers lowers it to
+12.7, dropping part-timers, the closest observable proxy for the
+substitutes that the rosters exclude, lowers it to 11.5, and counting as
+leavers only teachers found in no education occupation at $t{+}12$, the
+margin where independent occupation coding is most fragile, yields 8.0.
+This last step deliberately overshoots, because the follow-up survey
+counts moves into non-teaching education jobs as leaving while my
+strictest row does not, so the fully aligned figure lies between 8.0 and
+11.5 and the survey benchmark sits inside that bracket. The private side
+tells the same story from the other direction, since the follow-up survey
+itself reports 12.0 percent attrition in private schools, and its leavers
+are not gone from education either, as 39 percent of them keep working
+for a school or district in a non-teaching role, the same phenomenon as
+the 30 percent of education destinations in Figure~\ref{fig:where}.
+
+The retrospective CPS estimates sit below all of this, and I can
+reproduce them exactly. Applying the definition of Harris and Adams
+(2007) to the 2022--2024 March supplements, a teacher by the longest job
+of the previous calendar year and a leaver by the survey-week occupation,
+yields 5.8 percent with my bachelor's restriction and 6.7 percent without
+it, against the 7.6 percent that Aldeman and Yi (2025) obtain pooling
+2015--2024. The same survey therefore delivers 17.6 percent when
+interviews a year apart are linked and 6 to 7 percent when one interview
+asks about the year before, and the decomposition shows where the signal
+goes, since the retrospective instrument records only 1.9 percentage
 points of moves into other occupations against about 12 in the linked
-pairs, while the non-employment margin is similar in both. What the
-within-interview question misses is precisely the job-to-job margin that
-drives my series. The address-based design also
-means I follow dwellings rather than people, and indeed not a single
-continuing teacher in my linked sample changes state, so cross-district
-and cross-state moves are invisible here and my rates are conservative on
-that margin.
+pairs, while the non-employment margin is similar in both. Recall and
+dependent coding compress precisely the job-to-job margin that drives my
+series. The address-based design also means I follow dwellings rather
+than people, and indeed not a single continuing teacher in my linked
+sample changes state, so cross-district and cross-state moves are
+invisible here and my rates are conservative on that margin.
+
+Linkage also preserves composition. Table~\ref{tab:linkrep} compares the
+weighted profile of my linked baseline with the universe of all teacher
+interviews over the same months. Age differs by one year and every share
+by less than two percentage points, with the panel tilted slightly toward
+the older, settled teachers who do not change address, which is the
+conservative direction for attrition.
 
 \begin{table}[htbp]
   \caption{From this paper's definitions to the published benchmarks.}
   \label{tab:reconcile}
   \centering\small
   \input{table_reconcile}
-  \fignote{Notes: Weighted annual rates. The first four rows apply the
-  conventional 12-month definition to all linked teachers and to
-  progressively restricted universes; the last two rows apply the
-  non-returning definition on the baseline subsample whose rotation allows
-  re-interviews, with the final row counting as leavers only teachers found
-  in no education occupation twelve months after baseline. The replication row applies the retrospective definition to the
+  \fignote{Notes: Weighted annual rates. The ladder starts from the
+  conventional 12-month definition on all linked teachers and then applies
+  the non-returning definition on the baseline subsample whose rotation
+  allows re-interviews, restricting it step by step to the Teacher
+  Follow-up Survey universe; full-time status is the observable proxy for
+  the roster-based exclusion of short-term substitutes, and the final row
+  counts as leavers only teachers found in no education occupation twelve
+  months after baseline. The benchmark rows quote the 2021--22 Teacher
+  Follow-up Survey leaver rates (NCES, 2024); the replication rows apply
+  the retrospective definition of Harris and Adams (2007) to the
   2022--2024 March supplements, with teachers identified by the longest
-  job of the previous calendar year, a bachelor's degree requirement,
-  and leaving defined by the survey-week occupation. The remaining
-  benchmark rows quote the public school leaver rate of the 2021--22
-  Teacher Follow-up Survey (NCES, 2024) and the retrospective March CPS
-  estimates of Harris and Adams (2007) and Aldeman and Yi (2025). Source: author's
-  calculations from linked CPS pairs, 2005--2025.}
+  job of the previous calendar year and leaving defined by the survey-week
+  occupation. Source: author's calculations from linked CPS pairs and
+  March supplements, 2005--2025.}
+\end{table}
+
+\begin{table}[htbp]
+  \caption{Composition of the linked panel vs all teacher interviews.}
+  \label{tab:linkrep}
+  \centering\small
+  \input{table_linkrep}
+  \fignote{Notes: Weighted means. The first column pools every monthly
+  interview of an employed, degree-holding school teacher between 2005 and
+  2025; the second column is the baseline of the linked 12-month panel
+  used throughout the paper. Source: author's calculations from CPS basic
+  monthly microdata, 2005--2025.}
 \end{table}
 
 \section*{Appendix B. Additional figures and tables}
@@ -950,7 +997,7 @@ robustness checks and the full regression output.
   variable equals one for non-returning leavers, 2005--2025.}
   \label{tab:probit}
   \centering\footnotesize
-  \renewcommand{\arraystretch}{0.81}
+  \renewcommand{\arraystretch}{0.78}
   \input{table_probit}
   \fignote{Notes: The outcome is the non-returning leaver defined in Section
   2. Column (1) reports probit coefficients and column (2) the corresponding

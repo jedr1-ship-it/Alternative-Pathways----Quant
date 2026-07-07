@@ -105,7 +105,7 @@ with open("report/table_descriptives.tex", "w") as fh:
             dtxt = "\\cellcolor{sigok}" + dtxt
         cells.append(dtxt)
         fh.write(f"{lab} & " + " & ".join(cells) + " \\\\\n")
-    fh.write("\\midrule\nPersons & "
+    fh.write("\\midrule\nObservations & "
              + " & ".join(f"{len(g):,}" for _, g in groups)
              + " & \\\\\n\\bottomrule\n\\end{tabular}\n")
 log("wrote report/table_descriptives.tex")

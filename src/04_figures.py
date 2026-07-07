@@ -297,7 +297,8 @@ with open("report/table_probit.tex", "w") as f:
 \\midrule
 Base-year fixed effects & Yes & Yes \\\\
 Mean of dependent variable & {df['leaver_p'].mean():.3f} & {df['leaver_p'].mean():.3f} \\\\
-Persons & {int(m.nobs):,} & {int(m.nobs):,} \\\\
+Observations & {int(m.nobs):,} & {int(m.nobs):,} \\\\
+Unique teachers & {df.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} & {df.drop_duplicates(['HRHHID','HRHHID2','PULINENO']).shape[0]:,} \\\\
 Pseudo $R^2$ & {m.prsquared:.3f} & \\\\
 \\bottomrule
 \\end{{tabular}}
