@@ -44,20 +44,25 @@ rows = [
     ("\\quad and in no education occupation at $t{+}12$",
      np.average(out_edu, weights=B[W]) * 100, f"{len(B):,}"),
 ]
+asec = pd.read_csv("outputs/asec_retrospective.csv")
+asec_rate = np.average(asec["leaver_rate"], weights=asec["teachers_n"])
+asec_n = int(asec["teachers_n"].sum())
 MEMO = [
-    ("Teacher Follow-up Survey, public school leavers 2021--22", "8.0"),
-    ("Retrospective CPS estimates, 1992--2001 and 2015--2024",
-     "7.7 and 7.6"),
+    ("My replication on the 2022--2024 March supplements",
+     f"{asec_rate:.1f}", f"{asec_n:,}"),
+    ("Harris and Adams (2007), 1992--2001", "7.7", ""),
+    ("Aldeman and Yi (2025), 2015--2024", "7.6", ""),
+    ("Teacher Follow-up Survey 2021--22 (NCES, 2024)", "8.0", ""),
 ]
 with open("report/table_reconcile.tex", "w") as fh:
     fh.write("\\begin{tabular}{lcc}\n\\toprule\n"
              " & Annual rate & Persons \\\\\n\\midrule\n")
     for lab, r, n in rows:
         fh.write(f"{lab} & {r:.1f}\\% & {n} \\\\\n")
-    fh.write("\\midrule\n\\multicolumn{3}{l}{\\textit{Published"
-             " benchmarks}} \\\\[2pt]\n")
-    for lab, r in MEMO:
-        fh.write(f"{lab} & {r}\\% & \\\\\n")
+    fh.write("\\midrule\n\\multicolumn{3}{l}{\\textit{Retrospective and"
+             " survey benchmarks}} \\\\[2pt]\n")
+    for lab, r, n in MEMO:
+        fh.write(f"{lab} & {r}\\% & {n} \\\\\n")
     fh.write("\\bottomrule\n\\end{tabular}\n")
 print("wrote report/table_reconcile.tex")
 for lab, r, n in rows:
