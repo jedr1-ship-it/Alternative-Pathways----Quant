@@ -92,7 +92,96 @@ three months, so cheap re-entry pathways can recover part of the outflow.}
 \end{center}
 
 \clearpage
-\section*{1. Data}
+\section*{1. Introduction}
+
+Who leaves teaching, and why? Few questions in the economics of education
+carry more policy weight. Teachers are the main school input in the
+production of achievement (Rivkin, Hanushek and Kain, 2005; Chetty,
+Friedman and Rockoff, 2014), replacing a leaver is expensive and
+disruptive for the students left behind (Ingersoll, 2001; Ronfeldt, Loeb
+and Wyckoff, 2013), and the fear of a post-pandemic exodus has moved
+retention to the center of the education policy debate. In this paper I
+answer the question for the United States with twenty years of nationally
+representative panel data, following every teacher the Current Population
+Survey (CPS) observes between 2005 and 2025 for twelve months and asking
+who leaves the profession, where they go, and what predicts their
+departure.
+
+What is known so far comes from three kinds of sources, each with a blind
+spot. The Teacher Follow-up Survey provides the official national
+attrition rate, 8 percent of public school teachers in 2021--22, but it
+runs only every few years, relies on self-reports, and observes leavers in
+a single retrospective questionnaire (NCES, 2024). State administrative
+records support the sharpest causal work, from the Texas panels of
+Hanushek, Kain and Rivkin (2004) to the Wisconsin pay reform of Biasi
+(2021) and the post-pandemic studies of Massachusetts, North Carolina and
+Arkansas (Bacher-Hicks, Chi and Orellana, 2023; Bastian and Fuller, 2023;
+Goldhaber and Theobald, 2023; Camp, Zamarro and McGee, 2025), but each
+covers one state and loses sight of a teacher the moment she leaves the
+state payroll, so it cannot say where leavers go. The existing national
+estimates from the CPS, finally, rely on the March supplement question
+about the job held one year earlier (Harris and Adams, 2007; Aldeman and
+Yi, 2025), a retrospective self-report collected in a single interview
+that yields annual leaving rates near 8 percent but is known to understate
+occupational change and cannot observe returns.
+
+I take a different route through the same survey. The CPS interviews each
+household in two blocks of four months separated by eight, so an adult
+observed in year $t$ can be re-interviewed in the same calendar month of
+$t{+}1$. I assemble all 251 monthly files between January 2005 and
+December 2025, link the interviews twelve months apart through household
+and person identifiers with demographic validation in the spirit of
+Madrian and Lefgren (2000), and obtain twenty annual panels covering
+174{,}872 linked teachers. Because one in six apparent leavers is teaching
+again within three months, I measure attrition with a strict definition
+that counts as a leaver only a teacher who is out of teaching at the
+twelve-month link and in every re-interview after it. The design observes
+the destination occupation and labor force status of every leaver, carries
+the full set of covariates of the survey, from fertility events to union
+status and pay, and updates every month at essentially no cost.
+
+Four findings summarize the paper. First, attrition is high and rising.
+Every year 15.1 percent of American teachers leave the profession without
+an observed return, up from about 13 percent in the mid 2000s to 17
+percent in recent years, with a new high of 18.0 percent in 2024. Second,
+the rise is a reallocation rather than a withdrawal. Moves to other
+occupations account for almost all of it, exits into non-participation are
+flat, and 30 percent of leavers remain inside education in jobs other than
+classroom teaching. Third, attachment to the job, not demographics,
+predicts who leaves. Part-time teachers are 11.3 percentage points more
+likely to leave than full-time colleagues and private-school teachers 7.5
+points more likely than public-school ones, against a baseline of 15
+percent, while higher pay retains. Fertility operates only through women,
+since a new baby raises mothers' exit probability by 5.1 points and
+leaves fathers' unchanged, the national counterpart, half a century
+later, of the classic cohort evidence in Stinebrickner (2002). Fourth,
+geography lines up with what schools produce, since states with higher
+NAEP scores retain their teachers better.
+
+The paper makes three contributions to the United States evidence. The
+first is measurement. To my knowledge this is the longest, most frequent
+and most current nationally representative series of teacher attrition,
+and the first to purge temporary exits with a re-interview window rather
+than a single year-over-year comparison. The second is destinations.
+Administrative studies cannot observe a teacher once she leaves the
+public payroll and the follow-up surveys observe leavers only in survey
+years, whereas here every leaver carries an occupation code twelve months
+after baseline. The third is the breadth of correlates estimated jointly
+on national data, including the event of a birth as distinct from the
+stock of children, union membership, sector, hours and pay, in one model
+with year fixed effects. None of the estimates is causal, and I offer them
+as the descriptive infrastructure that the causal literature, which is
+overwhelmingly single-state, currently lacks at the national level
+(Nguyen, Pham, Crouch and Springer, 2020).
+
+The rest of the paper proceeds as follows. Section 2 describes the data
+and the leaver definition. Section 3 draws the portrait of the teaching
+workforce and its evolution. Section 4 documents attrition over time and
+Section 5 where leavers go. Section 6 asks who leaves and Section 7 why.
+Section 8 profiles the typical leaver and Section 9 concludes with the
+policy implications.
+
+\section*{2. Data}
 
 I use the basic monthly microdata of the Current Population Survey (CPS),
 the household survey behind the official employment statistics of the United
@@ -110,7 +199,7 @@ more, so that any person can be observed for at most sixteen months and only
 once in a lifetime. Within that window, an adult interviewed in year $t$ is
 re-interviewed in the same calendar month of $t{+}1$, and I link the two
 interviews through household and person identifiers, validating every match
-on sex, race and a plausible age progression. Because nobody is followed
+on sex, race and a plausible age progression (Madrian and Lefgren, 2000). Because nobody is followed
 across several years, each base year forms a fresh cohort, and I compute
 every rate in this paper wave by wave over twenty waves.
 
@@ -138,7 +227,7 @@ degree, the standard restriction in the attrition literature. Pooling the
 twenty waves delivers 174{,}872 linked teachers who represent the 4.6
 million teachers of the country. A leaver could simply be anyone not
 employed as a school teacher twelve months after baseline, which is the
-convention of the NCES Teacher Follow-up Survey, but temporary exits such as
+convention of the NCES Teacher Follow-up Survey (NCES, 2024), but temporary exits such as
 parental leave or a short unemployment spell inflate that measure, and
 indeed 15.7\% of such leavers are teaching again within three months. My
 main outcome is therefore the non-returning leaver, a teacher who is out of
@@ -148,7 +237,7 @@ Appendix~A traces the full population funnel, shows that linkage failure
 does not select against teachers, and discusses the measurement caveats
 that make my rates upper bounds on permanent exit.
 
-\section*{2. The typical teacher}
+\section*{3. The typical teacher}
 
 Before asking who leaves, it helps to know who teaches.
 Table~\ref{tab:big} draws that portrait on every person I observe in a
@@ -194,7 +283,7 @@ week, roughly a quarter less than comparable college-educated workers.
 
 
 
-\begin{figure}[H]
+\begin{figure}[!ht]
   \centering
   \caption{The changing profile of the teaching workforce.}
   \label{fig:evolution}
@@ -296,7 +385,7 @@ teacher retention squarely inside the education-quality conversation.
   Source: author's calculations from linked CPS pairs and NAEP.}
 \end{figure}
 
-\section*{3. Attrition over time}
+\section*{4. Attrition over time}
 
 One in six 12-month leavers is teaching again within three months, 16.1
 percent of women and 14.0 percent of men, and these temporary exits are
@@ -318,7 +407,7 @@ year men, at 19.8 percent, actually exceeded women, at 17.4.
   calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{4. Where leavers go}
+\section*{5. Where leavers go}
 
 The linked design distinguishes those who abandon the labor force from those
 who change occupation, and for the latter it records the destination.
@@ -350,7 +439,7 @@ more often into management and professional jobs, 26 against 19 percent.
 
 The two margins have also moved differently over time. As
 Figure~\ref{fig:desttime} makes clear, the rise in attrition documented in
-Section 3 is almost entirely a rise in occupation switching, from about 8.5
+Section 4 is almost entirely a rise in occupation switching, from about 8.5
 percent of teachers per year in the mid 2000s to 12 percent in 2022--2024,
 while exits into non-participation have stayed flat at 4 to 5 percent and
 unemployment spikes only in recessions. Teaching is increasingly losing
@@ -366,7 +455,7 @@ people to other jobs, not to inactivity.
   calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{5. Who leaves}
+\section*{6. Who leaves}
 
 Appendix Table~\ref{tab:desc} opens the question by comparing stayers and
 non-returning leavers across every characteristic I observe, shading in
@@ -416,11 +505,10 @@ conceals both.
   Source: author's calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
 
-\section*{6. Why teachers leave}
+\section*{7. Why teachers leave}
 
-To weigh all these characteristics against each other at once, and to
-distill them into the portrait of the typical leaver that
-Figure~\ref{fig:profile} will draw, I estimate a probit model for the probability that teacher $i$, observed in year $t$,
+To weigh all these characteristics against each other at once, I estimate
+a probit model for the probability that teacher $i$, observed in year $t$,
 leaves without an observed return,
 \begin{equation}
 \Pr(\text{leave}_{i}=1 \mid x_{i}) \;=\; \Phi\!\left(x_{i}'\beta +
@@ -465,8 +553,8 @@ men's exit probability unchanged, a precisely estimated zero with a
 p-value of 0.72, but raises women's by 5.1 points, significant at 5
 percent and one third of the baseline risk, and 58 percent of the new
 mothers who leave exit the labor force entirely against 30 percent of the
-average leaver. This is the fertility channel the literature emphasizes,
-invisible when only the stock of children is used.
+average leaver. This is the fertility channel the literature emphasizes
+(Stinebrickner, 2002), invisible when only the stock of children is used.
 
 Minority and non-citizen teachers are significantly more likely to leave.
 Black teachers leave at 5.7 points above comparable white teachers and
@@ -485,15 +573,6 @@ nearly identical under the conventional 12-month definition, with the
 part-time effect at 13.6 points against 11.3, so the predictors do not
 depend on how leaving is measured.
 
-\begin{figure}[b]
-  \centering
-  \caption{Characteristics of the top predicted-risk decile vs all teachers.}
-  \label{fig:profile}
-  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
-  \fignote{Notes: Predicted probabilities from the probit of
-  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
-  pairs, 2005--2025.}
-\end{figure}
 
 \begin{figure}[t]
   \centering
@@ -524,7 +603,7 @@ private schools.
 
 
 
-\section*{7. The typical leaver}
+\section*{8. The typical leaver}
 
 Ranking teachers by their predicted risk gives the model's portrait of the
 typical leaver, drawn in Figure~\ref{fig:profile}. The top decile faces a
@@ -535,8 +614,18 @@ anchored in the public sector, where only 40 percent of the group works
 against 78 percent of all teachers, with Black teachers over-represented at
 14 against 6 percent.
 
+\begin{figure}[!ht]
+  \centering
+  \caption{Characteristics of the top predicted-risk decile vs all teachers.}
+  \label{fig:profile}
+  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
+  \fignote{Notes: Predicted probabilities from the probit of
+  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
+  pairs, 2005--2025.}
+\end{figure}
 
-\section*{8. Policy implications}
+
+\section*{9. Policy implications}
 \enlargethispage{\baselineskip}
 
 The results locate attrition in weak attachment to the job, in part-time
@@ -551,6 +640,66 @@ retention gaps deserve monitoring for the diversity of the future
 workforce. And with one in six leavers back within three months, cheap
 re-entry pathways such as fast-track rehiring and return bonuses can
 recover part of the outflow at low cost.
+
+
+
+\clearpage
+\section*{References}
+
+\newcommand{\bibentry}[1]{\par\noindent\hangindent=1.5em\hangafter=1 #1\par}
+{\small
+\bibentry{Aldeman, Chad, and Samuel Yi. 2025. ``Are Teachers Abandoning
+Teaching? Data Show Teacher Turnover Remains Low.'' \textit{Education
+Next}.}
+\bibentry{Bacher-Hicks, Andrew, Olivia L. Chi, and Alexis Orellana. 2023.
+``Two Years Later: How COVID-19 Has Shaped the Teacher Workforce.''
+\textit{Educational Researcher}, 52(4), 219--229.}
+\bibentry{Bastian, Kevin C., and Sarah C. Fuller. 2023. ``Educator
+Attrition and Mobility During the COVID-19 Pandemic.''
+\textit{Educational Researcher}, 52(8), 516--520.}
+\bibentry{Biasi, Barbara. 2021. ``The Labor Market for Teachers under
+Different Pay Schemes.'' \textit{American Economic Journal: Economic
+Policy}, 13(3), 63--102.}
+\bibentry{Camp, Andrew, Gema Zamarro, and Josh B. McGee. 2025. ``Looking
+Back and Moving Forward: COVID-19's Impact on the Teacher Labor Market and
+Implications for the Future.'' \textit{Educational Evaluation and Policy
+Analysis}.}
+\bibentry{Chetty, Raj, John N. Friedman, and Jonah E. Rockoff. 2014.
+``Measuring the Impacts of Teachers II: Teacher Value-Added and Student
+Outcomes in Adulthood.'' \textit{American Economic Review}, 104(9),
+2633--2679.}
+\bibentry{Goldhaber, Dan, and Roddy Theobald. 2023. ``Teacher Attrition
+and Mobility in the Pandemic.'' \textit{Educational Evaluation and Policy
+Analysis}, 45(4), 682--687.}
+\bibentry{Hanushek, Eric A., John F. Kain, and Steven G. Rivkin. 2004.
+``Why Public Schools Lose Teachers.'' \textit{Journal of Human Resources},
+39(2), 326--354.}
+\bibentry{Harris, Douglas N., and Scott J. Adams. 2007. ``Understanding
+the Level and Causes of Teacher Turnover: A Comparison with Other
+Professions.'' \textit{Economics of Education Review}, 26(3), 325--337.}
+\bibentry{Ingersoll, Richard M. 2001. ``Teacher Turnover and Teacher
+Shortages: An Organizational Analysis.'' \textit{American Educational
+Research Journal}, 38(3), 499--534.}
+\bibentry{Madrian, Brigitte C., and Lars J. Lefgren. 2000. ``An Approach
+to Longitudinally Matching Current Population Survey (CPS) Respondents.''
+\textit{Journal of Economic and Social Measurement}, 26(1), 31--62.}
+\bibentry{National Center for Education Statistics (NCES). 2024.
+``Teacher Attrition and Mobility: Results from the 2021--22 Teacher
+Follow-up Survey.'' NCES 2024-039, U.S. Department of Education.}
+\bibentry{Nguyen, Tuan D., Lam D. Pham, Michael Crouch, and Matthew G.
+Springer. 2020. ``The Correlates of Teacher Turnover: An Updated and
+Expanded Meta-analysis of the Literature.'' \textit{Educational Research
+Review}, 31, 100355.}
+\bibentry{Rivkin, Steven G., Eric A. Hanushek, and John F. Kain. 2005.
+``Teachers, Schools, and Academic Achievement.'' \textit{Econometrica},
+73(2), 417--458.}
+\bibentry{Ronfeldt, Matthew, Susanna Loeb, and James Wyckoff. 2013. ``How
+Teacher Turnover Harms Student Achievement.'' \textit{American Educational
+Research Journal}, 50(1), 4--36.}
+\bibentry{Stinebrickner, Todd R. 2002. ``An Analysis of Occupational
+Change and Departure from the Labor Force: Evidence of the Reasons that
+Teachers Leave.'' \textit{Journal of Human Resources}, 37(1), 192--216.}
+}
 
 
 \clearpage
@@ -750,7 +899,7 @@ robustness checks and the full regression output.
   \renewcommand{\arraystretch}{0.81}
   \input{table_probit}
   \fignote{Notes: The outcome is the non-returning leaver defined in Section
-  1. Column (1) reports probit coefficients and column (2) the corresponding
+  2. Column (1) reports probit coefficients and column (2) the corresponding
   average marginal effects in percentage points, with standard errors
   clustered by household in parentheses below each estimate, delta-method
   in column (2). The sample is all school teachers with a bachelor's degree
