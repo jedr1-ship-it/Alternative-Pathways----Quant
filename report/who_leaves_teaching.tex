@@ -61,24 +61,23 @@ own.}}
 \begin{minipage}{0.86\textwidth}
 {\fontsize{10.5}{14.5}\selectfont
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
-Who leaves teaching, and why? I follow 54{,}944 American teachers into
-whatever they do next by linking their Current Population Survey
-interviews twelve months apart, every month for twenty years. The
-classroom loses more people than the well-known leaver statistics count.
-About one in seven teachers is no longer teaching a year later, twice
-the official rate of eight percent, and the difference is not an error
-on either side, since my data reproduce the official numbers once their
-universe and definitions are imposed. It is the margin the official
-instruments cannot see, moves into other jobs. Those moves, not exits
-from work, account for the twenty-year rise in attrition, they are where
-better outside options bite, and a third of them stay inside education.
-Exits from the labor force are flat, family driven and overwhelmingly
-female. A new baby raises a teacher's probability of leaving the
-profession by six percentage points, the largest effect among comparable
-degree-holding professions and one that nursing does not show at all,
-while fathers are unaffected everywhere. Teacher turnover is not
-exceptional among the professions. What is exceptional is the door it
-leaves through, and that teaching loses its new mothers.}
+Of the Americans teaching school this year, how many will not be
+teaching school next year, and what will they be doing instead? No
+national statistic answers the second half of that question, so I build
+the data that can, twenty years of Current Population Survey interviews
+linked twelve months apart, following every teacher the survey observes
+into her next occupation or out of the labor force. One in seven stops
+teaching every year, twice the official rate, and neither number is
+wrong. The difference is the margin official instruments cannot see,
+direct moves into other jobs, which account for the entire rise in
+attrition of the past two decades, and a third of which never leave
+education. Who leaves is a story of attachment, part-time hours, private
+schools and pay, not demographics. The sharpest fact is the motherhood
+exit. A new baby raises a teacher's probability of leaving the
+profession by six percentage points, an effect that nursing and every
+other comparable profession fail to show, while fathers are unaffected
+everywhere. Teacher turnover is not exceptional. Losing its new mothers
+is.}
 \end{minipage}
 \end{center}
 
@@ -175,7 +174,7 @@ education,\footnote{Census occupation codes 2300 to 2330, identical in
 the 2002, 2010 and 2018 classifications used over the period.} with at
 least a bachelor's degree, the standard restriction in this literature.
 
-\begin{figure}[b]
+\begin{figure}[H]
   \centering
   \caption{The CPS follows each person for at most 16 months.}
   \label{fig:design}
@@ -207,7 +206,10 @@ Before asking who leaves, it helps to know who teaches.
 Table~\ref{tab:big} draws that portrait on every person I observe in a
 school-teaching occupation over the two decades, 116{,}649 individuals
 who represent about 5.2 million teachers in an average month, split by
-sex and set against the rest of the college-educated workforce. The
+sex and set against the rest of the college-educated workforce; the
+portrait needs no degree restriction and no successful link, which is
+why its universe is wider than the 54{,}944 teachers of the attrition
+panel. The
 typical teacher is a married woman in her early forties with children at
 home. Teaching is overwhelmingly female, at 78 against 47 percent,
 disproportionately white, and markedly less open to Asian and
@@ -250,7 +252,7 @@ career erode at the same time, public-sector employment falling from 75
 to 69 percent and union membership from 49 to 42. The gender mix, in
 contrast, has not moved at all.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \caption{The changing profile of the teaching workforce.}
   \label{fig:evolution}
@@ -268,12 +270,14 @@ Figure~\ref{fig:evol} shows the answer under two definitions of the same
 object. Counting everyone, attrition net of returns climbed from about
 13 percent in 2005--2010 to about 17 percent in 2022--2024, with a new
 high of 18.0 percent in 2024. Restricted to the official universe of
-full-time public school teachers, the series runs 3.6 points lower in
-every year and climbs in parallel, so nothing in the trend depends on
-private schools or part-timers; what they add is level, because they are
-exactly the teachers who leave most.
+full-time public school teachers, the series runs about three and a half
+points lower year after year and climbs in parallel, so nothing in the
+trend depends on private schools or part-timers; what they add is level,
+because they are exactly the teachers who leave most, and every model
+estimate of Section 6 survives dropping them (Appendix
+Table~\ref{tab:robust}, column 5).
 
-\begin{figure}[t]
+\begin{figure}[H]
   \centering
   \caption{Attrition net of returns, all teachers and the official
   universe.}
@@ -317,7 +321,7 @@ at a mean age of 39 consistent with family care, against 5 percent of
 men, while men move more often into management and professional jobs, 26
 against 19 percent.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \caption{Situation of non-returning leavers twelve months after teaching.}
   \label{fig:where}
@@ -342,7 +346,7 @@ inside the profession is substantial as well, since among teachers still
 teaching a year later 6.7 percent have moved from a public to a private
 school and 5.8 percent in the opposite direction.
 
-\begin{figure}[b]
+\begin{figure}[H]
   \centering
   \caption{Leavers by destination over time.}
   \label{fig:desttime}
@@ -365,7 +369,7 @@ reaches one percent of teachers only at the very start of the career. A
 district worried about mid-career losses is worried, whether it knows it
 or not, about competition from other employers.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \caption{Exit routes over the lifecycle.}
   \label{fig:routesage}
@@ -406,7 +410,7 @@ with standard errors clustered by household; these are conditional
 associations, not causal effects. Figure~\ref{fig:ame} plots the
 estimates and Appendix Table~\ref{tab:probit} reports the full model.
 
-\begin{figure}[t]
+\begin{figure}[H]
   \centering
   \caption{Average marginal effects on the probability of
   leaving teaching, with 95\% confidence intervals.}
@@ -445,9 +449,10 @@ predicts 6.7 points more exit, consistent with better outside options,
 and the predicted probability of leaving follows a U in age, with its
 minimum of 9 percent around age 39 (Appendix Figure~\ref{fig:age}).
 
-None of this depends on the estimator or the period. A logit, a linear
-probability model, or dropping the pandemic years 2019--2021 leaves
-every effect essentially unchanged (Appendix Table~\ref{tab:robust}),
+None of this depends on the estimator, the period or the part-timers. A
+logit, a linear probability model, dropping the pandemic years
+2019--2021, or estimating on full-time teachers only leaves every effect
+essentially unchanged (Appendix Table~\ref{tab:robust}),
 and the same model on subsamples shows the job effects are universal,
 for women and men, public and private, younger and older (Appendix
 Figure~\ref{fig:het}). The routes tell more than the total. Estimating
@@ -482,7 +487,7 @@ the retrospective March question; Appendix Table~\ref{tab:profinstr}
 reports my replication of their design next to the linked rates for all
 seven professions.
 
-\begin{figure}[t]
+\begin{figure}[!ht]
   \centering
   \caption{Leaving the occupational field within twelve months, five
   professions under the same linked design.}
@@ -522,7 +527,7 @@ genuinely divisible, loses none, the same part-time mechanism that
 Goldin and Katz (2016) document for pharmacy. Fathers show no effect in
 any profession.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \caption{A new baby and the probability that a woman leaves her
   profession.}
@@ -741,7 +746,12 @@ of education destinations in Figure~\ref{fig:where}.
   2024); the replication rows apply the retrospective definition of
   Harris and Adams (2007) to the 2022--2024 March supplements, with
   teachers identified by the longest job of the previous calendar year
-  and leaving defined by the survey-week occupation. Source: author's
+  and leaving defined by the survey-week occupation.
+  $^{\dagger}$~Total 2021--22 Teacher Follow-up Survey sample, current
+  and former public and private school teachers together, drawn from the
+  2020--21 National Teacher and Principal Survey respondents (NCES,
+  2024). Harris and Adams and Aldeman and Yi do not report sample sizes.
+  Source: author's
   calculations from linked CPS pairs and March supplements, 2005--2025.}
 \end{table}
 
@@ -839,8 +849,10 @@ plots only the five professions with distinctive titles.
   \centering\small
   \input{table_robustness}
   \fignote{Notes: Average marginal effects in percentage points, standard
-  errors clustered by household in parentheses. The last column drops the
-  2019--2021 baselines. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.
+  errors clustered by household in parentheses. Column 4 drops the
+  2019--2021 baselines; column 5 keeps full-time teachers only, so the
+  part-time and hours-not-reported indicators leave the model.
+  $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.
   Source: author's calculations from linked CPS pairs, 2005--2025.}
 \end{table}
 

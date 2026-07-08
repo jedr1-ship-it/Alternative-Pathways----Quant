@@ -47,12 +47,15 @@ asec = pd.read_csv("outputs/asec_retrospective.csv")
 asec_rate = np.average(asec["leaver_rate"], weights=asec["teachers_n"])
 asec_n = int(asec["teachers_n"].sum())
 MEMO = [
-    ("Teacher Follow-up Survey, public school leavers", "8.0", ""),
-    ("Teacher Follow-up Survey, private school leavers", "12.0", ""),
-    ("My retrospective replication, 2022--2024 ASEC",
+    ("Teacher Follow-up Survey, public school leavers", "8.0",
+     "$\\sim$10,300$^{\\dagger}$"),
+    ("Teacher Follow-up Survey, private school leavers", "12.0",
+     "$\\sim$10,300$^{\\dagger}$"),
+    ("My retrospective replication, 2022--2024 March CPS",
      f"{asec_rate:.1f}", f"{asec_n:,}"),
     ("\\quad without the degree restriction", "6.7", "7,909"),
-    ("Harris and Adams (2007); Aldeman and Yi (2025)", "7.7; 7.6", ""),
+    ("Harris and Adams (2007); Aldeman and Yi (2025)", "7.7; 7.6",
+     "not reported"),
 ]
 with open("report/table_reconcile.tex", "w") as fh:
     fh.write("\\begin{tabular}{lcc}\n\\toprule\n"
