@@ -57,12 +57,11 @@ plt.close(fig)
 
 # ---------- Figure 2: attrition rate by characteristics (small multiples) --
 groups = [
-    ("Weekly hours", [("Full-time", df[df.parttime == 0]),
-                      ("Part-time", df[df.parttime == 1])]),
+    ("Sector", [("Public", df[df.public == 1]),
+                ("Private", df[df.public == 0])]),
     ("Highest degree", [("Bachelor's", df[df.ma_plus == 0]),
                         ("Master's+", df[df.ma_plus == 1])]),
-    ("Teaching level", [("Preschool/K", df[df.preschool_kg == 1]),
-                        ("Elem./middle", df[(df.preschool_kg == 0) & (df.secondary == 0) & (df.special_ed == 0)]),
+    ("Teaching level", [("Elem./middle", df[(df.secondary == 0) & (df.special_ed == 0)]),
                         ("Secondary", df[df.secondary == 1]),
                         ("Special ed.", df[df.special_ed == 1])]),
 ]
@@ -99,12 +98,12 @@ ame = pd.DataFrame({"AME": me.margeff * 100, "se": me.margeff_se * 100,
 
 # ---------- Figure 3: AME dot plot grouped by block ----------
 BLOCKS = [
-    ("THE JOB", ["parttime", "public", "hours_missing", "multjob"]),
+    ("THE JOB", ["public", "hours_missing", "multjob"]),
     ("EDUCATION", ["ma_plus", "prof_phd"]),
     ("FAMILY", ["married", "n_children", "child_u6", "fem_child_u6",
                 "new_baby", "fem_newbaby"]),
     ("DEMOGRAPHICS", ["female", "black", "hispanic", "noncitizen"]),
-    ("TEACHING LEVEL", ["preschool_kg", "secondary", "special_ed"]),
+    ("TEACHING LEVEL", ["secondary", "special_ed"]),
     ("FAMILY INCOME", ["faminc75k"]),
 ]
 # region indicators stay in the model but are not displayed
@@ -229,7 +228,7 @@ plt.close(fig)
 # ---------- Figure 5: high-risk decile vs all teachers (dumbbell) ----------
 df["phat"] = m.predict(df)
 hi10 = df.nlargest(len(df) // 10, "phat")
-traits = ["parttime", "public", "ma_plus", "preschool_kg", "female",
+traits = ["public", "ma_plus", "secondary", "female",
           "married", "hispanic", "black"]
 fig, ax = plt.subplots(figsize=(6.8, 3.6))
 yy = np.arange(len(traits))[::-1]

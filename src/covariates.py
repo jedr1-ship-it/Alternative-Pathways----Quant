@@ -8,9 +8,9 @@ literature. Education enters as master's+ vs the bachelor's-only reference.
 COVS = ["age", "age2", "female", "married", "n_children", "child_u6",
         "fem_child_u6", "new_baby", "fem_newbaby",
         "black", "hispanic", "noncitizen",
-        "ma_plus", "prof_phd", "parttime", "hours_missing", "multjob",
+        "ma_plus", "prof_phd", "hours_missing", "multjob",
         "public", "faminc75k", "midwest", "south", "west",
-        "preschool_kg", "secondary", "special_ed"]
+        "secondary", "special_ed"]
 
 # human-readable names for figures/tables
 LABELS = {
@@ -55,6 +55,11 @@ def load_panel():
     import pandas as pd
     df = pd.read_csv("data/processed/cps_teacher_panel.csv",
                      dtype={"HRHHID": str, "HRHHID2": str})
+    # analytic universe: elementary-through-secondary classroom teachers
+    # (the CPS code merges preschool with kindergarten, so 2300 is out),
+    # working full time at baseline
+    df = df[df["PTIO1OCD_0"].isin([2310, 2320, 2330])
+            & ~df["PEHRUSL1_0"].between(1, 34)]
     df = add_covariates(df)
     df["leaver12"] = df["leaver"]
     ret = pd.read_csv("data/processed/cps_returns.csv",

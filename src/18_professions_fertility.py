@@ -21,7 +21,8 @@ U3 = {1, 5, 6, 7, 11, 12, 13, 15}   # own child under 3 present
 
 def codes(group, year):
     if group == "Teachers":
-        return {2300, 2310, 2320, 2330}
+        # baseline universe excludes the merged preschool/kindergarten code
+        return {2310, 2320, 2330}
     if group == "Registered nurses":
         return {3130} if year <= 2010 else {3255, 3256, 3257, 3258}
     if group == "Pharmacists":
@@ -66,7 +67,9 @@ for ym, f in sorted(files.items()):
         continue
     d0 = pd.read_parquet(f, columns=C0)
     d0 = d0[d0["HRMIS"] <= 4]
-    e0 = d0[d0["PEMLR"].isin([1, 2]) & (d0["PEEDUCA"] >= 43)]
+    # full-time baseline for every profession, matching the paper universe
+    e0 = d0[d0["PEMLR"].isin([1, 2]) & (d0["PEEDUCA"] >= 43)
+            & ~d0["PEHRUSL1"].between(1, 34)]
     d1 = pd.read_parquet(files[ym1], columns=C1)
     for g in GROUPS:
         base = e0[e0["PTIO1OCD"].isin(codes(g, y))]
@@ -81,8 +84,9 @@ for ym, f in sorted(files.items()):
             continue
         mrg["group"] = g
         mrg["base_year"] = y
+        stay_codes = codes(g, y + 1) | ({2300} if g == "Teachers" else set())
         mrg["stay"] = (mrg["PEMLR_1"].isin([1, 2])
-                       & mrg["PTIO1OCD_1"].isin(codes(g, y + 1))).astype(int)
+                       & mrg["PTIO1OCD_1"].isin(stay_codes)).astype(int)
         lo, hi = FIELD[g]
         mrg["stay_field"] = (mrg["PEMLR_1"].isin([1, 2])
                              & mrg["PTIO1OCD_1"].between(lo, hi)).astype(int)

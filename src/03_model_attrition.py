@@ -48,7 +48,7 @@ log("\n--- Mean characteristics at t: stayer vs persistent leaver ---")
 log(prof.round(3).to_string())
 
 # ---------- weighted descriptive table for the brief ----------
-B["elem"] = ((B["preschool_kg"] + B["secondary"] + B["special_ed"]) == 0).astype(int)
+B["elem"] = ((B["secondary"] + B["special_ed"]) == 0).astype(int)
 DESC = [
     ("Age, years", "age", "num"),
     ("Female", "female", "pct"),
@@ -62,12 +62,10 @@ DESC = [
     ("Non-citizen", "noncitizen", "pct"),
     ("Master's degree or higher", "ma_plus", "pct"),
     ("Professional degree or doctorate", "prof_phd", "pct"),
-    ("Part-time ($<$35 h/week)", "parttime", "pct"),
     ("Holds more than one job", "multjob", "pct"),
     ("Public-sector employer", "public", "pct"),
     ("Family income \\$75k+", "faminc75k", "pct"),
     ("Elementary / middle school", "elem", "pct"),
-    ("Preschool / kindergarten", "preschool_kg", "pct"),
     ("Secondary school", "secondary", "pct"),
     ("Special education", "special_ed", "pct"),
 ]

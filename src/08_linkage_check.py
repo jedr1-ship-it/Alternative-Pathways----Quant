@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 INTDIR = "data/interim"
-TEACHER_OCC = {2300, 2310, 2320, 2330}
+TEACHER_OCC = {2310, 2320, 2330}
 KEY = ["HRHHID", "HRHHID2", "PULINENO", "HRMONTH"]
 
 

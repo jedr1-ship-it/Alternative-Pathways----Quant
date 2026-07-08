@@ -24,24 +24,19 @@ def wrate(d, col):
 pub = df["PEIO1COW_0"].isin([1, 2, 3])
 B = df[df["sampleB"]].copy()
 pubB = B["PEIO1COW_0"].isin([1, 2, 3])
-k12B = B["PTIO1OCD_0"] != 2300
-ftB = ~B["PEHRUSL1_0"].between(1, 34)
 B["out_edu"] = ((B["leaver_p"] == 1)
                 & ~B["PTIO1OCD_1"].isin(EDU_ADJ)).astype(int)
 
-L1 = B[pubB & k12B]
-L2 = B[pubB & k12B & ftB]
+L1 = B[pubB]
 rows = [
-    ("Conventional 12-month leaver, all teachers",
+    ("Conventional 12-month leaver, analytic universe",
      wrate(df, "leaver"), f"{len(df):,}"),
     ("Non-returning leaver (main definition)",
      wrate(B, "leaver_p"), f"{len(B):,}"),
-    ("\\quad public K--12 teachers only",
+    ("\\quad public school teachers only",
      wrate(L1, "leaver_p"), f"{len(L1):,}"),
-    ("\\quad and full-time only",
-     wrate(L2, "leaver_p"), f"{len(L2):,}"),
     ("\\quad and in no education occupation at $t{+}12$",
-     wrate(L2, "out_edu"), f"{len(L2):,}"),
+     wrate(L1, "out_edu"), f"{len(L1):,}"),
 ]
 asec = pd.read_csv("outputs/asec_retrospective.csv")
 asec_rate = np.average(asec["leaver_rate"], weights=asec["teachers_n"])
@@ -76,8 +71,9 @@ acc = []
 for f in sorted(glob.glob("data/interim/cps_??????.parquet")):
     d2 = pd.read_parquet(f, columns=cols)
     t = d2[d2["PEMLR"].isin([1, 2])
-           & d2["PTIO1OCD"].isin([2300, 2310, 2320, 2330])
-           & (d2["PEEDUCA"] >= 43)]
+           & d2["PTIO1OCD"].isin([2310, 2320, 2330])
+           & (d2["PEEDUCA"] >= 43)
+           & ~d2["PEHRUSL1"].between(1, 34)]
     acc.append(t)
 U = pd.concat(acc)
 REP = [
@@ -88,8 +84,6 @@ REP = [
      df["PEEDUCA_0"] >= 44, "pct"),
     ("Public-sector employer", U["PEIO1COW"].isin([1, 2, 3]),
      df["PEIO1COW_0"].isin([1, 2, 3]), "pct"),
-    ("Part-time ($<$35 h/week)", U["PEHRUSL1"].between(1, 34),
-     df["PEHRUSL1_0"].between(1, 34), "pct"),
 ]
 with open("report/table_linkrep.tex", "w") as fh:
     fh.write("\\begin{tabular}{lcc}\n\\toprule\n"

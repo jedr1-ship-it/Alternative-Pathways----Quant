@@ -26,13 +26,13 @@ SPLITS = [
                 ("40 and older", B[B.age >= 40], NAVY)],
      set()),
 ]
-SHOW = ["parttime", "public", "new_baby", "child_u6", "black", "ma_plus"]
+SHOW = ["public", "new_baby", "child_u6", "black", "ma_plus"]
 # the birth and young-child effects are sex-specific (the pooled models keep
 # the female interactions), so they are only displayed in the sex panel
 SHOW_BY_SPLIT = {
     "By sex": SHOW,
-    "By sector": ["parttime", "black", "ma_plus"],
-    "By age": ["parttime", "public", "black", "ma_plus"],
+    "By sector": ["black", "ma_plus"],
+    "By age": ["public", "black", "ma_plus"],
 }
 
 results = []
@@ -100,6 +100,6 @@ axes[1].set_xlabel("Change in P(leaving teaching), "
 fig.tight_layout(w_pad=1.6)
 fig.savefig("report/figures/fig15_heterogeneity.pdf", bbox_inches="tight")
 print("\nsaved fig15; key contrasts:")
-for v in ["new_baby", "parttime", "public"]:
+for v in ["new_baby", "public"]:
     s = res[res["var"] == v][["split", "group", "ame", "p"]]
     print(v); print(s.round(2).to_string(index=False))

@@ -12,7 +12,7 @@ df = load_panel()
 B = df[df["sampleB"]].copy()
 rhs = " + ".join(COVS) + " + C(base_year)"
 
-SHOW = ["parttime", "public", "prof_phd", "ma_plus", "black", "noncitizen",
+SHOW = ["public", "prof_phd", "ma_plus", "black", "noncitizen",
         "new_baby", "fem_newbaby", "n_children", "faminc75k", "female"]
 
 
@@ -46,29 +46,17 @@ Bx = B[~B["base_year"].isin([2019, 2020, 2021])]
 mX = smf.probit("leaver_p ~ " + rhs, data=Bx).fit(
     cov_type="cluster", cov_kwds={"groups": Bx["HRHHID"]}, disp=False)
 aX = ame_frame(mX)
-print("probit full-time only ...", flush=True)
-Bf = B[B["parttime"] == 0]
-rhs_ft = " + ".join([c for c in COVS
-                     if c not in ("parttime", "hours_missing")]) \
-    + " + C(base_year)"
-mF = smf.probit("leaver_p ~ " + rhs_ft, data=Bf).fit(
-    cov_type="cluster", cov_kwds={"groups": Bf["HRHHID"]}, disp=False)
-meF = mF.get_margeff(at="overall")
-idxF = list(meF.summary_frame().index)
-aF = {v: (meF.margeff[idxF.index(v)] * 100,
-          meF.margeff_se[idxF.index(v)] * 100,
-          meF.pvalues[idxF.index(v)])
-      for v in SHOW if v != "parttime"}
+
 
 LABELS_TEX = {**LABELS,
               "faminc75k": "Family income \\$75k+",
               "parttime": "Part-time ($<$35 h/week)"}
 with open("report/table_robustness.tex", "w") as fh:
-    fh.write("""\\begin{tabular}{lccccc}
+    fh.write("""\\begin{tabular}{lcccc}
 \\toprule
- & (1) & (2) & (3) & (4) & (5) \\\\
- & Probit & Logit & Linear probability & Probit, excl. & Probit, \\\\
- & (baseline) & & model & 2019--2021 & full-time only \\\\
+ & (1) & (2) & (3) & (4) \\\\
+ & Probit & Logit & Linear probability & Probit, excl. \\\\
+ & (baseline) & & model & 2019--2021 \\\\
 \\midrule
 """)
     for v in SHOW:
@@ -77,26 +65,17 @@ with open("report/table_robustness.tex", "w") as fh:
             est, se, p = a[v]
             row.append(f"{est:.2f}{stars(p)}")
             serow.append(f"({se:.2f})")
-        if v in aF:
-            est, se, p = aF[v]
-            row.append(f"{est:.2f}{stars(p)}")
-            serow.append(f"({se:.2f})")
-        else:
-            row.append("--")
-            serow.append("")
         fh.write(" & ".join(row) + " \\\\\n")
         fh.write(" & ".join(serow) + " \\\\[2pt]\n")
     mdep, mdepx = B["leaver_p"].mean(), Bx["leaver_p"].mean()
-    mdepf = Bf["leaver_p"].mean()
     uq = B.drop_duplicates(['HRHHID', 'HRHHID2', 'PULINENO']).shape[0]
     uqx = Bx.drop_duplicates(['HRHHID', 'HRHHID2', 'PULINENO']).shape[0]
-    uqf = Bf.drop_duplicates(['HRHHID', 'HRHHID2', 'PULINENO']).shape[0]
     fh.write(f"""\\midrule
-Base-year fixed effects & Yes & Yes & Yes & Yes & Yes \\\\
-Full covariate set & Yes & Yes & Yes & Yes & Yes \\\\
-Mean of dependent variable & {mdep:.3f} & {mdep:.3f} & {mdep:.3f} & {mdepx:.3f} & {mdepf:.3f} \\\\
-Observations & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} & {int(mF.nobs):,} \\\\
-Unique teachers & {uq:,} & {uq:,} & {uq:,} & {uqx:,} & {uqf:,} \\\\
+Base-year fixed effects & Yes & Yes & Yes & Yes \\\\
+Full covariate set & Yes & Yes & Yes & Yes \\\\
+Mean of dependent variable & {mdep:.3f} & {mdep:.3f} & {mdep:.3f} & {mdepx:.3f} \\\\
+Observations & {int(mP.nobs):,} & {int(mL.nobs):,} & {int(mO.nobs):,} & {int(mX.nobs):,} \\\\
+Unique teachers & {uq:,} & {uq:,} & {uq:,} & {uqx:,} \\\\
 \\bottomrule
 \\end{{tabular}}
 """)

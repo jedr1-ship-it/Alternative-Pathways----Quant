@@ -22,7 +22,7 @@ B["dest_unemp"] = ((B["leaver_p"] == 1)
                    & (B["dest"] == "unemployed")).astype(int)
 rhs = " + ".join(COVS) + " + C(base_year)"
 
-SHOW = ["parttime", "public", "prof_phd", "ma_plus", "black", "noncitizen",
+SHOW = ["public", "prof_phd", "ma_plus", "black", "noncitizen",
         "new_baby", "fem_newbaby", "n_children", "female"]
 
 

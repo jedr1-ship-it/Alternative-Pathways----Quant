@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 from paperstyle import *
 
-TEACHER_OCC = {2300, 2310, 2320, 2330}
+TEACHER_OCC = {2310, 2320, 2330}
 LEVELS = {2300: "Preschool / kindergarten", 2310: "Elementary / middle",
           2320: "Secondary", 2330: "Special education"}
 LEVEL_COLOR = {"Elementary / middle": BLUE, "Secondary": GREEN,
@@ -25,18 +25,20 @@ LEVEL_COLOR = {"Elementary / middle": BLUE, "Secondary": GREEN,
 # counts are per-month averages: persons in the sample and, via weights,
 # the population they represent
 funnel = {k: [0, 0.0] for k in
-          ["adults", "employed", "teachers", "teachers_ba"]}
+          ["adults", "employed", "teachers", "teachers_ba", "teachers_ft"]}
 n_months = 0
 wstock = []          # per (year, month): weighted teachers by level
 for f in sorted(glob.glob("data/interim/cps_??????.parquet")):
     d = pd.read_parquet(f, columns=["PEMLR", "PTIO1OCD", "PEEDUCA", "HRMIS",
-                                    "HRYEAR4", "HRMONTH", "PWSSWGT"])
+                                    "HRYEAR4", "HRMONTH", "PWSSWGT",
+                                    "PEHRUSL1"])
     n_months += 1
     e = d[d["PEMLR"].isin([1, 2])]
     t = e[e["PTIO1OCD"].isin(TEACHER_OCC)]
     tb = t[t["PEEDUCA"] >= 43]
+    tf = tb[~tb["PEHRUSL1"].between(1, 34)]
     for k, dd in [("adults", d), ("employed", e), ("teachers", t),
-                  ("teachers_ba", tb)]:
+                  ("teachers_ba", tb), ("teachers_ft", tf)]:
         funnel[k][0] += len(dd)
         funnel[k][1] += dd["PWSSWGT"].sum()
     g = tb.groupby("PTIO1OCD")["PWSSWGT"].sum()
@@ -49,7 +51,10 @@ yr = stock.groupby("year").mean(numeric_only=True).drop(columns="month") / 1e6
 yr.round(3).to_csv("outputs/teacher_stock_by_year.csv")
 
 panel = pd.read_csv("data/processed/cps_teacher_panel.csv",
-                    usecols=["HRMIS_0", "PWSSWGT_0"])
+                    usecols=["HRMIS_0", "PWSSWGT_0", "PTIO1OCD_0",
+                             "PEHRUSL1_0"])
+panel = panel[panel["PTIO1OCD_0"].isin([2310, 2320, 2330])
+              & ~panel["PEHRUSL1_0"].between(1, 34)]
 n_linked = len(panel)
 n_followup = int((panel["HRMIS_0"] <= 3).sum())
 
@@ -61,13 +66,15 @@ def month_avg(k):
 rows = []
 for lab, k in [("Adults interviewed in an average month", "adults"),
                ("\\quad employed", "employed"),
-               ("\\quad\\quad school teachers (occ. 2300--2330)", "teachers"),
+               ("\\quad\\quad school teachers (occ. 2310--2330)", "teachers"),
                ("\\quad\\quad\\quad with bachelor's degree or higher",
-                "teachers_ba")]:
+                "teachers_ba"),
+               ("\\quad\\quad\\quad\\quad and working full time",
+                "teachers_ft")]:
     n, w = month_avg(k)
     rows.append((lab, f"{n:,.0f}", f"{w:.1f}M"))
-rows.append(("Linked 12 months later (54,944 teachers, 20 waves)",
-             f"{n_linked:,}", "the same 4.6M"))
+rows.append(("Linked 12 months later (47,633 teachers, 20 waves)",
+             f"{n_linked:,}", "the same population"))
 rows.append(("\\quad with re-interviews after $t{+}12$: \\textbf{main sample}",
              f"{n_followup:,}", "the same 4.6M"))
 with open("report/table_population.tex", "w") as fh:
