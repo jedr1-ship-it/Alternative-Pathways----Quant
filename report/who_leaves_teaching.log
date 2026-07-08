@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  8 JUL 2026 11:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  8 JUL 2026 12:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -729,57 +729,58 @@ dvips/tex-gyre/q-ec.enc}] [2
 <figures/fig0_design.pdf, id=29, 664.88402pt x 187.902pt>
 File: figures/fig0_design.pdf Graphic file (type pdf)
 <use figures/fig0_design.pdf>
-Package pdftex.def Info: figures/fig0_design.pdf  used on input line 181.
+Package pdftex.def Info: figures/fig0_design.pdf  used on input line 192.
 (pdftex.def)             Requested size: 432.48051pt x 122.22372pt.
- [3 <./figures/fig0_design.pdf>] (./table_bigpicture.tex) [4]
-<figures/fig17_profile_evolution.pdf, id=121, 683.68001pt x 382.68538pt>
+ [3 <./figures/fig0_design.pdf>] (./table_bigpicture.tex)
+<figures/fig17_profile_evolution.pdf, id=107, 683.68001pt x 382.68538pt>
 File: figures/fig17_profile_evolution.pdf Graphic file (type pdf)
 <use figures/fig17_profile_evolution.pdf>
 Package pdftex.def Info: figures/fig17_profile_evolution.pdf  used on input lin
-e 259.
+e 273.
 (pdftex.def)             Requested size: 455.24411pt x 254.8271pt.
-<figures/fig22_evolution_defs.pdf, id=124, 491.04218pt x 238.49101pt>
+ [4 <./figures/fig17_profile_evolution.pdf>]
+<figures/fig22_evolution_defs.pdf, id=166, 491.04218pt x 238.49101pt>
 File: figures/fig22_evolution_defs.pdf Graphic file (type pdf)
 <use figures/fig22_evolution_defs.pdf>
-Package pdftex.def Info: figures/fig22_evolution_defs.pdf  used on input line 2
-85.
+Package pdftex.def Info: figures/fig22_evolution_defs.pdf  used on input line 3
+01.
 (pdftex.def)             Requested size: 391.51021pt x 190.15257pt.
- [5 <./figures/fig17_profile_evolution.pdf>]
+ [5]
 <figures/fig10_where.pdf, id=182, 498.663pt x 260.17201pt>
 File: figures/fig10_where.pdf Graphic file (type pdf)
 <use figures/fig10_where.pdf>
-Package pdftex.def Info: figures/fig10_where.pdf  used on input line 328.
+Package pdftex.def Info: figures/fig10_where.pdf  used on input line 344.
 (pdftex.def)             Requested size: 400.61703pt x 209.0192pt.
  [6 <./figures/fig22_evolution_defs.pdf>]
 <figures/fig13_dest_time.pdf, id=250, 498.663pt x 238.49101pt>
 File: figures/fig13_dest_time.pdf Graphic file (type pdf)
 <use figures/fig13_dest_time.pdf>
-Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 353.
+Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 369.
 (pdftex.def)             Requested size: 382.40338pt x 182.88898pt.
 
 [7 <./figures/fig10_where.pdf> <./figures/fig13_dest_time.pdf>]
 <figures/fig21_routes_age.pdf, id=370, 491.04218pt x 256.68127pt>
 File: figures/fig21_routes_age.pdf Graphic file (type pdf)
 <use figures/fig21_routes_age.pdf>
-Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 376.
+Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 392.
 (pdftex.def)             Requested size: 400.61703pt x 209.41467pt.
 <figures/fig3_ame.pdf, id=374, 523.83865pt x 515.34555pt>
 File: figures/fig3_ame.pdf Graphic file (type pdf)
 <use figures/fig3_ame.pdf>
-Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 418.
+Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 435.
 (pdftex.def)             Requested size: 427.93057pt x 421.00551pt.
  [8 <./figures/fig21_routes_age.pdf>] [9 <./figures/fig3_ame.pdf>]
 <figures/fig19_professions.pdf, id=558, 490.8703pt x 252.945pt>
 File: figures/fig19_professions.pdf Graphic file (type pdf)
 <use figures/fig19_professions.pdf>
-Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 495.
+Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 514.
 
 (pdftex.def)             Requested size: 409.71692pt x 211.13692pt.
 <figures/fig18_family_professions.pdf, id=561, 616.27235pt x 394.27753pt>
 File: figures/fig18_family_professions.pdf Graphic file (type pdf)
 <use figures/fig18_family_professions.pdf>
 Package pdftex.def Info: figures/fig18_family_professions.pdf  used on input li
-ne 535.
+ne 554.
 (pdftex.def)             Requested size: 427.93057pt x 273.78444pt.
  [10] [11 <./figures/fig19_professions.pdf> <./figures/fig18_family_professions
 .pdf>] [12] [13
@@ -792,13 +793,13 @@ ne 535.
 <figures/fig4_age_profile.pdf, id=749, 462.52798pt x 231.26399pt>
 File: figures/fig4_age_profile.pdf Graphic file (type pdf)
 <use figures/fig4_age_profile.pdf>
-Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 812.
+Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 831.
 (pdftex.def)             Requested size: 364.19667pt x 182.10722pt.
 <figures/fig15_heterogeneity.pdf, id=751, 727.41048pt x 323.74794pt>
 File: figures/fig15_heterogeneity.pdf Graphic file (type pdf)
 <use figures/fig15_heterogeneity.pdf>
-Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 82
-3.
+Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 84
+2.
 (pdftex.def)             Requested size: 455.24411pt x 202.61365pt.
 
 (./table_destmodel.tex) (./table_robustness.tex) (./table_probit.tex) [17
@@ -836,7 +837,7 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texm
 f/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex
 -gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on who_leaves_teaching.pdf (21 pages, 498836 bytes).
+Output written on who_leaves_teaching.pdf (21 pages, 499544 bytes).
 PDF statistics:
  978 PDF objects out of 1000 (max. 8388607)
  337 compressed objects within 4 object streams
