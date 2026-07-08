@@ -11,6 +11,7 @@
 \definecolor{ecink}{HTML}{1A2430}
 \definecolor{ecgray}{HTML}{5A6572}
 \definecolor{sigok}{HTML}{DDF2E4}
+\definecolor{citeblue}{HTML}{2A5DB0}
 
 \captionsetup{font={small},labelfont={bf},
               justification=justified,singlelinecheck=false}
@@ -62,8 +63,9 @@ own.}}
 {\fontsize{10.5}{14.5}\selectfont
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
 Official statistics put annual teacher attrition in the United States
-near 8 percent, but they observe leavers in a single retrospective
-interview and cannot follow a teacher into her next job. This paper
+near 8 percent, but they come from follow-up surveys that run years
+apart, observe each leaver once, and record what she does next in broad
+categories. This paper
 measures attrition and its destinations by linking Current Population
 Survey interviews taken twelve months apart, for every teacher the
 survey observes between 2005 and 2025. I find that 15 percent of
@@ -74,7 +76,9 @@ other jobs, a margin retrospective instruments understate, which
 accounts for the entire rise in attrition over two decades and keeps a
 third of leavers inside education. Exit concentrates among part-time,
 private-school and lower-paid teachers, with small differences by
-demographics. Estimating the identical design on seven comparable
+demographics, and the teacher at highest predicted risk is a
+late-career woman teaching part-time outside the public sector.
+Estimating the identical design on seven comparable
 professions, I find that overall turnover in teaching is low, below
 nursing and pharmacy, while a new baby raises a teacher's probability
 of leaving the profession by 6 percentage points, an effect absent in
@@ -85,12 +89,11 @@ every comparison profession and among fathers.}
 \clearpage
 \section*{1. Introduction}
 
-Few questions in the economics of education carry more policy weight
-than who leaves teaching, and why. Teachers are the main school input in the
-production of achievement (Rivkin, Hanushek and Kain, 2005; Chetty,
-Friedman and Rockoff, 2014), replacing a leaver is expensive and
-disruptive for the students left behind (Ingersoll, 2001; Ronfeldt, Loeb
-and Wyckoff, 2013), and the fear of a post-pandemic exodus has moved
+Teachers are the main school input in the
+production of achievement (\textcolor{citeblue}{Rivkin, Hanushek and Kain, 2005; Chetty,
+Friedman and Rockoff, 2014}), replacing a leaver is expensive and
+disruptive for the students left behind (\textcolor{citeblue}{Ingersoll, 2001; Ronfeldt, Loeb
+and Wyckoff, 2013}), and the fear of a post-pandemic exodus has moved
 retention to the center of the education policy debate. Yet the national
 statistics can say how many teachers leave, and little about where they
 go or why, because no national source follows a teacher into whatever
@@ -99,16 +102,21 @@ she does next.
 What is known comes from three kinds of sources, and they agree on the
 level while sharing that blind spot. The Teacher Follow-up Survey puts
 the official leaver rate at 8 percent of public school teachers in
-2021--22, but it runs only every few years and observes leavers in a
-single retrospective questionnaire (NCES, 2024). State administrative
-records support the sharpest causal work (Hanushek, Kain and Rivkin,
+2021--22, but its latest wave was the first in nearly a decade, it
+observes each leaver once, and it records her situation in broad
+categories (\textcolor{citeblue}{NCES, 2024}); the policy syntheses of teacher turnover rest
+on this same instrument (\textcolor{citeblue}{Tan, Wei, Carver-Thomas and Garc\'ia, 2026}).
+State administrative
+records support the sharpest causal work (\textcolor{citeblue}{Hanushek, Kain and Rivkin,
 2004; Biasi, 2021; Bacher-Hicks, Chi and Orellana, 2023; Goldhaber and
-Theobald, 2023; Camp, Zamarro and McGee, 2025), but each covers one
+Theobald, 2023; Camp, Zamarro and McGee, 2025}), but each covers one
 state and loses sight of a teacher the moment she leaves the state
 payroll. The existing national estimates from the CPS rely on the March
 supplement question about the job held one year earlier and land in the
-same range (Harris and Adams, 2007; Aldeman and Yi, 2025). All three see
-a teacher leave; none can see where she goes.
+same range (\textcolor{citeblue}{Harris and Adams, 2007; Aldeman and Yi, 2025}). All three
+observe a leaver at most once, so none can tell a permanent exit from a
+pause, and none, I show below, records the largest exit route, moves
+into other jobs, at its true size.
 
 I build the missing source from the same survey. The CPS re-interviews
 every address twelve months apart, and by linking those interviews I
@@ -146,13 +154,13 @@ amount, since under the identical design teachers leave teaching more
 slowly than nurses leave nursing or pharmacists leave pharmacy. It is
 the motherhood door. A new baby raises a teacher's probability of
 leaving the profession by 6 percentage points, the national counterpart
-of the cohort evidence in Stinebrickner (2002), while the same event
+of the cohort evidence in \textcolor{citeblue}{Stinebrickner (2002)}, while the same event
 moves no other profession I can follow and fathers are unaffected
 everywhere.
 
 None of the estimates is causal; they are the descriptive national
 infrastructure that a causal literature built on single states currently
-lacks (Nguyen, Pham, Crouch and Springer, 2020). Section 2 describes the
+lacks (\textcolor{citeblue}{Nguyen, Pham, Crouch and Springer, 2020}). Section 2 describes the
 data, Section 3 who teaches, Section 4 how many leave, Section 5 where
 they go, Section 6 who leaves and why, Section 7 places teaching among
 the professions, and Section 8 concludes with policy. Appendix A
@@ -175,10 +183,10 @@ eight, and is interviewed again during four more
 (Figure~\ref{fig:design}), so an adult interviewed in year $t$ is
 re-interviewed in the same calendar month of $t{+}1$. I link the two
 interviews through household and person identifiers, validating every
-match on sex, race and a plausible age progression (Madrian and Lefgren,
-2000); linking the public files this way is how the Bureau of Labor
+match on sex, race and a plausible age progression (\textcolor{citeblue}{Madrian and Lefgren,
+2000}); linking the public files this way is how the Bureau of Labor
 Statistics builds its official labor force flows and how IPUMS builds
-its longitudinal keys (Rivera Drew, Flood and Warren, 2014). Teachers
+its longitudinal keys (\textcolor{citeblue}{Rivera Drew, Flood and Warren, 2014}). Teachers
 are identified by the occupation of their main job, classroom teaching
 from preschool through secondary school including special
 education,\footnote{Census occupation codes 2300 to 2330, identical in
@@ -465,7 +473,7 @@ and the same model on subsamples shows the job effects are universal,
 for women and men, public and private, younger and older (Appendix
 Figure~\ref{fig:het}). The routes tell more than the total. Estimating
 the model separately for each exit route, the national counterpart of
-Stinebrickner (2002) and Dolton and van der Klaauw (1999), splits the
+\textcolor{citeblue}{Stinebrickner (2002)} and \textcolor{citeblue}{Dolton and van der Klaauw (1999)}, splits the
 predictors into two clean families (Appendix
 Table~\ref{tab:destmodel}). The opportunity variables work almost
 entirely through job switching, since the public-sector advantage is 6.4
@@ -475,6 +483,27 @@ untouched. The family variables work almost entirely through
 non-participation, since a new baby moves mothers out of the labor force
 by 6.6 points while reducing their job switching by 2.3. Pay retains on
 both margins.
+
+Ranking teachers by their predicted probability of leaving draws the
+profile of the typical leaver (Figure~\ref{fig:profile}). The top
+decile of predicted risk faces a mean exit probability of 37 percent,
+2.5 times the average teacher, and it is 79 percent female, late-career
+with a mean age of 55, six times more likely to work part-time, 56
+against 9 percent, and much less anchored in the public sector, where
+40 percent of the group works against 78 percent of all teachers, with
+Black teachers over-represented at 14 against 6 percent. Risk
+accumulates on the attachment margins, not in any demographic group.
+
+\begin{figure}[H]
+  \centering
+  \caption{Characteristics of the top predicted-risk decile vs all
+  teachers.}
+  \label{fig:profile}
+  \includegraphics[width=0.82\textwidth]{figures/fig5_profile.pdf}
+  \fignote{Notes: Predicted probabilities from the probit of
+  Table~\ref{tab:probit}. Source: author's calculations from linked CPS
+  pairs, 2005--2025.}
+\end{figure}
 
 \section*{7. Teaching among the professions}
 
@@ -491,7 +520,7 @@ leave teaching more slowly than nurses leave nursing or pharmacists
 leave pharmacy in every single year, faster only than physicians and
 lawyers, whose training costs most. No profession in the figure shows a
 post-pandemic break. Whatever problem teaching has, it is not an
-exodus, the same conclusion Harris and Adams (2007) and Aldeman and Yi
+exodus, the same conclusion \textcolor{citeblue}{Harris and Adams (2007)} and Aldeman and Yi
 (2025) reach from the retrospective March question; Appendix
 Table~\ref{tab:profinstr} reports my replication of their design next
 to the linked rates for all seven professions.
@@ -521,8 +550,8 @@ cannot say whether the push is about teaching or simply about
 motherhood, since new mothers step back from work in every occupation.
 To separate the two, Figure~\ref{fig:family} runs the identical birth
 event through every profession, the profession-level counterpart of the
-child penalty literature (Kleven, Landais and Sogaard, 2019; Gulek,
-2025), and the push turns out to be about teaching. A new baby raises a
+child penalty literature (\textcolor{citeblue}{Kleven, Landais and Sogaard, 2019; Gulek,
+2025}), and the push turns out to be about teaching. A new baby raises a
 teacher's probability of leaving her profession by 6.2 percentage
 points (standard error 0.9), the only significantly positive effect
 among the eight professions. The mechanism is in the second panel. New
@@ -531,7 +560,7 @@ professions absorb the pause without losing the woman from the field,
 while teaching converts nearly its entire labor-force exit of 6.9
 points into a loss for the profession. Nursing, where shift work makes
 hours genuinely divisible, loses none of its new mothers, the same
-part-time mechanism that Goldin and Katz (2016) document for pharmacy,
+part-time mechanism that \textcolor{citeblue}{Goldin and Katz (2016)} document for pharmacy,
 so the profession most often described as family friendly is the one a
 birth is most likely to end a career in. Fathers show no effect
 anywhere, in teaching or outside it.
@@ -646,6 +675,9 @@ Population Survey: Methods for Linking Records Across 16 Months.''
 \bibentry{Ronfeldt, Matthew, Susanna Loeb, and James Wyckoff. 2013. ``How
 Teacher Turnover Harms Student Achievement.'' \textit{American Educational
 Research Journal}, 50(1), 4--36.}
+\bibentry{Tan, Tiffany, Wesley Wei, Desiree Carver-Thomas, and Emma
+Garc\'ia. 2026. ``Teacher Turnover in the United States: Who Moves, Who
+Leaves, and Why.'' Learning Policy Institute.}
 \bibentry{Stinebrickner, Todd R. 2002. ``An Analysis of Occupational
 Change and Departure from the Labor Force: Evidence of the Reasons that
 Teachers Leave.'' \textit{Journal of Human Resources}, 37(1), 192--216.}
