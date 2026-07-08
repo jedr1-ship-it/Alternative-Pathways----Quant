@@ -50,15 +50,24 @@ for y, lab in OUTS:
     models[y], ames[y] = fit_ames(y, B)
     print({v: round(a[0], 2) for v, a in ames[y].items()}, flush=True)
 
-# wage submodel by destination (outgoing rotations, positive earnings)
-W = B[(B["HRMIS_0"] == 4) & (B["PTERNWA_0"] > 0)].copy()
-W["lnw"] = np.log(W["PTERNWA_0"] / 100.0)
+# wage submodel by destination: earnings exist only for MIS-4 baselines,
+# which have no re-interview window, so this panel uses the conventional
+# 12-month definition, as in the main wage result of the paper
+W = df[(df["HRMIS_0"] == 4) & df["wkearn"].notna()].copy()
+W["lnw"] = np.log(W["wkearn"].clip(lower=50))
+W["w_occ"] = ((W["leaver12"] == 1)
+              & (W["dest"] == "other occupation")).astype(int)
+W["w_olf"] = ((W["leaver12"] == 1)
+              & (W["dest"] == "out of labor force")).astype(int)
+W["w_unemp"] = ((W["leaver12"] == 1)
+                & (W["dest"] == "unemployed")).astype(int)
+WOUTS = ["leaver12", "w_occ", "w_olf", "w_unemp"]
 wame = {}
-for y, lab in OUTS:
-    print("wage probit", y, "...", flush=True)
-    _, a = fit_ames(y, W, extra=" + lnw")
+for y, wy in zip([o for o, _ in OUTS], WOUTS):
+    print("wage probit", wy, "...", flush=True)
+    _, a = fit_ames(wy, W, extra=" + lnw")
     wame[y] = a["lnw"]
-    print(y, "lnw AME", round(a["lnw"][0], 3), flush=True)
+    print(wy, "lnw AME", round(a["lnw"][0], 3), flush=True)
 
 LABELS_TEX = {**LABELS,
               "parttime": "Part-time ($<$35 h/week)"}

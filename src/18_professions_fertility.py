@@ -71,13 +71,13 @@ P["dest_unemp"] = ((P["leave"] == 1)
 P["dest_olf"] = ((P["leave"] == 1)
                  & ~P["PEMLR_1"].isin([1, 2, 3, 4])).astype(int)
 P["female"] = (P["PESEX_0"] == 2).astype(int)
-P["married"] = P["PEMARITL_0"].isin([1, 2]).astype(int)
+P["married"] = P["PEMARITL"].isin([1, 2]).astype(int)
 P["new_baby"] = (P["PRCHLD_1"].isin(U3)
                  & ~P["PRCHLD_0"].isin(U3)).astype(int)
 P["age"] = P["PRTAGE_0"]
-P["ma_plus"] = (P["PEEDUCA_0"] >= 44).astype(int)
-P["parttime"] = P["PEHRUSL1_0"].between(1, 34).astype(int)
-P["public"] = P["PEIO1COW_0"].isin([1, 2, 3]).astype(int)
+P["ma_plus"] = (P["PEEDUCA"] >= 44).astype(int)
+P["parttime"] = P["PEHRUSL1"].between(1, 34).astype(int)
+P["public"] = P["PEIO1COW"].isin([1, 2, 3]).astype(int)
 
 keep = (KEY + ["group", "base_year", "leave", "dest_occ", "dest_olf",
                "dest_unemp", "female", "married", "new_baby", "age",
