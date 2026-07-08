@@ -24,6 +24,15 @@ def codes(group, year):
         return {2300, 2310, 2320, 2330}
     if group == "Registered nurses":
         return {3130} if year <= 2010 else {3255, 3256, 3257, 3258}
+    if group == "Pharmacists":
+        return {3050}
+    if group == "Physical therapists":
+        return {3160}
+    if group == "Physicians":
+        # 3060 split into four codes in the 2018 classification
+        return {3060} if year <= 2019 else {3065, 3070, 3090, 3100}
+    if group == "Lawyers":
+        return {2100}
     if group == "Accountants and auditors":
         return {800}
     if group == "Social workers":
@@ -31,16 +40,21 @@ def codes(group, year):
     raise ValueError(group)
 
 
-# the whole occupational field, both census vintages, so that a detailed
+# the whole occupational field, all census vintages, so that a detailed
 # occupation switch inside the field (accountant to auditor, staff nurse
 # to nurse practitioner, teacher to principal) does not count as an exit
 FIELD = {"Teachers": (2200, 2555),                 # education occupations
          "Registered nurses": (3000, 3550),        # health practitioners
+         "Pharmacists": (3000, 3550),
+         "Physical therapists": (3000, 3550),
+         "Physicians": (3000, 3550),
+         "Lawyers": (2100, 2180),                  # legal occupations
          "Accountants and auditors": (500, 960),   # business and finance
          "Social workers": (2000, 2060)}           # community and social
 
-GROUPS = ["Teachers", "Registered nurses", "Accountants and auditors",
-          "Social workers"]
+GROUPS = ["Teachers", "Registered nurses", "Pharmacists",
+          "Physical therapists", "Physicians", "Lawyers",
+          "Accountants and auditors", "Social workers"]
 files = {os.path.basename(f)[4:10]: f
          for f in glob.glob("data/interim/cps_??????.parquet")}
 

@@ -15,6 +15,34 @@ Registered nurses,Men,leave,-2.682,4.947,0.588,7646,195
 Registered nurses,Men,leave_field,-3.481,4.648,0.454,7646,195
 Registered nurses,Men,dest_occ,-2.414,4.77,0.613,7646,195
 Registered nurses,Men,dest_olf,0.448,1.419,0.752,7646,195
+Pharmacists,Women,leave,1.053,4.237,0.804,5780,227
+Pharmacists,Women,leave_field,-2.454,4.1,0.55,5780,227
+Pharmacists,Women,dest_occ,1.051,3.881,0.786,5780,227
+Pharmacists,Women,dest_olf,1.081,1.847,0.558,5780,227
+Pharmacists,Men,leave,5.219,6.023,0.386,4669,110
+Pharmacists,Men,leave_field,6.523,5.632,0.247,4669,110
+Pharmacists,Men,dest_occ,4.023,4.878,0.409,4669,110
+Pharmacists,Men,dest_olf,1.63,2.975,0.584,4669,110
+Physical therapists,Women,leave,5.101,4.775,0.285,5870,160
+Physical therapists,Women,leave_field,4.872,3.956,0.218,5870,160
+Physical therapists,Women,dest_occ,0.292,4.651,0.95,5870,160
+Physical therapists,Women,dest_olf,3.528,1.564,0.024,5870,160
+Physicians,Women,leave,0.615,2.911,0.833,11833,372
+Physicians,Women,leave_field,2.621,2.372,0.269,11833,372
+Physicians,Women,dest_occ,-2.562,2.906,0.378,11833,372
+Physicians,Women,dest_olf,2.479,0.898,0.006,11833,372
+Physicians,Men,leave,-1.437,3.297,0.663,21534,384
+Physicians,Men,leave_field,0.29,2.887,0.92,21534,384
+Physicians,Men,dest_occ,-0.432,2.821,0.878,21534,384
+Physicians,Men,dest_olf,-1.701,1.475,0.249,21534,384
+Lawyers,Women,leave,-4.794,3.063,0.117,15938,417
+Lawyers,Women,leave_field,-5.895,3.079,0.056,15938,417
+Lawyers,Women,dest_occ,-5.424,2.547,0.033,15938,417
+Lawyers,Women,dest_olf,1.509,1.282,0.239,15938,417
+Lawyers,Men,leave,2.524,2.15,0.241,29356,603
+Lawyers,Men,leave_field,3.677,2.061,0.074,29356,603
+Lawyers,Men,dest_occ,2.251,1.7,0.186,29356,603
+Lawyers,Men,dest_olf,-0.027,1.607,0.986,29356,603
 Social workers,Women,leave,-1.915,4.143,0.644,18961,415
 Social workers,Women,leave_field,-2.264,3.924,0.564,18961,415
 Social workers,Women,dest_occ,-11.713,4.152,0.005,18961,415

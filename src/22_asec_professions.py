@@ -13,10 +13,18 @@ import pandas as pd
 
 CODES = {"Teachers": [2300, 2310, 2320, 2330],
          "Registered nurses": [3255, 3256, 3257, 3258],
+         "Pharmacists": [3050],
+         "Physical therapists": [3160],
+         "Physicians": [3065, 3070, 3090, 3100],
+         "Lawyers": [2100],
          "Accountants and auditors": [800],
          "Social workers": [2011, 2012, 2013, 2014]}
 FIELD = {"Teachers": (2200, 2555),
          "Registered nurses": (3000, 3550),
+         "Pharmacists": (3000, 3550),
+         "Physical therapists": (3000, 3550),
+         "Physicians": (3000, 3550),
+         "Lawyers": (2100, 2180),
          "Accountants and auditors": (500, 960),
          "Social workers": (2000, 2060)}
 COLS = ["PEIOOCC", "OCCUP", "MARSUPWT", "A_AGE"]
@@ -52,7 +60,8 @@ ln = lk.groupby("group")["n"].sum()
 locc = lk.assign(w=lk["rate"] * lk["n"]).groupby("group")["w"].sum() / ln
 lfld = (lk.assign(w=lk["rate_field"] * lk["n"]).groupby("group")["w"].sum()
         / ln)
-ORDER = ["Teachers", "Registered nurses", "Social workers",
+ORDER = ["Teachers", "Registered nurses", "Pharmacists",
+         "Physical therapists", "Physicians", "Lawyers", "Social workers",
          "Accountants and auditors"]
 with open("report/table_professions_instruments.tex", "w") as fh:
     fh.write("""\\begin{tabular}{lccccc}

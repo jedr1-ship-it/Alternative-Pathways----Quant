@@ -16,7 +16,8 @@ from paperstyle import *
 P = pd.read_csv("data/processed/professions_pairs.csv")
 P["age2"] = P["age"] ** 2
 
-GROUPS = ["Teachers", "Registered nurses", "Social workers",
+GROUPS = ["Teachers", "Registered nurses", "Pharmacists",
+          "Physical therapists", "Physicians", "Lawyers", "Social workers",
           "Accountants and auditors"]
 RHS = "new_baby + age + age2 + married + ma_plus + C(base_year)"
 
@@ -50,12 +51,15 @@ res.round(3).to_csv("outputs/family_professions.csv", index=False)
 # profession exit at the field level, robust to detailed-code churn
 W = res[(res.sex == "Women") & (res.outcome == "leave_field")]
 O = res[(res.sex == "Women") & (res.outcome == "dest_olf")]
-order = ["Teachers", "Registered nurses", "Social workers",
-         "Accountants and auditors"]
+order = [g for g in GROUPS if g in set(W.group)]
 SHORT = {"Teachers": "Teachers", "Registered nurses": "Registered nurses",
+         "Pharmacists": "Pharmacists",
+         "Physical therapists": "Physical therapists",
+         "Physicians": "Physicians", "Lawyers": "Lawyers",
          "Social workers": "Social workers",
          "Accountants and auditors": "Accountants"}
-fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.0), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(8.6, 0.6 + 0.62 * len(order)),
+                         sharey=True)
 for ax, dd, title in [(axes[0], W, "Leave the profession"),
                       (axes[1], O, "Leave the labor force")]:
     yy = np.arange(len(order))[::-1]
