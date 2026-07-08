@@ -31,6 +31,14 @@ def codes(group, year):
     raise ValueError(group)
 
 
+# the whole occupational field, both census vintages, so that a detailed
+# occupation switch inside the field (accountant to auditor, staff nurse
+# to nurse practitioner, teacher to principal) does not count as an exit
+FIELD = {"Teachers": (2200, 2555),                 # education occupations
+         "Registered nurses": (3000, 3550),        # health practitioners
+         "Accountants and auditors": (500, 960),   # business and finance
+         "Social workers": (2000, 2060)}           # community and social
+
 GROUPS = ["Teachers", "Registered nurses", "Accountants and auditors",
           "Social workers"]
 files = {os.path.basename(f)[4:10]: f
@@ -61,6 +69,9 @@ for ym, f in sorted(files.items()):
         mrg["base_year"] = y
         mrg["stay"] = (mrg["PEMLR_1"].isin([1, 2])
                        & mrg["PTIO1OCD_1"].isin(codes(g, y + 1))).astype(int)
+        lo, hi = FIELD[g]
+        mrg["stay_field"] = (mrg["PEMLR_1"].isin([1, 2])
+                             & mrg["PTIO1OCD_1"].between(lo, hi)).astype(int)
         parts.append(mrg)
 
 P = pd.concat(parts, ignore_index=True)
@@ -70,6 +81,14 @@ P["dest_unemp"] = ((P["leave"] == 1)
                    & P["PEMLR_1"].isin([3, 4])).astype(int)
 P["dest_olf"] = ((P["leave"] == 1)
                  & ~P["PEMLR_1"].isin([1, 2, 3, 4])).astype(int)
+# field-level exit, robust to detailed-code churn inside the field
+P["leave_field"] = 1 - P["stay_field"]
+P["destf_occ"] = ((P["leave_field"] == 1)
+                  & P["PEMLR_1"].isin([1, 2])).astype(int)
+P["destf_unemp"] = ((P["leave_field"] == 1)
+                    & P["PEMLR_1"].isin([3, 4])).astype(int)
+P["destf_olf"] = ((P["leave_field"] == 1)
+                  & ~P["PEMLR_1"].isin([1, 2, 3, 4])).astype(int)
 P["female"] = (P["PESEX_0"] == 2).astype(int)
 P["married"] = P["PEMARITL"].isin([1, 2]).astype(int)
 P["new_baby"] = (P["PRCHLD_1"].isin(U3)
@@ -80,18 +99,22 @@ P["parttime"] = P["PEHRUSL1"].between(1, 34).astype(int)
 P["public"] = P["PEIO1COW"].isin([1, 2, 3]).astype(int)
 
 keep = (KEY + ["group", "base_year", "leave", "dest_occ", "dest_olf",
-               "dest_unemp", "female", "married", "new_baby", "age",
+               "dest_unemp", "leave_field", "destf_occ", "destf_olf",
+               "destf_unemp", "female", "married", "new_baby", "age",
                "ma_plus", "parttime", "public", "PWSSWGT"])
 P[keep].to_csv("data/processed/professions_pairs.csv", index=False)
 print("pairs saved:", len(P))
 print(P.groupby("group").agg(n=("leave", "size"), leave=("leave", "mean"),
+                             leave_field=("leave_field", "mean"),
                              fem=("female", "mean"),
                              baby=("new_baby", "sum")).round(3))
 
-# refreshed annual rates with the corrected nurse codes
+# refreshed annual rates, detailed-occupation and field definitions
 out = []
 for (y, g), gg in P.groupby(["base_year", "group"]):
     out.append({"base_year": y, "group": g, "n": len(gg),
-                "rate": np.average(gg["leave"], weights=gg["PWSSWGT"]) * 100})
+                "rate": np.average(gg["leave"], weights=gg["PWSSWGT"]) * 100,
+                "rate_field": np.average(gg["leave_field"],
+                                         weights=gg["PWSSWGT"]) * 100})
 pd.DataFrame(out).to_csv("outputs/professions_attrition.csv", index=False)
 print("rates refreshed")

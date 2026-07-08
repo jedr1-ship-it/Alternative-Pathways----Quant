@@ -26,7 +26,7 @@ for g in GROUPS:
         d = P[(P["group"] == g) & (P["female"] == sex)]
         if d["new_baby"].sum() < 100:
             continue
-        for y in ["leave", "dest_occ", "dest_olf"]:
+        for y in ["leave", "leave_field", "dest_occ", "dest_olf"]:
             m = smf.probit(f"{y} ~ " + RHS, data=d).fit(
                 cov_type="cluster", cov_kwds={"groups": d["HRHHID"]},
                 disp=False)
@@ -47,7 +47,8 @@ res = pd.DataFrame(rows)
 res.round(3).to_csv("outputs/family_professions.csv", index=False)
 
 # ---------- figure: women, effect of a new baby on leaving, by profession --
-W = res[(res.sex == "Women") & (res.outcome == "leave")]
+# profession exit at the field level, robust to detailed-code churn
+W = res[(res.sex == "Women") & (res.outcome == "leave_field")]
 O = res[(res.sex == "Women") & (res.outcome == "dest_olf")]
 order = ["Teachers", "Registered nurses", "Social workers",
          "Accountants and auditors"]
