@@ -57,23 +57,27 @@ B["r_unemp"] = ((B["leaver_p"] == 1) & B["PEMLR_1"].isin([3, 4])).astype(int)
 B["r_ret"] = ((B["leaver_p"] == 1) & (B["PEMLR_1"] == 5)).astype(int)
 B["r_olf"] = ((B["leaver_p"] == 1) & B["PEMLR_1"].isin([6, 7])).astype(int)
 
+# unemployment never exceeds 1.2 percent of teachers at any age, so the
+# figure shows the three routes that carry the story
 ROUTES = [("r_occ", "Move to another occupation", CORAL),
           ("r_olf", "Leave the labor force, other", GOLD),
-          ("r_ret", "Retire", GREEN),
-          ("r_unemp", "Become unemployed", GRAY)]
-fig, ax = plt.subplots(figsize=(6.9, 3.7))
+          ("r_ret", "Retire", GREEN)]
+fig, ax = plt.subplots(figsize=(6.9, 3.6))
 for col, lab, c in ROUTES:
     r = np.array([wrate(B[B["bin"] == l], col) for l in labs])
     ax.plot(x, r, color=c, lw=2.0, solid_capstyle="round", label=lab)
     m = r >= 1.0          # markers only where the route reaches 1 percent
     ax.plot(x[m], r[m], "o", color=c, ms=5)
     print(lab, [round(v, 1) for v in r])
+print("Become unemployed",
+      [round(v, 1) for v in
+       [wrate(B[B["bin"] == l], "r_unemp") for l in labs]])
 ax.set_xticks(x)
 ax.set_xticklabels(labs)
 ax.set_ylim(0, 18.5)
 ax.set_xlabel("Age at baseline")
 ax.set_ylabel("Share of teachers per year, %")
-ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.16), ncol=2,
+ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.12), ncol=3,
           frameon=False, fontsize=9.5)
 fig.tight_layout()
 fig.savefig("report/figures/fig21_routes_age.pdf", bbox_inches="tight")

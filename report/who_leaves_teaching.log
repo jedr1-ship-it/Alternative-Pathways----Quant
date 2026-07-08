@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  8 JUL 2026 12:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  8 JUL 2026 12:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -752,50 +752,50 @@ File: figures/fig10_where.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/fig10_where.pdf  used on input line 344.
 (pdftex.def)             Requested size: 400.61703pt x 209.0192pt.
  [6 <./figures/fig22_evolution_defs.pdf>]
-<figures/fig13_dest_time.pdf, id=250, 498.663pt x 238.49101pt>
-File: figures/fig13_dest_time.pdf Graphic file (type pdf)
-<use figures/fig13_dest_time.pdf>
-Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 369.
-(pdftex.def)             Requested size: 382.40338pt x 182.88898pt.
-
-[7 <./figures/fig10_where.pdf> <./figures/fig13_dest_time.pdf>]
-<figures/fig21_routes_age.pdf, id=370, 491.04218pt x 256.68127pt>
+<figures/fig21_routes_age.pdf, id=251, 479.46324pt x 251.11504pt>
 File: figures/fig21_routes_age.pdf Graphic file (type pdf)
 <use figures/fig21_routes_age.pdf>
-Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 392.
-(pdftex.def)             Requested size: 400.61703pt x 209.41467pt.
-<figures/fig3_ame.pdf, id=374, 523.83865pt x 515.34555pt>
+Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 381.
+(pdftex.def)             Requested size: 400.61703pt x 209.82782pt.
+
+[7 <./figures/fig10_where.pdf>]
+<figures/fig3_ame.pdf, id=326, 523.83865pt x 515.34555pt>
 File: figures/fig3_ame.pdf Graphic file (type pdf)
 <use figures/fig3_ame.pdf>
-Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 435.
+Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 426.
 (pdftex.def)             Requested size: 427.93057pt x 421.00551pt.
  [8 <./figures/fig21_routes_age.pdf>] [9 <./figures/fig3_ame.pdf>]
-<figures/fig19_professions.pdf, id=558, 490.8703pt x 252.945pt>
+<figures/fig19_professions.pdf, id=508, 490.8703pt x 252.945pt>
 File: figures/fig19_professions.pdf Graphic file (type pdf)
 <use figures/fig19_professions.pdf>
-Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 514.
+Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 504.
 
 (pdftex.def)             Requested size: 409.71692pt x 211.13692pt.
-<figures/fig18_family_professions.pdf, id=561, 616.27235pt x 394.27753pt>
+<figures/fig18_family_professions.pdf, id=511, 616.27235pt x 394.27753pt>
 File: figures/fig18_family_professions.pdf Graphic file (type pdf)
 <use figures/fig18_family_professions.pdf>
 Package pdftex.def Info: figures/fig18_family_professions.pdf  used on input li
-ne 554.
+ne 544.
 (pdftex.def)             Requested size: 427.93057pt x 273.78444pt.
  [10] [11 <./figures/fig19_professions.pdf> <./figures/fig18_family_professions
 .pdf>] [12] [13
 
-]
-(./table_population.tex) (./table_linkrep.tex) [14
+] (./table_population.tex)
+(./table_linkrep.tex) [14
 
 ] (./table_reconcile.tex)
 (./table_professions_instruments.tex) [15] [16] (./table_descriptives.tex)
-<figures/fig4_age_profile.pdf, id=749, 462.52798pt x 231.26399pt>
+<figures/fig13_dest_time.pdf, id=699, 498.663pt x 238.49101pt>
+File: figures/fig13_dest_time.pdf Graphic file (type pdf)
+<use figures/fig13_dest_time.pdf>
+Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 821.
+(pdftex.def)             Requested size: 382.40338pt x 182.88898pt.
+<figures/fig4_age_profile.pdf, id=700, 462.52798pt x 231.26399pt>
 File: figures/fig4_age_profile.pdf Graphic file (type pdf)
 <use figures/fig4_age_profile.pdf>
 Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 831.
 (pdftex.def)             Requested size: 364.19667pt x 182.10722pt.
-<figures/fig15_heterogeneity.pdf, id=751, 727.41048pt x 323.74794pt>
+<figures/fig15_heterogeneity.pdf, id=702, 727.41048pt x 323.74794pt>
 File: figures/fig15_heterogeneity.pdf Graphic file (type pdf)
 <use figures/fig15_heterogeneity.pdf>
 Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 84
@@ -805,8 +805,8 @@ Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 84
 (./table_destmodel.tex) (./table_robustness.tex) (./table_probit.tex) [17
 
 ]
-[18 <./figures/fig4_age_profile.pdf> <./figures/fig15_heterogeneity.pdf>]
-[19] [20] [21] (./who_leaves_teaching.aux)
+[18 <./figures/fig13_dest_time.pdf> <./figures/fig4_age_profile.pdf>] [19 <./fi
+gures/fig15_heterogeneity.pdf>] [20] [21] [22] (./who_leaves_teaching.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -815,9 +815,9 @@ Package rerunfilecheck Info: File `who_leaves_teaching.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 21941 strings out of 476182
- 409616 string characters out of 5795596
- 1979975 words of memory out of 5000000
+ 21942 strings out of 476182
+ 409623 string characters out of 5795596
+ 1980975 words of memory out of 5000000
  43527 multiletter control sequences out of 15000+600000
  613364 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -837,10 +837,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texm
 f/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex
 -gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on who_leaves_teaching.pdf (21 pages, 499544 bytes).
+Output written on who_leaves_teaching.pdf (22 pages, 498472 bytes).
 PDF statistics:
- 978 PDF objects out of 1000 (max. 8388607)
- 337 compressed objects within 4 object streams
- 57 named destinations out of 1000 (max. 500000)
+ 979 PDF objects out of 1000 (max. 8388607)
+ 340 compressed objects within 4 object streams
+ 58 named destinations out of 1000 (max. 500000)
  68 words of extra memory for PDF output out of 10000 (max. 10000000)
 
