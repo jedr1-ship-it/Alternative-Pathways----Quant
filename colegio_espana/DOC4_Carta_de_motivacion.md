@@ -9,9 +9,7 @@ Cité internationale universitaire de Paris
 
 # Carta de motivación
 
-Estimados miembros de la Comisión:
-
-Me llamo José Elías Durán Roa. Soy chileno de nacimiento y vivo en España desde hace tres años, donde soy estudiante de doctorado en Economía en la Universidad de Alicante. Desde finales de junio estoy en París, haciendo una estancia de investigación en la OCDE, y les escribo para solicitar una plaza en el Colegio de España para el curso 2026-2027.
+Hola, soy José Elías, chileno de nacimiento pero viviendo en España desde hace tres años, donde soy estudiante de doctorado en Economía en la Universidad de Alicante, y desde finales de junio estoy en París haciendo una estancia de investigación en la OCDE, así que les escribo para solicitar una plaza en el Colegio de España para el curso 2026-2027.
 
 Trabajo con econometría aplicada, sobre todo en economía de la educación y economía laboral. Una parte importante de mi investigación estudia cómo la inteligencia artificial está cambiando el trabajo dentro de las empresas; algunos de esos resultados se publicaron hace poco en Harvard Business Review. En la OCDE colaboro en un proyecto sobre por qué los profesores abandonan la enseñanza y qué políticas podrían retenerlos, un problema que hoy preocupa a buena parte de los países.
 
