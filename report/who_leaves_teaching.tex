@@ -24,6 +24,8 @@
 \setlength{\@fpsep}{26pt plus 6pt}
 \setlength{\@fpbot}{0pt plus 1fil}
 \makeatother
+\setlength{\intextsep}{16pt plus 4pt minus 2pt}
+\setlength{\textfloatsep}{18pt plus 4pt minus 2pt}
 \setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
 \linespread{1.14}
 \color{ecink}
@@ -62,24 +64,25 @@ own.}}
 \begin{minipage}{0.86\textwidth}
 {\fontsize{10.5}{14.5}\selectfont
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
-This paper characterizes teacher turnover in the United States between
-2005 and 2025 and follows every leaver into whatever she does next. I
-link Current Population Survey interviews taken twelve months apart for
-every full-time classroom teacher the survey observes, obtaining twenty
-annual panels that record each leaver's destination occupation, separate
-permanent exits from temporary ones, and carry the survey's job and
-family information. Each year 13 percent of teachers stop teaching for
-good, a rate that has risen by a third over two decades entirely through
-direct moves into other jobs, while exits from the labor force stayed
-flat. Two thirds of leavers are employed a year later, six in ten of
-those in education or care occupations, so most careers that leave the
-classroom never leave its world. Exit concentrates among private-school
+No data in the United States follow a teacher out of the classroom, so
+the national statistics count how many leave but not where they go, or
+at what price. This paper characterizes teacher turnover between 2005
+and 2025 by linking Current Population Survey interviews taken twelve
+months apart, for every full-time classroom teacher the survey
+observes, following each leaver into her next occupation or out of the
+labor force. Each year 13 percent of teachers stop teaching for good, a
+rate that rose by a third over two decades entirely through moves into
+other jobs. Most of these moves are short and few of them pay. Two
+thirds of leavers are employed a year later, six in ten of those in
+education or care occupations, and the median leaver who moves out of
+education earns no more than she earned teaching while bearing twice
+the earnings risk of a stayer. Exit concentrates among private-school
 and lower-paid teachers and at both career extremes rather than in any
-demographic group. The identical design estimated on seven comparable
-professions shows that turnover in teaching is unexceptional, while a
-new baby raises a teacher's probability of leaving the profession by 6
-percentage points, an effect absent in every comparison profession and
-among fathers.}
+demographic group. Estimated on seven comparable professions, the
+identical design shows that overall turnover in teaching is
+unexceptional, while a new baby raises a teacher's probability of
+leaving the profession by 6 percentage points, an effect absent in
+every comparison profession and among fathers.}
 \end{minipage}
 \end{center}
 
@@ -273,7 +276,7 @@ directly for what follows, because the public sector is precisely the
 trait that Section 6 will show holds teachers in place, so the
 workforce has been drifting toward the configuration that leaves.
 
-\begin{figure}[H]
+\begin{figure}[t]
   \centering
   \caption{The changing profile of the teaching workforce.}
   \label{fig:evolution}
@@ -299,7 +302,7 @@ sample size by sample size, with every published benchmark.
   \centering
   \caption{Attrition net of returns, by year and gender.}
   \label{fig:evol}
-  \includegraphics[width=0.84\textwidth]{figures/fig6_evolution.pdf}
+  \includegraphics[width=0.85\textwidth]{figures/fig6_evolution.pdf}
   \fignote{Notes: Weighted share of teachers not teaching twelve months
   later and in no later re-interview, by baseline year and sex. The
   return window is capped by the survey design at three monthly
@@ -329,7 +332,7 @@ with family care, against 6 percent of men.
   \centering
   \caption{Of every 100 non-returning leavers.}
   \label{fig:flow}
-  \includegraphics[width=0.96\textwidth]{figures/fig23_flow100.pdf}
+  \includegraphics[width=0.94\textwidth]{figures/fig23_flow100.pdf}
   \fignote{Notes: Weighted composition of non-returning leavers twelve
   months after teaching, pooling all 2005--2025 waves; the second bar
   splits the employed by destination occupation. Education jobs include
@@ -370,7 +373,7 @@ or not, about competition from other employers.
   \centering
   \caption{Exit routes over the lifecycle.}
   \label{fig:routesage}
-  \includegraphics[width=0.88\textwidth]{figures/fig21_routes_age.pdf}
+  \includegraphics[width=0.85\textwidth]{figures/fig21_routes_age.pdf}
   \fignote{Notes: Weighted share of teachers leaving through each route
   within twelve months, by age at baseline, pooling all 2005--2025 waves
   under the non-returning definition. Routes come from the labor force
@@ -381,6 +384,35 @@ or not, about competition from other employers.
   only where a route reaches one percent of teachers per year. Source:
   author's calculations from linked CPS pairs, 2005--2025.}
 \end{figure}
+
+Leaving does not pay, at least not on average and not soon. On the
+subsample with weekly earnings observed a year apart, the median leaver
+who moves out of education earns no more than she earned teaching,
+while the median stayer gains 3 percent, and what leaving changes is
+the risk, since the middle half of earnings changes runs from $-$41 to
+$+$40 percent for these leavers against $-$13 to $+$23 percent for
+stayers (Figure~\ref{fig:wage}). Moves into other education jobs sit
+in between on both counts. The absence of a premium at the median, next
+to the heavy lower tail, suggests that many job-to-job exits are pushed
+by the classroom rather than pulled by pay, consistent with the modest
+retention effect of wages in Section 6.
+
+\begin{figure}[H]
+  \centering
+  \caption{The earnings gamble of leaving.}
+  \label{fig:wage}
+  \includegraphics[width=0.78\textwidth]{figures/fig25_wage_quantiles.pdf}
+  \fignote{Notes: Distribution of the change in weekly earnings between
+  the two outgoing-rotation interviews, taken twelve months apart, for
+  teachers with earnings of at least \$50 in both; these baselines have
+  no re-interview window, so leavers follow the conventional 12-month
+  definition, and leavers out of education hold no education occupation
+  at $t{+}12$. Earnings are collected only in rotations 4 and 8, which
+  is why the samples are smaller than in the rest of the paper. Source:
+  author's calculations from linked CPS pairs, 2005--2025.}
+\end{figure}
+
+
 
 \section*{6. Who leaves, and why}
 
@@ -512,7 +544,7 @@ to the linked rates for all seven professions.
   \caption{Leaving the occupational field within twelve months, five
   professions under the same linked design.}
   \label{fig:prof}
-  \includegraphics[width=0.9\textwidth]{figures/fig19_professions.pdf}
+  \includegraphics[width=0.85\textwidth]{figures/fig19_professions.pdf}
   \fignote{Notes: Weighted shares of employed college graduates no longer
   employed in any occupation of their field twelve months later, education
   occupations for teachers, health-practitioner occupations for nurses,
