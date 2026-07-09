@@ -2,7 +2,7 @@
 Doctorando en Economía · Universidad de Alicante
 Estancia de investigación · OCDE, París
 
-París, a ___ de _______ de 2026
+París, a 9 de julio de 2026
 
 A la atención de la Comisión de Admisión del Colegio de España
 Cité internationale universitaire de Paris
