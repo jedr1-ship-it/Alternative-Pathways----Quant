@@ -23,6 +23,10 @@ KEY = ["HRHHID", "HRHHID2", "PULINENO"]
 
 df = pd.read_csv("data/processed/cps_teacher_panel.csv",
                  dtype={"HRHHID": str, "HRHHID2": str})
+# analytic universe: full-time elementary-through-secondary teachers, the
+# same restriction load_panel() applies for every other figure
+df = df[df["PTIO1OCD_0"].isin([2310, 2320, 2330])
+        & ~df["PEHRUSL1_0"].between(1, 34)]
 df["female"] = (df["PESEX_0"] == 2).astype(int)
 w = "PWSSWGT_0"
 
