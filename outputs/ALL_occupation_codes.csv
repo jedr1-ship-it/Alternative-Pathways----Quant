@@ -1,0 +1,711 @@
+code,label,n_asec_PEIOOCC,n_monthly_2005_07
+10,Chief executives,8070.0,27837.0
+20,General and operations managers,5615.0,16194.0
+40,Advertising and promotions managers,270.0,1127.0
+50,(sin etiqueta limpia — código SOC 11-2020),2316.0,13547.0
+51,Marketing managers,1448.0,
+52,Sales managers,1463.0,
+60,Public relations and fundraising managers,572.0,1021.0
+100,(sin etiqueta limpia — código SOC 11-3011),387.0,1569.0
+101,Administrative services managers,193.0,
+102,Facilities managers,369.0,
+110,Computer and information systems managers,3254.0,6617.0
+120,Financial managers,6431.0,18177.0
+130,,,4616.0
+135,Compensation and benefits managers,89.0,
+136,Human resources managers,1524.0,
+137,Training and development managers,301.0,
+140,Industrial production managers,1431.0,4644.0
+150,Purchasing managers,1036.0,2900.0
+160,"Transportation, storage, and distribution managers",1578.0,3955.0
+200,,,4843.0
+205,"Farmers, ranchers, and other agricultural managers",5770.0,
+210,,,19473.0
+220,Construction managers,4912.0,17532.0
+230,Education and childcare administrators,5136.0,13681.0
+300,Architectural and engineering managers,810.0,1641.0
+310,Food service managers,5966.0,15549.0
+320,,,799.0
+330,(sin etiqueta limpia — código SOC 11-9071),55.0,278.0
+335,Entertainment and recreation managers,167.0,
+340,Lodging managers,783.0,3170.0
+350,Medical and health services managers,3768.0,8646.0
+360,Natural sciences managers,123.0,211.0
+410,"Property, real estate, and community association managers",3834.0,10361.0
+420,Social and community service managers,2551.0,6370.0
+425,Emergency management directors,73.0,
+430,(sin etiqueta limpia — código SOC 11-9199),10532.0,57949.0
+440,"Managers, all other",15098.0,
+500,"Agents and business managers of artists, performers, and athletes",226.0,709.0
+510,"Buyers and purchasing agents, farm products",64.0,190.0
+520,"Wholesale and retail buyers, except farm products",975.0,3422.0
+530,"Purchasing agents, except wholesale, retail, and farm products",1277.0,4786.0
+540,"Claims adjusters, appraisers, examiners, and investigators",1599.0,4849.0
+560,,,2476.0
+565,Compliance officers,1519.0,
+600,Cost estimators,651.0,1908.0
+620,,,12636.0
+630,Human resources workers,4057.0,
+640,"Compensation, benefits, and job analysis specialists",325.0,
+650,Training and development specialists,751.0,
+700,Logisticians,693.0,776.0
+705,Project management specialists,2209.0,
+710,Management analysts,4955.0,10051.0
+720,,,609.0
+725,"Meeting, convention, and event planners",734.0,
+726,Fundraisers,497.0,
+730,,,3766.0
+735,Market research analysts and marketing specialists,1865.0,
+740,(sin etiqueta limpia — código SOC 13-1199),629.0,
+750,"Business operations specialists, all other",1346.0,
+800,Accountants and auditors,8351.0,28467.0
+810,Property appraisers and assessors,428.0,2157.0
+820,Budget analysts,293.0,941.0
+830,Credit analysts,154.0,607.0
+840,(sin etiqueta limpia — código SOC 13-2051),611.0,1573.0
+845,Financial and investment analysts,912.0,
+850,Personal financial advisors,2456.0,6086.0
+860,Insurance underwriters,504.0,1731.0
+900,Financial examiners,80.0,145.0
+910,Credit counselors and loan officers,1918.0,7508.0
+930,"Tax examiners and collectors, and revenue agents",331.0,1139.0
+940,Tax preparers,702.0,1800.0
+950,(sin etiqueta limpia — código SOC 13-2099),130.0,748.0
+960,Other financial specialists,248.0,
+1000,,,12083.0
+1005,Computer and information research scientists,134.0,
+1006,Computer systems analysts,2563.0,
+1007,Information security analysts,701.0,
+1010,Computer programmers,2046.0,8699.0
+1020,(sin etiqueta limpia — código SOC 15-113X),3248.0,13255.0
+1021,Software developers,5084.0,
+1022,Software quality assurance analysts and testers,201.0,
+1030,(sin etiqueta limpia — código SOC 15-1134),426.0,
+1031,Web developers,226.0,
+1032,Web and digital interface designers,221.0,
+1040,,,5533.0
+1050,Computer support specialists,2987.0,
+1060,(sin etiqueta limpia — código SOC 15-1141),205.0,1491.0
+1065,Database administrators and architects,341.0,
+1100,,,3215.0
+1105,Network and computer systems administrators,1005.0,
+1106,Computer network architects,504.0,
+1107,(sin etiqueta limpia — código SOC 15-1199),1426.0,
+1108,"Computer occupations, all other",2661.0,
+1110,,,5602.0
+1200,Actuaries,126.0,335.0
+1210,Mathematicians,,61.0
+1220,Operations research analysts,840.0,1587.0
+1230,Statisticians,,557.0
+1240,Other mathematical science occupations,1087.0,62.0
+1300,(sin etiqueta limpia — código SOC 17-1010),528.0,3838.0
+1305,"Architects, except landscape and naval",534.0,
+1306,Landscape architects,62.0,
+1310,"Surveyors, cartographers, and photogrammetrists",228.0,841.0
+1320,Aerospace engineers,639.0,1636.0
+1330,Agricultural engineers,,87.0
+1340,Bioengineers and biomedical engineers,97.0,141.0
+1350,Chemical engineers,385.0,1074.0
+1360,Civil engineers,2200.0,5638.0
+1400,Computer hardware engineers,376.0,1186.0
+1410,Electrical and electronics engineers,1378.0,5533.0
+1420,Environmental engineers,190.0,699.0
+1430,"Industrial engineers, including health and safety",1052.0,2899.0
+1440,Marine engineers and naval architects,66.0,181.0
+1450,Materials engineers,217.0,530.0
+1460,Mechanical engineers,1622.0,4791.0
+1500,"Mining and geological engineers, including mining safety engineers",28.0,192.0
+1510,Nuclear engineers,22.0,134.0
+1520,Petroleum engineers,158.0,337.0
+1530,"Engineers, all other",2849.0,5061.0
+1540,(sin etiqueta limpia — código SOC 17-3010),288.0,3313.0
+1541,Architectural and civil drafters,97.0,
+1545,Other drafters,251.0,
+1550,(sin etiqueta limpia — código SOC 17-3020),956.0,6907.0
+1551,Electrical and electronic engineering technologists and technicians,234.0,
+1555,"Other engineering technologists and technicians, except drafters",971.0,
+1560,Surveying and mapping technicians,347.0,1661.0
+1600,Agricultural and food scientists,181.0,747.0
+1610,Biological scientists,637.0,2108.0
+1640,Conservation scientists and foresters,178.0,726.0
+1650,Medical scientists,717.0,2273.0
+1700,Astronomers and physicists,117.0,420.0
+1710,Atmospheric and space scientists,50.0,186.0
+1720,Chemists and materials scientists,458.0,1959.0
+1740,(sin etiqueta limpia — código SOC 19-2040),238.0,1853.0
+1745,"Environmental scientists and specialists, including health",111.0,
+1750,"Geoscientists and hydrologists, except geographers",129.0,
+1760,"Physical scientists, all other",1732.0,1931.0
+1800,Economists,317.0,737.0
+1810,,,2346.0
+1820,(sin etiqueta limpia — código SOC 19-3030),445.0,3303.0
+1821,Clinical and counseling psychologists,44.0,
+1822,School psychologists,149.0,
+1825,Other psychologists,360.0,
+1830,Sociologists,,77.0
+1840,Urban and regional planners,178.0,538.0
+1860,Miscellaneous social scientists and related workers,342.0,896.0
+1900,Agricultural and food science technicians,208.0,415.0
+1910,Biological technicians,129.0,419.0
+1920,Chemical technicians,303.0,1197.0
+1930,(sin etiqueta limpia — código SOC 19-4041),42.0,284.0
+1935,Environmental  science and geoscience technicians,61.0,
+1940,Nuclear technicians,,84.0
+1960,,,2826.0
+1965,(sin etiqueta limpia — código SOC 19-4090),362.0,
+1970,"Other life, physical, and social science technicians",826.0,
+1980,Occupational health and safety specialists and technicians,218.0,
+2000,(sin etiqueta limpia — código SOC 21-1010),2079.0,11406.0
+2001,Substance abuse and behavioral disorder counselors,376.0,
+2002,"Educational, guidance, and career counselors and advisors",1007.0,
+2003,Marriage and family therapists,108.0,
+2004,Mental health counselors,514.0,
+2005,Rehabilitation counselors,56.0,
+2006,"Counselors, all other",722.0,
+2010,(sin etiqueta limpia — código SOC 21-1020),1962.0,12075.0
+2011,"Child, family, and school social workers",175.0,
+2012,Healthcare social workers,223.0,
+2013,Mental health and substance abuse social workers,64.0,
+2014,"Social workers, all other",1854.0,
+2015,Probation officers and correctional treatment specialists,451.0,
+2016,Social and human service assistants,1287.0,
+2020,,,5350.0
+2025,Other community and social service specialists,505.0,
+2040,Clergy,2102.0,7133.0
+2050,"Directors, religious activities and education",357.0,866.0
+2060,"Religious workers, all other",373.0,1566.0
+2100,Lawyers,6280.0,17882.0
+2105,Judicial law clerks,106.0,
+2140,,,5924.0
+2145,Paralegals and legal assistants,2027.0,
+2150,,,4331.0
+2160,(sin etiqueta limpia — código SOC 23-2090),412.0,
+2170,"Title examiners, abstractors, and searchers",289.0,
+2180,"Legal support workers, all other",240.0,
+2200,Postsecondary teachers [esquema 2010],3319.0,21762.0
+2205,Postsecondary teachers,3219.0,
+2300,Preschool and kindergarten teachers,3677.0,11375.0
+2310,Elementary and middle school teachers,18356.0,46661.0
+2320,Secondary school teachers,5297.0,19532.0
+2330,Special education teachers,1926.0,7040.0
+2340,Other teachers and instructors [2010],2265.0,12506.0
+2350,Tutors,522.0,
+2360,Other teachers and instructors,2417.0,
+2400,"Archivists, curators, and museum technicians",357.0,868.0
+2430,Librarians [2010],450.0,3971.0
+2435,Librarians and media collections specialists,511.0,
+2440,Library technicians,178.0,793.0
+2540,Teacher assistants [2010],2579.0,17374.0
+2545,Teaching assistants,4164.0,
+2550,"Other education, training, and library workers [2010]",403.0,1507.0
+2555,Other educational instruction and library workers,559.0,
+2600,Artists and related workers,1332.0,4085.0
+2630,(sin etiqueta limpia — código SOC 27-1020),1921.0,13551.0
+2631,Commercial and industrial designers,39.0,
+2632,Fashion designers,76.0,
+2633,Floral designers,185.0,
+2634,Graphic designers,750.0,
+2635,Interior designers,279.0,
+2636,Merchandise displayers and window trimmers,72.0,
+2640,Other designers,970.0,
+2700,Actors,241.0,618.0
+2710,Producers and directors,826.0,2162.0
+2720,(sin etiqueta limpia — código SOC 27-2020),822.0,4810.0
+2721,Athletes and sports competitors,85.0,
+2722,Coaches and scouts,868.0,
+2723,"Umpires, referees, and other sports officials",110.0,
+2740,Dancers and choreographers,63.0,491.0
+2750,(sin etiqueta limpia — código SOC 27-2040),386.0,3094.0
+2751,Music directors and composers,115.0,
+2752,Musicians and singers,379.0,
+2755,"Disc jockeys, except radio",61.0,
+2760,(sin etiqueta limpia — código SOC 27-2099),105.0,576.0
+2770,"Entertainers and performers, sports and related workers, all other",123.0,
+2800,(sin etiqueta limpia — código SOC 27-3010),111.0,981.0
+2805,Broadcast announcers and radio disc jockeys,72.0,
+2810,"News analysts, reporters, and journalists",479.0,1595.0
+2820,,,2717.0
+2825,Public relations specialists,705.0,
+2830,Editors,634.0,2759.0
+2840,Technical writers,303.0,987.0
+2850,Writers and authors,1159.0,3450.0
+2860,(sin etiqueta limpia — código SOC 27-3090),268.0,1128.0
+2861,Interpreters and translators,274.0,
+2862,Court reporters and simultaneous captioners,67.0,
+2865,"Media and communication workers, all other",60.0,
+2900,(sin etiqueta limpia — código SOC 27-4010),244.0,1469.0
+2905,"Broadcast, sound, and lighting technicians",254.0,
+2910,Photographers,1039.0,2674.0
+2920,"Television, video, and film camera operators and editors",443.0,595.0
+3000,Chiropractors,284.0,1223.0
+3010,Dentists,838.0,2838.0
+3030,Dietitians and nutritionists,578.0,1515.0
+3040,Optometrists,239.0,554.0
+3050,Pharmacists,1731.0,4079.0
+3060,(sin etiqueta limpia — código SOC 29-1060),2409.0,13688.0
+3090,Other physicians,2614.0,
+3100,Surgeons,129.0,
+3110,Physician assistants,663.0,1449.0
+3120,Podiatrists,26.0,186.0
+3130,,,42890.0
+3140,Audiologists,89.0,290.0
+3150,Occupational therapists,695.0,1461.0
+3160,Physical therapists,1475.0,3280.0
+3200,Radiation therapists,75.0,233.0
+3210,Recreational therapists,55.0,318.0
+3220,Respiratory therapists,500.0,1540.0
+3230,Speech-language pathologists,863.0,1933.0
+3240,,,1755.0
+3245,"Therapists, all other",1247.0,
+3250,Veterinarians,439.0,1200.0
+3255,Registered nurses,16507.0,
+3256,Nurse anesthetists,167.0,
+3258,Nurse practitioners,1205.0,
+3260,(sin etiqueta limpia — código SOC 29-1199),81.0,294.0
+3261,Acupuncturists,75.0,
+3270,"Healthcare diagnosing or treating practitioners, all other",42.0,
+3300,Clinical laboratory technologists and technicians,1734.0,5481.0
+3310,Dental hygienists,1068.0,2463.0
+3320,(sin etiqueta limpia — código SOC 29-2030),778.0,4775.0
+3321,Cardiovascular technologists and technicians,141.0,
+3322,Diagnostic medical sonographers,263.0,
+3323,Radiologic technologists and technicians,717.0,
+3324,Magnetic resonance imaging technologists,146.0,
+3330,Nuclear medicine technologists and medical dosimetrists,99.0,
+3400,(sin etiqueta limpia — código SOC 29-2041),467.0,2431.0
+3401,Emergency medical technicians,406.0,
+3402,Paramedics,284.0,
+3410,,,7009.0
+3420,(sin etiqueta limpia — código SOC 29-2050),1458.0,
+3421,Pharmacy technicians,982.0,
+3422,Psychiatric technicians,279.0,
+3423,Surgical technologists,307.0,
+3424,Veterinary technologists and technicians,350.0,
+3430,Dietetic technicians and ophthalmic medical technicians,196.0,
+3500,Licensed practical and licensed vocational nurses,3096.0,9101.0
+3510,(sin etiqueta limpia — código SOC 29-2071),411.0,1861.0
+3515,Medical records specialists,592.0,
+3520,"Opticians, dispensing",263.0,886.0
+3530,,,1849.0
+3535,(sin etiqueta limpia — código SOC 29-2090),306.0,
+3540,(sin etiqueta limpia — código SOC 29-9000),302.0,999.0
+3545,Miscellaneous health technologists and technicians,430.0,
+3550,Other healthcare practitioners and technical occupations,270.0,
+3600,(sin etiqueta limpia — código SOC 31-1010),4853.0,32606.0
+3601,Home health aides,1608.0,
+3602,Personal care aides,4406.0,
+3603,Nursing assistants,3875.0,
+3605,Orderlies and psychiatric aides,139.0,
+3610,Occupational therapy assistants and aides,138.0,190.0
+3620,Physical therapist assistants and aides,433.0,1051.0
+3630,Massage therapists,826.0,2123.0
+3640,Dental assistants,1555.0,4466.0
+3645,Medical assistants,2946.0,
+3646,Medical transcriptionists,213.0,
+3647,Pharmacy aides,194.0,
+3648,Veterinary assistants and laboratory animal caretakers,310.0,
+3649,Phlebotomists,626.0,
+3650,,,13515.0
+3655,Other healthcare support workers,994.0,
+3700,First-line supervisors of correctional officers,283.0,723.0
+3710,First-line supervisors of police and detectives,525.0,1862.0
+3720,First-line supervisors of firefighting and prevention workers,268.0,785.0
+3725,First-line supervisors of security workers,222.0,
+3730,(sin etiqueta limpia — código SOC 33-1099),180.0,1612.0
+3740,Firefighters,1470.0,4358.0
+3750,Fire inspectors,116.0,337.0
+3800,(sin etiqueta limpia — código SOC 33-3010),855.0,6657.0
+3801,Bailiffs,58.0,
+3802,Correctional officers and jailers,836.0,
+3820,Detectives and criminal investigators,749.0,2165.0
+3830,Fish and game wardens,,128.0
+3840,Parking enforcement workers,103.0,129.0
+3850,(sin etiqueta limpia — código SOC 33-3051),1526.0,10205.0
+3860,(sin etiqueta limpia — código SOC 33-3052),,56.0
+3870,Police officers,1881.0,
+3900,Animal control workers,52.0,194.0
+3910,Private detectives and investigators,529.0,1455.0
+3920,,,13939.0
+3930,Security guards and gambling surveillance officers,4461.0,
+3940,Crossing guards and flaggers,301.0,922.0
+3945,Transportation security screeners,240.0,
+3946,School bus monitors,96.0,
+3950,,,2906.0
+3955,(sin etiqueta limpia — código SOC 33-909X),302.0,
+3960,Other protective service workers,436.0,
+4000,Chefs and head cooks,2313.0,5455.0
+4010,First-line supervisors of food preparation and serving workers,2780.0,10641.0
+4020,Cooks,11840.0,33483.0
+4030,Food preparation workers,5483.0,12803.0
+4040,Bartenders,2102.0,6836.0
+4050,(sin etiqueta limpia — código SOC 35-3021),925.0,6167.0
+4055,Fast food and counter workers,2393.0,
+4060,(sin etiqueta limpia — código SOC 35-3022),576.0,6568.0
+4110,Waiters and waitresses,9813.0,34332.0
+4120,"Food servers, nonrestaurant",1155.0,2823.0
+4130,Dining room and cafeteria attendants and bartender helpers,1776.0,6882.0
+4140,Dishwashers,1674.0,5717.0
+4150,"Hosts and hostesses, restaurant, lounge, and coffee shop",1716.0,4909.0
+4160,"Food preparation and serving related workers, all other",27.0,64.0
+4200,First-line supervisors of housekeeping and janitorial workers,1783.0,5307.0
+4210,"First-line supervisors of landscaping, lawn service, and groundskeeping workers",1280.0,3876.0
+4220,Janitors and building cleaners,12811.0,37630.0
+4230,Maids and housekeeping cleaners,8440.0,25494.0
+4240,Pest control workers,451.0,1083.0
+4250,(sin etiqueta limpia — código SOC 37-3010),3050.0,22070.0
+4251,Landscaping and groundskeeping workers,3153.0,
+4252,Tree trimmers and pruners,286.0,
+4255,Other grounds maintenance workers,47.0,
+4300,(sin etiqueta limpia — código SOC 39-1010),426.0,2495.0
+4320,(sin etiqueta limpia — código SOC 39-1021),443.0,2719.0
+4330,Supervisors of personal care and service workers,641.0,
+4340,Animal trainers,292.0,726.0
+4350,Animal caretakers,1387.0,2626.0
+4400,Gambling services workers,493.0,2103.0
+4410,(sin etiqueta limpia — código SOC 39-3021),4.0,128.0
+4420,"Ushers, lobby attendants, and ticket takers",191.0,822.0
+4430,(sin etiqueta limpia — código SOC 39-3090),486.0,3143.0
+4435,Other entertainment attendants and related workers,630.0,
+4460,(sin etiqueta limpia — código SOC 39-40XX),32.0,279.0
+4461,"Embalmers, crematory operators and funeral attendants",52.0,
+4465,"Morticians, undertakers, and funeral arrangers",199.0,
+4500,Barbers,581.0,1543.0
+4510,"Hairdressers, hairstylists, and cosmetologists",3741.0,12524.0
+4520,(sin etiqueta limpia — código SOC 39-5090),767.0,3270.0
+4521,Manicurists and pedicurists,749.0,
+4522,Skincare specialists,261.0,
+4525,Other personal appearance workers,72.0,
+4530,"Baggage porters, bellhops, and concierges",407.0,1122.0
+4540,Tour and travel guides,361.0,943.0
+4550,,,2070.0
+4600,Childcare workers,6363.0,25722.0
+4610,(sin etiqueta limpia — código SOC 39-9021),3552.0,12752.0
+4620,(sin etiqueta limpia — código SOC 39-9030),948.0,6073.0
+4621,Exercise trainers and group fitness instructors,595.0,
+4622,Recreation workers,405.0,
+4640,Residential advisors,196.0,1067.0
+4650,(sin etiqueta limpia — código SOC 39-9099),401.0,1702.0
+4655,"Personal care and service workers, all other",378.0,
+4700,First-Line supervisors of retail sales workers,15899.0,58517.0
+4710,First-Line supervisors of non-retail sales workers,5870.0,22584.0
+4720,Cashiers,16148.0,55448.0
+4740,Counter and rental clerks,455.0,2858.0
+4750,Parts salespersons,678.0,2339.0
+4760,Retail salespersons,14852.0,57565.0
+4800,Advertising sales agents,791.0,3712.0
+4810,Insurance sales agents,3001.0,9085.0
+4820,"Securities, commodities, and financial services sales agents",988.0,6116.0
+4830,Travel agents,354.0,1587.0
+4840,"Sales representatives of services, except advertising, insurance, financial services, and travel",2534.0,8781.0
+4850,"Sales representatives, wholesale and manufacturing",5685.0,22909.0
+4900,"Models, demonstrators, and product promoters",243.0,1314.0
+4920,Real estate brokers and sales agents,4937.0,16875.0
+4930,Sales engineers,194.0,609.0
+4940,Telemarketers,247.0,3320.0
+4950,"Door-to-door sales workers, news and street vendors, and related workers",675.0,5057.0
+4960,,,3921.0
+4965,"Sales and related workers, all other",1598.0,
+5000,First-Line supervisors of office and administrative support workers,6710.0,26747.0
+5010,"Switchboard operators, including answering service",82.0,906.0
+5020,Telephone operators,149.0,880.0
+5030,(sin etiqueta limpia — código SOC 43-2099),22.0,169.0
+5040,"Communications equipment operators, all other",8.0,
+5100,Bill and account collectors,577.0,3590.0
+5110,Billing and posting clerks,2244.0,7133.0
+5120,"Bookkeeping, accounting, and auditing clerks",5922.0,26581.0
+5130,Gambling cage workers,37.0,312.0
+5140,Payroll and timekeeping clerks,654.0,2849.0
+5150,Procurement clerks,140.0,499.0
+5160,Tellers,1464.0,7588.0
+5165,"Financial clerks, all other",541.0,
+5200,Brokerage clerks,16.0,174.0
+5210,Correspondence clerks,,154.0
+5220,"Court, municipal, and license clerks",476.0,1835.0
+5230,"Credit authorizers, checkers, and clerks",211.0,953.0
+5240,Customer service representatives,12944.0,32172.0
+5250,"Eligibility interviewers, government programs",396.0,1143.0
+5260,File clerks,858.0,6550.0
+5300,"Hotel, motel, and resort desk clerks",656.0,2351.0
+5310,"Interviewers, except eligibility and loan",903.0,2785.0
+5320,"Library assistants, clerical",393.0,2127.0
+5330,Loan interviewers and clerks,595.0,2975.0
+5340,New accounts clerks,104.0,300.0
+5350,Order clerks,561.0,2130.0
+5360,"Human resources assistants, except payroll and timekeeping",320.0,1067.0
+5400,Receptionists and information clerks,6610.0,24672.0
+5410,Reservation and transportation ticket agents and travel clerks,610.0,2824.0
+5420,"Information and record clerks, all other",538.0,1651.0
+5500,Cargo and freight agents,116.0,358.0
+5510,Couriers and messengers,2777.0,4555.0
+5520,(sin etiqueta limpia — código SOC 43-5030),689.0,4888.0
+5521,Public safety telecommunicators,237.0,
+5522,"Dispatchers, except police, fire, and ambulance",499.0,
+5530,"Meter readers, utilities",133.0,705.0
+5540,Postal service clerks,533.0,2658.0
+5550,Postal service mail carriers,1602.0,5729.0
+5560,"Postal service mail sorters, processors, and processing machine operators",322.0,1653.0
+5600,"Production, planning, and expediting clerks",1186.0,4824.0
+5610,"Shipping, receiving, and inventory clerks",2861.0,9025.0
+5620,(sin etiqueta limpia — código SOC 43-5081),3559.0,25370.0
+5630,"Weighers, measurers, checkers, and samplers, recordkeeping",336.0,1281.0
+5700,(sin etiqueta limpia — código SOC 43-6010),6105.0,60687.0
+5710,Executive secretaries and executive administrative assistants,613.0,
+5720,Legal secretaries and administrative assistants,136.0,
+5730,Medical secretaries and administrative assistants,217.0,
+5740,"Secretaries and administrative assistants, except legal, medical, and executive",5668.0,
+5800,(sin etiqueta limpia — código SOC 43-9011),178.0,2907.0
+5810,Data entry keyers,1226.0,8445.0
+5820,Word processors and typists,350.0,4429.0
+5830,Desktop publishers,,114.0
+5840,Insurance claims and policy processing clerks,1315.0,4586.0
+5850,"Mail clerks and mail machine operators, except postal service",309.0,2159.0
+5860,"Office clerks, general",6605.0,17756.0
+5900,"Office machine operators, except computer",151.0,899.0
+5910,Proofreaders and copy markers,42.0,258.0
+5920,Statistical assistants,160.0,408.0
+5930,,,10212.0
+5940,"Office and administrative support workers, all other",2955.0,
+6000,,,871.0
+6005,"First-line supervisors of farming, fishing, and forestry workers",327.0,
+6010,Agricultural inspectors,95.0,341.0
+6020,Animal breeders,,158.0
+6040,"Graders and sorters, agricultural products",454.0,1356.0
+6050,Miscellaneous agricultural workers,5327.0,14363.0
+6100,(sin etiqueta limpia — código SOC 45-3011),120.0,1252.0
+6110,(sin etiqueta limpia — código SOC 45-3021),,42.0
+6115,Fishing and hunting workers,148.0,
+6120,Forest and conservation workers,142.0,284.0
+6130,Logging workers,392.0,1791.0
+6200,First-line supervisors of construction trades and extraction workers,3755.0,16764.0
+6210,Boilermakers,126.0,369.0
+6220,"Brickmasons, blockmasons, and stonemasons",766.0,3962.0
+6230,Carpenters,6904.0,32646.0
+6240,"Carpet, floor, and tile installers and finishers",800.0,4350.0
+6250,"Cement masons, concrete finishers, and terrazzo workers",343.0,1861.0
+6260,Construction laborers,11232.0,28098.0
+6300,(sin etiqueta limpia — código SOC 47-2071),35.0,524.0
+6305,Construction equipment operators,1217.0,
+6310,(sin etiqueta limpia — código SOC 47-2072),,61.0
+6320,(sin etiqueta limpia — código SOC 47-2073),984.0,8721.0
+6330,"Drywall installers, ceiling tile installers, and tapers",910.0,4403.0
+6350,,,15034.0
+6355,Electricians,4652.0,
+6360,Glaziers,219.0,737.0
+6400,Insulation workers,312.0,890.0
+6410,Painters and paperhangers,1570.0,
+6420,(sin etiqueta limpia — código SOC 47-2141),1408.0,11729.0
+6430,(sin etiqueta limpia — código SOC 47-2142),,121.0
+6440,(sin etiqueta limpia — código SOC 47-2150),1435.0,11386.0
+6441,Pipelayers,140.0,
+6442,"Plumbers, pipefitters, and steamfitters",1635.0,
+6460,Plasterers and stucco masons,139.0,1003.0
+6500,Reinforcing iron and rebar workers,21.0,163.0
+6510,,,4265.0
+6515,Roofers,1287.0,
+6520,Sheet metal workers,646.0,2469.0
+6530,Structural iron and steel workers,292.0,1191.0
+6540,Solar photovoltaic installers,73.0,
+6600,"Helpers, construction trades",273.0,2067.0
+6660,Construction and building inspectors,480.0,1806.0
+6700,Elevator and escalator installers and repairers,160.0,425.0
+6710,Fence erectors,208.0,610.0
+6720,Hazardous materials removal workers,163.0,506.0
+6730,Highway maintenance workers,590.0,1925.0
+6740,Rail-track laying and maintenance equipment operators,69.0,250.0
+6750,Septic tank servicers and sewer pipe cleaners,25.0,170.0
+6760,,,652.0
+6765,Miscellaneous construction and related workers,204.0,
+6800,"Derrick, rotary drill, and service unit operators, oil and gas",223.0,850.0
+6820,(sin etiqueta limpia — código SOC 47-5021),79.0,701.0
+6825,"Earth drillers, except oil and gas",123.0,
+6830,(sin etiqueta limpia — código SOC 47-5031),35.0,166.0
+6835,"Explosives workers, ordnance handling experts, and blasters",40.0,
+6840,(sin etiqueta limpia — código SOC 47-5040),239.0,1362.0
+6850,Underground mining machine operators,188.0,
+6910,(sin etiqueta limpia — código SOC 47-5061),,104.0
+6920,"Roustabouts, oil and gas",30.0,87.0
+6930,(sin etiqueta limpia — código SOC 47-5081),,121.0
+6940,(sin etiqueta limpia — código SOC 47-50XX),183.0,953.0
+6950,Other extraction workers,237.0,
+7000,"First-line supervisors of mechanics, installers, and repairers",1300.0,5574.0
+7010,"Computer, automated teller, and office machine repairers",887.0,5837.0
+7020,Radio and telecommunications equipment installers and repairers,635.0,3478.0
+7030,Avionics technicians,47.0,269.0
+7040,"Electric motor, power tool, and related repairers",114.0,593.0
+7050,"Electrical and electronics installers and repairers, transportation equipment",,59.0
+7100,"Electrical and electronics repairers, industrial and utility",92.0,253.0
+7110,"Electronic equipment installers and repairers, motor vehicles",21.0,390.0
+7120,Audiovisual equipment installers and repairers,174.0,879.0
+7130,Security and fire alarm systems installers,310.0,939.0
+7140,Aircraft mechanics and service technicians,794.0,2227.0
+7150,Automotive body and related repairers,680.0,2712.0
+7160,Automotive glass installers and repairers,120.0,298.0
+7200,Automotive service technicians and mechanics,4450.0,14853.0
+7210,Bus and truck mechanics and diesel engine specialists,1862.0,6138.0
+7220,Heavy vehicle and mobile equipment service technicians and mechanics,1236.0,4247.0
+7240,Small engine mechanics,249.0,1173.0
+7260,"Miscellaneous vehicle and mobile equipment mechanics, installers, and repairers",472.0,1535.0
+7300,Control and valve installers and repairers,131.0,377.0
+7310,,,6596.0
+7315,"Heating, air conditioning, and refrigeration mechanics and installers",2184.0,
+7320,Home appliance repairers,238.0,874.0
+7330,Industrial and refractory machinery mechanics,2024.0,7167.0
+7340,"Maintenance and repair workers, general",3197.0,6941.0
+7350,"Maintenance workers, machinery",166.0,971.0
+7360,Millwrights,247.0,1150.0
+7410,Electrical power-line installers and repairers,716.0,1992.0
+7420,Telecommunications line installers and repairers,810.0,3093.0
+7430,Precision instrument and equipment repairers,298.0,1066.0
+7510,"Coin, vending, and amusement machine servicers and repairers",198.0,1022.0
+7520,Commercial divers,,85.0
+7540,Locksmiths and safe repairers,132.0,434.0
+7550,Manufactured building and mobile home installers,24.0,228.0
+7560,Riggers,79.0,167.0
+7600,(sin etiqueta limpia — código SOC 49-9097),,98.0
+7610,"Helpers--installation, maintenance, and repair workers",110.0,485.0
+7620,,,3613.0
+7630,(sin etiqueta limpia — código SOC 49-909X),457.0,
+7640,"Other installation, maintenance, and repair workers",569.0,
+7700,First-line supervisors of production and operating workers,3999.0,14499.0
+7710,"Aircraft structure, surfaces, rigging, and systems assemblers",14.0,169.0
+7720,"Electrical, electronics, and electromechanical assemblers",616.0,3471.0
+7730,Engine and other machine assemblers,32.0,233.0
+7740,Structural metal fabricators and fitters,129.0,485.0
+7750,Other assemblers and fabricators,5147.0,18684.0
+7800,Bakers,1208.0,3266.0
+7810,"Butchers and other meat, poultry, and fish processing workers",1555.0,5438.0
+7830,"Food and tobacco roasting, baking, and drying machine operators and tenders",66.0,243.0
+7840,Food batchmakers,499.0,1508.0
+7850,Food cooking machine operators and tenders,75.0,205.0
+7855,"Food processing workers, all other",848.0,
+7900,(sin etiqueta limpia — código SOC 51-4010),204.0,970.0
+7905,Computer numerically controlled tool operators and programmers,211.0,
+7920,(sin etiqueta limpia — código SOC 51-4021),34.0,296.0
+7925,"Forming machine setters, operators, and tenders, metal and plastic",71.0,
+7930,(sin etiqueta limpia — código SOC 51-4022),,144.0
+7940,(sin etiqueta limpia — código SOC 51-4023),37.0,242.0
+7950,"Cutting, punching, and press machine setters, operators, and tenders, metal and plastic",319.0,1981.0
+7960,(sin etiqueta limpia — código SOC 51-4032),,137.0
+8000,"Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic",190.0,980.0
+8010,(sin etiqueta limpia — código SOC 51-4034),30.0,339.0
+8020,(sin etiqueta limpia — código SOC 51-4035),,73.0
+8025,"Other machine tool setters, operators, and tenders, metal and plastic",23.0,
+8030,Machinists,1576.0,6946.0
+8040,"Metal furnace operators, tenders, pourers, and casters",109.0,438.0
+8060,"Model makers and patternmakers, metal and plastic",,166.0
+8100,"Molders and molding machine setters, operators, and tenders, metal and plastic",176.0,1129.0
+8120,(sin etiqueta limpia — código SOC 51-4081),,108.0
+8130,Tool and die makers,199.0,1453.0
+8140,"Welding, soldering, and brazing workers",3196.0,9925.0
+8150,(sin etiqueta limpia — código SOC 51-4191),,166.0
+8160,(sin etiqueta limpia — código SOC 51-4192),,120.0
+8200,(sin etiqueta limpia — código SOC 51-4193),43.0,422.0
+8210,(sin etiqueta limpia — código SOC 51-4194),11.0,179.0
+8220,(sin etiqueta limpia — código SOC 51-4199),923.0,7192.0
+8225,Other metal workers and plastic workers,963.0,
+8230,,,719.0
+8240,,,822.0
+8250,Prepress technicians and workers,78.0,846.0
+8255,Printing press operators,733.0,
+8256,Print binding and finishing workers,61.0,
+8260,,,3511.0
+8300,Laundry and dry-cleaning workers,830.0,3598.0
+8310,"Pressers, textile, garment, and related materials",150.0,1000.0
+8320,Sewing machine operators,887.0,4350.0
+8330,(sin etiqueta limpia — código SOC 51-6041),31.0,226.0
+8335,Shoe and leather workers,40.0,
+8340,(sin etiqueta limpia — código SOC 51-6042),,155.0
+8350,"Tailors, dressmakers, and sewers",388.0,1581.0
+8360,(sin etiqueta limpia — código SOC 51-6061),,108.0
+8365,"Textile machine setters, operators, and tenders",62.0,
+8400,(sin etiqueta limpia — código SOC 51-6062),16.0,159.0
+8410,(sin etiqueta limpia — código SOC 51-6063),25.0,278.0
+8420,(sin etiqueta limpia — código SOC 51-6064),20.0,354.0
+8430,(sin etiqueta limpia — código SOC 51-6091),,45.0
+8440,(sin etiqueta limpia — código SOC 51-6092),,65.0
+8450,Upholsterers,141.0,820.0
+8460,(sin etiqueta limpia — código SOC 51-6099),58.0,448.0
+8465,"Other textile, apparel, and furnishings workers",38.0,
+8500,Cabinetmakers and bench carpenters,316.0,1566.0
+8510,Furniture finishers,75.0,499.0
+8520,(sin etiqueta limpia — código SOC 51-7030),,4.0
+8530,"Sawing machine setters, operators, and tenders, wood",160.0,995.0
+8540,"Woodworking machine setters, operators, and tenders, except sawing",91.0,741.0
+8550,(sin etiqueta limpia — código SOC 51-7099),75.0,647.0
+8555,Other woodworkers,79.0,
+8600,"Power plant operators, distributors, and dispatchers",252.0,873.0
+8610,Stationary engineers and boiler operators,385.0,1758.0
+8620,Water and wastewater treatment plant and system operators,549.0,1387.0
+8630,Miscellaneous plant and system operators,268.0,765.0
+8640,"Chemical processing machine setters, operators, and tenders",329.0,882.0
+8650,"Crushing, grinding, polishing, mixing, and blending workers",445.0,1757.0
+8710,Cutting workers,309.0,1515.0
+8720,"Extruding, forming, pressing, and compacting machine setters, operators, and tenders",119.0,647.0
+8730,"Furnace, kiln, oven, drier, and kettle operators and tenders",75.0,305.0
+8740,"Inspectors, testers, sorters, samplers, and weighers",3948.0,11878.0
+8750,Jewelers and precious stone and metal workers,278.0,1024.0
+8760,Dental and ophthalmic laboratory technicians and medical appliance technicians,378.0,1653.0
+8800,Packaging and filling machine operators and tenders,1610.0,5028.0
+8810,Painting workers,813.0,3150.0
+8830,Photographic process workers and processing machine operators,124.0,1085.0
+8840,(sin etiqueta limpia — código SOC 51-9141),,61.0
+8850,Adhesive bonding machine operators and tenders,53.0,328.0
+8860,(sin etiqueta limpia — código SOC 51-9192),8.0,189.0
+8900,(sin etiqueta limpia — código SOC 51-9193),,68.0
+8910,Etchers and engravers,43.0,192.0
+8920,"Molders, shapers, and casters, except metal and plastic",178.0,751.0
+8930,"Paper goods machine setters, operators, and tenders",93.0,885.0
+8940,Tire builders,30.0,306.0
+8950,Helpers--production workers,302.0,849.0
+8960,,,16221.0
+8965,(sin etiqueta limpia — código SOC 51-9199),2487.0,
+8990,Other production workers,3487.0,
+9000,(sin etiqueta limpia — código SOC 53-1000),423.0,3524.0
+9005,Supervisors of transportation and material moving workers,853.0,
+9030,Aircraft pilots and flight engineers,813.0,2166.0
+9040,Air traffic controllers and airfield operations specialists,158.0,615.0
+9050,Flight attendants,475.0,
+9110,"Ambulance drivers and attendants, except emergency medical technicians",62.0,208.0
+9120,(sin etiqueta limpia — código SOC 53-3020),1353.0,9874.0
+9121,"Bus drivers, school",792.0,
+9122,"Bus drivers, transit and intercity",712.0,
+9130,Driver/sales workers and truck drivers,17996.0,57944.0
+9140,(sin etiqueta limpia — código SOC 53-3041),1443.0,4637.0
+9141,Shuttle drivers and chauffeurs,243.0,
+9142,Taxi drivers,1149.0,
+9150,"Motor vehicle operators, all other",659.0,1158.0
+9200,(sin etiqueta limpia — código SOC 53-4010),133.0,969.0
+9210,Locomotive engineers and operators,166.0,
+9230,(sin etiqueta limpia — código SOC 53-4021),,181.0
+9240,Railroad conductors and yardmasters,305.0,921.0
+9260,(sin etiqueta limpia — código SOC 53-40XX),23.0,235.0
+9265,Other rail transportation workers,40.0,
+9300,Sailors and marine oilers,142.0,401.0
+9310,Ship and boat captains and operators,201.0,738.0
+9330,Ship engineers,,77.0
+9340,(sin etiqueta limpia — código SOC 53-6011),,86.0
+9350,Parking attendants,361.0,1213.0
+9360,(sin etiqueta limpia — código SOC 53-6031),201.0,1775.0
+9365,Transportation service attendants,240.0,
+9410,Transportation inspectors,195.0,698.0
+9415,Passenger attendants,181.0,
+9420,(sin etiqueta limpia — código SOC 53-60XX),86.0,307.0
+9430,Other transportation workers,107.0,
+9500,(sin etiqueta limpia — código SOC 53-7011),,111.0
+9510,Crane and tower operators,329.0,1027.0
+9520,(sin etiqueta limpia — código SOC 53-7030),97.0,1450.0
+9560,(sin etiqueta limpia — código SOC 53-7041),40.0,120.0
+9570,"Conveyor, dredge, and hoist and winch operators",100.0,
+9600,Industrial truck and tractor operators,2906.0,8470.0
+9610,Cleaners of vehicles and equipment,1926.0,5959.0
+9620,"Laborers and freight, stock, and material movers, hand",10989.0,32677.0
+9630,Machine feeders and offbearers,137.0,752.0
+9640,"Packers and packagers, hand",3448.0,7382.0
+9645,Stockers and order fillers,4825.0,
+9650,Pumping station operators,122.0,526.0
+9720,Refuse and recyclable material collectors,552.0,1398.0
+9730,(sin etiqueta limpia — código SOC 53-7111),,62.0
+9740,(sin etiqueta limpia — código SOC 53-7121),,103.0
+9750,(sin etiqueta limpia — código SOC 53-7199),118.0,901.0
+9760,Other material moving workers,182.0,
+9840,,101.0,452.0

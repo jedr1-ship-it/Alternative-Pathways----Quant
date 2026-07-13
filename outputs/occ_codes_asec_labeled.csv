@@ -1,0 +1,635 @@
+code,n_asec_PEIOOCC,label
+10,8070,Chief executives
+20,5615,General and operations managers
+40,270,Advertising and promotions managers
+50,2316,
+51,1448,Marketing managers
+52,1463,Sales managers
+60,572,Public relations and fundraising managers
+100,387,
+101,193,Administrative services managers
+102,369,Facilities managers
+110,3254,Computer and information systems managers
+120,6431,Financial managers
+135,89,Compensation and benefits managers
+136,1524,Human resources managers
+137,301,Training and development managers
+140,1431,Industrial production managers
+150,1036,Purchasing managers
+160,1578,"Transportation, storage, and distribution managers"
+205,5770,"Farmers, ranchers, and other agricultural managers"
+220,4912,Construction managers
+230,5136,Education and childcare administrators
+300,810,Architectural and engineering managers
+310,5966,Food service managers
+330,55,
+335,167,Entertainment and recreation managers
+340,783,Lodging managers
+350,3768,Medical and health services managers
+360,123,Natural sciences managers
+410,3834,"Property, real estate, and community association managers"
+420,2551,Social and community service managers
+425,73,Emergency management directors
+430,10532,
+440,15098,"Managers, all other"
+500,226,"Agents and business managers of artists, performers, and athletes"
+510,64,"Buyers and purchasing agents, farm products"
+520,975,"Wholesale and retail buyers, except farm products"
+530,1277,"Purchasing agents, except wholesale, retail, and farm products"
+540,1599,"Claims adjusters, appraisers, examiners, and investigators"
+565,1519,Compliance officers
+600,651,Cost estimators
+630,4057,Human resources workers
+640,325,"Compensation, benefits, and job analysis specialists"
+650,751,Training and development specialists
+700,693,Logisticians
+705,2209,Project management specialists
+710,4955,Management analysts
+725,734,"Meeting, convention, and event planners"
+726,497,Fundraisers
+735,1865,Market research analysts and marketing specialists
+740,629,
+750,1346,"Business operations specialists, all other"
+800,8351,Accountants and auditors
+810,428,Property appraisers and assessors
+820,293,Budget analysts
+830,154,Credit analysts
+840,611,
+845,912,Financial and investment analysts
+850,2456,Personal financial advisors
+860,504,Insurance underwriters
+900,80,Financial examiners
+910,1918,Credit counselors and loan officers
+930,331,"Tax examiners and collectors, and revenue agents"
+940,702,Tax preparers
+950,130,
+960,248,Other financial specialists
+1005,134,Computer and information research scientists
+1006,2563,Computer systems analysts
+1007,701,Information security analysts
+1010,2046,Computer programmers
+1020,3248,
+1021,5084,Software developers
+1022,201,Software quality assurance analysts and testers
+1030,426,
+1031,226,Web developers
+1032,221,Web and digital interface designers
+1050,2987,Computer support specialists
+1060,205,
+1065,341,Database administrators and architects
+1105,1005,Network and computer systems administrators
+1106,504,Computer network architects
+1107,1426,
+1108,2661,"Computer occupations, all other"
+1200,126,Actuaries
+1220,840,Operations research analysts
+1240,1087,Other mathematical science occupations
+1300,528,
+1305,534,"Architects, except landscape and naval"
+1306,62,Landscape architects
+1310,228,"Surveyors, cartographers, and photogrammetrists"
+1320,639,Aerospace engineers
+1340,97,Bioengineers and biomedical engineers
+1350,385,Chemical engineers
+1360,2200,Civil engineers
+1400,376,Computer hardware engineers
+1410,1378,Electrical and electronics engineers
+1420,190,Environmental engineers
+1430,1052,"Industrial engineers, including health and safety"
+1440,66,Marine engineers and naval architects
+1450,217,Materials engineers
+1460,1622,Mechanical engineers
+1500,28,"Mining and geological engineers, including mining safety engineers"
+1510,22,Nuclear engineers
+1520,158,Petroleum engineers
+1530,2849,"Engineers, all other"
+1540,288,
+1541,97,Architectural and civil drafters
+1545,251,Other drafters
+1550,956,
+1551,234,Electrical and electronic engineering technologists and technicians
+1555,971,"Other engineering technologists and technicians, except drafters"
+1560,347,Surveying and mapping technicians
+1600,181,Agricultural and food scientists
+1610,637,Biological scientists
+1640,178,Conservation scientists and foresters
+1650,717,Medical scientists
+1700,117,Astronomers and physicists
+1710,50,Atmospheric and space scientists
+1720,458,Chemists and materials scientists
+1740,238,
+1745,111,"Environmental scientists and specialists, including health"
+1750,129,"Geoscientists and hydrologists, except geographers"
+1760,1732,"Physical scientists, all other"
+1800,317,Economists
+1820,445,
+1821,44,Clinical and counseling psychologists
+1822,149,School psychologists
+1825,360,Other psychologists
+1840,178,Urban and regional planners
+1860,342,Miscellaneous social scientists and related workers
+1900,208,Agricultural and food science technicians
+1910,129,Biological technicians
+1920,303,Chemical technicians
+1930,42,
+1935,61,Environmental  science and geoscience technicians
+1965,362,
+1970,826,"Other life, physical, and social science technicians"
+1980,218,Occupational health and safety specialists and technicians
+2000,2079,
+2001,376,Substance abuse and behavioral disorder counselors
+2002,1007,"Educational, guidance, and career counselors and advisors"
+2003,108,Marriage and family therapists
+2004,514,Mental health counselors
+2005,56,Rehabilitation counselors
+2006,722,"Counselors, all other"
+2010,1962,
+2011,175,"Child, family, and school social workers"
+2012,223,Healthcare social workers
+2013,64,Mental health and substance abuse social workers
+2014,1854,"Social workers, all other"
+2015,451,Probation officers and correctional treatment specialists
+2016,1287,Social and human service assistants
+2025,505,Other community and social service specialists
+2040,2102,Clergy
+2050,357,"Directors, religious activities and education"
+2060,373,"Religious workers, all other"
+2100,6280,Lawyers
+2105,106,Judicial law clerks
+2145,2027,Paralegals and legal assistants
+2160,412,
+2170,289,"Title examiners, abstractors, and searchers"
+2180,240,"Legal support workers, all other"
+2200,3319,
+2205,3219,Postsecondary teachers
+2300,3677,Preschool and kindergarten teachers
+2310,18356,Elementary and middle school teachers
+2320,5297,Secondary school teachers
+2330,1926,Special education teachers
+2340,2265,
+2350,522,Tutors
+2360,2417,Other teachers and instructors
+2400,357,"Archivists, curators, and museum technicians"
+2430,450,
+2435,511,Librarians and media collections specialists
+2440,178,Library technicians
+2540,2579,
+2545,4164,Teaching assistants
+2550,403,
+2555,559,Other educational instruction and library workers
+2600,1332,Artists and related workers
+2630,1921,
+2631,39,Commercial and industrial designers
+2632,76,Fashion designers
+2633,185,Floral designers
+2634,750,Graphic designers
+2635,279,Interior designers
+2636,72,Merchandise displayers and window trimmers
+2640,970,Other designers
+2700,241,Actors
+2710,826,Producers and directors
+2720,822,
+2721,85,Athletes and sports competitors
+2722,868,Coaches and scouts
+2723,110,"Umpires, referees, and other sports officials"
+2740,63,Dancers and choreographers
+2750,386,
+2751,115,Music directors and composers
+2752,379,Musicians and singers
+2755,61,"Disc jockeys, except radio"
+2760,105,
+2770,123,"Entertainers and performers, sports and related workers, all other"
+2800,111,
+2805,72,Broadcast announcers and radio disc jockeys
+2810,479,"News analysts, reporters, and journalists"
+2825,705,Public relations specialists
+2830,634,Editors
+2840,303,Technical writers
+2850,1159,Writers and authors
+2860,268,
+2861,274,Interpreters and translators
+2862,67,Court reporters and simultaneous captioners
+2865,60,"Media and communication workers, all other"
+2900,244,
+2905,254,"Broadcast, sound, and lighting technicians"
+2910,1039,Photographers
+2920,443,"Television, video, and film camera operators and editors"
+3000,284,Chiropractors
+3010,838,Dentists
+3030,578,Dietitians and nutritionists
+3040,239,Optometrists
+3050,1731,Pharmacists
+3060,2409,
+3090,2614,Other physicians
+3100,129,Surgeons
+3110,663,Physician assistants
+3120,26,Podiatrists
+3140,89,Audiologists
+3150,695,Occupational therapists
+3160,1475,Physical therapists
+3200,75,Radiation therapists
+3210,55,Recreational therapists
+3220,500,Respiratory therapists
+3230,863,Speech-language pathologists
+3245,1247,"Therapists, all other"
+3250,439,Veterinarians
+3255,16507,Registered nurses
+3256,167,Nurse anesthetists
+3258,1205,Nurse practitioners
+3260,81,
+3261,75,Acupuncturists
+3270,42,"Healthcare diagnosing or treating practitioners, all other"
+3300,1734,Clinical laboratory technologists and technicians
+3310,1068,Dental hygienists
+3320,778,
+3321,141,Cardiovascular technologists and technicians
+3322,263,Diagnostic medical sonographers
+3323,717,Radiologic technologists and technicians
+3324,146,Magnetic resonance imaging technologists
+3330,99,Nuclear medicine technologists and medical dosimetrists
+3400,467,
+3401,406,Emergency medical technicians
+3402,284,Paramedics
+3420,1458,
+3421,982,Pharmacy technicians
+3422,279,Psychiatric technicians
+3423,307,Surgical technologists
+3424,350,Veterinary technologists and technicians
+3430,196,Dietetic technicians and ophthalmic medical technicians
+3500,3096,Licensed practical and licensed vocational nurses
+3510,411,
+3515,592,Medical records specialists
+3520,263,"Opticians, dispensing"
+3535,306,
+3540,302,
+3545,430,Miscellaneous health technologists and technicians
+3550,270,Other healthcare practitioners and technical occupations
+3600,4853,
+3601,1608,Home health aides
+3602,4406,Personal care aides
+3603,3875,Nursing assistants
+3605,139,Orderlies and psychiatric aides
+3610,138,Occupational therapy assistants and aides
+3620,433,Physical therapist assistants and aides
+3630,826,Massage therapists
+3640,1555,Dental assistants
+3645,2946,Medical assistants
+3646,213,Medical transcriptionists
+3647,194,Pharmacy aides
+3648,310,Veterinary assistants and laboratory animal caretakers
+3649,626,Phlebotomists
+3655,994,Other healthcare support workers
+3700,283,First-line supervisors of correctional officers
+3710,525,First-line supervisors of police and detectives
+3720,268,First-line supervisors of firefighting and prevention workers
+3725,222,First-line supervisors of security workers
+3730,180,
+3740,1470,Firefighters
+3750,116,Fire inspectors
+3800,855,
+3801,58,Bailiffs
+3802,836,Correctional officers and jailers
+3820,749,Detectives and criminal investigators
+3840,103,Parking enforcement workers
+3850,1526,
+3870,1881,Police officers
+3900,52,Animal control workers
+3910,529,Private detectives and investigators
+3930,4461,Security guards and gambling surveillance officers
+3940,301,Crossing guards and flaggers
+3945,240,Transportation security screeners
+3946,96,School bus monitors
+3955,302,
+3960,436,Other protective service workers
+4000,2313,Chefs and head cooks
+4010,2780,First-line supervisors of food preparation and serving workers
+4020,11840,Cooks
+4030,5483,Food preparation workers
+4040,2102,Bartenders
+4050,925,
+4055,2393,Fast food and counter workers
+4060,576,
+4110,9813,Waiters and waitresses
+4120,1155,"Food servers, nonrestaurant"
+4130,1776,Dining room and cafeteria attendants and bartender helpers
+4140,1674,Dishwashers
+4150,1716,"Hosts and hostesses, restaurant, lounge, and coffee shop"
+4160,27,"Food preparation and serving related workers, all other"
+4200,1783,First-line supervisors of housekeeping and janitorial workers
+4210,1280,"First-line supervisors of landscaping, lawn service, and groundskeeping workers"
+4220,12811,Janitors and building cleaners
+4230,8440,Maids and housekeeping cleaners
+4240,451,Pest control workers
+4250,3050,
+4251,3153,Landscaping and groundskeeping workers
+4252,286,Tree trimmers and pruners
+4255,47,Other grounds maintenance workers
+4300,426,
+4320,443,
+4330,641,Supervisors of personal care and service workers
+4340,292,Animal trainers
+4350,1387,Animal caretakers
+4400,493,Gambling services workers
+4410,4,
+4420,191,"Ushers, lobby attendants, and ticket takers"
+4430,486,
+4435,630,Other entertainment attendants and related workers
+4460,32,
+4461,52,"Embalmers, crematory operators and funeral attendants"
+4465,199,"Morticians, undertakers, and funeral arrangers"
+4500,581,Barbers
+4510,3741,"Hairdressers, hairstylists, and cosmetologists"
+4520,767,
+4521,749,Manicurists and pedicurists
+4522,261,Skincare specialists
+4525,72,Other personal appearance workers
+4530,407,"Baggage porters, bellhops, and concierges"
+4540,361,Tour and travel guides
+4600,6363,Childcare workers
+4610,3552,
+4620,948,
+4621,595,Exercise trainers and group fitness instructors
+4622,405,Recreation workers
+4640,196,Residential advisors
+4650,401,
+4655,378,"Personal care and service workers, all other"
+4700,15899,First-Line supervisors of retail sales workers
+4710,5870,First-Line supervisors of non-retail sales workers
+4720,16148,Cashiers
+4740,455,Counter and rental clerks
+4750,678,Parts salespersons
+4760,14852,Retail salespersons
+4800,791,Advertising sales agents
+4810,3001,Insurance sales agents
+4820,988,"Securities, commodities, and financial services sales agents"
+4830,354,Travel agents
+4840,2534,"Sales representatives of services, except advertising, insurance, financial services, and travel"
+4850,5685,"Sales representatives, wholesale and manufacturing"
+4900,243,"Models, demonstrators, and product promoters"
+4920,4937,Real estate brokers and sales agents
+4930,194,Sales engineers
+4940,247,Telemarketers
+4950,675,"Door-to-door sales workers, news and street vendors, and related workers"
+4965,1598,"Sales and related workers, all other"
+5000,6710,First-Line supervisors of office and administrative support workers
+5010,82,"Switchboard operators, including answering service"
+5020,149,Telephone operators
+5030,22,
+5040,8,"Communications equipment operators, all other"
+5100,577,Bill and account collectors
+5110,2244,Billing and posting clerks
+5120,5922,"Bookkeeping, accounting, and auditing clerks"
+5130,37,Gambling cage workers
+5140,654,Payroll and timekeeping clerks
+5150,140,Procurement clerks
+5160,1464,Tellers
+5165,541,"Financial clerks, all other"
+5200,16,Brokerage clerks
+5220,476,"Court, municipal, and license clerks"
+5230,211,"Credit authorizers, checkers, and clerks"
+5240,12944,Customer service representatives
+5250,396,"Eligibility interviewers, government programs"
+5260,858,File clerks
+5300,656,"Hotel, motel, and resort desk clerks"
+5310,903,"Interviewers, except eligibility and loan"
+5320,393,"Library assistants, clerical"
+5330,595,Loan interviewers and clerks
+5340,104,New accounts clerks
+5350,561,Order clerks
+5360,320,"Human resources assistants, except payroll and timekeeping"
+5400,6610,Receptionists and information clerks
+5410,610,Reservation and transportation ticket agents and travel clerks
+5420,538,"Information and record clerks, all other"
+5500,116,Cargo and freight agents
+5510,2777,Couriers and messengers
+5520,689,
+5521,237,Public safety telecommunicators
+5522,499,"Dispatchers, except police, fire, and ambulance"
+5530,133,"Meter readers, utilities"
+5540,533,Postal service clerks
+5550,1602,Postal service mail carriers
+5560,322,"Postal service mail sorters, processors, and processing machine operators"
+5600,1186,"Production, planning, and expediting clerks"
+5610,2861,"Shipping, receiving, and inventory clerks"
+5620,3559,
+5630,336,"Weighers, measurers, checkers, and samplers, recordkeeping"
+5700,6105,
+5710,613,Executive secretaries and executive administrative assistants
+5720,136,Legal secretaries and administrative assistants
+5730,217,Medical secretaries and administrative assistants
+5740,5668,"Secretaries and administrative assistants, except legal, medical, and executive"
+5800,178,
+5810,1226,Data entry keyers
+5820,350,Word processors and typists
+5840,1315,Insurance claims and policy processing clerks
+5850,309,"Mail clerks and mail machine operators, except postal service"
+5860,6605,"Office clerks, general"
+5900,151,"Office machine operators, except computer"
+5910,42,Proofreaders and copy markers
+5920,160,Statistical assistants
+5940,2955,"Office and administrative support workers, all other"
+6005,327,"First-line supervisors of farming, fishing, and forestry workers"
+6010,95,Agricultural inspectors
+6040,454,"Graders and sorters, agricultural products"
+6050,5327,Miscellaneous agricultural workers
+6100,120,
+6115,148,Fishing and hunting workers
+6120,142,Forest and conservation workers
+6130,392,Logging workers
+6200,3755,First-line supervisors of construction trades and extraction workers
+6210,126,Boilermakers
+6220,766,"Brickmasons, blockmasons, and stonemasons"
+6230,6904,Carpenters
+6240,800,"Carpet, floor, and tile installers and finishers"
+6250,343,"Cement masons, concrete finishers, and terrazzo workers"
+6260,11232,Construction laborers
+6300,35,
+6305,1217,Construction equipment operators
+6320,984,
+6330,910,"Drywall installers, ceiling tile installers, and tapers"
+6355,4652,Electricians
+6360,219,Glaziers
+6400,312,Insulation workers
+6410,1570,Painters and paperhangers
+6420,1408,
+6440,1435,
+6441,140,Pipelayers
+6442,1635,"Plumbers, pipefitters, and steamfitters"
+6460,139,Plasterers and stucco masons
+6500,21,Reinforcing iron and rebar workers
+6515,1287,Roofers
+6520,646,Sheet metal workers
+6530,292,Structural iron and steel workers
+6540,73,Solar photovoltaic installers
+6600,273,"Helpers, construction trades"
+6660,480,Construction and building inspectors
+6700,160,Elevator and escalator installers and repairers
+6710,208,Fence erectors
+6720,163,Hazardous materials removal workers
+6730,590,Highway maintenance workers
+6740,69,Rail-track laying and maintenance equipment operators
+6750,25,Septic tank servicers and sewer pipe cleaners
+6765,204,Miscellaneous construction and related workers
+6800,223,"Derrick, rotary drill, and service unit operators, oil and gas"
+6820,79,
+6825,123,"Earth drillers, except oil and gas"
+6830,35,
+6835,40,"Explosives workers, ordnance handling experts, and blasters"
+6840,239,
+6850,188,Underground mining machine operators
+6920,30,"Roustabouts, oil and gas"
+6940,183,
+6950,237,Other extraction workers
+7000,1300,"First-line supervisors of mechanics, installers, and repairers"
+7010,887,"Computer, automated teller, and office machine repairers"
+7020,635,Radio and telecommunications equipment installers and repairers
+7030,47,Avionics technicians
+7040,114,"Electric motor, power tool, and related repairers"
+7100,92,"Electrical and electronics repairers, industrial and utility"
+7110,21,"Electronic equipment installers and repairers, motor vehicles"
+7120,174,Audiovisual equipment installers and repairers
+7130,310,Security and fire alarm systems installers
+7140,794,Aircraft mechanics and service technicians
+7150,680,Automotive body and related repairers
+7160,120,Automotive glass installers and repairers
+7200,4450,Automotive service technicians and mechanics
+7210,1862,Bus and truck mechanics and diesel engine specialists
+7220,1236,Heavy vehicle and mobile equipment service technicians and mechanics
+7240,249,Small engine mechanics
+7260,472,"Miscellaneous vehicle and mobile equipment mechanics, installers, and repairers"
+7300,131,Control and valve installers and repairers
+7315,2184,"Heating, air conditioning, and refrigeration mechanics and installers"
+7320,238,Home appliance repairers
+7330,2024,Industrial and refractory machinery mechanics
+7340,3197,"Maintenance and repair workers, general"
+7350,166,"Maintenance workers, machinery"
+7360,247,Millwrights
+7410,716,Electrical power-line installers and repairers
+7420,810,Telecommunications line installers and repairers
+7430,298,Precision instrument and equipment repairers
+7510,198,"Coin, vending, and amusement machine servicers and repairers"
+7540,132,Locksmiths and safe repairers
+7550,24,Manufactured building and mobile home installers
+7560,79,Riggers
+7610,110,"Helpers--installation, maintenance, and repair workers"
+7630,457,
+7640,569,"Other installation, maintenance, and repair workers"
+7700,3999,First-line supervisors of production and operating workers
+7710,14,"Aircraft structure, surfaces, rigging, and systems assemblers"
+7720,616,"Electrical, electronics, and electromechanical assemblers"
+7730,32,Engine and other machine assemblers
+7740,129,Structural metal fabricators and fitters
+7750,5147,Other assemblers and fabricators
+7800,1208,Bakers
+7810,1555,"Butchers and other meat, poultry, and fish processing workers"
+7830,66,"Food and tobacco roasting, baking, and drying machine operators and tenders"
+7840,499,Food batchmakers
+7850,75,Food cooking machine operators and tenders
+7855,848,"Food processing workers, all other"
+7900,204,
+7905,211,Computer numerically controlled tool operators and programmers
+7920,34,
+7925,71,"Forming machine setters, operators, and tenders, metal and plastic"
+7940,37,
+7950,319,"Cutting, punching, and press machine setters, operators, and tenders, metal and plastic"
+8000,190,"Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic"
+8010,30,
+8025,23,"Other machine tool setters, operators, and tenders, metal and plastic"
+8030,1576,Machinists
+8040,109,"Metal furnace operators, tenders, pourers, and casters"
+8100,176,"Molders and molding machine setters, operators, and tenders, metal and plastic"
+8130,199,Tool and die makers
+8140,3196,"Welding, soldering, and brazing workers"
+8200,43,
+8210,11,
+8220,923,
+8225,963,Other metal workers and plastic workers
+8250,78,Prepress technicians and workers
+8255,733,Printing press operators
+8256,61,Print binding and finishing workers
+8300,830,Laundry and dry-cleaning workers
+8310,150,"Pressers, textile, garment, and related materials"
+8320,887,Sewing machine operators
+8330,31,
+8335,40,Shoe and leather workers
+8350,388,"Tailors, dressmakers, and sewers"
+8365,62,"Textile machine setters, operators, and tenders"
+8400,16,
+8410,25,
+8420,20,
+8450,141,Upholsterers
+8460,58,
+8465,38,"Other textile, apparel, and furnishings workers"
+8500,316,Cabinetmakers and bench carpenters
+8510,75,Furniture finishers
+8530,160,"Sawing machine setters, operators, and tenders, wood"
+8540,91,"Woodworking machine setters, operators, and tenders, except sawing"
+8550,75,
+8555,79,Other woodworkers
+8600,252,"Power plant operators, distributors, and dispatchers"
+8610,385,Stationary engineers and boiler operators
+8620,549,Water and wastewater treatment plant and system operators
+8630,268,Miscellaneous plant and system operators
+8640,329,"Chemical processing machine setters, operators, and tenders"
+8650,445,"Crushing, grinding, polishing, mixing, and blending workers"
+8710,309,Cutting workers
+8720,119,"Extruding, forming, pressing, and compacting machine setters, operators, and tenders"
+8730,75,"Furnace, kiln, oven, drier, and kettle operators and tenders"
+8740,3948,"Inspectors, testers, sorters, samplers, and weighers"
+8750,278,Jewelers and precious stone and metal workers
+8760,378,Dental and ophthalmic laboratory technicians and medical appliance technicians
+8800,1610,Packaging and filling machine operators and tenders
+8810,813,Painting workers
+8830,124,Photographic process workers and processing machine operators
+8850,53,Adhesive bonding machine operators and tenders
+8860,8,
+8910,43,Etchers and engravers
+8920,178,"Molders, shapers, and casters, except metal and plastic"
+8930,93,"Paper goods machine setters, operators, and tenders"
+8940,30,Tire builders
+8950,302,Helpers--production workers
+8965,2487,
+8990,3487,Other production workers
+9000,423,
+9005,853,Supervisors of transportation and material moving workers
+9030,813,Aircraft pilots and flight engineers
+9040,158,Air traffic controllers and airfield operations specialists
+9050,475,Flight attendants
+9110,62,"Ambulance drivers and attendants, except emergency medical technicians"
+9120,1353,
+9121,792,"Bus drivers, school"
+9122,712,"Bus drivers, transit and intercity"
+9130,17996,Driver/sales workers and truck drivers
+9140,1443,
+9141,243,Shuttle drivers and chauffeurs
+9142,1149,Taxi drivers
+9150,659,"Motor vehicle operators, all other"
+9200,133,
+9210,166,Locomotive engineers and operators
+9240,305,Railroad conductors and yardmasters
+9260,23,
+9265,40,Other rail transportation workers
+9300,142,Sailors and marine oilers
+9310,201,Ship and boat captains and operators
+9350,361,Parking attendants
+9360,201,
+9365,240,Transportation service attendants
+9410,195,Transportation inspectors
+9415,181,Passenger attendants
+9420,86,
+9430,107,Other transportation workers
+9510,329,Crane and tower operators
+9520,97,
+9560,40,
+9570,100,"Conveyor, dredge, and hoist and winch operators"
+9600,2906,Industrial truck and tractor operators
+9610,1926,Cleaners of vehicles and equipment
+9620,10989,"Laborers and freight, stock, and material movers, hand"
+9630,137,Machine feeders and offbearers
+9640,3448,"Packers and packagers, hand"
+9645,4825,Stockers and order fillers
+9650,122,Pumping station operators
+9720,552,Refuse and recyclable material collectors
+9750,118,
+9760,182,Other material moving workers
+9840,101,
