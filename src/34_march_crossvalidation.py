@@ -106,3 +106,20 @@ pd.DataFrame([{"instrument": "retrospective March", "rate": round(r_rate, 2),
               {"instrument": "matched Mar->Mar point-in-time",
                "rate": round(p_rate, 2), "n": len(P)}]).to_csv(
     "outputs/march_crossvalidation.csv", index=False)
+
+# --- individual-level confusion matrix: OUR prospective label vs the
+# retrospective answer, on people teaching in March 2023 (our base) ---
+base = m[teach(m["PEIOOCC_23"])].copy()
+base["our"] = np.where(teach(base["PEIOOCC_24"]), "our_STAYER", "our_LEAVER")
+base["retro"] = np.where(teach(base["OCCUP_24"]),
+                         "retro_teacher_2023", "retro_not_teacher_2023")
+conf = pd.crosstab(base["our"], base["retro"], margins=True)
+print("\n=== confusion matrix (base = teaching March 2023) ===")
+print(conf.to_string())
+L = base[base["our"] == "our_LEAVER"]
+S = base[base["our"] == "our_STAYER"]
+print(f"\nour leavers confirmed by retrospective : "
+      f"{teach(L['OCCUP_24']).mean()*100:.0f}%  (n={len(L)})")
+print(f"our stayers confirmed by retrospective : "
+      f"{teach(S['OCCUP_24']).mean()*100:.0f}%  (n={len(S)})")
+conf.to_csv("outputs/march_confusion_matrix.csv")
