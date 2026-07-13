@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  10 JUL 2026 08:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.2)  13 JUL 2026 07:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -741,7 +741,7 @@ e 298.
 <figures/fig6_evolution.pdf, id=113, 491.04218pt x 237.90285pt>
 File: figures/fig6_evolution.pdf Graphic file (type pdf)
 <use figures/fig6_evolution.pdf>
-Package pdftex.def Info: figures/fig6_evolution.pdf  used on input line 320.
+Package pdftex.def Info: figures/fig6_evolution.pdf  used on input line 324.
 (pdftex.def)             Requested size: 386.96027pt x 187.48015pt.
  [4]
 Overfull \vbox (83.99368pt too high) has occurred while \output is active []
@@ -751,13 +751,13 @@ Overfull \vbox (83.99368pt too high) has occurred while \output is active []
 <figures/fig23_flow100.pdf, id=192, 599.44576pt x 274.626pt>
 File: figures/fig23_flow100.pdf Graphic file (type pdf)
 <use figures/fig23_flow100.pdf>
-Package pdftex.def Info: figures/fig23_flow100.pdf  used on input line 350.
+Package pdftex.def Info: figures/fig23_flow100.pdf  used on input line 354.
 (pdftex.def)             Requested size: 427.93057pt x 196.05019pt.
  [6 <./figures/fig17_profile_evolution.pdf>]
 <figures/fig21_routes_age.pdf, id=252, 479.46324pt x 251.11504pt>
 File: figures/fig21_routes_age.pdf Graphic file (type pdf)
 <use figures/fig21_routes_age.pdf>
-Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 391.
+Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 395.
 (pdftex.def)             Requested size: 386.96027pt x 202.67403pt.
 
 [7 <./figures/fig23_flow100.pdf>]
@@ -765,32 +765,32 @@ Package pdftex.def Info: figures/fig21_routes_age.pdf  used on input line 391.
 File: figures/fig25_wage_quantiles.pdf Graphic file (type pdf)
 <use figures/fig25_wage_quantiles.pdf>
 Package pdftex.def Info: figures/fig25_wage_quantiles.pdf  used on input line 4
-19.
+23.
 (pdftex.def)             Requested size: 355.08984pt x 204.094pt.
  [8 <./figures/fig21_routes_age.pdf>]
 <figures/fig3_ame.pdf, id=396, 523.83865pt x 515.34555pt>
 File: figures/fig3_ame.pdf Graphic file (type pdf)
 <use figures/fig3_ame.pdf>
-Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 462.
+Package pdftex.def Info: figures/fig3_ame.pdf  used on input line 466.
 (pdftex.def)             Requested size: 427.93057pt x 421.00551pt.
  [9 <./figures/fig25_wage_quantiles.pdf>] [10 <./figures/fig3_ame.pdf>]
 <figures/fig5_profile.pdf, id=605, 485.2341pt x 251.08493pt>
 File: figures/fig5_profile.pdf Graphic file (type pdf)
 <use figures/fig5_profile.pdf>
-Package pdftex.def Info: figures/fig5_profile.pdf  used on input line 531.
+Package pdftex.def Info: figures/fig5_profile.pdf  used on input line 535.
 (pdftex.def)             Requested size: 373.3035pt x 193.17123pt.
  [11 <./figures/fig5_profile.pdf>]
 <figures/fig19_professions.pdf, id=681, 490.8703pt x 252.945pt>
 File: figures/fig19_professions.pdf Graphic file (type pdf)
 <use figures/fig19_professions.pdf>
-Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 562.
+Package pdftex.def Info: figures/fig19_professions.pdf  used on input line 566.
 
 (pdftex.def)             Requested size: 386.96027pt x 199.40752pt.
 <figures/fig18_family_professions.pdf, id=684, 616.27235pt x 394.27753pt>
 File: figures/fig18_family_professions.pdf Graphic file (type pdf)
 <use figures/fig18_family_professions.pdf>
 Package pdftex.def Info: figures/fig18_family_professions.pdf  used on input li
-ne 602.
+ne 606.
 (pdftex.def)             Requested size: 427.93057pt x 273.78444pt.
  [12 <./figures/fig19_professions.pdf>] [13 <./figures/fig18_family_professions
 .pdf>] [14
@@ -798,35 +798,41 @@ ne 602.
 ] (./table_population.tex) (./table_linkrep.tex)
 [15
 
-] (./table_reconcile.tex) (./table_professions_instruments.tex) [16]
-[17] (./table_descriptives.tex)
-<figures/fig24_dest_detail.pdf, id=864, 524.79027pt x 382.70744pt>
+] (./table_literature.tex)
+Overfull \hbox (29.87057pt too wide) in paragraph at lines 1--815
+ [][] 
+ []
+
+[16] (./table_professions_instruments.tex) [17] (./table_descriptives.tex)
+<figures/fig24_dest_detail.pdf, id=862, 524.79027pt x 382.70744pt>
 File: figures/fig24_dest_detail.pdf Graphic file (type pdf)
 <use figures/fig24_dest_detail.pdf>
-Package pdftex.def Info: figures/fig24_dest_detail.pdf  used on input line 884.
+Package pdftex.def Info: figures/fig24_dest_detail.pdf  used on input line 885.
 
 (pdftex.def)             Requested size: 409.71692pt x 298.7909pt.
-<figures/fig13_dest_time.pdf, id=865, 498.663pt x 238.49101pt>
+<figures/fig13_dest_time.pdf, id=863, 498.663pt x 238.49101pt>
 File: figures/fig13_dest_time.pdf Graphic file (type pdf)
 <use figures/fig13_dest_time.pdf>
-Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 897.
+Package pdftex.def Info: figures/fig13_dest_time.pdf  used on input line 898.
 (pdftex.def)             Requested size: 382.40338pt x 182.88898pt.
-<figures/fig4_age_profile.pdf, id=866, 462.52798pt x 231.26399pt>
+<figures/fig4_age_profile.pdf, id=864, 462.52798pt x 231.26399pt>
 File: figures/fig4_age_profile.pdf Graphic file (type pdf)
 <use figures/fig4_age_profile.pdf>
-Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 907.
+Package pdftex.def Info: figures/fig4_age_profile.pdf  used on input line 908.
 (pdftex.def)             Requested size: 364.19667pt x 182.10722pt.
-<figures/fig15_heterogeneity.pdf, id=868, 727.41048pt x 323.74794pt>
+<figures/fig15_heterogeneity.pdf, id=866, 727.41048pt x 323.74794pt>
 File: figures/fig15_heterogeneity.pdf Graphic file (type pdf)
 <use figures/fig15_heterogeneity.pdf>
 Package pdftex.def Info: figures/fig15_heterogeneity.pdf  used on input line 91
-8.
+9.
 (pdftex.def)             Requested size: 455.24411pt x 202.61365pt.
- (./table_destmodel.tex) (./table_robustness.tex) (./table_probit.tex) [18
 
-] [19 <./figures/fig24_dest_detail.pdf> <./figures/fig13_dest_time.pdf>] [20 <.
-/figures/fig4_age_profile.pdf> <./figures/fig15_heterogeneity.pdf>] [21] [22] [
-23] (./who_leaves_teaching.aux)
+(./table_destmodel.tex) (./table_robustness.tex) (./table_probit.tex) [18
+
+]
+[19 <./figures/fig24_dest_detail.pdf> <./figures/fig13_dest_time.pdf>] [20 <./f
+igures/fig4_age_profile.pdf> <./figures/fig15_heterogeneity.pdf>] [21] [22]
+[23] (./who_leaves_teaching.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -836,7 +842,7 @@ Package rerunfilecheck Info: File `who_leaves_teaching.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  21973 strings out of 476182
- 410539 string characters out of 5795596
+ 410548 string characters out of 5795596
  1975975 words of memory out of 5000000
  43552 multiletter control sequences out of 15000+600000
  613364 words of font info for 76 fonts, out of 8000000 for 9000
@@ -857,10 +863,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texm
 f/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex
 -gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on who_leaves_teaching.pdf (23 pages, 566817 bytes).
+Output written on who_leaves_teaching.pdf (23 pages, 567340 bytes).
 PDF statistics:
- 1209 PDF objects out of 1440 (max. 8388607)
- 386 compressed objects within 4 object streams
+ 1207 PDF objects out of 1440 (max. 8388607)
+ 384 compressed objects within 4 object streams
  64 named destinations out of 1000 (max. 500000)
  83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
