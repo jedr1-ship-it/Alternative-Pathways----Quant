@@ -1,0 +1,13 @@
+definition,window,rate,n
+core K-12 (2300-2330),2010-scheme only (cal 2015-2018),7.91,13754
+core K-12 (2300-2330),2018-scheme only (cal 2019-2024),6.74,16184
+core K-12 (2300-2330),full decade (era-consistent codes),7.22,29938
+core + teaching assistants,2010-scheme only (cal 2015-2018),8.53,16371
+core + teaching assistants,2018-scheme only (cal 2019-2024),8.36,20410
+core + teaching assistants,full decade (era-consistent codes),8.43,36781
+core + other teachers/tutors,2010-scheme only (cal 2015-2018),8.16,16056
+core + other teachers/tutors,2018-scheme only (cal 2019-2024),9.3,19201
+core + other teachers/tutors,full decade (era-consistent codes),8.84,35257
+core + assistants + other,2010-scheme only (cal 2015-2018),8.63,18673
+core + assistants + other,2018-scheme only (cal 2019-2024),10.19,23427
+core + assistants + other,full decade (era-consistent codes),9.58,42100
