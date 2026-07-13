@@ -47,7 +47,7 @@ def fetch(y, mi):
 
 
 if __name__ == "__main__":
-    for mi in range(0, 11):        # Jan..Nov
-        fetch(2023, mi)
-        fetch(2024, mi)
+    for y in range(2018, 2026):    # cohorts 2018-2024 need months 2018-2025
+        for mi in range(0, 11):    # Jan..Nov
+            fetch(y, mi)
     print("done")
