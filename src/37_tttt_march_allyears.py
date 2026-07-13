@@ -49,11 +49,16 @@ def build_cohort(y):
     obs = p.notna().sum(axis=1)
     db["leaver"] = np.where(obs == 4, (p != True).all(axis=1).astype(float),  # noqa: E712
                             np.nan)
-    # link to ASEC of Y+1
+    # link to ASEC of Y+1 (if that ASEC year is extractable)
     yy = str(y + 1)[2:]
-    asec = pd.read_parquet(f"data/raw/asec/asec_id_{yy}.parquet")[
-        ["PERIDNUM", "OCCUP", "PEIOOCC"]]
-    db = db.reset_index().merge(asec, on="PERIDNUM", how="left")
+    apath = f"data/raw/asec/asec_id_{yy}.parquet"
+    if os.path.exists(apath):
+        asec = pd.read_parquet(apath)[["PERIDNUM", "OCCUP", "PEIOOCC"]]
+        db = db.reset_index().merge(asec, on="PERIDNUM", how="left")
+    else:
+        db = db.reset_index()
+        db["OCCUP"] = np.nan
+        db["PEIOOCC"] = np.nan
     occ_t = db["OCCUP"].isin(CORE)
     now_t = db["PEIOOCC"].isin(CORE)
     db["leaver_MARCH"] = np.where(~occ_t, -1, np.where(now_t, 0, 1)).astype(float)
@@ -64,7 +69,7 @@ def build_cohort(y):
 all_db = []
 print(f"{'cohorte':>7s} {'TTTT':>6s} {'MARZO':>6s} {'comparables':>11s} "
       f"{'-1':>4s} {'acuerdo(excl -1)':>16s} {'lv_our':>7s} {'lv_MAR':>7s}")
-for y in range(2018, 2025):
+for y in range(2005, 2025):
     if not glob.glob(f"{RAW}/slim_{y}_01.parquet"):
         print(f"{y:7d}  (sin ficheros mensuales, salto)")
         continue
@@ -82,7 +87,7 @@ for y in range(2018, 2025):
 DB = pd.concat(all_db, ignore_index=True)
 DB.to_csv("outputs/tttt_march_allyears.csv", index=False)
 C = DB[(DB["MARZO"] == 1) & DB["leaver"].notna() & DB["leaver_MARCH"].notna()]
-print(f"\n=== POOLED cohortes 2018-2024: comparables n={len(C)} ===")
+print(f"\n=== POOLED cohortes con ASEC enlazable: comparables n={len(C)} ===")
 print(pd.crosstab(C["leaver"], C["leaver_MARCH"], margins=True).to_string())
 CC = C[C["leaver_MARCH"] >= 0]
 print(f"\nacuerdo (excl -1): {(CC['leaver']==CC['leaver_MARCH']).mean()*100:.1f}%"
