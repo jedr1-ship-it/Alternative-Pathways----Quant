@@ -65,6 +65,8 @@ rows = [
      "NCES roster", "Private K--12", "2021--2022", "12.0"),
     ("\\quad\\quad public and private",
      "NCES roster", "All K--12", "2021--2022", "8.4"),
+    ("\\quad Tan et al. (2026), public",
+     "NCES roster", "Public K--12", "2021--2022", "7.1"),
     ("\\multicolumn{5}{l}{\\textit{D. State administrative payroll"
      " records}} \\\\", None),
     ("\\quad Goldhaber and Theobald (2023)",

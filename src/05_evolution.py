@@ -120,29 +120,34 @@ ev = pd.DataFrame(ev)
 ev.round(2).to_csv("outputs/evolution_by_year_gender.csv", index=False)
 print("\n", ev.round(1).to_string(index=False))
 
-# ---------- figure: single panel, persistent attrition by gender ----------
+# ---------- figure: the headline series, all teachers -----------------------
+# one hero line, the overall non-returning rate, so the reader sees exactly
+# where the 13 percent headline comes from: the average of a rising line
+pooled = np.average(B["leaver_p"], weights=B[w]) * 100
 fig, ax = plt.subplots(figsize=(6.9, 3.4))
-ax.plot(ev.base_year, ev.attr12_all, color=GRAY, lw=2, ls=(0, (4, 3)))
-ax.plot(ev.base_year, ev.attrp_f, color=CORAL, lw=2, solid_capstyle="round")
-ax.plot(ev.base_year, ev.attrp_m, color=BLUE, lw=2, solid_capstyle="round")
-for col, c in [("attrp_f", CORAL), ("attrp_m", BLUE)]:
-    ax.scatter([ev.base_year.iloc[-1]], [ev[col].iloc[-1]], s=42,
-               color=c, zorder=4, edgecolor=SURFACE, linewidth=2)
-    ax.text(ev.base_year.iloc[-1] + 0.4, ev[col].iloc[-1],
-            f"{ev[col].iloc[-1]:.0f}%", va="center", fontsize=9.5,
-            color=INK, fontweight="bold")
-handles = [plt.Line2D([], [], color=c, lw=2) for c in (CORAL, BLUE)] + \
-          [plt.Line2D([], [], color=GRAY, lw=2, ls=(0, (4, 3)))]
-ax.legend(handles, ["Women", "Men", "12-month definition (all)"],
-          loc="upper center", bbox_to_anchor=(0.5, 1.14), ncols=3,
-          frameon=False, fontsize=9)
-ax.set_xlim(2004.5, 2027)
-ax.set_ylim(0, None)
-ax.set_xticks([2005, 2010, 2015, 2020, 2024])
-ax.set_ylabel("% of teachers per year")
 ax.axvspan(2019.5, 2020.5, color="#e9ebee", zorder=0)
-ax.text(2020, ax.get_ylim()[1] * 0.95, "COVID", ha="center", fontsize=8,
-        color=SUBTLE)
+ax.axhline(pooled, color=GRAY, lw=1.3, ls=(0, (5, 4)), zorder=1)
+ax.text(2004.7, pooled + 0.5,
+        f"2005--2025 average, {pooled:.0f}\\%".replace("\\%", "%"),
+        fontsize=9, color=GRAY)
+ax.plot(ev.base_year, ev.attrp_all, color=BLUE, lw=2.6,
+        solid_capstyle="round", zorder=3)
+for yy, lab, dy in [(0, "", 0), (len(ev) - 1, "", 0)]:
+    ax.scatter([ev.base_year.iloc[yy]], [ev.attrp_all.iloc[yy]], s=44,
+               color=BLUE, zorder=4, edgecolor=SURFACE, linewidth=2)
+ax.text(ev.base_year.iloc[0] + 0.3, ev.attrp_all.iloc[0] - 1.1,
+        f"{ev.attrp_all.iloc[0]:.0f}%", fontsize=9.5, color=INK,
+        fontweight="bold", ha="center")
+ax.text(ev.base_year.iloc[-1] + 0.4, ev.attrp_all.iloc[-1],
+        f"{ev.attrp_all.iloc[-1]:.0f}%", va="center", fontsize=9.5,
+        color=INK, fontweight="bold")
+ax.set_xlim(2004.5, 2026.5)
+ax.set_ylim(0, 18)
+ax.set_xticks([2005, 2010, 2015, 2020, 2024])
+ax.set_ylabel("Left teaching, no return, % per year")
+ax.text(2020, 16.6, "COVID", ha="center", fontsize=8, color=SUBTLE)
 fig.tight_layout()
 fig.savefig("report/figures/fig6_evolution.pdf", bbox_inches="tight")
-print("\nsaved report/figures/fig6_evolution.pdf, outputs/evolution_by_year_gender.csv")
+print(f"\npooled non-returning (headline): {pooled:.1f}")
+print(f"2005 {ev.attrp_all.iloc[0]:.1f}  2024 {ev.attrp_all.iloc[-1]:.1f}")
+print("saved report/figures/fig6_evolution.pdf, outputs/evolution_by_year_gender.csv")
