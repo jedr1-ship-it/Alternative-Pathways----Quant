@@ -1,0 +1,5 @@
+group,n,p10,p25,p50,p75,p90
+stayer,12195,-48.2,-11.3,3.4,21.2,61.4
+"leaver, employed",225,-85.2,-24.4,15.4,81.1,189.5
+"leaver, all",572,-165.9,-51.1,4.1,75.6,203.2
+"leaver, share zero earnings next year",452,,,46.6,,

@@ -1,0 +1,17 @@
+prof,period,leaver_%,n
+Accountants,2010-2014,6.53,4085
+Accountants,2015-2024,6.3,6897
+Lawyers,2010-2014,4.35,3320
+Lawyers,2015-2024,4.83,6052
+Nurses,2010-2014,7.39,6134
+Nurses,2015-2024,7.99,13396
+Pharmacists,2010-2014,8.82,813
+Pharmacists,2015-2024,10.55,1611
+Physical therapists,2010-2014,10.07,637
+Physical therapists,2015-2024,10.44,1361
+Physicians,2010-2014,6.68,2621
+Physicians,2015-2024,7.86,5112
+Social workers,2010-2014,13.49,1926
+Social workers,2015-2024,13.55,3407
+Teachers,2010-2014,9.05,16364
+Teachers,2015-2024,8.25,28932

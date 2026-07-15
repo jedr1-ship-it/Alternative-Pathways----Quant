@@ -30,10 +30,8 @@
 \linespread{1.14}
 \color{ecink}
 
-% journal-style justified note under figures and tables
 \newcommand{\fignote}[1]{\par\vspace{4pt}%
   \begin{minipage}{\linewidth}\footnotesize\color{ecgray}#1\end{minipage}}
-
 
 \begin{document}
 
@@ -43,7 +41,7 @@
 Who Leaves Teaching, and Why?\par}
 \vspace{8pt}
 {\fontsize{15}{20}\selectfont\bfseries
-Teacher Attrition in the United States, 2015--2024\par}
+The Anatomy of Teacher Attrition in the United States, 2005--2024\par}
 
 \vspace{26pt}
 {\large \href{https://sites.google.com/view/joseeliasduranroa}{José Elías Durán Roa}\footnote{PhD Candidate in Economics,
@@ -58,36 +56,35 @@ own.}}
 {\small July 2026}
 \end{center}
 
-\vspace{26pt}
+\vspace{22pt}
 \begin{center}
 \begin{minipage}{0.86\textwidth}
 {\fontsize{10.5}{14.5}\selectfont
 \begin{center}\bfseries Abstract\end{center}\vspace{2pt}
-Every March, the Current Population Survey asks each American what their
-longest job was last year and what they are doing this week. For teachers,
-the distance between the two answers is the cleanest public measure of
-leaving the profession, and this paper uses it to characterize teacher
-attrition over 2015--2024: 8.3 percent of college-graduate K--12 teachers
-leave teaching in a typical year. The composition of that number, not its
-size, is the story. Almost two thirds of leavers do not move to another
-job at all: 5.1 of the 8.3 points are exits from the labor force,
-concentrated at retirement ages, and only 2.1 points are teachers employed
-in a different occupation a year later---one fifth of them still inside
-education. Attrition is U-shaped in age, twice as high in private as in
-public schools (11.6 versus 6.8 percent), and its strongest observable
-predictors are the shape of the job rather than the person holding it:
-teaching part of the year or part-time, and lacking a pension plan, move
-the probability of leaving far more than any demographic trait. The rate
-spiked with Covid---above 10 percent measured in March 2020---and returned
-to its pre-pandemic level within two years. Measured identically, teachers
-leave at the same rate as nurses (8.0 percent), well below social workers
-(13.6), and slightly above accountants (6.3): teaching is not, in this
-dimension, an anomalous profession. An appendix validates the
-retrospective instrument person-by-person against a linked monthly panel
-built from twenty years of raw CPS files---where both instruments observe
-the same teacher, they agree on staying or leaving 99 percent of the
-time---and a second appendix replicates Harris and Adams (2007) on the
-modern decade.}
+Roughly 8 percent of American teachers leave the profession each year, a
+rate that has barely moved since the early 1990s---yet almost everything
+policy-relevant about that number lies in a decomposition that existing
+work does not provide. Using two decades of Current Population Survey
+March supplements (2005--2024), I document not just how many teachers
+leave but who they are, where they go, and what the move costs them. Of
+every 100 leavers, 62 exit the labor force altogether---38 at retirement
+ages, 24 before 55---12 become unemployed, and only 26 hold another job a
+year later, a fifth of those still inside education. Leaving is
+predicted by the shape of the job, not the person: teaching part of the
+year or part-time dominates every demographic trait, and pension coverage
+locks teachers in. The family margin is the exception, and it is
+distinctively large in teaching: a new baby raises a female teacher's
+probability of leaving by 5.9 percentage points, two to three times the
+effect in nursing, accounting, or law. For those who do move to another
+job, leaving is a gamble rather than a raise: the median switcher gains
+15 log points, but the tenth percentile loses 85, and nearly half of all
+leavers report no earnings at all the following year. Measured
+identically, teachers leave at the nurse benchmark, five points below
+social workers, and the ordering has not changed in thirty years. An
+appendix validates the retrospective instrument person-by-person against
+a linked monthly panel built from the raw CPS files---the first such
+audit in this literature---and a second appendix replicates Harris and
+Adams (2007) on the modern decades.}
 \end{minipage}
 \end{center}
 
@@ -98,294 +95,374 @@ Teachers are the main school input in the production of student
 achievement (\textcolor{citeblue}{Rivkin, Hanushek and Kain, 2005; Chetty,
 Friedman and Rockoff, 2014}), and replacing one is costly and disruptive
 for the students left behind (\textcolor{citeblue}{Ingersoll, 2001;
-Ronfeldt, Loeb and Wyckoff, 2013}). Which teachers leave, and why, is
-therefore a first-order question for education policy, and one on which
-the public debate runs well ahead of the public data. Claims of a
-national exodus from the classroom coexist with federal statistics
-showing single-digit attrition, and the distance between the two is
-rarely traced back to what it usually is: different instruments answering
-different questions.
+Ronfeldt, Loeb and Wyckoff, 2013}). Whether teachers are abandoning the
+profession, and which ones, is accordingly a perennial question of
+education policy---and one where the public debate runs well ahead of the
+data. Announcements of a post-pandemic exodus coexist with federal
+statistics showing single-digit attrition; a rich descriptive literature
+reports turnover levels but stops, almost uniformly, at the schoolhouse
+door, without following the leaver into her next job, her next paycheck,
+or her reasons.
 
-This paper answers three questions on a single, transparent instrument.
-How many teachers leave the profession in a year? Where do they go? And
-what distinguishes, observably, the teacher who leaves from the teacher
-who stays? The instrument is the retrospective measure of the March
-Current Population Survey (the ASEC supplement), introduced to this
-literature by \textcolor{citeblue}{Harris and Adams (2007)}: a person
-taught last year if the occupation of their longest job last year was a
-K--12 teaching occupation, and left the profession if they are no longer
-teaching in the survey week---whether employed in another occupation,
-unemployed, or out of the labor force. Pooling the ten supplements of
-2016--2025 yields 28,932 teacher-year observations covering calendar
-years 2015 to 2024, a window that brackets the pandemic.
+The data to go further have existed, in public form, for decades. The
+March supplement of the Current Population Survey asks every adult two
+questions that bracket a teacher's exit: the occupation of the longest
+job held last calendar year, and what she is doing in the survey week.
+\textcolor{citeblue}{Harris and Adams (2007)} used this instrument to
+establish the level of teacher attrition for 1992--2001 and to benchmark
+it against nurses, social workers, and accountants;
+\textcolor{citeblue}{Aldeman and Yi (2025)} recently updated the same
+calculation to argue that turnover remains low. On the survey side, the
+National Center for Education Statistics measures leavers and movers with
+the Teacher Follow-up and National Teacher and Principal Surveys, the
+basis of the widely cited Learning Policy Institute syntheses
+(\textcolor{citeblue}{Carver-Thomas and Darling-Hammond, 2017; Tan, Wei,
+Carver-Thomas and García, 2024}) and of
+\textcolor{citeblue}{Ingersoll's (2001)} influential organizational
+account. What none of this work provides is an anatomy: the level is
+measured, sometimes compared, but the composition of exit---its routes,
+its destinations, its earnings consequences, its family
+triggers---remains largely unexamined in nationally representative data.
+The one administrative exception, \textcolor{citeblue}{Brummet, Penner,
+Pharris-Ciurej and Porter (2025)}, links teachers to tax records and
+finds that leavers rarely out-earn their classroom selves, but cannot
+observe household structure or compare professions.
 
-The choice of instrument is not innocent, and it is the methodological
-contribution of this paper to make it accountable. The CPS offers a
-second, apparently richer design: its rotation scheme re-interviews the
-same address twelve months apart, so one can link individual teachers
-across interviews and watch them leave in something close to real time.
-We built that panel from the raw monthly files---twenty entry cohorts,
-2005--2024---and used it to audit the retrospective measure person by
-person, for the subsample whose interviews straddle a March supplement.
-The audit (Appendix A) is reassuring and instructive in equal measure.
-Wherever both instruments agree that a person was a stable teacher, they
-agree on whether she stayed or left 99.1 percent of the time. But the
-linked panel, taken at face value, doubles the attrition rate, and the
-audit shows exactly why: occupation snapshots from a single reference
-week misclassify summer months as exits, count temporary absences as
-leaving, and---most of all---label as ``teachers'' people whose dominant
-activity that year was something else. The retrospective anchor, one
-question about the whole of last year, is immune to all three. What looks
-like the cruder instrument is in fact the cleaner one, and we can now say
-so with evidence rather than convention.
+This paper provides that anatomy, on the same public instrument the
+literature already trusts for the level, extended in every direction the
+instrument allows. Three features distinguish the exercise. First,
+\emph{depth}: beyond the annual rate, I decompose every exit into its
+route (another job, unemployment, labor-force exit), its destination
+occupation, and---by linking consecutive March supplements at the person
+level---its earnings consequence, and I estimate the individual
+predictors of leaving including a family margin (births, young children)
+that the NCES surveys and the prior CPS literature do not model. Second,
+\emph{time}: every result is computed as a comparison across periods,
+from 2005--2009 through the pandemic to 2024, anchored against Harris
+and Adams's 1992--2001 benchmarks, so that claims about ``rising''
+attrition face thirty years of evidence measured with one ruler. Third,
+\emph{measurement discipline}: because the CPS also permits linking the
+same person across monthly interviews, I build that panel from the raw
+files---twenty entry cohorts, 2005--2024---and audit the retrospective
+instrument person by person, the first individual-level validation of
+the measure on which this literature rests (Appendix A). The audit
+explains, observation by observation, why naive point-in-time panels
+overstate attrition by a factor of two or more, and why the
+retrospective anchor is the right instrument for the question.
 
-Three findings organize the results. First, the level: 8.3 percent of
-teachers leave the profession per year, a rate stable across two decades
-of comparison (Harris and Adams measured 7.7 percent in 1992--2001 with
-the identical design; Appendix B), disturbed only briefly by Covid.
-Second, the composition: leaving teaching is mostly not a career switch.
-Exits from the labor force---retirement above all---account for five of
-the eight points; moves into other jobs account for two, and a fifth of
-those stay inside education. The marginal leaver is not a teacher lured
-away by industry; she is a teacher at the end of her career, or one
-loosely attached to the job to begin with. Third, the predictors: the
-strongest observable correlates of leaving are working part of the year,
-working part-time, and lacking a pension plan---features of the match
-between teacher and job---while demographics move the probability by a
-point or less. Teaching's attrition is unremarkable among comparable
-professions; its retirement channel is not.
-
-The rest of the paper proceeds as follows. Section 2 describes the data
-and definitions. Section 3 establishes the level and its evolution.
-Section 4 follows the leavers to their destinations. Section 5 profiles
-who leaves and estimates the attrition model. Section 6 places teaching
-among the professions. Section 7 concludes. Appendix A contains the
-instrument validation, Appendix B the replication of Harris and Adams on
-the modern decade, and Appendix C additional estimation output.
+The findings reorganize the usual conversation. The level is
+unremarkable and stable: 8.3 percent of college-graduate K--12 teachers
+leave per year in 2015--2024, against 7.7 in Harris and Adams's
+1992--2001 and 9.1 in 2010--2014; the pandemic produced a spike to 10.2
+percent measured in March 2020 and full reversion within two years, the
+same conclusion \textcolor{citeblue}{Aldeman and Yi (2025)} reach.
+Teaching sits exactly at the nurse benchmark (8.0 percent), five points
+below social work, and the professional ordering is unchanged in three
+decades. But the composition is nothing like the popular image of
+teachers recruited away by better-paying industries. Of every 100
+leavers, 62 leave employment altogether and only 26 hold another job a
+year later---five of them in education-adjacent work. The strongest
+predictors of leaving are part-year and part-time attachment and the
+absence of a pension, not demographics; the exception is a new baby,
+whose effect on female teachers (+5.9 percentage points) is two to three
+times its size in any comparison profession---teaching loses mothers at a
+rate nursing does not. And for the minority who do switch jobs, the move
+is a lottery: a median gain of 15 log points wrapped in enormous
+dispersion, with nearly half of all leavers reporting zero earnings the
+following year. Attrition in teaching is not an exodus; it is
+retirement, family, and loose attachment, in that order.
 
 \section*{2. Data and definitions}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/f1_design.pdf}
+  \caption{The retrospective instrument.}
+  \fignote{Each March, the ASEC records the occupation of the longest job
+  held in the previous calendar year and the person's current activity.
+  A teacher in year $t$ who is not teaching in March $t{+}1$ is a leaver,
+  routed to another occupation, unemployment, or out of the labor force.}
+\end{figure}
+
 The data are the public-use person files of the CPS Annual Social and
-Economic Supplement (ASEC), downloaded from the Census Bureau for survey
-years 2016--2025: comma-separated files from 2019 onward, fixed-width
-files parsed against each year's data dictionary before that. The ASEC
-asks every adult two questions that bracket a twelve-month window: the
-occupation of the longest job held during the previous calendar year
-(\texttt{OCCUP}), and the labor-force status and occupation of the
-current survey week (\texttt{A\_LFSR}, \texttt{PEIOOCC}). The survey year
-therefore measures attrition for the preceding calendar year; the ten
-supplements cover 2015--2024.
+Economic Supplement (ASEC) for survey years 2006--2025, downloaded from
+the Census Bureau: CSV files from 2019 onward, fixed-width files parsed
+against the published data dictionaries for 2011--2018, and, for
+2006--2010, extracted with byte positions recovered empirically and
+validated against the person identifiers of the March basic monthly
+files (Appendix A describes the method). Survey year $t{+}1$ measures
+attrition for calendar year $t$; the supplements cover calendar
+2005--2024. The main analytical window is 2015--2024, with 2010--2014
+and Harris and Adams's 1992--2001 as standing comparisons; the 2005--2009
+files support the rate series only.
 
 A person is a \textbf{teacher} in year $t$ if the occupation of her
-longest job in $t$ is a K--12 classroom teaching occupation: preschool
-and kindergarten, elementary and middle school, secondary school, special
-education, or teachers not elsewhere classified (census codes
-2300--2330 plus 2340 under the 2010 classification, 2360 under the 2018
-classification; the core codes are identical across both). Postsecondary
-teachers and teaching assistants are excluded, following
-\textcolor{citeblue}{Harris and Adams (2007)}, and the sample is
-restricted to college graduates and adults. She is a \textbf{leaver} if,
-in the March interview of year $t{+}1$, she is no longer teaching:
-employed in a different occupation, unemployed, or out of the labor
-force. Employment status comes from the labor-force recode, not from the
-occupation field, because the unemployed carry their last job's
-occupation---a detail that matters, since ignoring it counts displaced
-teachers as stayers. The measure captures leavers only: a teacher who
-changes school or district remains a teacher here, so these rates are
-not comparable to ``total turnover'' figures that add movers and leavers
-(\textcolor{citeblue}{Ingersoll, 2001; Tan et al., 2024}). All statistics
-use the ASEC supplement weights.
+longest job that year is K--12 classroom teaching: preschool and
+kindergarten, elementary and middle school, secondary school, special
+education, or teachers not elsewhere classified (census codes 2300--2330
+plus 2340 under the 2002/2010 classifications and 2360 under the 2018
+one; the core codes are identical across all three). Postsecondary
+teachers and teaching assistants are excluded, and the main sample is
+restricted to college graduates, both following
+\textcolor{citeblue}{Harris and Adams (2007)}. She is a \textbf{leaver}
+if in the following March she is no longer teaching, with the route read
+from the labor-force recode: employed in another occupation, unemployed,
+or out of the labor force. Employment status must come from the
+labor-force status variable rather than the occupation field, because
+the unemployed report their last job's occupation---ignoring this counts
+displaced teachers as stayers. The measure captures leavers only;
+teachers who change school or district remain teachers here, so these
+rates sit below ``total turnover'' figures that add movers
+(\textcolor{citeblue}{Ingersoll, 2001; Tan et al., 2024} report 16
+percent total turnover of which roughly half is moving). Own children,
+including births, are attached to each adult through the household
+parent and spouse pointers. All statistics use supplement weights.
 
-Two limitations are inherited from the instrument. The occupation of the
-longest job is reported retrospectively, often by another household
-member, so within-year spells shorter than the longest job are invisible;
-and the March week is a single snapshot of the destination. Appendix A
-quantifies both against a linked panel and shows they are second-order
-for the questions asked here.
-
-\section*{3. How many leave}
+\section*{3. Who teaches}
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig_m1_evolution.pdf}
-  \caption{Teacher attrition and its components, 2015--2024.}
-  \fignote{Share of college-graduate K--12 teachers (longest job of the
-  calendar year) no longer teaching in the following March, by
-  destination. CPS ASEC 2016--2025, supplement weights. The shaded band
-  marks the pandemic surveys: calendar 2019 is measured in March 2020.}
+  \includegraphics[width=\textwidth]{figures/f2_workforce.pdf}
+  \caption{The changing profile of the teaching workforce.}
+  \fignote{College-graduate K--12 teachers (longest job of the calendar
+  year), ASEC 2011--2025 = calendar 2010--2024, weighted. The 2013 point
+  uses the reduced five-eighths 2014 file.}
 \end{figure}
 
-Pooling the decade, \textbf{8.25 percent} of teachers leave the
-profession in a year. The series is flat to gently falling before the
-pandemic (7.3--8.7 percent), spikes to \textbf{10.2 percent} for calendar
-2019---measured in the March 2020 interviews, the first Covid
-weeks---remains elevated at 9.0 for 2020, and is back inside its
-pre-pandemic range by 2021 (7.1) and stays there through 2024 (7.7).
-Whatever the pandemic did to teachers' attachment, in this data it was a
-two-year disturbance, not a regime change; the same conclusion reached by
-\textcolor{citeblue}{Aldeman and Yi (2025)} on the same survey.
+The workforce against which attrition plays out has been drifting in
+quiet but consistent directions. Teaching remains three-quarters female
+and increasingly credentialed---the share with a master's degree or more
+hovers above half---while the public-sector share has slipped and
+part-time teaching has become slightly more common. Pension coverage,
+teaching's signature amenity, remains near seventy percent but is
+eroding at the margin. The workforce is not aging on average, a
+composition effect worth keeping in mind below: high attrition at
+retirement ages continuously removes the old, while entry replenishes
+the young.
 
-The public--private split is large and stable: \textbf{6.8 percent} of
-public-school teachers leave per year against \textbf{11.6 percent} of
-private-school teachers, the same two-to-one ratio the NCES Teacher
-Follow-up Survey shows in administrative data (7.9 versus 11.7 percent
-for 2020--21). Men leave slightly more than women (9.1 versus 8.0
-percent).
-
-\section*{4. Where they go}
+\section*{4. How many leave}
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.94\textwidth]{figures/fig_m2_flow100.pdf}
-  \caption{Of every 100 teachers, one year later.}
-  \fignote{Pooled 2015--2024. Destinations of the 8.25 leavers per 100
-  teachers: employed in another occupation, unemployed (looking or on
-  layoff), or out of the labor force in the March survey week.}
+  \includegraphics[width=0.92\textwidth]{figures/f3_evolution.pdf}
+  \caption{Attrition by year, against a thirty-year anchor.}
+  \fignote{Share of teachers (longest job of the calendar year) not
+  teaching the following March. Solid blue: college graduates (main
+  definition). Gray: all teachers regardless of degree. Dashed segment:
+  2005--2009, unweighted counts from the minimal early extraction. The
+  dotted line marks Harris and Adams's (2007) 7.73 percent for
+  1992--2001 under the identical design.}
 \end{figure}
 
-The composition of attrition is its most misunderstood feature. Of every
-100 teachers in a school year, about 92 are teaching a year later. Of
-the eight who are not, \textbf{five are out of the labor force}, one is
-unemployed, and only \textbf{two are working in a different
-occupation}. The image of attrition as a career switch---the teacher
-recruited away by a better-paying industry---describes roughly a quarter
-of it. The dominant channel is the exit from work itself, and Section 5
-shows it is concentrated exactly where retirement lives.
+Pooled over 2015--2024, \textbf{8.25 percent} of college-graduate
+teachers leave the profession per year. The series wears its history
+lightly: 8--9 percent in the early 2010s, 7.3--8.7 in the late 2010s, a
+spike to \textbf{10.2 percent} for calendar 2019---measured in the March
+2020 interviews, the first weeks of Covid---9.0 for calendar 2020, and
+full reversion by 2021 (7.1), holding through 2024 (7.7). Against
+Harris and Adams's 7.7 percent for 1992--2001, the conclusion is stark:
+\emph{three decades of alarm about accelerating teacher flight are not
+visible in the only long series measured with a constant instrument.}
+The pandemic registered as a two-year disturbance, exactly as
+\textcolor{citeblue}{Aldeman and Yi (2025)} conclude, and as the NCES
+data ultimately showed (8.4 percent of 2020--21 teachers left before
+the next school year). Within the average, the familiar structure:
+public-school teachers leave at 6.8 percent, private-school teachers at
+11.6---the same two-to-one ratio as in the TFS administrative
+benchmarks---and men slightly exceed women (9.1 versus 8.0).
 
-\begin{table}[t]
+\section*{5. Where they go}
+
+\begin{figure}[t]
   \centering
-  \caption{Destination occupations of teachers who switch jobs.}
-  \input{table_m_destinations}
-  \fignote{Share of switchers (leavers employed in another occupation at
-  $t{+}1$) by detailed destination occupation, pooled 2015--2024,
-  weighted. In total, 19.5 percent of switchers remain in education
-  occupations (census codes 2200--2555).}
-\end{table}
+  \includegraphics[width=0.96\textwidth]{figures/f4_flow100.pdf}
+  \caption{Of every 100 leavers.}
+  \fignote{Destinations in the March following the last teaching year,
+  college-graduate teachers pooled 2015--2024, weighted.
+  Education-adjacent: employed in occupations 2200--2555 (postsecondary,
+  tutors, assistants, administrators, librarians).}
+\end{figure}
 
-Among the minority who do switch, the destinations are strikingly close
-to the classroom. The single largest detailed destinations are general
-management, postsecondary teaching, and education administration; tutors,
-teaching assistants, and childcare workers follow. One in five switchers
-never leaves education occupations at all---the move is often a
-reshuffling within the sector (teacher to administrator, teacher to
-college instructor) rather than an exit from it. The genuinely
-out-of-field destinations that remain---customer service, administrative
-support, retail---are not an upgrade in observable terms, consistent
-with the evidence that former teachers rarely out-earn their classroom
-selves (\textcolor{citeblue}{Brummet et al., 2025}).
+The single most policy-relevant fact in this paper is the destination
+split. Of every 100 leavers, \textbf{62 are not employed at all} a year
+later: 38 have left the labor force at ages 55 and above---the
+retirement channel---and 24 have left it younger, the margin where
+family (Section 6) lives. Twelve are unemployed. Only \textbf{26 hold
+another job}, and five of those remain in education-adjacent work:
+postsecondary teaching, tutoring, school administration, teaching
+assistance. The occupational destinations of the remaining switchers are
+managerial and administrative far more often than technical, echoing in
+survey data what \textcolor{citeblue}{Brummet et al.\ (2025)} find in
+tax records. The popular narrative of attrition---teachers poached by
+higher-paying industries---describes at most a fifth of actual exits.
 
-\section*{5. Who leaves, and why}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/f5_routes_age.pdf}
+  \caption{Exit routes over the lifecycle.}
+  \fignote{Share of teachers leaving by each route, by age group, pooled
+  2015--2024. The black line is total attrition; shaded areas stack the
+  three routes.}
+\end{figure}
+
+The routes are organized by age with almost mechanical clarity.
+Job-switching is a young teacher's exit: it peaks in the twenties and
+declines monotonically. Labor-force exit is the mirror image, modest
+through mid-career and exploding after 55; by ages 61--64 attrition is
+17 percent, three quarters of it out of employment altogether. The
+trough in one's forties---total attrition near 4 percent---identifies
+the tenured core of the profession. This U-shape, documented for the
+1990s by \textcolor{citeblue}{Grissmer and Kirby (1997)} and visible in
+Harris and Adams's data, survives intact in the modern decades.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.84\textwidth]{figures/f6_earnings.pdf}
+  \caption{The earnings gamble of leaving.}
+  \fignote{Change in annual wage and salary earnings, log points
+  $\times$100, from the last teaching year to the following calendar
+  year, for teachers linked across consecutive March supplements by
+  person identifier (validated on sex and age progression), surveys
+  2011--2025. Thick bars: interquartile range; thin bars: 10th--90th
+  percentiles; dots: medians. Among all leavers, 47 percent report zero
+  earnings in the following year (excluded from the log-change
+  distribution).}
+\end{figure}
+
+Linking the same person across consecutive Marches prices the move. For
+stayers, the earnings distribution does what salary schedules promise:
+a median gain of 3 log points inside a tight band. For leavers who hold
+a job, the median gain is larger---15 log points---but the band
+explodes: the 75th percentile gains 81 log points while the 10th
+percentile \emph{loses} 85. And this is the distribution conditional on
+earning anything: \textbf{47 percent of all leavers report zero
+earnings} in the year after leaving. Leaving teaching for work is a
+gamble that pays for the median mover and costs heavily in the tails;
+leaving teaching at all is, for nearly half of leavers, a transition
+into no earnings whatsoever---retirement, caregiving, or a gap year the
+CPS cannot distinguish further. The ``earnings penalty of staying'' that
+motivates much salary policy is nowhere visible in these transitions.
+
+\section*{6. Who leaves, and why}
 
 \begin{table}[t]
   \centering
   \caption{Teachers who stay versus teachers who leave.}
   \input{table_m_profile}
-  \fignote{Weighted means over pooled 2015--2024. Characteristics are
-  measured in the teaching year (the longest-job year), not at the
-  destination: earnings are annual wage and salary divided by weeks
-  worked, part-time refers to usual weekly hours, and the pension row is
-  enrollment in an employer plan at the longest job.}
+  \fignote{Weighted means, college-graduate teachers pooled 2015--2024,
+  measured in the teaching year. Earnings are annual wage and salary
+  divided by weeks worked.}
 \end{table}
 
-The profile of the leaver, measured while she was still teaching, is
-sharp. Leavers are six years older than stayers (50 versus 44), more
-often in private schools (42 versus 29 percent), less often covered by a
-pension plan (51 versus 68 percent), and---above all---far more loosely
-attached to the job: 41 percent of leavers taught part-time against 12
-percent of stayers, and only 31 percent of leavers worked a full 50-week
-year against 76 percent of stayers. Demographic differences are small by
-comparison. The teacher who leaves is not a distinct kind of person; she
-is a teacher in a distinct kind of job-year.
+The leaver, photographed during her last teaching year, differs from
+the stayer mainly in her contract, not her demography. She is six years
+older on average (the retirement tail), somewhat less likely to be in a
+public school and to hold a pension, and dramatically less attached:
+41 percent of leavers taught part-time (against 12 percent of stayers)
+and only 31 percent worked a full 50-week year (against 76). Earnings
+while teaching were about nine percent lower. Race, marriage, and
+degrees move the comparison by a few points at most.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\textwidth]{figures/fig_m3_ame.pdf}
-  \caption{What predicts leaving: average marginal effects.}
-  \fignote{Probit of leaving on characteristics of the teaching year,
-  with survey-year fixed effects, pooled 2015--2024 ($n$ = 28{,}328).
-  Bars are average marginal effects in percentage points; whiskers are 95
-  percent confidence intervals (robust); gray bars are not significant at
-  5 percent. Age enters with a quadratic; the age profile is shown in
-  Figure 4.}
+  \includegraphics[width=0.92\textwidth]{figures/f7_ame.pdf}
+  \caption{What predicts leaving.}
+  \fignote{Average marginal effects from a probit of leaving on
+  characteristics of the teaching year, with survey-year fixed effects;
+  college-graduate teachers pooled 2015--2024. Whiskers: 95 percent
+  confidence intervals; gray: not significant at 5 percent. Age enters
+  quadratically; its profile is in Figure 5.}
 \end{figure}
 
-The multivariate picture confirms it. Holding everything else fixed,
-having worked a full year is associated with a \textbf{9.4 percentage
-point lower} probability of leaving---by far the largest effect in the
-model---and part-time work adds \textbf{4.4 points} of exit risk on top
-of the hours themselves. Pension enrollment is associated with 2.4
-points less exit, echoing at modern magnitudes the job-lock that
-\textcolor{citeblue}{Harris and Adams (2007)} documented for the 1990s;
-public-school employment with 1.7 points less. Demographics are an order
-of magnitude smaller: women leave 1.4 points less than men, Black
-teachers 1.9 points more, and a master's degree subtracts less than a
-point. Age is U-shaped---attrition falls to a minimum around the
-mid-forties (4.3 percent for ages 46--55) and then climbs steeply, to
-12.2 percent at 56--64 and 28 percent past 65, almost entirely through
-the labor-force exit channel: among teachers aged 56--64 who leave, more
-than three quarters leave employment altogether. Retirement, not
-disaffection, governs the right side of the curve, as
-\textcolor{citeblue}{Grissmer and Kirby (1997)} argued long before this
-window.
+Multivariately, the ranking is unambiguous. Full-year work is worth
+$-$9.3 percentage points of exit risk, part-time $+$4.5, pension
+enrollment $-$2.4, public school $-$1.7: the attachment variables and
+the deferred-compensation lock, in that order, dwarf everything
+demographic. The pension coefficient echoes, at modern magnitudes, the
+job-lock Harris and Adams estimated for the 1990s, and it remains two
+to three times larger for teachers than for any comparison profession
+(Appendix B)---the fingerprint of a profession whose exits are
+choreographed by retirement systems rather than by outside offers.
+
+The exception to ``demographics don't matter'' is the family. A birth
+during the year raises a female teacher's probability of leaving by
+\textbf{5.9 percentage points} (Figure 9), conditional on age,
+education, marriage, and other children---an effect on the order of the
+entire baseline attrition rate. The same specification estimated on
+women in comparison professions yields $+$2.6 points for nurses,
+$+$3.5 for accountants, $+$2.4 for lawyers, $+$2.2 for social workers:
+positive everywhere, as one expects around childbirth, but \emph{two to
+three times larger in teaching}. Whatever combination of parental-leave
+provision, schedule rigidity during the school year, and household
+specialization produces this gap, teaching loses new mothers at a rate
+its semi-professional peers do not, and no amount of aggregate-level
+reassurance about ``normal'' attrition addresses it.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.88\textwidth]{figures/fig_m4_age.pdf}
-  \caption{Attrition by age, teaching and comparison professions.}
-  \fignote{Share leaving the profession per year by age group, pooled
-  2015--2024, weighted. College graduates in each profession, defined by
-  the longest job of the calendar year.}
+  \includegraphics[width=0.8\textwidth]{figures/f9_newbaby.pdf}
+  \caption{A new baby and the probability that a woman leaves her
+  profession.}
+  \fignote{Average marginal effect of a child under one in the
+  household, from profession-specific probits on women (age quadratic,
+  marriage, advanced degree, other children controls), pooled
+  2010--2024. Whiskers: 95 percent confidence intervals.}
 \end{figure}
 
-\section*{6. Teaching among the professions}
+\begin{table}[t]
+  \centering
+  \caption{The top-risk decile.}
+  \input{table_p_topdecile}
+  \fignote{Teachers in the top decile of predicted exit probability from
+  the probit of Figure 7, versus all teachers. The model's risk
+  concentrates in part-year, part-time, uncovered contracts; its
+  realized attrition validates the ranking.}
+\end{table}
+
+\section*{7. Teaching among the professions}
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.88\textwidth]{figures/fig_m5_professions.pdf}
-  \caption{Leaving the profession, then and now.}
+  \includegraphics[width=0.9\textwidth]{figures/f8_professions.pdf}
+  \caption{Leaving the profession, eight professions, two periods.}
   \fignote{Annual profession-leaving rates under the identical
-  instrument: Harris and Adams (2007), March CPS 1992--2001, versus this
-  paper, March CPS 2016--2025. College graduates; registered and licensed
-  practical nurses; social workers; accountants and auditors.}
+  instrument, college graduates: open circles 2010--2014, filled
+  2015--2024. Profession defined by the longest job of the calendar
+  year; leaving includes unemployment and labor-force exit.}
 \end{figure}
 
-Is 8 percent a lot? The only honest benchmark is other professions
-measured with the same ruler. Teachers leave teaching at almost exactly
-the rate nurses leave nursing (8.25 versus 7.99 percent), well below
-social workers (13.55) and somewhat above accountants (6.30). The
-ordering is the one Harris and Adams found a generation earlier, with
-two quiet drifts: nursing's attrition has risen toward teaching's, and
-accounting's has fallen below both. In a linear probability model with
-demographic and job controls, the teacher--nurse gap is at most two
-points in either direction, while social workers exit five to six points
-more than observably similar teachers (Appendix C). Teaching also keeps
-its distinctive signature: a larger share of its attrition flows out of
-the labor force (62 percent, versus 44 for nurses and 21 for social
-workers), and the pension coefficient is two to three times larger for
-teachers than for any comparison profession---the fingerprints of a
-profession whose exit is organized around retirement systems rather than
-around outside offers.
+Is 8 percent a lot? Measured with the same ruler, teachers leave
+teaching at almost exactly the rate registered nurses leave nursing
+(8.0), below physical therapists (10.4) and pharmacists (10.6), five
+points below social workers (13.6), and above accountants (6.3) and
+lawyers (4.8). The ordering is essentially Harris and Adams's, a
+generation later; the two periods shown differ by less than a point for
+most professions. Teaching's true distinctions are compositional: a
+larger share of its attrition exits the labor force (62 percent, versus
+44 for nurses and 21 for social workers), its pension lock is stronger,
+and its family margin is larger. Teaching does not have an attrition
+problem relative to its peers; it has a \emph{retirement system} and a
+\emph{motherhood penalty} that shape when and how its attrition
+happens.
 
-\section*{7. What it means for policy}
+\section*{8. What it means for policy}
 
-Three conclusions follow directly from the anatomy of the 8.25 percent.
-First, the aggregate level is not the crisis variable; it has been
-stable for thirty years under the same instrument and sits exactly at
-the nurse benchmark. Policy aimed at ``teacher attrition'' in the
-aggregate is aiming at a number that is neither high by professional
-standards nor rising. Second, the composition points the lever at
-attachment, not persuasion: the excess exits sit in part-year and
-part-time teaching spells, in uncovered (disproportionately private)
-jobs, and at retirement ages. Converting part-year attachments into
-full-year contracts, and extending pension coverage where it is thin,
-target the observable margins that carry the risk; generic retention
-campaigns do not. Third, the retirement channel is the elephant: five of
-the eight points never pass through another employer, and their timing
-is a function of pension design---the margin
-\textcolor{citeblue}{Podgursky (2003)} and the pension literature have
-long flagged. A policymaker worried about losing experienced teachers
-should read this as a schedule of predictable, plannable exits, not as a
-flight from the profession.
+Three lessons follow from the anatomy rather than the level. First, the
+aggregate rate is the wrong target: it has been flat for thirty years,
+sits at the nurse benchmark, and its pandemic excursion self-corrected.
+Retention policy motivated by a supposed exodus is aiming at a ghost.
+Second, the actionable margins are visible and specific: part-year and
+part-time attachments carry many times the exit risk of any demographic
+group; pension coverage retains; and the family channel---a five-point
+exit effect of a birth, unmatched in comparable professions---points
+directly at leave policy and within-year schedule flexibility as the
+binding constraints on retaining young mothers. Third, the destination
+evidence disciplines the rhetoric of competition: schools are not
+losing teachers to industry in any volume; they are losing them to
+retirement, to family, and to nothing at all. For the minority who do
+move, the move is a high-variance gamble, not a raise---which suggests
+the outside option constrains teacher retention far less than the
+inside conditions do.
 
 \section*{References}
 
@@ -395,8 +472,12 @@ Profession in Large Numbers?'' \textit{Education Next}.
 \item Brummet, Q., E. Penner, N. Pharris-Ciurej, and S. Porter (2025).
 ``After School: An Examination of the Career Paths and Earnings of Former
 Teachers.'' \textit{Educational Evaluation and Policy Analysis}.
+\item Carver-Thomas, D., and L. Darling-Hammond (2017). \textit{Teacher
+Turnover: Why It Matters and What We Can Do About It}. Learning Policy
+Institute.
 \item Chetty, R., J. Friedman, and J. Rockoff (2014). ``Measuring the
-Impacts of Teachers II.'' \textit{American Economic Review} 104(9).
+Impacts of Teachers II: Teacher Value-Added and Student Outcomes in
+Adulthood.'' \textit{American Economic Review} 104(9).
 \item Grissmer, D., and S. Kirby (1997). ``Teacher Turnover and Teacher
 Quality.'' \textit{Teachers College Record} 99(1).
 \item Harris, D., and S. Adams (2007). ``Understanding the Level and
@@ -410,6 +491,9 @@ Journal} 38(3).
 \item Madrian, B., and L.~J. Lefgren (2000). ``An Approach to
 Longitudinally Matching Current Population Survey Respondents.''
 \textit{Journal of Economic and Social Measurement} 26(1).
+\item Nguyen, T., L. Pham, M. Crouch, and M. Springer (2020). ``The
+Correlates of Teacher Turnover: An Updated and Expanded Meta-analysis.''
+\textit{Educational Research Review} 31.
 \item Podgursky, M. (2003). ``Fringe Benefits.'' \textit{Education Next}
 3(3).
 \item Rivkin, S., E. Hanushek, and J. Kain (2005). ``Teachers, Schools,
@@ -418,126 +502,115 @@ and Academic Achievement.'' \textit{Econometrica} 73(2).
 Turnover Harms Student Achievement.'' \textit{American Educational
 Research Journal} 50(1).
 \item Stinebrickner, T. (2002). ``An Analysis of Occupational Change and
-Departure from the Labor Force.'' \textit{Journal of Human Resources}
-37(1).
+Departure from the Labor Force: Evidence of the Reasons that Teachers
+Leave.'' \textit{Journal of Human Resources} 37(1).
 \item Tan, T., W. Wei, D. Carver-Thomas, and E. García (2024).
-\textit{Teacher Turnover in the United States}. Learning Policy
-Institute.
+\textit{Teacher Turnover in the United States: Who Moves, Who Leaves,
+and Why}. Learning Policy Institute.
 \end{itemize}
 
 \clearpage
 \section*{Appendix A. Validating the instrument person by person}
 
-The claim that the retrospective measure is the right instrument is
-tested here at the individual level, using the CPS's own rotation
-design. A household entering the sample is interviewed in four
-consecutive months, rests for eight, and is interviewed in the same four
-calendar months a year later; persons are linked across the eight
-interviews by household and line identifiers, validated on sex and age
-progression (\textcolor{citeblue}{Madrian and Lefgren, 2000}). From the
-raw monthly files 2005--2025 we built the twenty entry cohorts of
-2005--2024 and kept the unambiguous teachers: employed in a K--12
-teaching occupation in \emph{all four} initial interviews. A
-panel-leaver is one who teaches in \emph{none} of the four follow-up
-interviews a year later.
-
-For the subsample whose initial window includes March, the same person
-also answered the retrospective questions of the following year's ASEC,
-and the two instruments can be cross-tabulated person by person
-(identifiers link the monthly and supplement files directly). Twenty
-cohorts give 9,461 such teachers.
+Because the CPS interviews each address in four consecutive months, rests
+it for eight, and interviews it again in the same four calendar months a
+year later, individuals can be linked across interviews
+(\textcolor{citeblue}{Madrian and Lefgren, 2000}) and teacher attrition
+can, in principle, be measured prospectively. We built this panel from
+the raw monthly files---twenty entry cohorts, 2005--2024---keeping the
+unambiguous teachers (employed in K--12 teaching in all four initial
+interviews) and defining a panel-leaver as one who teaches in none of the
+four follow-up interviews. For the subsample whose initial window
+includes March, the same person also answered the following year's ASEC
+retrospective questions, and the two instruments can be cross-tabulated
+individual by individual. The same person identifiers link the
+supplement to the monthly files; for supplement years whose fixed-width
+layouts predate the published dictionaries, byte positions were recovered
+by scanning for the offset at which the 22-character person identifier
+reproduces the March monthly identifiers---a join that cannot succeed by
+accident---and validated on occupation agreement in the interview week.
 
 \begin{table}[h]
   \centering
-  \caption{Panel classification versus March retrospective, cohorts
-  2005--2024.}
+  \caption{Panel classification versus March retrospective, twenty
+  cohorts.}
   \input{table_app_confusion}
-  \fignote{Stable teachers (teaching in all four initial monthly
-  interviews) whose window includes March, observed in all four
-  follow-up interviews and linked to the following ASEC. ``Not a
-  teacher'': the retrospective reports the longest job of the base year
-  outside K--12 teaching.}
+  \fignote{Teachers stable across all four initial monthly interviews,
+  observed in all four follow-ups, window including March, linked to the
+  following ASEC (n = 9{,}461). ``Not a teacher'': the retrospective
+  codes the longest job of the base year outside K--12 teaching.}
 \end{table}
 
-Where both instruments regard the person as a base-year teacher, they
-almost never disagree: 99.1 percent agreement on stay-versus-leave, 77
-true disagreements in 9,461 cases, stable at 98--100 percent in every
-one of the twenty cohorts. The disagreement lives in the 13 percent
-whom the retrospective does not count as teachers at all. They are not
-random: 84 percent of them are panel-leavers, and their retrospective
-longest jobs concentrate in teaching assistant, ``other teachers and
-instructors,'' education administration, postsecondary teaching, and
-childcare. In other words, the linked panel's higher attrition
-(13.6 percent among these stable teachers, against 3.9 under the
-retrospective) is not evidence of hidden exits; it is the sum of
-within-education reshuffling and short spells that the anchor question
-``longest job last year'' correctly refuses to count as leaving the
-profession, plus the reference-week noise---summer non-employment,
-temporary absences---that a single-week snapshot cannot avoid. The two
-instruments measure leaving the \emph{classroom this week} and leaving
-the \emph{profession this year}; for the questions of this paper the
-second is the estimand, and it is measured consistently.
+Wherever the two instruments agree the person was a base-year teacher,
+they almost never disagree about what happened next: \textbf{99.1
+percent} agreement, 77 true conflicts in 9,461 cases, stable at 98--100
+percent in every cohort. The entire distance between the panel's
+apparent attrition (13.6 percent among these stable teachers) and the
+retrospective's (3.9 percent) lives in the 13 percent of panel-teachers
+whom the retrospective does not count as teachers at all---and their
+longest jobs are teaching assistant, other-instructor, education
+administrator, postsecondary teacher, childcare: the education-adjacent
+boundary, plus reference-week noise (summer non-employment, temporary
+absences) that a single-week snapshot cannot avoid. The panel measures
+leaving the \emph{classroom this week}; the retrospective measures
+leaving the \emph{profession this year}. For this paper's questions the
+second is the estimand, and the audit shows it is measured consistently
+---which is also why the raw point-in-time panel rates that circulate in
+policy debates (15 percent and above) should not be read as profession
+exit.
 
-\section*{Appendix B. Harris and Adams (2007), replicated on 2015--2024}
-
-Applying Harris and Adams's design verbatim to the modern
-decade---their teacher definition, their college-graduate restriction,
-their three comparison professions, their decomposition---yields the
-following update of their Tables 1--2.
+\section*{Appendix B. Harris and Adams (2007) on the modern decades}
 
 \begin{table}[h]
   \centering
   \caption{Leaving the profession, by type: 1992--2001 versus 2015--2024.}
   \input{table_app_ha}
   \fignote{Annual rates in percent, college graduates, March CPS.
-  1992--2001 from Harris and Adams (2007), Tables 1--2; 2015--2024
-  computed here on ASEC 2016--2025. ``Switch'': employed in another
-  occupation; ``Out LF'': out of the labor force in the survey week.}
+  1992--2001 from Harris and Adams (2007, Tables 1--2); 2015--2024
+  computed here. ``Switch'': employed in another occupation; ``Out LF'':
+  out of the labor force in the survey week.}
 \end{table}
 
-The levels and the ordering have barely moved in a quarter century:
-teaching's attrition is within half a point of its 1990s value, still
-statistically indistinguishable from nursing once composition is
-controlled, still five points below social work. The internal
-composition drifted in interpretable ways---unemployment exits rose
-(0.6 to 1.0) and the labor-force channel remains teaching's signature,
-59 percent of all exits then, 62 percent now. The regression
-counterparts (Appendix C) tell the same story, including the
-outsized teacher pension coefficient ($-3.6$ percentage points, two to
-three times any comparison profession). Public-school teachers leave at
-6.8 percent against their 6.6 in the 1990s. A literature that has spent
-two decades arguing about whether teacher attrition is exceptional can,
-on this evidence, close the question: it was not then, and it is not
-now.
+Their design, applied verbatim to 2015--2024, returns their world with
+minor drift: teaching within half a point of its 1990s level, still
+indistinguishable from nursing once composition is controlled (the
+teacher--nurse gap ranges from $+$0.3 to $-$1.8 points across control
+sets), still five-plus points below social work. Teaching's labor-force
+exit share---59 percent of attrition then, 62 now---and its outsized
+pension coefficient ($-$3.6 percentage points, versus $-$1.1 to $-$1.6
+in the comparison professions) both survive. A literature that has spent
+two decades relitigating whether teacher attrition is exceptional can
+treat the question as closed: it was not then, and it is not now. What
+this paper adds is everything the level conceals.
 
 \section*{Appendix C. Additional estimation output}
 
 \begin{table}[h]
   \centering
-  \caption{Annual attrition series with destination decomposition.}
-  \input{table_m_annual}
-  \fignote{Calendar years; survey year is calendar plus one. Weighted;
-  unweighted teacher counts in the last column.}
+  \caption{Annual attrition series, 2005--2024.}
+  \input{table_p_series}
+  \fignote{College-graduate and all-teacher definitions. The 2005--2009
+  supplements support only the minimal extraction (occupation pairs);
+  their rates are unweighted and shown for the trend only. The 2013 row
+  uses the reduced five-eighths 2014 file.}
 \end{table}
 
 \begin{table}[h]
   \centering
-  \caption{Teacher coefficient against each comparison profession (LPM).}
-  \begin{tabular}{lccc}
-  \toprule
-   & Nurses & Social workers & Accountants \\
-  \midrule
-  No controls        & \phantom{$-$}0.26 (0.34) & $-$5.30 (0.74) & 1.95 (0.40) \\
-  + demographics     & $-$0.08 (0.36)           & $-$5.40 (0.74) & 2.86 (0.42) \\
-  + job characteristics & $-$1.83 (0.39)        & $-$5.47 (0.75) & 1.19 (0.45) \\
-  \bottomrule
-  \end{tabular}
-  \fignote{Coefficient (percentage points) on a teacher dummy in a
-  weighted linear probability model of leaving the profession, pooled
-  2015--2024 with survey-year fixed effects; robust standard errors in
-  parentheses. Demographics: age, age$^2$, female, Black, married,
-  separated/divorced, advanced degree. Job characteristics: log weekly
-  earnings, pension enrollment. Mirrors Harris and Adams (2007), Table 3.}
+  \caption{Determinants of leaving teaching: full probit.}
+  \input{table_p_probit}
+  \fignote{Average marginal effects, percentage points; college-graduate
+  teachers pooled 2015--2024 with survey-year fixed effects. Children
+  variables from household parent and spouse pointers.}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{Destination occupations of switchers.}
+  \input{table_m_destinations}
+  \fignote{Detailed destination occupations among leavers employed at
+  $t{+}1$, pooled 2015--2024; 19.5 percent of switchers remain in
+  education occupations.}
 \end{table}
 
 \end{document}
