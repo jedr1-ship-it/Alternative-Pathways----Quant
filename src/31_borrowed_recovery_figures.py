@@ -1,6 +1,6 @@
 """
 Figures for "A Borrowed Recovery?" (US brief), from outputs/br_*.csv.
-Six figures, house style (paperstyle), saved to report/figures/br_fig*.pdf.
+House style (paperstyle), saved to report/figures/br_fig*.pdf.
 """
 import numpy as np
 import pandas as pd
@@ -18,13 +18,12 @@ enr = pd.read_csv("outputs/br_enrollment.csv")
 attr = pd.read_csv("outputs/br_attrition_year.csv")
 age = pd.read_csv("outputs/br_attrition_age.csv")
 pay = pd.read_csv("outputs/br_pay_by_year.csv")
-flows = pd.read_csv("outputs/br_flows.csv")
 mkt = pd.read_csv("outputs/br_market.csv")
 
 
-def endlab(ax, x, y, txt, color, dy=0):
-    ax.annotate(txt, (x, y), xytext=(6, dy), textcoords="offset points",
-                va="center", fontsize=9.5, color=color, fontweight="bold")
+def endlab(ax, x, y, txt, color, dy=0, dx=6, fs=9.5):
+    ax.annotate(txt, (x, y), xytext=(dx, dy), textcoords="offset points",
+                va="center", fontsize=fs, color=color, fontweight="bold")
 
 
 def yearticks(ax, lo=2005, hi=2025):
@@ -44,55 +43,68 @@ def fig1():
     ti = tb / tb.loc[2010] * 100
     ei = eb / eb.loc[2010] * 100
     ax.axhline(100, color=GRAY, lw=0.6, ls=":")
-    ax.axvspan(2019.5, 2025.5, color=GRAY, alpha=0.07, lw=0)
     ax.plot(ei.index, ei.values, color=CORAL, lw=2.6)
-    ax.plot(ti.index, ti.values, color=BLUE, lw=2.2, marker="o", ms=3.4)
-    endlab(ax, ti.index[-1], ti.iloc[-1], f"teachers\n{ti.iloc[-1]:.0f}",
-           BLUE, dy=2)
-    endlab(ax, ei.index[-1], ei.iloc[-1], f"pupils\n{ei.iloc[-1]:.0f}",
-           CORAL, dy=-8)
-    ax.annotate("2019 peaks", (2019, ti.loc[2019]), xytext=(-46, 8),
-                textcoords="offset points", fontsize=9, color=SUBTLE)
-    ax.set_xlim(2005, 2027.6)
+    ax.plot(ti.index, ti.values, color=BLUE, lw=2.4, marker="o", ms=3.0)
+    ax.scatter([2025], [ti.loc[2025]], s=46, color=BLUE, zorder=4)
+    ax.annotate("teachers fall 3.7%\nin 2025", (2025, ti.loc[2025]),
+                xytext=(-6, -32), textcoords="offset points", ha="right",
+                fontsize=9, color=BLUE, fontweight="bold")
+    ax.annotate("pupils peak in 2019;\n1.4M gone since",
+                xy=(2019, ei.loc[2019]), xytext=(2013.2, 96.2),
+                fontsize=9, color=CORAL, fontweight="bold", ha="center",
+                arrowprops=dict(arrowstyle="-", color=CORAL, lw=0.8,
+                                connectionstyle="arc3,rad=0.25"))
+    endlab(ax, ti.index[-1], ti.loc[2025], "teachers", BLUE, dy=6)
+    endlab(ax, ei.index[-1], ei.iloc[-1], "pupils", CORAL, dy=-2)
+    ax.set_xlim(2005, 2027.2)
     yearticks(ax)
     ax.set_ylabel("index, 2010 = 100")
-    title(ax, "Enrolment is falling; in 2025 the teaching stock fell too")
+    title(ax, "Pupils have been leaving since 2019; in 2025 teachers followed")
     fig.tight_layout()
     fig.savefig(f"{FIG}/br_fig1_pupils_teachers.pdf")
     plt.close(fig)
 
 
-# ------------------------------------------------ fig 2: the wastage cycle
+# ------------------------------------------------ fig 2: the two exit doors
 def fig2():
-    fig, ax = plt.subplots(figsize=(7.4, 4.1))
+    fig, ax = plt.subplots(figsize=(7.4, 4.3))
     a = attr.sort_values("base_year")
     pre = a[a.base_year <= 2018]["sector_leaver"].mean()
     ax.axhline(pre, color=GRAY, lw=0.8, ls=":")
-    ax.text(2013.9, pre - .55, f"2005–18 average ({pre:.1f}%)",
+    ax.text(2005.1, pre - .62, f"2005–18 average, {pre:.1f}%",
             fontsize=8.5, color=GRAY)
     ax.fill_between(a.base_year, a.sector_leaver, a.class_leaver,
-                    color=GOLD, alpha=0.15, lw=0)
-    ax.plot(a.base_year, a.class_leaver, color=GRAY, lw=1.8, ls="--",
+                    color=GOLD, alpha=0.18, lw=0)
+    ax.plot(a.base_year, a.class_leaver, color=SUBTLE, lw=1.9, ls="--",
             zorder=2)
-    ax.plot(a.base_year, a.sector_leaver, color=BLUE, lw=2.6, zorder=3)
-    notes = {2019: ("2019→20 (COVID)", 12), 2024: ("2024→25", 12)}
-    for y, (lab, off) in notes.items():
-        v = a.loc[a.base_year == y, "sector_leaver"].iloc[0]
-        ax.scatter([y], [v], s=42, color=CORAL, zorder=4)
-        ax.annotate(f"{lab}\n{v:.1f}%", (y, v), xytext=(0, off),
-                    textcoords="offset points", ha="center",
-                    fontsize=8.8, color=CORAL, fontweight="bold")
-    endlab(ax, 2024, a.class_leaver.iloc[-1],
-           f"left the\nclassroom\n{a.class_leaver.iloc[-1]:.1f}%", SUBTLE)
-    endlab(ax, 2024, a.sector_leaver.iloc[-1] - .3,
-           "left education\nentirely", BLUE, dy=-6)
-    ax.text(2011.5, 12.6, "moves to other education work", fontsize=8.5,
-            color="#8a6d1a", style="italic")
-    ax.set_xlim(2005, 2027.8)
+    ax.plot(a.base_year, a.sector_leaver, color=BLUE, lw=2.7, zorder=3)
+    v19 = a.loc[a.base_year == 2019, "sector_leaver"].iloc[0]
+    ax.scatter([2019], [v19], s=44, color=CORAL, zorder=4)
+    ax.annotate(f"pandemic spike, {v19:.1f}%",
+                xy=(2019, v19), xytext=(2014.2, 14.8), ha="center",
+                fontsize=8.8, color=CORAL, fontweight="bold",
+                arrowprops=dict(arrowstyle="-", color=CORAL, lw=0.8,
+                                connectionstyle="arc3,rad=-0.2"))
+    # record wedge bracket at 2024
+    y0 = a.sector_leaver.iloc[-1]
+    y1 = a.class_leaver.iloc[-1]
+    ax.annotate("", xy=(2024.35, y1), xytext=(2024.35, y0),
+                arrowprops=dict(arrowstyle="<->", color="#8a6d1a", lw=1.3))
+    ax.annotate("5.3 pp stay in education\nbut leave the classroom:\na record",
+                (2024.45, (y0 + y1) / 2), xytext=(8, 0),
+                textcoords="offset points", va="center", fontsize=8.8,
+                color="#8a6d1a", fontweight="bold")
+    ax.text(2007.6, 12.1, "left the classroom", fontsize=9, color=SUBTLE,
+            fontweight="bold")
+    ax.text(2007.6, 6.35, "left education entirely", fontsize=9, color=BLUE,
+            fontweight="bold")
+    endlab(ax, 2024, y1, f"{y1:.1f}%", SUBTLE, dy=8, dx=-8, fs=9)
+    endlab(ax, 2024, y0, f"{y0:.1f}%", BLUE, dy=-10, dx=-16, fs=9)
+    ax.set_xlim(2005, 2028.4)
     ax.set_ylim(4, 16.4)
     yearticks(ax)
     ax.set_ylabel("share of public-school teachers, 12-month rate (%)")
-    title(ax, "Leaving education is back to normal; leaving the classroom is not")
+    title(ax, "The exodus ended in 2021; the classroom leak did not")
     fig.tight_layout()
     fig.savefig(f"{FIG}/br_fig2_attrition.pdf")
     plt.close(fig)
@@ -100,18 +112,18 @@ def fig2():
 
 # ------------------------------------------- fig 3: attrition by age band
 def fig3():
-    fig, ax = plt.subplots(figsize=(7.4, 4.1))
+    fig, ax = plt.subplots(figsize=(7.4, 3.9))
     colors = {"under 35": CORAL, "35-49": GREEN, "50+": BLUE}
-    dy = {"under 35": 0, "35-49": 0, "50+": 0}
     for band, g in age.groupby("band"):
         g = g.sort_values("base_year")
         ma = g.sector_leaver.rolling(3, center=True, min_periods=2).mean()
         ax.plot(g.base_year, ma, color=colors[band], lw=2.2)
-        endlab(ax, g.base_year.iloc[-1], ma.iloc[-1], band, colors[band],
-               dy=dy[band])
+        endlab(ax, g.base_year.iloc[-1], ma.iloc[-1], band, colors[band])
+    ax.axvspan(2019, 2021, color=GRAY, alpha=0.08, lw=0)
+    ax.text(2020, 4.6, "COVID\nyears", ha="center", fontsize=8.2, color=GRAY)
     ax.set_xlim(2005, 2026.6)
     yearticks(ax)
-    ax.set_ylabel("left education within 12 months, 3-yr moving avg (%)")
+    ax.set_ylabel("left education within 12 months (%),\n3-yr moving avg")
     title(ax, "Every age group is back near its own normal")
     fig.tight_layout()
     fig.savefig(f"{FIG}/br_fig3_age.pdf")
@@ -120,19 +132,24 @@ def fig3():
 
 # ---------------------------------------------------- fig 4: real weekly pay
 def fig4():
-    fig, ax = plt.subplots(figsize=(7.4, 4.1))
+    fig, ax = plt.subplots(figsize=(7.4, 4.2))
     p = pay.sort_values("year")
     ax.axhline(100, color=GRAY, lw=0.6, ls=":")
-    ax.plot(p.year, p.ba_idx, color=GRAY, lw=2.0)
-    ax.plot(p.year, p.all_idx, color=GOLD, lw=2.0)
-    ax.plot(p.year, p.teacher_idx, color=BLUE, lw=2.6)
+    ax.fill_between(p.year, p.teacher_idx, p.ba_idx, color=CORAL,
+                    alpha=0.10, lw=0)
+    ax.plot(p.year, p.all_idx, color=GOLD, lw=1.4, alpha=0.8)
+    ax.plot(p.year, p.ba_idx, color=SUBTLE, lw=2.2)
+    ax.plot(p.year, p.teacher_idx, color=BLUE, lw=2.7)
     endlab(ax, p.year.iloc[-1], p.teacher_idx.iloc[-1],
            f"teachers\n{p.teacher_idx.iloc[-1]:.0f}", BLUE, dy=-2)
     endlab(ax, p.year.iloc[-1], p.ba_idx.iloc[-1],
            f"graduates (BA+)\n{p.ba_idx.iloc[-1]:.0f}", SUBTLE, dy=4)
     endlab(ax, p.year.iloc[-1], p.all_idx.iloc[-1],
            f"all workers\n{p.all_idx.iloc[-1]:.0f}", GOLD, dy=14)
-    ax.set_xlim(2005, 2028.6)
+    ax.annotate("a teacher earned 87¢ per\ngraduate dollar in 2010;\n"
+                "79¢ in 2025", (2015.6, 91.3), fontsize=9, color=CORAL,
+                fontweight="bold", ha="center", va="top")
+    ax.set_xlim(2005, 2028.8)
     yearticks(ax)
     ax.set_ylabel("real median weekly earnings, 2010 = 100")
     title(ax, "Teacher pay has fallen behind other graduates")
@@ -141,75 +158,72 @@ def fig4():
     plt.close(fig)
 
 
-# ------------------------------------------------- fig 5: entry vs exit
+# --------------------------------- fig 5: unemployment vs leaving teaching
 def fig5():
-    fig, ax = plt.subplots(figsize=(7.4, 4.1))
-    f = flows.sort_values("base_year")
-    ex = f.exit_rate.rolling(3, center=True, min_periods=2).mean()
-    en = f.entry_rate.rolling(3, center=True, min_periods=2).mean()
-    ax.plot(f.base_year, f.exit_rate, color=CORAL, lw=0.9, alpha=0.35)
-    ax.plot(f.base_year, f.entry_rate, color=GREEN, lw=0.9, alpha=0.35)
-    ax.plot(f.base_year, ex, color=CORAL, lw=2.6)
-    ax.plot(f.base_year, en, color=GREEN, lw=2.6)
-    ax.fill_between(f.base_year, en, ex, where=ex >= en,
-                    color=CORAL, alpha=0.14, lw=0)
-    ax.fill_between(f.base_year, en, ex, where=ex < en,
-                    color=GREEN, alpha=0.14, lw=0)
-    endlab(ax, f.base_year.iloc[-1], ex.iloc[-1],
-           f"exits\n{f.exit_rate.iloc[-1]:.1f}%", CORAL, dy=4)
-    endlab(ax, f.base_year.iloc[-1], en.iloc[-1],
-           f"entries\n{f.entry_rate.iloc[-1]:.1f}%", GREEN, dy=-8)
-    ax.set_xlim(2005, 2027)
+    fig, ax = plt.subplots(figsize=(7.4, 4.6))
+    m = mkt.dropna(subset=["sector_leaver"]).sort_values("year")
+    ax.plot(m.year, m.sector_leaver, color=BLUE, lw=2.8, zorder=3)
+    ax.set_ylabel("teachers leaving education (%)", color=BLUE)
+    ax.tick_params(axis="y", labelcolor=BLUE)
+    ax.set_ylim(6.3, 10.9)
+    axr = ax.twinx()
+    axr.plot(m.year, m.unrate, color=CORAL, lw=2.2, ls="--", zorder=2)
+    axr.set_ylabel("unemployment rate (%), inverted scale", color=CORAL)
+    axr.tick_params(axis="y", labelcolor=CORAL)
+    axr.set_ylim(12.4, 2.2)          # inverted: good times point up
+    axr.spines["right"].set_visible(True)
+
+    def note(x, y, txt, dx, dy, color=SUBTLE):
+        ax.annotate(txt, xy=(x, y), xytext=(dx, dy),
+                    textcoords="offset points", fontsize=8.8, color=color,
+                    fontweight="bold", ha="center",
+                    arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8))
+    note(2009.5, 7.38, "worst market in decades:\nteachers stay put",
+         30, -46)
+    note(2019, 10.43, "tightest market in 50 years:\nrecord exit", -66, 2)
+    note(2023.6, 7.75, "the market cools,\nexits settle", -10, -44)
+    endlab(ax, 2024, m.sector_leaver.iloc[-1], "teachers\nleaving", BLUE,
+           dy=6)
+    endlab(axr, 2024, m.unrate.iloc[-1], "unemployment\n(inverted)", CORAL,
+           dy=-18)
+    ax.set_xlim(2005, 2027.4)
     yearticks(ax, 2005, 2024)
-    ax.set_ylabel("gross flows, % of the teaching stock")
-    title(ax, "In 2024–25 exits outpaced entries")
+    title(ax, "Teachers leave when jobs are plentiful, and stay when they "
+              "are not")
     fig.tight_layout()
-    fig.savefig(f"{FIG}/br_fig5_flows.pdf")
+    fig.savefig(f"{FIG}/br_fig5_unemployment.pdf")
     plt.close(fig)
 
 
-# --------------------------------------- fig 6: the borrowed-recovery test
+# ----------------------------------------------- fig 6: the quits scatter
 def fig6():
-    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(8.8, 4.0),
-                                  gridspec_kw={"width_ratios": [1.45, 1]})
+    fig, ax = plt.subplots(figsize=(5.6, 4.0))
     m = mkt.dropna(subset=["sector_leaver"]).sort_values("year")
-    ax.plot(m.year, m.sector_leaver, color=BLUE, lw=2.6)
-    ax.set_ylabel("teachers leaving education (%)", color=BLUE)
-    ax.tick_params(axis="y", labelcolor=BLUE)
-    axr = ax.twinx()
-    axr.plot(m.year, m.unrate, color=CORAL, lw=2.2, ls="--")
-    axr.set_ylabel("unemployment rate (%), inverted", color=CORAL)
-    axr.tick_params(axis="y", labelcolor=CORAL)
-    axr.invert_yaxis()
-    axr.spines["right"].set_visible(True)
-    ax.set_xlim(2005, 2025)
-    yearticks(ax, 2005, 2024)
-    title(ax, "Teachers leave when jobs are plentiful")
-
     r = np.corrcoef(m.sector_leaver, m.quits_private)[0, 1]
     b, a = np.polyfit(m.quits_private, m.sector_leaver, 1)
-    xs = np.linspace(m.quits_private.min() - .05,
-                     m.quits_private.max() + .05, 50)
-    ax2.plot(xs, a + b * xs, color=GRAY, lw=1.4)
-    ax2.scatter(m.quits_private, m.sector_leaver, s=26, color=BLUE,
-                zorder=3)
+    xs = np.linspace(m.quits_private.min() - .07,
+                     m.quits_private.max() + .07, 50)
+    ax.plot(xs, a + b * xs, color=GRAY, lw=1.4)
+    ax.scatter(m.quits_private, m.sector_leaver, s=30, color=BLUE, zorder=3)
     hl = m[m.year == 2024]
-    ax2.scatter(hl.quits_private, hl.sector_leaver, s=52, color=CORAL,
-                zorder=4)
+    ax.scatter(hl.quits_private, hl.sector_leaver, s=64, color=CORAL,
+               zorder=4)
     for y in (2009, 2019, 2022, 2024):
         row = m[m.year == y]
-        if len(row):
-            ax2.annotate(str(y), (row.quits_private.iloc[0],
-                                  row.sector_leaver.iloc[0]),
-                         xytext=(5, 4), textcoords="offset points",
-                         fontsize=8.5,
-                         color=CORAL if y == 2024 else SUBTLE,
-                         fontweight="bold" if y == 2024 else "normal")
-    ax2.set_xlabel("private quits rate (%)")
-    ax2.set_ylabel("teachers leaving education (%)")
-    title(ax2, f"r = {r:+.2f}")
+        ax.annotate(str(y), (row.quits_private.iloc[0],
+                             row.sector_leaver.iloc[0]),
+                    xytext=(6, 4), textcoords="offset points", fontsize=8.5,
+                    color=CORAL if y == 2024 else SUBTLE,
+                    fontweight="bold" if y == 2024 else "normal")
+    ax.annotate(f"slope: +{b:.2f} pp of teacher exit\nper pp of quits"
+                f"  (r = {r:+.2f})",
+                (0.03, 0.94), xycoords="axes fraction", va="top",
+                fontsize=9, color=SUBTLE)
+    ax.set_xlabel("private-sector quits rate (%)")
+    ax.set_ylabel("teachers leaving education (%)")
+    title(ax, "Roughly half a point of exit per point of quits")
     fig.tight_layout()
-    fig.savefig(f"{FIG}/br_fig6_market.pdf")
+    fig.savefig(f"{FIG}/br_fig6_quits.pdf")
     plt.close(fig)
 
 
