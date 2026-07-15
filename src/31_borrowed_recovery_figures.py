@@ -46,17 +46,12 @@ def fig1():
     ax.plot(ei.index, ei.values, color=CORAL, lw=2.6)
     ax.plot(ti.index, ti.values, color=BLUE, lw=2.4, marker="o", ms=3.0)
     ax.scatter([2025], [ti.loc[2025]], s=46, color=BLUE, zorder=4)
-    ax.annotate("teachers fall 3.7%\nin 2025", (2025, ti.loc[2025]),
-                xytext=(-6, -32), textcoords="offset points", ha="right",
-                fontsize=9, color=BLUE, fontweight="bold")
-    ax.annotate("pupils peak in 2019;\n1.4M gone since",
-                xy=(2019, ei.loc[2019]), xytext=(2013.2, 96.2),
-                fontsize=9, color=CORAL, fontweight="bold", ha="center",
-                arrowprops=dict(arrowstyle="-", color=CORAL, lw=0.8,
-                                connectionstyle="arc3,rad=0.25"))
-    endlab(ax, ti.index[-1], ti.loc[2025], "teachers", BLUE, dy=6)
-    endlab(ax, ei.index[-1], ei.iloc[-1], "pupils", CORAL, dy=-2)
-    ax.set_xlim(2005, 2027.2)
+    endlab(ax, ti.index[-1], ti.loc[2025], "teachers:\n−3.7% in 2025",
+           BLUE, dy=2)
+    endlab(ax, ei.index[-1], ei.iloc[-1],
+           "pupils: peak 2019,\n−1.4M since", CORAL, dy=-13, dx=10)
+    ax.set_xlim(2005, 2028.6)
+    ax.set_ylim(93.5, 113)
     yearticks(ax)
     ax.set_ylabel("index, 2010 = 100")
     title(ax, "Pupils have been leaving since 2019; in 2025 teachers followed")
@@ -70,9 +65,9 @@ def fig2():
     fig, ax = plt.subplots(figsize=(7.4, 4.3))
     a = attr.sort_values("base_year")
     pre = a[a.base_year <= 2018]["sector_leaver"].mean()
-    ax.axhline(pre, color=GRAY, lw=0.8, ls=":")
-    ax.text(2005.1, pre - .62, f"2005–18 average, {pre:.1f}%",
-            fontsize=8.5, color=GRAY)
+    ax.axhline(pre, color=GRAY, lw=0.8, ls=":", xmax=0.845)
+    ax.text(2025.0, 7.06, f"2005–18\naverage, {pre:.1f}%",
+            fontsize=8.2, color=GRAY, va="top")
     ax.fill_between(a.base_year, a.sector_leaver, a.class_leaver,
                     color=GOLD, alpha=0.18, lw=0)
     ax.plot(a.base_year, a.class_leaver, color=SUBTLE, lw=1.9, ls="--",
@@ -94,12 +89,12 @@ def fig2():
                 (2024.45, (y0 + y1) / 2), xytext=(8, 0),
                 textcoords="offset points", va="center", fontsize=8.8,
                 color="#8a6d1a", fontweight="bold")
-    ax.text(2007.6, 12.1, "left the classroom", fontsize=9, color=SUBTLE,
+    ax.text(2007.6, 12.35, "left the classroom", fontsize=9, color=SUBTLE,
             fontweight="bold")
-    ax.text(2007.6, 6.35, "left education entirely", fontsize=9, color=BLUE,
+    ax.text(2010.5, 6.3, "left education entirely", fontsize=9, color=BLUE,
             fontweight="bold")
-    endlab(ax, 2024, y1, f"{y1:.1f}%", SUBTLE, dy=8, dx=-8, fs=9)
-    endlab(ax, 2024, y0, f"{y0:.1f}%", BLUE, dy=-10, dx=-16, fs=9)
+    endlab(ax, 2024, y1, f"{y1:.1f}%", SUBTLE, dy=9, dx=-11, fs=9)
+    endlab(ax, 2024, y0, f"{y0:.1f}%", BLUE, dy=-11, dx=-11, fs=9)
     ax.set_xlim(2005, 2028.4)
     ax.set_ylim(4, 16.4)
     yearticks(ax)
@@ -147,7 +142,7 @@ def fig4():
     endlab(ax, p.year.iloc[-1], p.all_idx.iloc[-1],
            f"all workers\n{p.all_idx.iloc[-1]:.0f}", GOLD, dy=14)
     ax.annotate("a teacher earned 87¢ per\ngraduate dollar in 2010;\n"
-                "79¢ in 2025", (2015.6, 91.3), fontsize=9, color=CORAL,
+                "79¢ in 2025", (2009.4, 108.6), fontsize=9, color=CORAL,
                 fontweight="bold", ha="center", va="top")
     ax.set_xlim(2005, 2028.8)
     yearticks(ax)
@@ -180,12 +175,12 @@ def fig5():
                     arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8))
     note(2009.5, 7.38, "worst market in decades:\nteachers stay put",
          30, -46)
-    note(2019, 10.43, "tightest market in 50 years:\nrecord exit", -66, 2)
-    note(2023.6, 7.75, "the market cools,\nexits settle", -10, -44)
+    note(2019, 10.43, "tightest market in 50 years:\nrecord exit", -70, 4)
+    note(2023.6, 7.75, "the market cools,\nexits settle", -14, -46)
     endlab(ax, 2024, m.sector_leaver.iloc[-1], "teachers\nleaving", BLUE,
            dy=6)
-    endlab(axr, 2024, m.unrate.iloc[-1], "unemployment\n(inverted)", CORAL,
-           dy=-18)
+    axr.text(2006.1, 3.35, "unemployment (inverted)", fontsize=9.5,
+             color=CORAL, fontweight="bold")
     ax.set_xlim(2005, 2027.4)
     yearticks(ax, 2005, 2024)
     title(ax, "Teachers leave when jobs are plentiful, and stay when they "
