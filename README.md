@@ -17,16 +17,19 @@ con la mayor cantidad de características observadas.
   fuerte: tiempo parcial (+12,2 pp). Tendencia: ~13% (2005–10) → ~17% (2022–24).
 - **Informe** estilo policy brief en `report/teacher_attrition_brief.pdf`
   (LaTeX, 6 figuras validadas, 1 tabla de regresión).
-- **Réplica US del informe de EPI (UK) "A borrowed recovery" (2026)** en
-  `report/borrowed_recovery_us.pdf`: *No Borrowed Recovery — the 2025
-  teacher-workforce data for the United States*. Seis figuras sobre CPS
-  2005–2025 + series oficiales (NCES 203.10, FRED/BLS/JOLTS). Hallazgo:
-  el mercado laboral se enfrió (quits 3,1→2,3) pero el abandono docente
-  sigue en 17,6% —2 pp por encima de lo que predice su relación histórica
-  con los quits (r=+0,60)—, el stock cayó 3,7% en 2025 y la entrada mediana
-  tiene 42 años. Sin octubre de 2025 (shutdown federal: no hubo CPS).
-  Scripts: `src/30_borrowed_recovery_data.py`,
-  `src/31_borrowed_recovery_figures.py`.
+- **Brief anual de coyuntura** en `report/borrowed_recovery_us.pdf`:
+  *A Borrowed Recovery? The 2025 teacher-workforce data for the United
+  States* (estilo EPI-UK, 5 figuras). Medida comparable a los benchmarks
+  (Harris & Adams / TFS): docente pública FT que sale de *toda* ocupación
+  educativa y no retorna. Historia 2025: el abandono del sector vuelve a
+  la norma (7,9% vs 7,7% pre-COVID; pico 10,4%), pero salir del aula sigue
+  elevado (13,3%; brecha récord de 5,3 pp hacia empleo educativo no
+  docente), el stock cae 3,7% en 2025, la entrada mediana tiene 42 años, el
+  salario real sigue −5,6% vs 2010 (79¢ por dólar del graduado) y la
+  retención está exactamente donde la pone el mercado frío (quits, r=+0,33;
+  2024 sobre la línea) — recuperación prestada del ciclo. Sin octubre de
+  2025 (shutdown federal: no hubo CPS). Scripts:
+  `src/30_borrowed_recovery_data.py`, `src/31_borrowed_recovery_figures.py`.
 - Nota histórica: `src/01_panel_attrition_demo.py` fue la demo inicial de la
   metodología sobre el PSID 1976–1982; ver `docs/DATA_ACCESS.md`.
 

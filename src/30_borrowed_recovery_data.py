@@ -120,10 +120,37 @@ def build_enrollment():
 
 
 # ------------------------------------------------------------- panel-based
+# Occupations adjacent to classroom teaching (postsecondary, other teachers
+# and instructors, counselors, librarians, admin...), as in 15_reconcile.py
+EDU_ADJ = {230, 2200, 2205, 2340, 2350, 2360, 2430, 2435, 2440,
+           2540, 2545, 2550, 2555}
+
+
+def load_strict_panel():
+    """Benchmark-consistent universe: public-school full-time K-12
+    teachers (BA+) whose rotation allows re-interviews (sample B).
+    sector_leaver: not teaching at t+12 nor at any later interview, and in
+    no education-adjacent occupation at t+12 — the definition that matches
+    the TFS / retrospective-CPS benchmarks (see 15_reconcile.py).
+    class_leaver: not teaching at t+12 nor at any later interview."""
+    import importlib.util as iu
+    spec2 = iu.spec_from_file_location(
+        "covariates", os.path.join(os.path.dirname(__file__),
+                                   "covariates.py"))
+    cov = iu.module_from_spec(spec2)
+    spec2.loader.exec_module(cov)
+    df = cov.load_panel()
+    p = df[df["sampleB"] & (df["public"] == 1)].copy()
+    p["class_leaver"] = p["leaver_p"]
+    p["sector_leaver"] = ((p["leaver_p"] == 1)
+                          & ~p["PTIO1OCD_1"].isin(EDU_ADJ)).astype(int)
+    return p
+
+
 def load_panel():
     p = pd.read_csv("data/processed/cps_teacher_panel.csv",
                     dtype={"HRHHID": str, "HRHHID2": str})
-    # analytic universe of the brief: full-time K-12 teachers, BA+
+    # broad universe (stocks, pay): full-time K-12 teachers, BA+
     p = p[p["PTIO1OCD_0"].isin(K12_OCC) & ~p["PEHRUSL1_0"].between(1, 34)]
     return p.copy()
 
@@ -138,26 +165,28 @@ def wmedian(x, w):
     return x[o][np.searchsorted(c, 0.5 * c[-1])]
 
 
-def build_attrition(p):
+def build_attrition(ps):
     ev = pd.read_csv(f"{OUT}/evolution_by_year_gender.csv")
-    yr = (p.groupby("base_year")
+    yr = (ps.groupby("base_year")
             .apply(lambda d: pd.Series(
-                {"attr12": wavg(d, "leaver"),
+                {"sector_leaver": wavg(d, "sector_leaver"),
+                 "class_leaver": wavg(d, "class_leaver"),
                  "n": len(d)}), include_groups=False)
             .reset_index())
-    yr = yr.merge(ev[["base_year", "attrp_all", "ret_all"]],
-                  on="base_year", how="left")
-    yr.to_csv(f"{OUT}/br_attrition_year.csv", index=False)
-    print("attr12 tail:\n", yr.tail(4).round(2).to_string(index=False))
+    yr["wedge"] = yr["class_leaver"] - yr["sector_leaver"]
+    yr = yr.merge(ev[["base_year", "ret_all"]], on="base_year", how="left")
+    yr.round(3).to_csv(f"{OUT}/br_attrition_year.csv", index=False)
+    print("attrition tail:\n", yr.tail(4).round(2).to_string(index=False))
 
-    bands = pd.cut(p["PRTAGE_0"], [0, 29, 39, 49, 98],
-                   labels=["under 30", "30-39", "40-49", "50+"])
-    age = (p.assign(band=bands).groupby(["base_year", "band"], observed=True)
+    bands = pd.cut(ps["PRTAGE_0"], [0, 34, 49, 98],
+                   labels=["under 35", "35-49", "50+"])
+    age = (ps.assign(band=bands)
+             .groupby(["base_year", "band"], observed=True)
              .apply(lambda d: pd.Series(
-                 {"attr12": wavg(d, "leaver"), "n": len(d)}),
-                 include_groups=False)
+                 {"sector_leaver": wavg(d, "sector_leaver"),
+                  "n": len(d)}), include_groups=False)
              .reset_index())
-    age.to_csv(f"{OUT}/br_attrition_age.csv", index=False)
+    age.round(3).to_csv(f"{OUT}/br_attrition_age.csv", index=False)
     return yr
 
 
@@ -278,12 +307,17 @@ def build_market(attr):
     mk["real_ahe"] = mk["ahe"] / mk["cpi"]
     mk["real_wage_growth"] = mk["real_ahe"].pct_change() * 100
     mk = mk.merge(attr.rename(columns={"base_year": "year"})[
-        ["year", "attr12"]], on="year", how="left")
+        ["year", "sector_leaver", "class_leaver"]], on="year", how="left")
     mk = mk[(mk.year >= 2005) & (mk.year <= 2025)]
     mk.round(3).to_csv(f"{OUT}/br_market.csv", index=False)
-    s = mk.dropna(subset=["attr12"])
+    s = mk.dropna(subset=["sector_leaver"])
     for c in ["unemp_ba", "quits_private", "real_wage_growth"]:
-        print(f"corr(attr12, {c}) = {s['attr12'].corr(s[c]):+.2f}")
+        print(f"corr(sector_leaver, {c}) = "
+              f"{s['sector_leaver'].corr(s[c]):+.2f}")
+    b, a = np.polyfit(s["quits_private"], s["sector_leaver"], 1)
+    q = s.loc[s.year == 2024, "quits_private"].iloc[0]
+    print(f"quits fit: slope {b:+.2f}; 2024 predicted {a + b * q:.2f} "
+          f"vs actual {s.loc[s.year == 2024, 'sector_leaver'].iloc[0]:.2f}")
     return mk
 
 
@@ -292,9 +326,11 @@ if __name__ == "__main__":
     build_stock()
     build_enrollment()
     p = load_panel()
-    print(f"\npanel universe: {len(p):,} full-time K-12 teachers, "
+    print(f"\nbroad universe: {len(p):,} full-time K-12 teachers, "
           f"base years {p.base_year.min()}-{p.base_year.max()}")
-    attr = build_attrition(p)
+    ps = load_strict_panel()
+    print(f"benchmark universe (public, sample B): {len(ps):,}")
+    attr = build_attrition(ps)
     build_pay(p)
     build_destinations(p)
     build_flows_2024()
