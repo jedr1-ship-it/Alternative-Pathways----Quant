@@ -4,3 +4,6 @@ __pycache__/
 data/raw/cps/
 data/interim/
 data/raw/asec/
+report/*.aux
+report/*.log
+report/*.out
