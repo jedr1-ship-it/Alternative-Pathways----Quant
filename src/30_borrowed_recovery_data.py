@@ -300,10 +300,12 @@ def fred_annual(sid):
 
 def build_market(attr):
     u = fred_annual("LNS14027662").rename(columns={"v": "unemp_ba"})
+    ur = fred_annual("UNRATE").rename(columns={"v": "unrate"})
     q = fred_annual("JTS1000QUR").rename(columns={"v": "quits_private"})
     ahe = fred_annual("CES0500000003").rename(columns={"v": "ahe"})
     cpi = fred_annual("CPIAUCSL").rename(columns={"v": "cpi"})
-    mk = u.merge(q, on="year").merge(ahe, on="year").merge(cpi, on="year")
+    mk = (u.merge(ur, on="year").merge(q, on="year")
+           .merge(ahe, on="year").merge(cpi, on="year"))
     mk["real_ahe"] = mk["ahe"] / mk["cpi"]
     mk["real_wage_growth"] = mk["real_ahe"].pct_change() * 100
     mk = mk.merge(attr.rename(columns={"base_year": "year"})[
@@ -311,7 +313,7 @@ def build_market(attr):
     mk = mk[(mk.year >= 2005) & (mk.year <= 2025)]
     mk.round(3).to_csv(f"{OUT}/br_market.csv", index=False)
     s = mk.dropna(subset=["sector_leaver"])
-    for c in ["unemp_ba", "quits_private", "real_wage_growth"]:
+    for c in ["unemp_ba", "unrate", "quits_private", "real_wage_growth"]:
         print(f"corr(sector_leaver, {c}) = "
               f"{s['sector_leaver'].corr(s[c]):+.2f}")
     b, a = np.polyfit(s["quits_private"], s["sector_leaver"], 1)

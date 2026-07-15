@@ -177,13 +177,14 @@ def fig6():
     ax.set_ylabel("teachers leaving education (%)", color=BLUE)
     ax.tick_params(axis="y", labelcolor=BLUE)
     axr = ax.twinx()
-    axr.plot(m.year, m.quits_private, color=CORAL, lw=2.2, ls="--")
-    axr.set_ylabel("private-sector quits rate (%)", color=CORAL)
+    axr.plot(m.year, m.unrate, color=CORAL, lw=2.2, ls="--")
+    axr.set_ylabel("unemployment rate (%), inverted", color=CORAL)
     axr.tick_params(axis="y", labelcolor=CORAL)
+    axr.invert_yaxis()
     axr.spines["right"].set_visible(True)
     ax.set_xlim(2005, 2025)
     yearticks(ax, 2005, 2024)
-    title(ax, "Retention rests on a cold job market")
+    title(ax, "Teachers leave when jobs are plentiful")
 
     r = np.corrcoef(m.sector_leaver, m.quits_private)[0, 1]
     b, a = np.polyfit(m.quits_private, m.sector_leaver, 1)
