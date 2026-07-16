@@ -48,6 +48,7 @@ MCOLS = [("HRHHID", 1, 15, str), ("HRHHID2", 71, 75, str),
          ("PULINENO", 147, 148, int), ("PRTAGE", 122, 123, int),
          ("PEMARITL", 125, 126, int), ("PESEX", 129, 130, int),
          ("PEEDUCA", 137, 138, int), ("PTDTRACE", 139, 140, int),
+         ("PEMLR", 180, 181, int),
          ("PEHRUSL1", 218, 219, int), ("PEIO1COW", 432, 433, int),
          ("PWSSWGT", 613, 622, float), ("PRCHLD", 633, 634, int),
          ("PRNMCHLD", 635, 636, int)]
@@ -104,6 +105,7 @@ def build_tier_b():
         d["n_children"] = d.pop("PRNMCHLD").clip(lower=0)
         d["cur_parttime"] = d.pop("PEHRUSL1").between(1, 34).astype(float)
         d["cur_public"] = d.pop("PEIO1COW").isin([1, 2, 3]).astype(float)
+        d["PEMLR"] = d["PEMLR"]
         d["WGT"] = d.pop("PWSSWGT")            # monthly person weight
         d["linked_demo"] = d["A_AGE"].notna().astype(int)
         d["tier"] = "B"
@@ -183,19 +185,28 @@ for ay, g in M.groupby("asec_year"):
     still.loc[g.index] = g["PEIOOCC"].isin(cs)
 M["teacher"] = teach.astype(int)
 # routes: tier A has current labor-force status; B/C occupation pair only
-emp = M["A_LFSR"].isin([1, 2]) if "A_LFSR" in M else pd.Series(False,
-                                                               M.index)
-M["switch"] = np.where(M["tier"] == "A",
-                       (emp & ~still).astype(float), np.nan)
-M["unemp"] = np.where(M["tier"] == "A",
-                      M["A_LFSR"].isin([3, 4]).astype(float), np.nan)
-M["leftlf"] = np.where(M["tier"] == "A",
-                       (~M["A_LFSR"].isin([1, 2, 3, 4])).astype(float),
-                       np.nan)
-M["leaver"] = np.where(M["tier"] == "A",
-                       ((M["switch"] == 1) | (M["unemp"] == 1)
-                        | (M["leftlf"] == 1)).astype(float),
-                       (~still).astype(float))   # B/C: occupation pair
+empA = M["A_LFSR"].isin([1, 2])
+empB = M["PEMLR"].isin([1, 2]) if "PEMLR" in M.columns else \
+    pd.Series(False, M.index)
+unA, unB = M["A_LFSR"].isin([3, 4]), (M["PEMLR"].isin([3, 4])
+                                      if "PEMLR" in M.columns else
+                                      pd.Series(False, M.index))
+hasB = (M["tier"] == "B") & M["PEMLR"].notna() if "PEMLR" in M.columns \
+    else pd.Series(False, M.index)
+M["switch"] = np.select([M["tier"] == "A", hasB],
+                        [(empA & ~still).astype(float),
+                         (empB & ~still).astype(float)], np.nan)
+M["unemp"] = np.select([M["tier"] == "A", hasB],
+                       [unA.astype(float), unB.astype(float)], np.nan)
+M["leftlf"] = np.select(
+    [M["tier"] == "A", hasB],
+    [(~M["A_LFSR"].isin([1, 2, 3, 4])).astype(float),
+     (~M["PEMLR"].isin([1, 2, 3, 4])).astype(float)], np.nan)
+M["leaver"] = np.where(
+    (M["tier"] == "A") | hasB,
+    ((M["switch"] == 1) | (M["unemp"] == 1)
+     | (M["leftlf"] == 1)).astype(float),
+    (~still).astype(float))   # C y B-sin-enlace: par de ocupaciones
 M["female"] = (M["A_SEX"] == 2).astype(float)
 M["black"] = (M["PRDTRACE"] == 2).astype(float)
 M["married"] = M["A_MARITL"].isin([1, 2, 3]).astype(float)

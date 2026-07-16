@@ -40,10 +40,10 @@ WF = pd.read_csv("outputs/p_workforce.csv").sort_values("cal_year")
 panels = [("age", "Mean age (years)", 2005), ("female", "Female", 2005),
           ("ma_plus", "Master's or higher", 2005),
           ("black", "Black", 2005),
-          ("child_u6", "Child under 6", 2010),
-          ("public", "Public school", 2010),
-          ("parttime", "Part-time", 2010),
-          ("pension", "Pension plan", 2010)]
+          ("child_u6", "Child under 6", 2005),
+          ("public", "Public school", 2005),
+          ("parttime", "Part-time", 2005),
+          ("pension", "Pension plan", 2005)]
 fig, axes = plt.subplots(2, 4, figsize=(11.8, 5.6))
 for axp, (v, lab, start) in zip(axes.flat, panels):
     d = WF[(WF["cal_year"] >= start) & WF[v].notna()]
@@ -71,8 +71,8 @@ for axp, (v, lab, start) in zip(axes.flat, panels):
                  textcoords="offset points", ha="right", fontsize=8.8,
                  color=BLUE, fontweight="bold")
     axp.set_xlim(2003.6, 2025.4)
-    axp.set_xticks(range(2005, 2025, 2))
-    axp.set_xticklabels([str(t) for t in range(2005, 2025, 2)],
+    axp.set_xticks(range(2006, 2025, 2))
+    axp.set_xticklabels([str(t) for t in range(2006, 2025, 2)],
                         fontsize=6.6, rotation=45)
     axp.tick_params(axis="y", labelsize=8)
     axp.grid(axis="y", color="#EFEFEF", lw=0.6)
@@ -80,40 +80,6 @@ for axp, (v, lab, start) in zip(axes.flat, panels):
     despine(axp)
 fig.tight_layout(h_pad=2.4)
 fig.savefig(f"{FIG}/g1_workforce.pdf")
-plt.close(fig)
-
-# ================ G9: the fading family exit ================
-EV = pd.read_csv("outputs/w_outlf_young_evolution.csv")
-WFa = WF[WF["cal_year"] >= 2010]
-fig, ax = plt.subplots(figsize=(8.0, 4.0))
-y1s = EV["child_u6"].rolling(3, center=True, min_periods=2).mean()
-ax.plot(EV["cal_year"], EV["child_u6"], color="#E8C4C0", lw=1.0)
-ax.plot(EV["cal_year"], y1s, color=CORAL, lw=2.2, marker="o", ms=4)
-ax.plot(WFa["cal_year"], WFa["child_u6"], color=BLUE, lw=2.0, marker="s",
-        ms=3.6)
-ax.annotate("share with a child under 6 among\nyoung leavers out of the "
-            "labor force (<55)", (2013.2, 39.5), fontsize=9, color=CORAL,
-            fontweight="bold", ha="center")
-ax.annotate("share with a child under 6\namong all teachers",
-            (2020.7, 21.3), fontsize=9, color=BLUE, fontweight="bold",
-            ha="center")
-for ser, xs2, c in [(y1s, EV["cal_year"], CORAL),
-                    (WFa["child_u6"].reset_index(drop=True),
-                     WFa["cal_year"].reset_index(drop=True), BLUE)]:
-    ax.annotate(f"{ser.iloc[0]:.0f}", (xs2.iloc[0], ser.iloc[0]),
-                xytext=(-2, 8), textcoords="offset points", fontsize=8.8,
-                color=c, fontweight="bold", ha="center")
-    ax.annotate(f"{ser.iloc[-1]:.0f}", (xs2.iloc[-1], ser.iloc[-1]),
-                xytext=(2, 8), textcoords="offset points", fontsize=8.8,
-                color=c, fontweight="bold", ha="center")
-ax.set_ylim(0, 46)
-ax.set_xticks(range(2010, 2025, 2))
-ax.set_ylabel("Percent with a child under 6")
-ax.grid(axis="y", color="#EFEFEF", lw=0.6)
-ax.set_axisbelow(True)
-despine(ax)
-fig.tight_layout()
-fig.savefig(f"{FIG}/g9_family_fade.pdf")
 plt.close(fig)
 
 # ================ G2 evolution ================
@@ -128,8 +94,8 @@ ax.text(1996.9, 6.75, "Harris\u2013Adams benchmark,\n1992\u20132001: 7.7",
 hist = S[S["weighted"] == 0]
 ax.plot(hist["cal_year"], hist["leaver_oldstyle"], color=GRAY, lw=1.5,
         ls="--", marker="s", ms=3.6)
-ax.annotate("1997\u20132009: comparable early files\n"
-            "(occupation pairs, unweighted)", (2002.9, 10.6), fontsize=8.4,
+ax.annotate("1997\u20132004: earliest files\n"
+            "(occupation pairs, unweighted)", (2000.6, 11.2), fontsize=8.4,
             color=GRAY, ha="center")
 # main series with CI ribbon
 ok = S["leaver_ba"].notna()
