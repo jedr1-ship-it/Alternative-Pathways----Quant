@@ -43,8 +43,8 @@ def find_file(y):
         return None
     files = re.findall(r'href="([^"]+)"', html)
     cand = [f for f in files if re.search(
-        r"(mar|asec).*(supp|pubuse).*\.(gz|Z|zip)$", f, re.I)
-        and "repwgt" not in f.lower()]
+        r"(mar|asec)[^\"]*\.(dat\.gz|cps\.gz|pub\.gz|zip)$", f, re.I)
+        and not re.search(r"repwgt|ffext|hhext|\.dd\.", f, re.I)]
     pref = [f for f in cand if f.endswith(".gz")]
     return (pref or cand or [None])[0]
 

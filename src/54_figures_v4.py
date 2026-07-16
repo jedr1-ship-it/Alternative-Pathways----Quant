@@ -37,28 +37,30 @@ def despine(ax):
 
 # ================ G1 workforce ================
 WF = pd.read_csv("outputs/p_workforce.csv").sort_values("cal_year")
-panels = [("female", "Female (%)"), ("age", "Mean age (years)"),
-          ("ma_plus", "Master's or higher (%)"),
-          ("public", "Public school (%)"), ("parttime", "Part-time (%)"),
-          ("pension", "Pension plan (%)"), ("black", "Black (%)"),
-          ("child_u6", "Child under 6 (%)")]
+panels = [("age", "Mean age (years)", 2005), ("female", "Female (%)", 2005),
+          ("ma_plus", "Master's or higher (%)", 2005),
+          ("black", "Black (%)", 2005),
+          ("child_u6", "Child under 6 (%)", 2010),
+          ("public", "Public school (%)", 2010),
+          ("parttime", "Part-time (%)", 2010),
+          ("pension", "Pension plan (%)", 2010)]
 fig, axes = plt.subplots(2, 4, figsize=(11.8, 5.6))
-for axp, (v, lab) in zip(axes.flat, panels):
-    y = WF[v].astype(float)
+for axp, (v, lab, start) in zip(axes.flat, panels):
+    d = WF[(WF["cal_year"] >= start) & WF[v].notna()]
+    y = d[v].astype(float).reset_index(drop=True)
+    xs = d["cal_year"].reset_index(drop=True)
     sm3 = y.rolling(3, center=True, min_periods=2).mean()
-    axp.plot(WF["cal_year"], y, color="#BBBBBB", lw=1.0)
-    axp.plot(WF["cal_year"], sm3, color=BLUE, lw=2.2)
-    i13 = WF["cal_year"] == 2013
-    axp.plot(WF.loc[i13, "cal_year"], y[i13], "o", mfc="white", mec=GRAY,
-             ms=4)
+    axp.plot(xs, y, color="#BBBBBB", lw=1.0)
+    axp.plot(xs, sm3, color=BLUE, lw=2.2)
+    i13 = xs == 2013
+    axp.plot(xs[i13], y[i13], "o", mfc="white", mec=GRAY, ms=4)
     axp.set_title(lab, fontsize=10, color=INK, pad=6)
     lo, hi = y.min(), y.max()
     pad = max((hi - lo) * 0.35, 0.8)
     axp.set_ylim(lo - pad, hi + pad * 1.7)
-    # first and last points of the smoothed series, value right above each
     dec = 1 if v == "age" else 0
-    x0, y0 = WF["cal_year"].iloc[0], sm3.iloc[0]
-    x1, y1 = WF["cal_year"].iloc[-1], sm3.iloc[-1]
+    x0, y0 = xs.iloc[0], sm3.iloc[0]
+    x1, y1 = xs.iloc[-1], sm3.iloc[-1]
     axp.plot([x0, x1], [y0, y1], "o", color=BLUE, ms=5.5, zorder=5)
     axp.annotate(f"{y0:.{dec}f}", (x0, y0), xytext=(1, 10),
                  textcoords="offset points", ha="center", fontsize=8.8,
@@ -66,16 +68,50 @@ for axp, (v, lab) in zip(axes.flat, panels):
     axp.annotate(f"{y1:.{dec}f}", (x1, y1), xytext=(-1, 10),
                  textcoords="offset points", ha="center", fontsize=8.8,
                  color=BLUE, fontweight="bold")
-    axp.set_xlim(2009.2, 2024.8)
-    axp.set_xticks(range(2010, 2025, 2))
-    axp.set_xticklabels([str(t) for t in range(2010, 2025, 2)],
-                        fontsize=6.8, rotation=45)
+    axp.set_xlim(2004.2, 2024.8)
+    axp.set_xticks(range(2005, 2025, 2))
+    axp.set_xticklabels([str(t) for t in range(2005, 2025, 2)],
+                        fontsize=6.6, rotation=45)
     axp.tick_params(axis="y", labelsize=8)
     axp.grid(axis="y", color="#EFEFEF", lw=0.6)
     axp.set_axisbelow(True)
     despine(axp)
 fig.tight_layout(h_pad=2.4)
 fig.savefig(f"{FIG}/g1_workforce.pdf")
+plt.close(fig)
+
+# ================ G9: the fading family exit ================
+EV = pd.read_csv("outputs/w_outlf_young_evolution.csv")
+WFa = WF[WF["cal_year"] >= 2010]
+fig, ax = plt.subplots(figsize=(8.0, 4.0))
+y1s = EV["child_u6"].rolling(3, center=True, min_periods=2).mean()
+ax.plot(EV["cal_year"], EV["child_u6"], color="#E8C4C0", lw=1.0)
+ax.plot(EV["cal_year"], y1s, color=CORAL, lw=2.2, marker="o", ms=4)
+ax.plot(WFa["cal_year"], WFa["child_u6"], color=BLUE, lw=2.0, marker="s",
+        ms=3.6)
+ax.annotate("share with a child under 6 among\nyoung leavers out of the "
+            "labor force (<55)", (2013.2, 39.5), fontsize=9, color=CORAL,
+            fontweight="bold", ha="center")
+ax.annotate("share with a child under 6\namong all teachers",
+            (2020.7, 21.3), fontsize=9, color=BLUE, fontweight="bold",
+            ha="center")
+for ser, xs2, c in [(y1s, EV["cal_year"], CORAL),
+                    (WFa["child_u6"].reset_index(drop=True),
+                     WFa["cal_year"].reset_index(drop=True), BLUE)]:
+    ax.annotate(f"{ser.iloc[0]:.0f}", (xs2.iloc[0], ser.iloc[0]),
+                xytext=(-2, 8), textcoords="offset points", fontsize=8.8,
+                color=c, fontweight="bold", ha="center")
+    ax.annotate(f"{ser.iloc[-1]:.0f}", (xs2.iloc[-1], ser.iloc[-1]),
+                xytext=(2, 8), textcoords="offset points", fontsize=8.8,
+                color=c, fontweight="bold", ha="center")
+ax.set_ylim(0, 46)
+ax.set_xticks(range(2010, 2025, 2))
+ax.set_ylabel("Percent with a child under 6")
+ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+ax.set_axisbelow(True)
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/g9_family_fade.pdf")
 plt.close(fig)
 
 # ================ G2 evolution ================
