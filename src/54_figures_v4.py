@@ -37,13 +37,13 @@ def despine(ax):
 
 # ================ G1 workforce ================
 WF = pd.read_csv("outputs/p_workforce.csv").sort_values("cal_year")
-panels = [("age", "Mean age (years)", 2005), ("female", "Female (%)", 2005),
-          ("ma_plus", "Master's or higher (%)", 2005),
-          ("black", "Black (%)", 2005),
-          ("child_u6", "Child under 6 (%)", 2010),
-          ("public", "Public school (%)", 2010),
-          ("parttime", "Part-time (%)", 2010),
-          ("pension", "Pension plan (%)", 2010)]
+panels = [("age", "Mean age (years)", 2005), ("female", "Female", 2005),
+          ("ma_plus", "Master's or higher", 2005),
+          ("black", "Black", 2005),
+          ("child_u6", "Child under 6", 2010),
+          ("public", "Public school", 2010),
+          ("parttime", "Part-time", 2010),
+          ("pension", "Pension plan", 2010)]
 fig, axes = plt.subplots(2, 4, figsize=(11.8, 5.6))
 for axp, (v, lab, start) in zip(axes.flat, panels):
     d = WF[(WF["cal_year"] >= start) & WF[v].notna()]
@@ -62,13 +62,15 @@ for axp, (v, lab, start) in zip(axes.flat, panels):
     x0, y0 = xs.iloc[0], sm3.iloc[0]
     x1, y1 = xs.iloc[-1], sm3.iloc[-1]
     axp.plot([x0, x1], [y0, y1], "o", color=BLUE, ms=5.5, zorder=5)
-    axp.annotate(f"{y0:.{dec}f}", (x0, y0), xytext=(1, 10),
-                 textcoords="offset points", ha="center", fontsize=8.8,
+    rising0 = sm3.iloc[min(2, len(sm3) - 1)] > sm3.iloc[0]
+    off0 = (2, -16) if rising0 else (2, 10)
+    axp.annotate(f"{y0:.{dec}f}", (x0, y0), xytext=off0,
+                 textcoords="offset points", ha="left", fontsize=8.8,
                  color=BLUE, fontweight="bold")
-    axp.annotate(f"{y1:.{dec}f}", (x1, y1), xytext=(-1, 10),
-                 textcoords="offset points", ha="center", fontsize=8.8,
+    axp.annotate(f"{y1:.{dec}f}", (x1, y1), xytext=(-2, 10),
+                 textcoords="offset points", ha="right", fontsize=8.8,
                  color=BLUE, fontweight="bold")
-    axp.set_xlim(2004.2, 2024.8)
+    axp.set_xlim(2003.6, 2025.4)
     axp.set_xticks(range(2005, 2025, 2))
     axp.set_xticklabels([str(t) for t in range(2005, 2025, 2)],
                         fontsize=6.6, rotation=45)
