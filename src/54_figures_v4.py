@@ -59,15 +59,16 @@ for axp, (v, lab, start) in zip(axes.flat, panels):
     pad = max((hi - lo) * 0.35, 0.8)
     axp.set_ylim(lo - pad, hi + pad * 1.7)
     dec = 1 if v == "age" else 0
+    suf = "" if v == "age" else "%"
     x0, y0 = xs.iloc[0], sm3.iloc[0]
     x1, y1 = xs.iloc[-1], sm3.iloc[-1]
     axp.plot([x0, x1], [y0, y1], "o", color=BLUE, ms=5.5, zorder=5)
     rising0 = sm3.iloc[min(2, len(sm3) - 1)] > sm3.iloc[0]
     off0 = (2, -16) if rising0 else (2, 10)
-    axp.annotate(f"{y0:.{dec}f}", (x0, y0), xytext=off0,
+    axp.annotate(f"{y0:.{dec}f}{suf}", (x0, y0), xytext=off0,
                  textcoords="offset points", ha="left", fontsize=8.8,
                  color=BLUE, fontweight="bold")
-    axp.annotate(f"{y1:.{dec}f}", (x1, y1), xytext=(-2, 10),
+    axp.annotate(f"{y1:.{dec}f}{suf}", (x1, y1), xytext=(-2, 10),
                  textcoords="offset points", ha="right", fontsize=8.8,
                  color=BLUE, fontweight="bold")
     axp.set_xlim(2003.6, 2025.4)
