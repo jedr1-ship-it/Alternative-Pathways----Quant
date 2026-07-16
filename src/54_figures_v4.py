@@ -54,14 +54,23 @@ for axp, (v, lab) in zip(axes.flat, panels):
     axp.set_title(lab, fontsize=10, color=INK, pad=6)
     lo, hi = y.min(), y.max()
     pad = max((hi - lo) * 0.35, 0.8)
-    axp.set_ylim(lo - pad, hi + pad)
-    axp.annotate(f"{sm3.iloc[0]:.0f}", (0.02, 1.02), xycoords="axes fraction",
-                 fontsize=8.4, color=SUBTLE)
-    axp.annotate(f"{sm3.iloc[-1]:.0f}", (0.98, 1.02),
-                 xycoords="axes fraction", fontsize=8.6, color=BLUE,
-                 fontweight="bold", ha="right")
-    axp.set_xticks([2010, 2017, 2024])
-    axp.tick_params(labelsize=8)
+    axp.set_ylim(lo - pad, hi + pad * 1.7)
+    # first and last points of the smoothed series, value right above each
+    dec = 1 if v == "age" else 0
+    x0, y0 = WF["cal_year"].iloc[0], sm3.iloc[0]
+    x1, y1 = WF["cal_year"].iloc[-1], sm3.iloc[-1]
+    axp.plot([x0, x1], [y0, y1], "o", color=BLUE, ms=5.5, zorder=5)
+    axp.annotate(f"{y0:.{dec}f}", (x0, y0), xytext=(1, 10),
+                 textcoords="offset points", ha="center", fontsize=8.8,
+                 color=BLUE, fontweight="bold")
+    axp.annotate(f"{y1:.{dec}f}", (x1, y1), xytext=(-1, 10),
+                 textcoords="offset points", ha="center", fontsize=8.8,
+                 color=BLUE, fontweight="bold")
+    axp.set_xlim(2009.2, 2024.8)
+    axp.set_xticks(range(2010, 2025, 2))
+    axp.set_xticklabels([str(t) for t in range(2010, 2025, 2)],
+                        fontsize=6.8, rotation=45)
+    axp.tick_params(axis="y", labelsize=8)
     axp.grid(axis="y", color="#EFEFEF", lw=0.6)
     axp.set_axisbelow(True)
     despine(axp)
@@ -71,35 +80,43 @@ plt.close(fig)
 
 # ================ G2 evolution ================
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
-fig, ax = plt.subplots(figsize=(8.4, 4.3))
+fig, ax = plt.subplots(figsize=(8.4, 4.2))
 ax.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-ax.text(2019.5, 13.0, "Covid", ha="center", fontsize=9, color=SUBTLE)
-ax.axhspan(7.4, 8.0, color="#E9F0FA", zorder=0)
-ax.text(1996.8, 7.7, "Harris–Adams 1992–2001: 7.7\n(college graduates)",
-        fontsize=8.0, color=BLUE, va="center")
-# harmonized old-style, full span, gaps break naturally on NaN
-ax.plot(S["cal_year"], S["leaver_oldstyle"], color=GRAY, lw=1.4, ls="--",
-        marker="s", ms=3.2)
-# weighted, full definition, all teachers
-ax.plot(S["cal_year"], S["leaver_all"], color=GRAY, lw=1.4, marker="s",
-        ms=3.2)
+ax.text(2019.5, 11.6, "Covid", ha="center", fontsize=9, color=SUBTLE)
+ax.axhspan(7.4, 8.0, color="#FBE9E7", zorder=0)
+ax.text(1996.9, 6.75, "Harris\u2013Adams benchmark,\n1992\u20132001: 7.7",
+        fontsize=8.4, color=CORAL, va="top")
+# historical harmonized segment (pre-2010 only), gaps break the line
+hist = S[S["weighted"] == 0]
+ax.plot(hist["cal_year"], hist["leaver_oldstyle"], color=GRAY, lw=1.5,
+        ls="--", marker="s", ms=3.6)
+ax.annotate("1997\u20132009: comparable early files\n"
+            "(occupation pairs, unweighted)", (2002.9, 10.6), fontsize=8.4,
+            color=GRAY, ha="center")
 # main series with CI ribbon
 ok = S["leaver_ba"].notna()
 ax.fill_between(S.loc[ok, "cal_year"],
                 S.loc[ok, "leaver_ba"] - 1.96 * S.loc[ok, "se_ba"],
                 S.loc[ok, "leaver_ba"] + 1.96 * S.loc[ok, "se_ba"],
                 color=BLUE, alpha=0.15, lw=0)
-ax.plot(S["cal_year"], S["leaver_ba"], color=BLUE, lw=2.2, marker="o",
-        ms=4.4)
-ax.annotate("all teachers, full definition (weighted)", (2013.5, 12.9),
-            fontsize=8.4, color=GRAY, ha="center")
-ax.annotate("harmonized series: occupation pairs only,\nunweighted "
-            "(comparable across all years)", (2003.4, 6.35), fontsize=8.2,
-            color=GRAY, ha="center")
-ax.annotate("college graduates, full definition (main)", (2018.5, 5.6),
-            fontsize=8.8, color=BLUE, fontweight="bold", ha="center")
-ax.set_ylim(0, 14)
+ax.plot(S["cal_year"], S["leaver_ba"], color=BLUE, lw=2.3, marker="o",
+        ms=4.6)
+last = S[ok].iloc[-1]
+ax.annotate(f"{last['leaver_ba']:.1f}", (last["cal_year"],
+            last["leaver_ba"]), xytext=(0, 9), textcoords="offset points",
+            ha="center", fontsize=9, color=BLUE, fontweight="bold")
+pk = S.loc[S["leaver_ba"].idxmax()] if ok.any() else None
+ax.annotate(f"{pk['leaver_ba']:.1f}", (pk["cal_year"], pk["leaver_ba"]),
+            xytext=(0, 9), textcoords="offset points", ha="center",
+            fontsize=9, color=BLUE, fontweight="bold")
+ax.annotate("college-graduate teachers leaving the profession\n"
+            "(with 95% confidence band)", (2014.9, 5.6), fontsize=9,
+            color=BLUE, fontweight="bold", ha="center")
+ax.set_ylim(0, 13)
 ax.set_xlim(1996, 2025.5)
+ax.set_xticks(range(1998, 2025, 2))
+ax.set_xticklabels([str(t) for t in range(1998, 2025, 2)], fontsize=8,
+                   rotation=45)
 ax.set_ylabel("Percent leaving teaching")
 ax.grid(axis="y", color="#EFEFEF", lw=0.6)
 ax.set_axisbelow(True)
@@ -108,49 +125,96 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/g2_evolution.pdf")
 plt.close(fig)
 
-# ================ G3 flow of 100, unified ================
+# appendix version with the definitional layers (all-teacher, harmonized)
+fig, ax = plt.subplots(figsize=(8.4, 4.2))
+ax.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
+ax.plot(S["cal_year"], S["leaver_oldstyle"], color=GRAY, lw=1.4, ls="--",
+        marker="s", ms=3.2)
+ax.plot(S["cal_year"], S["leaver_all"], color=GRAY, lw=1.4, marker="s",
+        ms=3.2)
+ax.plot(S["cal_year"], S["leaver_ba"], color=BLUE, lw=2.0, marker="o",
+        ms=4.0)
+ax.annotate("all teachers, full definition (weighted)", (2014.5, 12.8),
+            fontsize=8.4, color=GRAY, ha="center")
+ax.annotate("harmonized: occupation pairs only, unweighted\n"
+            "(identical construction in every year)", (2003.4, 6.1),
+            fontsize=8.2, color=GRAY, ha="center")
+ax.annotate("college graduates, full definition", (2018.6, 5.4),
+            fontsize=8.6, color=BLUE, fontweight="bold", ha="center")
+ax.set_ylim(0, 14)
+ax.set_xlim(1996, 2025.5)
+ax.set_ylabel("Percent leaving teaching")
+ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+ax.set_axisbelow(True)
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/gapp_evolution_layers.pdf")
+plt.close(fig)
+
+# ================ G3 flow of 100, two-tier ================
 F = pd.read_csv("outputs/p_flow100_leavers.csv", index_col=0).iloc[:, 0]
-DG = pd.read_csv("outputs/q_dest_groups.csv")
-GREENS = {"Postsecondary teaching",
-          "School support (tutor, assistant, library)",
-          "Education administration",
-          "Counseling, social work, childcare"}
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.8, 4.5),
-                             gridspec_kw={"width_ratios": [0.85, 1.35]})
-routes = [("Out of labor force, 55+", F["out of LF, 55plus"], BLUE),
-          ("Out of labor force, <55", F["out of LF, under 55"], LIGHT),
-          ("Unemployed", F["unemployed"], GRAY),
-          ("Education and care job", F["education and care job"], GREEN),
-          ("Other occupation", F["other occupation"], GOLD)]
-bottom = 0
-for lab, v, c in routes:
-    a1.bar([0], [v], bottom=bottom, color=c, width=0.5)
-    a1.text(0.32, bottom + v / 2, f"{lab}  ({v:.1f})", fontsize=9.4,
-            va="center", color=INK)
-    bottom += v
-a1.set_xlim(-0.35, 1.85)
-a1.set_ylim(0, 100)
-a1.set_xticks([])
-a1.set_ylabel("Of every 100 leavers")
-a1.set_title("The five routes out", fontsize=10.5, loc="left")
-despine(a1)
-DGs = DG.sort_values("per100_leavers")
-DGs = pd.concat([DGs[DGs["group"] == "Unclassified"],
-                 DGs[DGs["group"] != "Unclassified"]])
-cols = ["#C9C9C9" if g == "Unclassified" else
-        (GREEN if g in GREENS else GOLD) for g in DGs["group"]]
-a2.barh(DGs["group"], DGs["per100_leavers"], color=cols, height=0.62)
-for i, (_, r) in enumerate(DGs.iterrows()):
-    a2.text(r["per100_leavers"] + 0.06, i, f"{r['per100_leavers']:.1f}",
-            fontsize=8.7, va="center", color=INK)
-a2.set_xlabel("Per 100 leavers")
-a2.set_title("The 26 with another job: education and care (green) "
-             "versus the rest", fontsize=10.5, loc="left")
-a2.tick_params(axis="y", labelsize=8.7)
-a2.grid(axis="x", color="#EFEFEF", lw=0.6)
-a2.set_axisbelow(True)
-despine(a2)
-fig.tight_layout(w_pad=3.0)
+DG = pd.read_csv("outputs/q_dest_groups.csv").set_index("group")[
+    "per100_leavers"]
+emp = F["education and care job"] + F["other occupation"]
+edu_job = (DG["Postsecondary teaching"]
+           + DG["School support (tutor, assistant, library)"]
+           + DG["Education administration"])
+care = DG["Counseling, social work, childcare"]
+otherprof = DG["Management and business"] + DG["Other professional"]
+salesetc = (DG["Office and administrative support"]
+            + DG["Sales and personal service"]
+            + DG["Production, transport, other"] + DG["Unclassified"])
+fig, ax = plt.subplots(figsize=(9.6, 4.6))
+Y1, Y0, H = 1.72, 0.55, 0.34
+top = [("Employed", emp, BLUE),
+       ("Out of the labor force, 55+", F["out of LF, 55plus"], LIGHT),
+       ("Out of the labor force, <55", F["out of LF, under 55"], GOLD),
+       ("Unemployed", F["unemployed"], "#6E6E6E")]
+x = 0
+for lab, v, c in top:
+    ax.barh([Y1], [v], left=x, color=c, height=H)
+    txtc = "white" if c in (BLUE, "#6E6E6E") else INK
+    ax.text(x + v / 2, Y1, f"{v:.0f}", ha="center", va="center",
+            color=txtc, fontsize=11, fontweight="bold")
+    yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
+    ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=8.8,
+            color=INK)
+    x += v
+bot = [("Education job", edu_job, BLUE),
+       ("Care and\nchildren", care, CORAL),
+       ("Other\nprofessional", otherprof, GREEN),
+       ("Sales, office\nand manual", salesetc, GRAY)]
+sc = 100.0 / emp                       # expand the employed bar to full width
+x = 0
+for lab, v, c in bot:
+    w = v * sc
+    ax.barh([Y0], [w], left=x, color=c, height=H)
+    ax.text(x + w / 2, Y0, f"{v:.0f}", ha="center", va="center",
+            color="white", fontsize=10.5, fontweight="bold")
+    ax.text(x + w / 2, Y0 - H / 2 - 0.10, lab, ha="center", va="top",
+            fontsize=8.8, color=INK)
+    x += w
+# diverging dotted connectors: employed segment opens into the full bar
+ax.plot([0, 0], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=1.0)
+ax.plot([emp, 100], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE,
+        lw=1.0)
+ax.text(-1.2, Y1, "Of every 100\nleavers", ha="right", va="center",
+        fontsize=9.6, color=INK)
+ax.text(-1.2, Y0, "What the employed\nare doing", ha="right", va="center",
+        fontsize=9.6, color=INK)
+# bracket: education and care total, on the expanded scale
+ec = edu_job + care
+xb = ec * sc
+yb = Y0 - H / 2 - 0.52
+ax.plot([0, 0, xb, xb], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
+ax.text(xb / 2, yb - 0.07,
+        f"{ec:.0f} of every 100 leavers keep working in education or care",
+        ha="center", va="top", fontsize=9.6, color=INK,
+        fontweight="bold")
+ax.set_xlim(-14, 101)
+ax.set_ylim(-0.35, 2.35)
+ax.axis("off")
+fig.tight_layout()
 fig.savefig(f"{FIG}/g3_flow100.pdf")
 plt.close(fig)
 
