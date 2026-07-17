@@ -83,40 +83,38 @@ fig.tight_layout(h_pad=2.4)
 fig.savefig(f"{FIG}/g1_workforce.pdf")
 plt.close(fig)
 
-# ================ G2 evolution ================
+# ================ G2 evolution (approved: minimal layout) ================
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))
 ax.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-ax.text(2019.5, 11.6, "Covid", ha="center", fontsize=9, color=SUBTLE)
+ax.text(2019.5, 12.3, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
 ax.axhspan(7.4, 8.0, color="#FBE9E7", zorder=0)
-ax.text(1996.9, 6.75, "Harris\u2013Adams benchmark,\n1992\u20132001: 7.7",
+ax.text(1996.9, 6.75, "Harris\u2013Adams,\n1992\u20132001: 7.7",
         fontsize=8.4, color=CORAL, va="top")
-# historical harmonized segment (pre-2010 only), gaps break the line
+# historical harmonized segment (pre-2005 only), gaps break the line
 hist = S[S["weighted"] == 0]
-ax.plot(hist["cal_year"], hist["leaver_oldstyle"], color=GRAY, lw=1.5,
-        ls="--", marker="s", ms=3.6)
-ax.annotate("1997\u20132004: earliest files\n"
-            "(occupation pairs, unweighted)", (2000.6, 11.2), fontsize=8.4,
-            color=GRAY, ha="center")
-# main series with CI ribbon
+ax.plot(hist["cal_year"], hist["leaver_oldstyle"], color=GRAY, lw=1.4,
+        ls="--", marker="s", ms=3.2)
+ax.annotate("1997\u20132004: unweighted\noccupation pairs", (2000.6, 11.2),
+            fontsize=8, color=GRAY, ha="center")
+# main series: clean line, faint CI, long-run mean reference
 ok = S["leaver_ba"].notna()
-ax.fill_between(S.loc[ok, "cal_year"],
-                S.loc[ok, "leaver_ba"] - 1.96 * S.loc[ok, "se_ba"],
-                S.loc[ok, "leaver_ba"] + 1.96 * S.loc[ok, "se_ba"],
-                color=BLUE, alpha=0.15, lw=0)
-ax.plot(S["cal_year"], S["leaver_ba"], color=BLUE, lw=2.3, marker="o",
-        ms=4.6)
-last = S[ok].iloc[-1]
-ax.annotate(f"{last['leaver_ba']:.1f}", (last["cal_year"],
-            last["leaver_ba"]), xytext=(0, 9), textcoords="offset points",
-            ha="center", fontsize=9, color=BLUE, fontweight="bold")
-pk = S.loc[S["leaver_ba"].idxmax()] if ok.any() else None
-ax.annotate(f"{pk['leaver_ba']:.1f}", (pk["cal_year"], pk["leaver_ba"]),
-            xytext=(0, 9), textcoords="offset points", ha="center",
-            fontsize=9, color=BLUE, fontweight="bold")
-ax.annotate("college-graduate teachers leaving the profession\n"
-            "(with 95% confidence band)", (2014.9, 5.6), fontsize=9,
-            color=BLUE, fontweight="bold", ha="center")
+main = S[ok]
+mean_ba = np.average(main["leaver_ba"])
+ax.fill_between(main["cal_year"], main["leaver_ba"] - 1.96 * main["se_ba"],
+                main["leaver_ba"] + 1.96 * main["se_ba"], color=BLUE,
+                alpha=0.07, lw=0)
+ax.axhline(mean_ba, color=INK, lw=0.9, ls=":", zorder=1)
+ax.text(2014.0, 6.55, f"2005\u20132024 average: {mean_ba:.1f}",
+        fontsize=8, color=INK, ha="center", va="top")
+ax.plot(main["cal_year"], main["leaver_ba"], color=BLUE, lw=2.4)
+last = main.iloc[-1]
+pk = main.loc[main["leaver_ba"].idxmax()]
+for r in (last, pk):
+    ax.plot(r["cal_year"], r["leaver_ba"], "o", color=BLUE, ms=5)
+    ax.annotate(f"{r['leaver_ba']:.1f}", (r["cal_year"], r["leaver_ba"]),
+                xytext=(0, 9), textcoords="offset points", ha="center",
+                fontsize=9, color=BLUE, fontweight="bold")
 ax.set_ylim(0, 13)
 ax.set_xlim(1996, 2025.5)
 ax.set_xticks(range(1998, 2025, 2))
