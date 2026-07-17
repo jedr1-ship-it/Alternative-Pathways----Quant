@@ -88,9 +88,9 @@ S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))
 ax.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
 ax.text(2019.5, 12.3, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
-ax.axhspan(7.4, 8.0, color="#FBE9E7", zorder=0)
-ax.text(1996.9, 6.75, "Harris\u2013Adams,\n1992\u20132001: 7.7",
-        fontsize=8.4, color=CORAL, va="top")
+# external anchor: NCES TFS/NTPS public-school leavers (school year
+# midpoints), the only independent series with a comparable definition
+NCES = {2000.5: 7.4, 2004.5: 8.4, 2008.5: 8.0, 2012.5: 7.7, 2021.5: 7.9}
 # main series: clean line, faint CI, long-run mean reference
 ok = S["leaver_ba"].notna()
 main = S[ok]
@@ -110,6 +110,13 @@ for r in (last, pk, cov):
     ax.annotate(f"{r['leaver_ba']:.1f}", (r["cal_year"], r["leaver_ba"]),
                 xytext=(0, 9), textcoords="offset points", ha="center",
                 fontsize=9, color=BLUE, fontweight="bold")
+xs_n, ys_n = zip(*sorted(NCES.items()))
+ax.plot(xs_n, ys_n, "D", mfc="white", mec=CORAL, ms=5.4, mew=1.4,
+        zorder=4)
+ax.annotate("NCES follow-up surveys,\npublic-school leavers",
+            (2005.4, 4.6), fontsize=8.4, color=CORAL, ha="center")
+ax.annotate("", xy=(2004.5, 8.0), xytext=(2005.2, 5.5),
+            arrowprops=dict(arrowstyle="-", color=CORAL, lw=0.7))
 ax.set_ylim(0, 13)
 ax.set_xlim(1996, 2025.5)
 ax.set_xticks(range(1998, 2025, 2))
