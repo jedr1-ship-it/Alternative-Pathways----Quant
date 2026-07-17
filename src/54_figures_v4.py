@@ -83,6 +83,41 @@ fig.tight_layout(h_pad=2.4)
 fig.savefig(f"{FIG}/g1_workforce.pdf")
 plt.close(fig)
 
+# ============ G3b: route composition of leavers, 1997-2024 ============
+RT = pd.read_csv("outputs/p_routes.csv").sort_values("cal_year")
+ROUTES = ["employed", "outlf_55", "outlf_u55", "unemployed"]
+RLAB = {"employed": "Employed elsewhere",
+        "outlf_55": "Out of the labor force, 55+",
+        "outlf_u55": "Out of the labor force, <55",
+        "unemployed": "Unemployed"}
+RCOL = {"employed": BLUE, "outlf_55": LIGHT, "outlf_u55": GOLD,
+        "unemployed": "#5B6570"}
+RTs = RT.copy()
+for rt in ROUTES:
+    RTs[rt] = RT[rt].rolling(3, center=True, min_periods=2).mean()
+tot_s = RTs[ROUTES].sum(axis=1)
+for rt in ROUTES:
+    RTs[rt] = RTs[rt] / tot_s * 100
+fig, ax = plt.subplots(figsize=(8.4, 4.2))
+ax.stackplot(RTs["cal_year"], [RTs[rt] for rt in ROUTES],
+             colors=[RCOL[rt] for rt in ROUTES], alpha=0.92)
+rylab = {"employed": 15, "outlf_55": 48, "outlf_u55": 77,
+         "unemployed": 95}
+for rt in ROUTES:
+    ax.text(2025.2, rylab[rt], RLAB[rt], fontsize=8.6,
+            color=RCOL[rt] if rt != "outlf_55" else "#7A96B8",
+            va="center", fontweight="bold")
+ax.set_xlim(1997, 2024)
+ax.set_ylim(0, 100)
+ax.set_xticks(range(1998, 2025, 2))
+ax.set_xticklabels([str(t) for t in range(1998, 2025, 2)], fontsize=8,
+                   rotation=45)
+ax.set_ylabel("Share of leavers")
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/g3b_routes_evolution.pdf", bbox_inches="tight")
+plt.close(fig)
+
 # ================ G2 evolution (approved: minimal layout) ================
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))

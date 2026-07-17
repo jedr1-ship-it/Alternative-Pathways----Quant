@@ -41,3 +41,23 @@ for cy, g in T.groupby("cal_year"):
 S = pd.DataFrame(rows).sort_values("cal_year")
 S.to_csv("outputs/p_series.csv", index=False)
 print(S.to_string(index=False))
+
+# ---- route composition among BA+ leavers, per calendar year ----
+L = M[(M["teacher"] == 1) & (M["ba_plus"] == 1) & (M["A_AGE"] >= 18)
+      & (M["leaver"] == 1) & M["WGT"].notna()].copy()
+L["route"] = np.select(
+    [L["switch"] == 1, L["unemp"] == 1,
+     (L["leftlf"] == 1) & (L["A_AGE"] >= 55),
+     (L["leftlf"] == 1) & (L["A_AGE"] < 55)],
+    ["employed", "unemployed", "outlf_55", "outlf_u55"], "other")
+rr = []
+for cy, g in L.groupby("cal_year"):
+    tot = g["WGT"].sum()
+    rr.append({"cal_year": int(cy), "n": len(g),
+               **{rt: round(g.loc[g["route"] == rt, "WGT"].sum()
+                            / tot * 100, 2)
+                  for rt in ("employed", "outlf_55", "outlf_u55",
+                             "unemployed")}})
+R = pd.DataFrame(rr).sort_values("cal_year")
+R.to_csv("outputs/p_routes.csv", index=False)
+print("\nroute shares among leavers -> outputs/p_routes.csv")
