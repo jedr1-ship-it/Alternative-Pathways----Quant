@@ -83,7 +83,7 @@ fig.tight_layout(h_pad=2.4)
 fig.savefig(f"{FIG}/g1_workforce.pdf")
 plt.close(fig)
 
-# ============ G3b: route composition of leavers, 1997-2024 ============
+# ==== APPENDIX: route composition of leavers, 1997-2024 (ex G3b) ====
 RT = pd.read_csv("outputs/p_routes.csv").sort_values("cal_year")
 ROUTES = ["employed", "outlf_55", "outlf_u55", "unemployed"]
 RLAB = {"employed": "Employed elsewhere",
@@ -115,7 +115,7 @@ ax.set_xticklabels([str(t) for t in range(1998, 2025, 2)], fontsize=8,
 ax.set_ylabel("Share of leavers")
 despine(ax)
 fig.tight_layout()
-fig.savefig(f"{FIG}/g3b_routes_evolution.pdf", bbox_inches="tight")
+fig.savefig(f"{FIG}/gapp_routes_evolution.pdf", bbox_inches="tight")
 plt.close(fig)
 
 # ============ G9: the fading motherhood exit (approved) ============
