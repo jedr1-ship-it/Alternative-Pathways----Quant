@@ -91,10 +91,6 @@ ax.text(2019.5, 12.3, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
 ax.axhspan(7.4, 8.0, color="#FBE9E7", zorder=0)
 ax.text(1996.9, 6.75, "Harris\u2013Adams,\n1992\u20132001: 7.7",
         fontsize=8.4, color=CORAL, va="top")
-# occupation classification change (1990 codes through survey 2002)
-ax.axvline(2001.5, color=GRAY, lw=0.8, ls=":", zorder=1)
-ax.text(2001.28, 3.1, "occupation classification changes",
-        fontsize=7.4, color=SUBTLE, rotation=90, va="bottom")
 # main series: clean line, faint CI, long-run mean reference
 ok = S["leaver_ba"].notna()
 main = S[ok]
