@@ -61,3 +61,20 @@ for cy, g in L.groupby("cal_year"):
 R = pd.DataFrame(rr).sort_values("cal_year")
 R.to_csv("outputs/p_routes.csv", index=False)
 print("\nroute shares among leavers -> outputs/p_routes.csv")
+
+# ---- public vs private: route rates, pooled 2015-2024 ----
+P = M[(M["teacher"] == 1) & (M["ba_plus"] == 1) & (M["A_AGE"] >= 18)
+      & M["cal_year"].between(2015, 2024) & M["WGT"].notna()
+      & M["public_ly"].notna()]
+sec_rows = []
+for tag, g in [("public", P[P["public_ly"] == 1]),
+               ("private", P[P["public_ly"] == 0])]:
+    w = g["WGT"]
+    sec_rows.append({
+        "sector": tag, "n": len(g),
+        "leaver": round(np.average(g["leaver"], weights=w) * 100, 2),
+        "job": round(np.average(g["switch"] == 1, weights=w) * 100, 2),
+        "unemp": round(np.average(g["unemp"] == 1, weights=w) * 100, 2),
+        "outlf": round(np.average(g["leftlf"] == 1, weights=w) * 100, 2)})
+pd.DataFrame(sec_rows).to_csv("outputs/p_sector_routes.csv", index=False)
+print("sector route rates -> outputs/p_sector_routes.csv")

@@ -154,6 +154,30 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/g9_mothers.pdf")
 plt.close(fig)
 
+# ====== G10: public vs private, route decomposition (approved) ======
+SEC = pd.read_csv("outputs/p_sector_routes.csv").set_index("sector")
+labels = ["To another job", "Unemployed", "Out of the\nlabor force"]
+xs3 = np.arange(3)
+fig, ax = plt.subplots(figsize=(6.6, 3.9))
+for tag, c, off in [("public", BLUE, -0.17), ("private", CORAL, 0.17)]:
+    vals = [SEC.loc[tag, k] for k in ("job", "unemp", "outlf")]
+    ax.bar(xs3 + off, vals, width=0.34, color=c, label=tag.capitalize())
+    for xi, v in zip(xs3 + off, vals):
+        ax.annotate(f"{v:.1f}", (xi, v), xytext=(0, 3),
+                    textcoords="offset points", ha="center", fontsize=9,
+                    color=c, fontweight="bold")
+ax.set_xticks(xs3)
+ax.set_xticklabels(labels, fontsize=9.2)
+ax.legend(frameon=False, fontsize=9)
+ax.set_ylim(0, 6.4)
+ax.set_ylabel("Percent of teachers, 2015–2024", fontsize=10)
+ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+ax.set_axisbelow(True)
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/g10_sector_routes.pdf")
+plt.close(fig)
+
 # ================ G2 evolution (approved: minimal layout) ================
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))
