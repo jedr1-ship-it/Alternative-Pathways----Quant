@@ -7,3 +7,4 @@ data/raw/asec/
 report/*.aux
 report/*.log
 report/*.out
+data/processed/asec_master.parquet

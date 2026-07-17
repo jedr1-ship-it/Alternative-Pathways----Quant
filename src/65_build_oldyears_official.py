@@ -23,7 +23,8 @@ import pandas as pd
 
 RAW = "data/raw/asec"
 BASE = "https://www2.census.gov/programs-surveys/cps/datasets/{y}/march/"
-FW = {2006: "asec2006_pubuse.zip", 2007: "asec2007_pubuse_tax2.dat.gz",
+FW = {2004: "asec2004.zip",
+      2006: "asec2006_pubuse.zip", 2007: "asec2007_pubuse_tax2.dat.gz",
       2008: "asec2008_pubuse.dat.gz", 2009: "asec2009_pubuse.dat.gz",
       2010: "asec2010_pubuse.dat.gz"}
 T90 = {155, 156, 157, 158, 159}
@@ -59,8 +60,19 @@ def build(y):
     assert not lay["conflict"].any(), f"{y}: unresolved layout conflicts"
     fname = FW.get(y) or os.path.basename(find_file(y))
     local = f"{RAW}/{fname}"
-    if not os.path.exists(local):
-        urllib.request.urlretrieve(BASE.format(y=y) + fname, local)
+    for attempt in range(4):
+        if os.path.exists(local):
+            break
+        try:
+            urllib.request.urlretrieve(BASE.format(y=y) + fname,
+                                       local + ".part")
+            os.rename(local + ".part", local)
+        except Exception as e:
+            print(f"{y}: download attempt {attempt+1} failed ({e})",
+                  flush=True)
+            for p in (local + ".part",):
+                if os.path.exists(p):
+                    os.remove(p)
     cols = {v: (int(r["pos"]) - 1, int(r["size"]))
             for v, r in lay.iterrows()}
     recs = {v: [] for v in cols}
@@ -96,7 +108,6 @@ def build(y):
           f"pension_teacher={(pen == 1).mean() * 100:.1f}% "
           f"wgt_med={d['MARSUPWT'].median():.0f}", flush=True)
     d.to_parquet(out, index=False)
-    os.remove(local)
     print(f"{y}: SAVED {out}", flush=True)
 
 

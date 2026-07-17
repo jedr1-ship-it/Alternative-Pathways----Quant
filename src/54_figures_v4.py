@@ -91,12 +91,10 @@ ax.text(2019.5, 12.3, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
 ax.axhspan(7.4, 8.0, color="#FBE9E7", zorder=0)
 ax.text(1996.9, 6.75, "Harris\u2013Adams,\n1992\u20132001: 7.7",
         fontsize=8.4, color=CORAL, va="top")
-# historical harmonized segment (pre-2005 only), gaps break the line
-hist = S[S["weighted"] == 0]
-ax.plot(hist["cal_year"], hist["leaver_oldstyle"], color=GRAY, lw=1.4,
-        ls="--", marker="s", ms=3.2)
-ax.annotate("1997\u20132004: unweighted\noccupation pairs", (2000.6, 11.2),
-            fontsize=8, color=GRAY, ha="center")
+# occupation classification change (1990 codes through survey 2002)
+ax.axvline(2001.5, color=GRAY, lw=0.8, ls=":", zorder=1)
+ax.text(2001.28, 3.1, "occupation classification changes",
+        fontsize=7.4, color=SUBTLE, rotation=90, va="bottom")
 # main series: clean line, faint CI, long-run mean reference
 ok = S["leaver_ba"].notna()
 main = S[ok]
@@ -105,12 +103,13 @@ ax.fill_between(main["cal_year"], main["leaver_ba"] - 1.96 * main["se_ba"],
                 main["leaver_ba"] + 1.96 * main["se_ba"], color=BLUE,
                 alpha=0.07, lw=0)
 ax.axhline(mean_ba, color=INK, lw=0.9, ls=":", zorder=1)
-ax.text(2014.0, 6.55, f"2005\u20132024 average: {mean_ba:.1f}",
+ax.text(2014.0, 6.55, f"1997\u20132024 average: {mean_ba:.1f}",
         fontsize=8, color=INK, ha="center", va="top")
 ax.plot(main["cal_year"], main["leaver_ba"], color=BLUE, lw=2.4)
 last = main.iloc[-1]
 pk = main.loc[main["leaver_ba"].idxmax()]
-for r in (last, pk):
+cov = main.loc[main["cal_year"] == 2019].iloc[0]
+for r in (last, pk, cov):
     ax.plot(r["cal_year"], r["leaver_ba"], "o", color=BLUE, ms=5)
     ax.annotate(f"{r['leaver_ba']:.1f}", (r["cal_year"], r["leaver_ba"]),
                 xytext=(0, 9), textcoords="offset points", ha="center",

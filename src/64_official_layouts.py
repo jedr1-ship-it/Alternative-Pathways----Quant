@@ -27,7 +27,8 @@ WANT = {
     "A-CLSWKR", "A-USLHRS", "LJCW", "HRSWK", "WKSWORK", "PENPLAN",
     "MARSUPWT", "PERIDNUM", "PRDTRACE", "A-RACE", "A-PARENT", "A-SPOUSE",
     "A-FAMREL", "WSAL-VAL", "PEARNVAL", "A-MJOCC", "A-DTOCC", "PEMLR",
-    "A-WKSTAT", "A-UNTYPE", "PUBLICEMP",
+    "A-WKSTAT", "A-UNTYPE", "PUBLICEMP", "PH-SEQ", "A-LINENO", "A-EXPRRP",
+    "A-OCC",
 }
 PAT = re.compile(r"\bD\s+([A-Z][A-Z0-9-]{1,11})\s+(\d{1,2})\s+(\d{1,4})\b")
 
