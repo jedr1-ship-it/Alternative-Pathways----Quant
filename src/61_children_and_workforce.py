@@ -61,6 +61,20 @@ EV.to_csv("outputs/w_outlf_young_evolution.csv", index=False)
 print("\nevolution of the young out-of-LF leavers:")
 print(EV.to_string(index=False))
 
+# ---------- (1b) the fading motherhood exit, 1997-2024 ----------
+F = M[(M["teacher"] == 1) & (M["ba_plus"] == 1) & (M["female"] == 1)
+      & M["A_AGE"].between(22, 45) & M["WGT"].notna()]
+mrows = []
+for cy, g in F.groupby("cal_year"):
+    for tag, sub in [("mom", g[g["child_u6"] == 1]),
+                     ("nomom", g[g["child_u6"] == 0])]:
+        mrows.append({"cal_year": int(cy), "grp": tag, "n": len(sub),
+                      "rate": round(np.average(sub["leftlf"] == 1,
+                                    weights=sub["WGT"]) * 100, 2)})
+MO = pd.DataFrame(mrows)
+MO.to_csv("outputs/p_mothers.csv", index=False)
+print("\nmotherhood exit series -> outputs/p_mothers.csv")
+
 # ---------- (2) workforce composition from the master, 1997-2024 ----------
 T = M[(M["teacher"] == 1) & (M["ba_plus"] == 1) & (M["A_AGE"] >= 18)]
 comp = []

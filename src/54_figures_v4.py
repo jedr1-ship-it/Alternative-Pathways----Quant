@@ -118,6 +118,42 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/g3b_routes_evolution.pdf", bbox_inches="tight")
 plt.close(fig)
 
+# ============ G9: the fading motherhood exit (approved) ============
+MO = pd.read_csv("outputs/p_mothers.csv").pivot(
+    index="cal_year", columns="grp", values="rate").reset_index()
+for c in ("mom", "nomom"):
+    MO[c + "_s"] = MO[c].rolling(3, center=True, min_periods=2).mean()
+fig, ax = plt.subplots(figsize=(8.4, 4.2))
+ax.plot(MO["cal_year"], MO["mom"], color="#F2C9C4", lw=1.0)
+ax.plot(MO["cal_year"], MO["nomom"], color="#CCCCCC", lw=1.0)
+ax.plot(MO["cal_year"], MO["mom_s"], color=CORAL, lw=2.4)
+ax.plot(MO["cal_year"], MO["nomom_s"], color=GRAY, lw=2.2)
+ax.annotate("with a child under 6", (2003.3, 10.6), fontsize=9.5,
+            color=CORAL, fontweight="bold", ha="center")
+ax.annotate("without a child under 6", (2012.6, 0.7), fontsize=9.5,
+            color=GRAY, fontweight="bold", ha="center")
+for c, col in [("mom_s", CORAL), ("nomom_s", GRAY)]:
+    for i in (0, len(MO) - 1):
+        ax.plot(MO["cal_year"].iloc[i], MO[c].iloc[i], "o", color=col,
+                ms=5)
+        ax.annotate(f"{MO[c].iloc[i]:.1f}%",
+                    (MO["cal_year"].iloc[i], MO[c].iloc[i]),
+                    xytext=(0, 9), textcoords="offset points",
+                    ha="center", fontsize=8.8, color=col,
+                    fontweight="bold")
+ax.set_ylim(0, 13.5)
+ax.set_xlim(1996.2, 2024.9)
+ax.set_xticks(range(1998, 2025, 2))
+ax.set_xticklabels([str(t) for t in range(1998, 2025, 2)], fontsize=8,
+                   rotation=45)
+ax.set_ylabel("Percent leaving the labor force")
+ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+ax.set_axisbelow(True)
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/g9_mothers.pdf")
+plt.close(fig)
+
 # ================ G2 evolution (approved: minimal layout) ================
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))
