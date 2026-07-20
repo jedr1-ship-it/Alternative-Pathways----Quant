@@ -194,6 +194,17 @@ if __name__ == "__main__":
     T = T.merge(U, on=["GESTFIPS", "survey_year"], how="left")
     T = T.dropna(subset=["u_march"])
 
+    # state-year leaving rates (for the exemplar-states figure)
+    srows = []
+    for (fips, cy), g in T.groupby(["GESTFIPS", "cal_year"]):
+        if len(g) < 25:
+            continue
+        srows.append({"GESTFIPS": int(fips), "cal_year": int(cy),
+                      "n": len(g),
+                      "leave": round(np.average(g["leaver"],
+                                     weights=g["WGT"]) * 100, 2)})
+    pd.DataFrame(srows).to_csv("outputs/p_state_series.csv", index=False)
+
     res = []
     for (fips, ab), g in T.groupby(["GESTFIPS", "abbr"]):
         if len(g) < 400 or g["u_march"].std() < 0.5:

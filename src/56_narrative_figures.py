@@ -116,6 +116,98 @@ fig.tight_layout(w_pad=3)
 fig.savefig(f"{FIG}/n5_cyclicality.pdf")
 plt.close(fig)
 
+# ------ N5b: three cyclicality regimes, one exemplar state each ------
+FIPS_NAME = {28: "Mississippi", 6: "California", 34: "New Jersey"}
+SS = pd.read_csv("outputs/p_state_series.csv")
+SU = pd.read_csv("outputs/n_urate_states.csv")
+SC = pd.read_csv("outputs/p_state_cycl.csv").set_index("GESTFIPS")
+TXT5b, MUT5b = "#3B4046", "#8A9096"
+fig, axes = plt.subplots(1, 3, figsize=(11.6, 3.9), sharey=True)
+for ax, fips in zip(axes, FIPS_NAME):
+    L = SS[SS["GESTFIPS"] == fips].copy()
+    L["leave_s"] = L["leave"].rolling(3, center=True,
+                                      min_periods=2).mean()
+    u = SU[SU["GESTFIPS"] == fips].copy()
+    u["cal_year"] = u["survey_year"] - 1
+    L = L.merge(u[["cal_year", "u_march"]], on="cal_year")
+    ax.plot(L["cal_year"], L["leave_s"], color=BLUE, lw=2.2,
+            solid_capstyle="round")
+    ax.plot(L["cal_year"], L["u_march"], color=TXT5b, lw=1.6,
+            ls=(0, (5, 3)))
+    b, se = SC.loc[fips, "beta_pp"], SC.loc[fips, "se_pp"]
+    ax.set_title(f"{FIPS_NAME[fips]}   " + r"$\beta$"
+                 + f" = {b:+.1f} ({se:.1f})", fontsize=10.5,
+                 color=TXT5b, loc="left")
+    ax.set_xticks(range(2000, 2025, 8))
+    ax.tick_params(labelsize=8.8, length=0, colors=MUT5b)
+    ax.grid(axis="y", color="#F1F2F3", lw=1.0)
+    ax.set_axisbelow(True)
+    for s in ("top", "right", "left"):
+        ax.spines[s].set_visible(False)
+    ax.spines["bottom"].set_color("#D8DBDE")
+axes[0].set_ylabel("Percent", fontsize=10, color=TXT5b)
+axes[0].set_ylim(0, 15)
+axes[0].annotate("teachers leaving (3-yr avg)", (1998.5, 13.6),
+                 fontsize=8.8, color=BLUE, fontweight="bold")
+axes[0].annotate("state unemployment\n(March, BLS)", (2010.5, 1.4),
+                 fontsize=8.6, color=TXT5b)
+fig.tight_layout()
+fig.savefig(f"{FIG}/n5b_states_trio.pdf")
+plt.close(fig)
+
+# ---- APPENDIX: per-state cyclicality forest, full state names ----
+NAMES_FULL = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
+    "CA": "California", "CO": "Colorado", "CT": "Connecticut",
+    "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida",
+    "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois",
+    "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky",
+    "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota",
+    "MS": "Mississippi", "MO": "Missouri", "MT": "Montana",
+    "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire",
+    "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
+    "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania",
+    "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
+    "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
+    "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
+    "WI": "Wisconsin", "WY": "Wyoming"}
+RC = pd.read_csv("outputs/p_state_cycl.csv").sort_values("beta_pp")
+RC["lo"] = RC["beta_pp"] - 1.96 * RC["se_pp"]
+RC["hi"] = RC["beta_pp"] + 1.96 * RC["se_pp"]
+RC["sig"] = (RC["lo"] > 0) | (RC["hi"] < 0)
+ypos = np.arange(len(RC))
+fig, ax = plt.subplots(figsize=(7.4, 10.2))
+ax.axvline(0, color="#999999", lw=1.0)
+for yv, (_, r) in zip(ypos, RC.iterrows()):
+    c = (BLUE if r["beta_pp"] > 0 else CORAL) if r["sig"] else "#C4C9CE"
+    ax.errorbar(r["beta_pp"], yv, xerr=1.96 * r["se_pp"], fmt="o",
+                color=c, ms=4.6, elinewidth=1.1, capsize=0, zorder=4)
+ax.set_yticks(ypos)
+ax.set_yticklabels([NAMES_FULL[a] for a in RC["abbr"]], fontsize=7.8,
+                   color=TXT5b)
+for tick, (_, r) in zip(ax.get_yticklabels(), RC.iterrows()):
+    if r["sig"]:
+        tick.set_fontweight("bold")
+ax.set_ylim(-1, len(RC))
+ax.set_xlim(-6, 6)
+ax.set_xlabel("Change in the leaving rate (pp) per 1-pt higher state\n"
+              "unemployment at observation  (95% CI; bold = "
+              "significant)", fontsize=9.5, color=TXT5b)
+ax.annotate("exits rise in downturns →", (5.8, len(RC) - 2.2),
+            fontsize=8.6, color=TXT5b, ha="right")
+ax.annotate("← exits fall in downturns", (-5.8, 1.2),
+            fontsize=8.6, color=TXT5b, ha="left")
+ax.tick_params(length=0)
+ax.grid(axis="x", color="#F1F2F3", lw=1.0)
+ax.set_axisbelow(True)
+for s in ("top", "right", "left"):
+    ax.spines[s].set_visible(False)
+fig.tight_layout()
+fig.savefig(f"{FIG}/napp_state_cyclicality.pdf")
+plt.close(fig)
+
 # ------ N6a: occupational leaving, teachers vs other professions ------
 PSER = pd.read_csv("outputs/p_prof_series.csv")
 PROF_STYLE = [("Teachers", BLUE, 2.6, 1.0),
