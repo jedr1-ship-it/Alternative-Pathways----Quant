@@ -208,6 +208,75 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/napp_state_cyclicality.pdf")
 plt.close(fig)
 
+# ==== N6b (approved): real FTFY median pay, same windows as G7 ====
+PW = pd.read_csv("outputs/p_pay_windows.csv").pivot(
+    index="prof", columns="window",
+    values="real_med_k").sort_values("2015-2025")
+TXT6, MUT6 = "#3B4046", "#8A9096"
+fig, ax = plt.subplots(figsize=(8.0, 4.2))
+for i, (prof, r) in enumerate(PW.iterrows()):
+    c = BLUE if prof == "Teachers" else GRAY
+    ax.plot([r["2004-2014"], r["2015-2025"]], [i, i], color=c, lw=1.8,
+            alpha=0.75, zorder=2)
+    ax.plot(r["2004-2014"], i, "o", color=c, ms=6.5, mfc="white",
+            zorder=3)
+    ax.plot(r["2015-2025"], i, "o", color=c, ms=7.5, zorder=3)
+    ax.annotate(f"{r['2015-2025']:.0f}k", (r["2015-2025"], i),
+                xytext=(9, -3), textcoords="offset points",
+                fontsize=8.7, color=c,
+                fontweight="bold" if prof == "Teachers" else "normal")
+ax.set_yticks(range(len(PW)))
+ax.set_yticklabels(PW.index, fontsize=9.6)
+for tick, prof in zip(ax.get_yticklabels(), PW.index):
+    if prof == "Teachers":
+        tick.set_fontweight("bold")
+        tick.set_color(BLUE)
+hnd = [plt.Line2D([], [], marker="o", color=GRAY, mfc="white", ls=""),
+       plt.Line2D([], [], marker="o", color=GRAY, ls="")]
+ax.legend(hnd, ["Surveys 2004–2014", "Surveys 2015–2025"],
+          frameon=False, fontsize=8.8, loc="lower right")
+ax.set_xlabel("Real median annual earnings, full-time full-year, "
+              "$1,000 of 2024", fontsize=9.8, color=TXT6)
+ax.grid(axis="x", color="#F1F2F3", lw=1.0)
+ax.set_axisbelow(True)
+for s in ("top", "right", "left"):
+    ax.spines[s].set_visible(False)
+fig.tight_layout()
+fig.savefig(f"{FIG}/n6b_pay_windows.pdf")
+plt.close(fig)
+
+# ==== N6c (candidate): real pay indexed, pruned to three lines ====
+PP = pd.read_csv("outputs/p_pay_profs.csv")
+fig, ax = plt.subplots(figsize=(8.4, 4.4))
+for prof, c, lw, ls in [("Registered nurses", "#3E7C59", 1.7, "-"),
+                        ("All college graduates", INK, 1.8, (0, (5, 3))),
+                        ("Teachers", BLUE, 2.6, "-")]:
+    d = PP[PP["prof"] == prof].sort_values("cal_year")
+    sm = d["real_med"].rolling(3, center=True, min_periods=2).mean()
+    idx = sm / sm.iloc[0] * 100
+    ax.plot(d["cal_year"], idx, color=c, lw=lw, ls=ls)
+    ax.text(2024.6, idx.iloc[-1], prof, fontsize=9, color=c,
+            va="center",
+            fontweight="bold" if prof == "Teachers" else "normal")
+    ax.annotate(f"{idx.iloc[-1]:.0f}", (2024, idx.iloc[-1]),
+                xytext=(-4, -11 if prof == "Teachers" else 8),
+                textcoords="offset points", fontsize=8.8, color=c,
+                fontweight="bold", ha="center")
+ax.axhline(100, color="#CCCCCC", lw=0.8)
+ax.set_xticks(range(2002, 2025, 4))
+ax.set_xlim(2002, 2033)
+ax.set_ylabel("Real median earnings, 2002 = 100\n(full-time full-year, "
+              "3-yr avg)", fontsize=9.6, color=TXT6)
+ax.tick_params(labelsize=9, length=0, colors=MUT6)
+ax.grid(axis="y", color="#F1F2F3", lw=1.0)
+ax.set_axisbelow(True)
+for s in ("top", "right", "left"):
+    ax.spines[s].set_visible(False)
+ax.spines["bottom"].set_color("#D8DBDE")
+fig.tight_layout()
+fig.savefig(f"{FIG}/n6c_pay_index.pdf")
+plt.close(fig)
+
 # ------ N6a: occupational leaving, teachers vs other professions ------
 PSER = pd.read_csv("outputs/p_prof_series.csv")
 PROF_STYLE = [("Teachers", BLUE, 2.6, 1.0),

@@ -1,0 +1,183 @@
+cal_year,prof,n,real_med
+2002,All college graduates,20075,90691
+2002,Teachers,1900,69762
+2002,Registered nurses,660,87203
+2002,Social workers,275,66274
+2002,Accountants,726,87203
+2002,Lawyers,410,167430
+2002,Physicians,383,235448
+2002,Pharmacists,116,148245
+2003,All college graduates,19795,90359
+2003,Teachers,2028,68536
+2003,Registered nurses,661,90359
+2003,Social workers,285,61376
+2003,Accountants,637,88654
+2003,Lawyers,452,187537
+2003,Physicians,397,247208
+2003,Pharmacists,117,150030
+2004,All college graduates,19636,89672
+2004,Teachers,1947,66584
+2004,Registered nurses,600,86352
+2004,Social workers,259,63102
+2004,Accountants,595,83029
+2004,Lawyers,437,172701
+2004,Physicians,367,249088
+2004,Pharmacists,107,157755
+2005,All college graduates,19971,88358
+2005,Teachers,1979,67473
+2005,Registered nurses,628,93178
+2005,Social workers,304,64260
+2005,Accountants,594,92374
+2005,Lawyers,436,184749
+2005,Physicians,373,240977
+2006,All college graduates,20621,88713
+2006,Teachers,2020,67546
+2006,Registered nurses,663,91825
+2006,Social workers,283,62255
+2006,Accountants,646,87468
+2006,Lawyers,423,166531
+2006,Physicians,411,233455
+2006,Pharmacists,107,157193
+2007,All college graduates,21163,89263
+2007,Teachers,2099,68839
+2007,Registered nurses,736,93802
+2007,Social workers,287,65056
+2007,Accountants,634,87750
+2007,Lawyers,446,151293
+2007,Physicians,397,219376
+2008,All college graduates,21122,87440
+2008,Teachers,2148,68495
+2008,Registered nurses,745,90355
+2008,Social workers,300,59751
+2008,Accountants,655,87440
+2008,Lawyers,488,182167
+2008,Physicians,390,218601
+2008,Pharmacists,103,151563
+2009,All college graduates,20739,87721
+2009,Teachers,2101,71639
+2009,Registered nurses,754,95031
+2009,Social workers,302,61405
+2009,Accountants,614,87721
+2009,Lawyers,473,153512
+2009,Physicians,355,219303
+2009,Pharmacists,113,156436
+2010,All college graduates,20829,86309
+2010,Teachers,2031,68328
+2010,Registered nurses,769,93501
+2010,Social workers,329,57539
+2010,Accountants,644,86312
+2010,Lawyers,474,152479
+2010,Physicians,360,227280
+2010,Pharmacists,121,165425
+2011,All college graduates,21065,86471
+2011,Teachers,2082,67866
+2011,Registered nurses,759,90655
+2011,Social workers,283,58577
+2011,Accountants,643,86471
+2011,Lawyers,451,167363
+2011,Physicians,401,202230
+2011,Pharmacists,129,153416
+2012,All college graduates,21584,85924
+2012,Teachers,1973,66040
+2012,Registered nurses,796,90183
+2012,Social workers,309,61486
+2012,Accountants,640,81982
+2012,Lawyers,479,157132
+2012,Physicians,375,204955
+2012,Pharmacists,125,163964
+2013,All college graduates,14838,87530
+2013,Teachers,1451,64638
+2013,Registered nurses,617,87530
+2013,Social workers,201,60598
+2013,Accountants,387,80797
+2013,Lawyers,324,161595
+2013,Physicians,276,201993
+2014,All college graduates,21617,86139
+2014,Teachers,2060,63612
+2014,Registered nurses,852,90115
+2014,Social workers,258,60960
+2014,Accountants,594,83489
+2014,Lawyers,506,184205
+2014,Physicians,395,238539
+2014,Pharmacists,102,159026
+2015,All college graduates,20475,88682
+2015,Teachers,1853,66181
+2015,Registered nurses,847,90006
+2015,Social workers,261,64857
+2015,Accountants,519,86035
+2015,Lawyers,437,164128
+2015,Physicians,383,238250
+2015,Pharmacists,100,156186
+2016,All college graduates,21184,88879
+2016,Teachers,1968,67966
+2016,Registered nurses,888,91493
+2016,Social workers,287,65352
+2016,Accountants,566,91493
+2016,Lawyers,441,164688
+2016,Physicians,347,227426
+2016,Pharmacists,104,156846
+2016,Physical therapists,104,99989
+2017,All college graduates,20969,89584
+2017,Teachers,1933,65268
+2017,Registered nurses,855,89584
+2017,Social workers,292,63988
+2017,Accountants,547,87024
+2017,Lawyers,460,159971
+2017,Physicians,365,223960
+2017,Pharmacists,104,153572
+2018,All college graduates,21640,87451
+2018,Teachers,1990,62467
+2018,Registered nurses,886,93697
+2018,Social workers,259,62465
+2018,Accountants,581,87451
+2018,Lawyers,427,174902
+2018,Physicians,396,249860
+2018,Pharmacists,119,149916
+2019,All college graduates,20048,90802
+2019,Teachers,1780,67488
+2019,Registered nurses,852,88348
+2019,Social workers,232,66261
+2019,Accountants,526,92029
+2019,Lawyers,443,184057
+2019,Physicians,370,245410
+2019,Pharmacists,117,149700
+2020,All college graduates,19626,90890
+2020,Teachers,1739,69076
+2020,Registered nurses,858,95810
+2020,Social workers,237,63017
+2020,Accountants,467,88466
+2020,Lawyers,420,176932
+2020,Physicians,363,242373
+2020,Pharmacists,109,157542
+2021,All college graduates,19389,92614
+2021,Teachers,1657,69460
+2021,Registered nurses,849,92614
+2021,Social workers,245,68303
+2021,Accountants,428,92614
+2021,Lawyers,405,179439
+2021,Physicians,349,231534
+2021,Pharmacists,127,144709
+2022,All college graduates,19099,87905
+2022,Teachers,1649,64321
+2022,Registered nurses,841,90049
+2022,Social workers,226,66465
+2022,Accountants,400,85761
+2022,Lawyers,364,160801
+2022,Physicians,333,214402
+2022,Pharmacists,103,139361
+2023,All college graduates,18927,90598
+2023,Teachers,1533,64860
+2023,Registered nurses,855,92657
+2023,Social workers,202,64860
+2023,Accountants,447,90598
+2023,Lawyers,356,154428
+2023,Physicians,310,283118
+2023,Pharmacists,111,133838
+2024,All college graduates,18968,90000
+2024,Teachers,1525,65000
+2024,Registered nurses,835,91000
+2024,Social workers,211,68640
+2024,Accountants,435,100000
+2024,Lawyers,368,160000
+2024,Physicians,289,200000
+2024,Pharmacists,116,140000

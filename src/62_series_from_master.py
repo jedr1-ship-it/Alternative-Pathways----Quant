@@ -168,3 +168,62 @@ WD["leave"] = (WD["wl"] / WD["w"] * 100).round(2)
 WD[["window", "prof", "leave", "n"]].to_csv(
     "outputs/p_prof_windows.csv", index=False)
 print(WD[["window", "prof", "leave", "n"]].to_string(index=False))
+
+# ---- real FTFY median earnings by profession: series and windows ----
+import io as _io
+import os as _os
+import urllib.request as _ur
+if not _os.path.exists("outputs/n_cpi.csv"):
+    _raw = _ur.urlopen("https://fred.stlouisfed.org/graph/"
+                       "fredgraph.csv?id=CPIAUCSL", timeout=60
+                       ).read().decode()
+    _c = pd.read_csv(_io.StringIO(_raw))
+    _c["year"] = pd.to_datetime(_c["observation_date"]).dt.year
+    _c = _c.groupby("year")["CPIAUCSL"].mean().reset_index()
+    _c["source"] = "BLS CPI-U via FRED CPIAUCSL, annual average"
+    _c.to_csv("outputs/n_cpi.csv", index=False)
+CPI = pd.read_csv("outputs/n_cpi.csv").set_index("year")["CPIAUCSL"]
+DEFL = (CPI.loc[2024] / CPI).to_dict()
+
+PAY = M[(M["ba_plus"] == 1) & M["A_AGE"].between(25, 60)
+        & M["WGT"].notna() & (M["WSAL_VAL"] > 0)
+        & (M["fullyear"] == 1) & (M["parttime_ly"] == 0)
+        & (M["asec_year"] >= 2003)]
+
+
+def _wmed(d):
+    s = d.sort_values("WSAL_VAL")
+    cw = s["WGT"].cumsum() / s["WGT"].sum()
+    return s.loc[cw >= 0.5, "WSAL_VAL"].iloc[0]
+
+
+prow, wrow = [], []
+for ay, g in PAY.groupby("asec_year"):
+    cy = int(ay) - 1
+    groups = {"All college graduates": g}
+    for prof, codes in prof_codes(int(ay)).items():
+        groups[prof] = g[g["OCCUP"].isin(codes)]
+    for prof, b in groups.items():
+        if len(b) < 100:
+            continue
+        prow.append({"cal_year": cy, "prof": prof, "n": len(b),
+                     "real_med": round(_wmed(b) * DEFL[cy])})
+pd.DataFrame(prow).to_csv("outputs/p_pay_profs.csv", index=False)
+PAY = PAY.copy()
+PAY["real"] = PAY["WSAL_VAL"] * (PAY["asec_year"] - 1).map(DEFL)
+for a, b, tag in [(2004, 2014, "2004-2014"), (2015, 2025, "2015-2025")]:
+    Ww = PAY[PAY["asec_year"].between(a, b)]
+    groups = {"All college graduates": Ww}
+    parts = {p: [] for p in prof_codes(2015)}
+    for ay, g in Ww.groupby("asec_year"):
+        for prof, codes in prof_codes(int(ay)).items():
+            parts[prof].append(g[g["OCCUP"].isin(codes)])
+    groups.update({p: pd.concat(v) for p, v in parts.items()})
+    for prof, d in groups.items():
+        s = d.sort_values("real")
+        cw = s["WGT"].cumsum() / s["WGT"].sum()
+        wrow.append({"window": tag, "prof": prof, "n": len(d),
+                     "real_med_k": round(
+                         s.loc[cw >= 0.5, "real"].iloc[0] / 1000, 1)})
+pd.DataFrame(wrow).to_csv("outputs/p_pay_windows.csv", index=False)
+print("pay series/windows -> p_pay_profs.csv, p_pay_windows.csv")
