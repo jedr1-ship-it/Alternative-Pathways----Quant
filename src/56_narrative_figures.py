@@ -133,7 +133,8 @@ for ax, fips in zip(axes, FIPS_NAME):
     L = L.merge(u[["cal_year", "u_march"]], on="cal_year")
     # binscatter: quantile bins of the state unemployment rate; the OLS
     # line is fitted on the underlying annual data (Stata binscatter)
-    L["bin"] = pd.qcut(L["u_march"], 7, labels=False, duplicates="drop")
+    L["bin"] = pd.qcut(L["u_march"], 10, labels=False,
+                       duplicates="drop")
     bx = L.groupby("bin")["u_march"].mean()
     by = L.groupby("bin")["leave"].mean()
     ax.scatter(bx, by, color=BLUE, s=44, zorder=4)
