@@ -124,15 +124,19 @@ SC = pd.read_csv("outputs/p_state_cycl.csv").set_index("GESTFIPS")
 TXT5b, MUT5b = "#3B4046", "#8A9096"
 fig, axes = plt.subplots(1, 3, figsize=(11.6, 3.9), sharey=True)
 for ax, fips in zip(axes, FIPS_NAME):
-    L = SS[SS["GESTFIPS"] == fips].copy()
+    # full calendar index so the blue line BREAKS where the state-year
+    # sample is too small instead of bridging the gap
+    L = SS[SS["GESTFIPS"] == fips].set_index("cal_year").reindex(
+        range(1997, 2025))
     L["leave_s"] = L["leave"].rolling(3, center=True,
                                       min_periods=2).mean()
+    L.loc[L["leave"].isna(), "leave_s"] = np.nan
     u = SU[SU["GESTFIPS"] == fips].copy()
     u["cal_year"] = u["survey_year"] - 1
-    L = L.merge(u[["cal_year", "u_march"]], on="cal_year")
-    ax.plot(L["cal_year"], L["leave_s"], color=BLUE, lw=2.2,
+    u = u.set_index("cal_year").reindex(range(1997, 2025))
+    ax.plot(L.index, L["leave_s"], color=BLUE, lw=2.2,
             solid_capstyle="round")
-    ax.plot(L["cal_year"], L["u_march"], color=TXT5b, lw=1.6,
+    ax.plot(u.index, u["u_march"], color=TXT5b, lw=1.6,
             ls=(0, (5, 3)))
     b, se = SC.loc[fips, "beta_pp"], SC.loc[fips, "se_pp"]
     ax.set_title(f"{FIPS_NAME[fips]}   " + r"$\beta$"
