@@ -57,15 +57,16 @@ fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.6, 4.3),
                              gridspec_kw={"width_ratios": [1.35, 1]})
 a1.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
 M1 = M[M["cal_year"] >= 2000]
-a1.plot(M1["cal_year"], M1["leave"], color=BLUE, lw=2.2,
+# one marker per year on BOTH series: every point above has its pair
+# below, same year
+a1.plot(M1["cal_year"], M1["leave"], color=BLUE, lw=2.0, marker="o",
+        ms=4.2, mec="white", mew=0.9, solid_capstyle="round")
+a1.plot(M1["cal_year"], M1["urate"], color=TXT5, lw=1.6,
+        ls=(0, (5, 3)), marker="o", ms=4.2, mec="white", mew=0.9,
         solid_capstyle="round")
-a1.plot(M1["cal_year"], M1["urate"], color=TXT5, lw=1.8,
-        ls=(0, (5, 3)), solid_capstyle="round")
 for col, c in [("leave", BLUE), ("urate", TXT5)]:
-    a1.plot(M1["cal_year"].iloc[-1], M1[col].iloc[-1], "o", color=c,
-            ms=6, mec="white", mew=1.6, zorder=6)
     a1.annotate(f"{M1[col].iloc[-1]:.1f}", (M1["cal_year"].iloc[-1],
-                M1[col].iloc[-1]), xytext=(4, 8),
+                M1[col].iloc[-1]), xytext=(6, 6),
                 textcoords="offset points", fontsize=9, color=c,
                 fontweight="bold")
 a1.annotate("Teachers leaving the profession", (2010.5, 11.3),
@@ -89,13 +90,7 @@ MS = MS.copy()
 MS["bin"] = pd.qcut(MS["urate_obs"], 10, labels=False,
                     duplicates="drop")
 NAVY, GRPH = "#2F5D8C", "#6B7280"
-# one bin = one x-position = two paired points; faint stems make the
-# pairing visible
 bx = MS.groupby("bin")["urate_obs"].mean()
-by_top = MS.groupby("bin")["leftlf"].mean()
-by_bot = MS.groupby("bin")["switch"].mean()
-for xv, y1, y2 in zip(bx, by_bot, by_top):
-    a2.plot([xv, xv], [y1, y2], color="#E3E6E9", lw=1.0, zorder=1)
 for dep, c, lab in [("leftlf", NAVY, "Out of the labor force"),
                     ("switch", GRPH, "To another job")]:
     by = MS.groupby("bin")[dep].mean()
