@@ -56,31 +56,26 @@ TXT5, MUT5 = "#3B4046", "#8A9096"
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.6, 4.3),
                              gridspec_kw={"width_ratios": [1.35, 1]})
 a1.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-lv_s = M["leave"].rolling(3, center=True, min_periods=2).mean()
-ur_s = M["urate"].rolling(3, center=True, min_periods=2).mean()
-a1.plot(M["cal_year"], M["leave"], color="#C3D3E4", lw=1.0)
-a1.plot(M["cal_year"], M["urate"], color="#D4D7DA", lw=1.0)
-a1.plot(M["cal_year"], lv_s, color=BLUE, lw=2.4,
+M1 = M[M["cal_year"] >= 2000]
+a1.plot(M1["cal_year"], M1["leave"], color=BLUE, lw=2.2,
         solid_capstyle="round")
-a1.plot(M["cal_year"], ur_s, color=TXT5, lw=2.0, ls=(0, (5, 3)),
-        solid_capstyle="round")
-for ser, c in [(lv_s, BLUE), (ur_s, TXT5)]:
-    a1.plot(M["cal_year"].iloc[-1], ser.iloc[-1], "o", color=c, ms=6,
-            mec="white", mew=1.6, zorder=6)
-    a1.annotate(f"{ser.iloc[-1]:.1f}", (M["cal_year"].iloc[-1],
-                ser.iloc[-1]), xytext=(4, 8),
+a1.plot(M1["cal_year"], M1["urate"], color=TXT5, lw=1.8,
+        ls=(0, (5, 3)), solid_capstyle="round")
+for col, c in [("leave", BLUE), ("urate", TXT5)]:
+    a1.plot(M1["cal_year"].iloc[-1], M1[col].iloc[-1], "o", color=c,
+            ms=6, mec="white", mew=1.6, zorder=6)
+    a1.annotate(f"{M1[col].iloc[-1]:.1f}", (M1["cal_year"].iloc[-1],
+                M1[col].iloc[-1]), xytext=(4, 8),
                 textcoords="offset points", fontsize=9, color=c,
                 fontweight="bold")
-a1.annotate("Teachers leaving the profession", (2009.5, 11.3),
+a1.annotate("Teachers leaving the profession", (2010.5, 11.3),
             fontsize=9.5, color=BLUE, fontweight="bold", ha="center")
-a1.annotate("Unemployment rate (BLS)", (2005.6, 2.4), fontsize=9,
+a1.annotate("Unemployment rate (BLS)", (2006.2, 2.2), fontsize=9,
             color=TXT5, ha="center")
 a1.text(2019.5, 12.15, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
-a1.annotate("bold: 3-year average · thin: annual", (1997.2, 0.5),
-            fontsize=8, color=MUT5)
 a1.set_ylim(0, 12.8)
 a1.set_yticks([0, 2, 4, 6, 8, 10, 12])
-a1.set_xticks(range(1998, 2025, 4))
+a1.set_xticks(range(2000, 2025, 4))
 a1.tick_params(labelsize=9, length=0, colors=MUT5)
 a1.set_ylabel("Percent", fontsize=10, color=TXT5)
 a1.grid(axis="y", color="#F1F2F3", lw=1.0)
@@ -91,7 +86,8 @@ a1.spines["bottom"].set_color("#D8DBDE")
 # binscatter: 8 quantile bins of the March unemployment rate; each
 # point is the mean exit rate within the bin (Stata binscatter style)
 MS = MS.copy()
-MS["bin"] = pd.qcut(MS["urate_obs"], 8, labels=False, duplicates="drop")
+MS["bin"] = pd.qcut(MS["urate_obs"], 10, labels=False,
+                    duplicates="drop")
 NAVY, GRPH = "#2F5D8C", "#6B7280"
 for dep, c, lab, dy in [("leftlf", NAVY, "Out of the labor force", 13),
                         ("switch", GRPH, "To another job", -18)]:
