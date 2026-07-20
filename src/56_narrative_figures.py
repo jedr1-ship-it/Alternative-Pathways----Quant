@@ -71,17 +71,18 @@ for ser, c in [(lv_s, BLUE), (ur_s, TXT5)]:
                 ser.iloc[-1]), xytext=(4, 8),
                 textcoords="offset points", fontsize=9, color=c,
                 fontweight="bold")
-a1.annotate("Teachers leaving the profession", (2010.5, 10.6),
+a1.annotate("Teachers leaving the profession", (2009.5, 11.3),
             fontsize=9.5, color=BLUE, fontweight="bold", ha="center")
 a1.annotate("Unemployment rate (BLS)", (2005.6, 2.4), fontsize=9,
             color=TXT5, ha="center")
-a1.text(2019.5, 11.9, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
+a1.text(2019.5, 12.15, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
+a1.annotate("bold: 3-year average · thin: annual", (1997.2, 0.5),
+            fontsize=8, color=MUT5)
 a1.set_ylim(0, 12.8)
 a1.set_yticks([0, 2, 4, 6, 8, 10, 12])
 a1.set_xticks(range(1998, 2025, 4))
 a1.tick_params(labelsize=9, length=0, colors=MUT5)
-a1.set_ylabel("Percent (3-yr averages; annual in light)", fontsize=10,
-              color=TXT5)
+a1.set_ylabel("Percent", fontsize=10, color=TXT5)
 a1.grid(axis="y", color="#F1F2F3", lw=1.0)
 a1.set_axisbelow(True)
 for s in ("top", "right", "left"):
@@ -92,15 +93,15 @@ a1.spines["bottom"].set_color("#D8DBDE")
 MS = MS.copy()
 MS["bin"] = pd.qcut(MS["urate_obs"], 8, labels=False, duplicates="drop")
 NAVY, GRPH = "#2F5D8C", "#6B7280"
-for dep, c, lab, dy in [("leftlf", NAVY, "Out of the labor force", 7),
-                        ("switch", GRPH, "To another job", -13)]:
+for dep, c, lab, dy in [("leftlf", NAVY, "Out of the labor force", 13),
+                        ("switch", GRPH, "To another job", -18)]:
     bx = MS.groupby("bin")["urate_obs"].mean()
     by = MS.groupby("bin")[dep].mean()
     a2.scatter(bx, by, color=c, s=42, zorder=4)
     b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
     xs = np.linspace(MS["urate_obs"].min(), MS["urate_obs"].max(), 10)
     a2.plot(xs, b0 + b1 * xs, color=c, lw=1.4, zorder=3)
-    a2.annotate(lab, (xs[-1], b0 + b1 * xs[-1]), fontsize=9,
+    a2.annotate(lab, (xs[-2], b0 + b1 * xs[-2]), fontsize=9,
                 color=TXT5, va="center", ha="right",
                 xytext=(0, dy), textcoords="offset points")
 a2.set_xlabel("Unemployment rate in the survey month (%)",
