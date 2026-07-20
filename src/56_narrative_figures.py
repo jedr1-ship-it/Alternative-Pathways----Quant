@@ -40,14 +40,17 @@ M = M[M["leaver_ba"].notna()].sort_values("cal_year").reset_index(
     drop=True)
 M = M.rename(columns={"leaver_ba": "leave", "rate_switch": "switch",
                       "rate_unemp": "unemp", "rate_leftlf": "leftlf"})
-# the exit assigned to calendar t is observed in March t+1: the market
-# it faces is the survey year's, so the scatter uses u(t+1)
-M["urate_obs"] = M["urate"].shift(-1)   # NaN for the last year: u(2025)
+# the exit assigned to calendar t is observed in March t+1: the
+# cleanest market measure is the unemployment rate OF that March
+UM = pd.read_csv("outputs/n_urate_march.csv")
+M["survey_year"] = M["cal_year"] + 1
+M = M.merge(UM, on="survey_year", how="left")
+M["urate_obs"] = M["u_march"]
 M.to_csv("outputs/n_cyclicality.csv", index=False)
 MS = M.dropna(subset=["urate_obs"])
 for a in ("leave", "switch", "leftlf", "unemp"):
     r = np.corrcoef(MS[a], MS["urate_obs"])[0, 1]
-    print(f"corr({a}, official unemployment t+1) = {r:+.2f}")
+    print(f"corr({a}, u March of survey) = {r:+.2f}")
 
 TXT5, MUT5 = "#3B4046", "#8A9096"
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.6, 4.3),
@@ -84,19 +87,23 @@ a1.set_axisbelow(True)
 for s in ("top", "right", "left"):
     a1.spines[s].set_visible(False)
 a1.spines["bottom"].set_color("#D8DBDE")
-for dep, c, lab, dy in [("switch", GOLD, "To another job", -14),
-                        ("leftlf", BLUE, "Out of the labor force", 8)]:
-    a2.scatter(MS["urate_obs"], MS[dep], color=c, s=34, alpha=0.75,
-               edgecolors="white", linewidths=1.2, zorder=3)
+# binscatter: 8 quantile bins of the March unemployment rate; each
+# point is the mean exit rate within the bin (Stata binscatter style)
+MS = MS.copy()
+MS["bin"] = pd.qcut(MS["urate_obs"], 8, labels=False, duplicates="drop")
+NAVY, GRPH = "#2F5D8C", "#6B7280"
+for dep, c, lab, dy in [("leftlf", NAVY, "Out of the labor force", 7),
+                        ("switch", GRPH, "To another job", -13)]:
+    bx = MS.groupby("bin")["urate_obs"].mean()
+    by = MS.groupby("bin")[dep].mean()
+    a2.scatter(bx, by, color=c, s=42, zorder=4)
     b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
     xs = np.linspace(MS["urate_obs"].min(), MS["urate_obs"].max(), 10)
-    a2.plot(xs, b0 + b1 * xs, color=c, lw=2.0, solid_capstyle="round")
-    r = np.corrcoef(MS["urate_obs"], MS[dep])[0, 1]
-    a2.annotate(f"{lab}   r = {r:+.2f}", (xs[-1], b0 + b1 * xs[-1]),
-                fontsize=9.2, color=c, va="center", ha="right",
-                fontweight="bold", xytext=(0, dy),
-                textcoords="offset points")
-a2.set_xlabel("Unemployment rate (%), year the exit is observed",
+    a2.plot(xs, b0 + b1 * xs, color=c, lw=1.4, zorder=3)
+    a2.annotate(lab, (xs[-1], b0 + b1 * xs[-1]), fontsize=9,
+                color=TXT5, va="center", ha="right",
+                xytext=(0, dy), textcoords="offset points")
+a2.set_xlabel("Unemployment rate in the survey month (%)",
               fontsize=10, color=TXT5)
 a2.set_ylabel("Exit rate by route (%)", fontsize=10, color=TXT5)
 a2.tick_params(labelsize=9, length=0, colors=MUT5)
