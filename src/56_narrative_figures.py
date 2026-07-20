@@ -98,10 +98,11 @@ for dep, c, lab in [("leftlf", NAVY, "Out of the labor force"),
     b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
     xs = np.linspace(MS["urate_obs"].min(), MS["urate_obs"].max(), 10)
     a2.plot(xs, b0 + b1 * xs, color=c, lw=1.4, zorder=3)
-    # both labels hang BELOW the right end of their fitted line
+    # both labels sit clearly ABOVE the right end of their fitted line
     a2.annotate(lab, (xs[-1], b0 + b1 * xs[-1]), fontsize=9,
-                color=TXT5, va="top", ha="right",
-                xytext=(0, -8), textcoords="offset points")
+                color=TXT5, va="bottom", ha="right",
+                xytext=(0, 9), textcoords="offset points")
+a2.set_ylim(1.55, 6.55)
 a2.set_xlabel("Unemployment rate in the survey month (%)",
               fontsize=10, color=TXT5)
 a2.set_ylabel("Exit rate by route (%)", fontsize=10, color=TXT5)
