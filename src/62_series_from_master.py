@@ -106,10 +106,12 @@ print("routes by age -> outputs/p_routes_age.csv")
 # (2000-census occupation codes: surveys 2003+, calendar 2002-2024)
 def prof_codes(ay):
     """2002-census codes (surveys 2003-2010), 2010 codes (2011-2019),
-    2018 codes (2020+). Teachers/accountants/lawyers are stable except
-    the teacher n.e.c. bucket; nurses and social workers move."""
+    2018 codes (2020+). Teachers/accountants/lawyers/pharmacists are
+    stable except the teacher n.e.c. bucket; the rest move."""
     rn = {3130} if ay <= 2010 else {3255, 3256, 3257, 3258}
     sw = {2010} if ay <= 2019 else {2011, 2012, 2013, 2014}
+    md = {3060} if ay <= 2019 else {3090, 3100}
+    pt = {3160} if ay <= 2019 else {3140}
     return {
         "Teachers": {2300, 2310, 2320, 2330} | ({2340} if ay <= 2019
                                                 else {2360}),
@@ -117,7 +119,14 @@ def prof_codes(ay):
         "Social workers": sw,
         "Accountants": {800},
         "Lawyers": {2100},
+        "Physicians": md,
+        "Pharmacists": {3050},
+        "Physical therapists": pt,
     }
+
+
+PLOT_PROFS = ["Teachers", "Registered nurses", "Social workers",
+              "Accountants", "Lawyers"]
 
 
 W2 = M[(M["ba_plus"] == 1) & (M["A_AGE"] >= 18) & M["WGT"].notna()
@@ -135,5 +144,27 @@ for ay, g in W2.groupby("asec_year"):
                       "leave": round(np.average(~st, weights=b["WGT"])
                                      * 100, 2)})
 PS = pd.DataFrame(prows).sort_values(["prof", "cal_year"])
+PS = PS[PS["prof"].isin(PLOT_PROFS)]
 PS.to_csv("outputs/p_prof_series.csv", index=False)
 print("profession series -> outputs/p_prof_series.csv")
+
+# ---- two symmetric windows for the professions dumbbell (G7):
+# surveys 2004-2014 and 2015-2025, eleven surveys each ----
+wrows = []
+for a, b, tag in [(2004, 2014, "2004-2014"), (2015, 2025, "2015-2025")]:
+    Ww = W2[W2["asec_year"].between(a, b)]
+    for ay, g in Ww.groupby("asec_year"):
+        emp = g["A_LFSR"].isin([1, 2])
+        for prof, codes in prof_codes(int(ay)).items():
+            bb = g[g["OCCUP"].isin(codes)]
+            if not len(bb):
+                continue
+            st = emp.loc[bb.index] & bb["PEIOOCC"].isin(codes)
+            wrows.append({"window": tag, "prof": prof,
+                          "w": bb["WGT"].sum(),
+                          "wl": (bb["WGT"] * ~st).sum(), "n": len(bb)})
+WD = pd.DataFrame(wrows).groupby(["window", "prof"]).sum().reset_index()
+WD["leave"] = (WD["wl"] / WD["w"] * 100).round(2)
+WD[["window", "prof", "leave", "n"]].to_csv(
+    "outputs/p_prof_windows.csv", index=False)
+print(WD[["window", "prof", "leave", "n"]].to_string(index=False))

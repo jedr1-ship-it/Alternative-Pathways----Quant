@@ -437,37 +437,32 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/g6_ame.pdf")
 plt.close(fig)
 
-# ================ G7 professions with H&A anchors ================
-P = pd.read_csv("outputs/p_professions.csv")
-piv = P.pivot(index="prof", columns="period", values="leaver_%")
-piv = piv.sort_values("2015-2024")
-HA = {"Teachers": 7.73, "Nurses": 6.09, "Social workers": 14.94,
-      "Accountants": 8.01}
-fig, ax = plt.subplots(figsize=(8.0, 4.4))
+# ==== G7 professions dumbbell: two symmetric survey windows ====
+P = pd.read_csv("outputs/p_prof_windows.csv")
+piv = P.pivot(index="prof", columns="window", values="leave")
+piv = piv.sort_values("2015-2025")
+W1, W2L = "2004-2014", "2015-2025"
+fig, ax = plt.subplots(figsize=(8.0, 4.6))
 y = np.arange(len(piv))
 for i, (prof, r) in enumerate(piv.iterrows()):
     c = BLUE if prof == "Teachers" else GRAY
-    ax.plot([r["2010-2014"], r["2015-2024"]], [i, i], color=c, lw=1.8,
-            alpha=0.75, zorder=2)
-    ax.plot(r["2010-2014"], i, "o", color=c, ms=6.5, mfc="white", zorder=3)
-    ax.plot(r["2015-2024"], i, "o", color=c, ms=7.5, zorder=3)
-    if prof in HA:
-        ax.plot(HA[prof], i, marker="s", color=CORAL, ms=6, mfc="none",
-                mew=1.4, zorder=3)
-    ax.annotate(h1(r["2015-2024"]), (r["2015-2024"], i),
-                textcoords="offset points", xytext=(9, -3), fontsize=8.7,
-                color=c,
+    ax.plot([r[W1], r[W2L]], [i, i], color=c, lw=1.8, alpha=0.75,
+            zorder=2)
+    ax.plot(r[W1], i, "o", color=c, ms=6.5, mfc="white", zorder=3)
+    ax.plot(r[W2L], i, "o", color=c, ms=7.5, zorder=3)
+    ax.annotate(h1(r[W2L]), (r[W2L], i), textcoords="offset points",
+                xytext=(9, -3), fontsize=8.7, color=c,
                 fontweight="bold" if prof == "Teachers" else "normal")
 ax.set_yticks(y)
 ax.set_yticklabels(piv.index, fontsize=9.6)
 for tick, prof in zip(ax.get_yticklabels(), piv.index):
     if prof == "Teachers":
-        tick.set_fontweight("bold"); tick.set_color(BLUE)
+        tick.set_fontweight("bold")
+        tick.set_color(BLUE)
 hnd = [plt.Line2D([], [], marker="o", color=GRAY, mfc="white", ls=""),
-       plt.Line2D([], [], marker="o", color=GRAY, ls=""),
-       plt.Line2D([], [], marker="s", color=CORAL, mfc="none", ls="")]
-ax.legend(hnd, ["2010–2014", "2015–2024", "Harris–Adams 1992–2001"],
-          frameon=False, fontsize=8.6, loc="lower right")
+       plt.Line2D([], [], marker="o", color=GRAY, ls="")]
+ax.legend(hnd, ["Surveys 2004–2014", "Surveys 2015–2025"],
+          frameon=False, fontsize=8.8, loc="lower right")
 ax.set_xlabel("Percent leaving the profession per year")
 ax.grid(axis="x", color="#EFEFEF", lw=0.6)
 ax.set_axisbelow(True)
@@ -478,16 +473,20 @@ plt.close(fig)
 
 # ================ G8 new baby, eight professions ================
 NB = pd.read_csv("outputs/p_newbaby.csv").sort_values("AME_newbaby_pp")
+NB["sig"] = NB["AME_newbaby_pp"].abs() > 1.96 * NB["se_pp"]
 fig, ax = plt.subplots(figsize=(7.6, 4.4))
-cols9 = [BLUE if p == "Teachers" else GRAY for p in NB["prof"]]
+cols9 = [BLUE if p == "Teachers" else
+         ("#5B6570" if s else "#D5D9DD")
+         for p, s in zip(NB["prof"], NB["sig"])]
 ax.barh(NB["prof"], NB["AME_newbaby_pp"], color=cols9, height=0.6)
 ax.errorbar(NB["AME_newbaby_pp"], NB["prof"], xerr=1.96 * NB["se_pp"],
             fmt="none", ecolor=INK, elinewidth=0.9, capsize=2.5)
 for i, (_, r) in enumerate(NB.iterrows()):
     ax.text(r["AME_newbaby_pp"] + 1.96 * r["se_pp"] + 0.45, i,
             f"+{r['AME_newbaby_pp']:.1f}", fontsize=9, va="center",
-            color=BLUE if r["prof"] == "Teachers" else SUBTLE,
-            fontweight="bold" if r["prof"] == "Teachers" else "normal")
+            color=BLUE if r["prof"] == "Teachers" else
+            ("#3B4046" if r["sig"] else SUBTLE),
+            fontweight="bold" if r["sig"] else "normal")
 for tick, prof in zip(ax.get_yticklabels(), NB["prof"]):
     if prof == "Teachers":
         tick.set_fontweight("bold"); tick.set_color(BLUE)
