@@ -123,34 +123,33 @@ SU = pd.read_csv("outputs/n_urate_states.csv")
 SC = pd.read_csv("outputs/p_state_cycl.csv").set_index("GESTFIPS")
 TXT5b, MUT5b = "#3B4046", "#8A9096"
 fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9), sharey=True)
+# scatter form: with 60-80 teachers per state-year the annual PATH is
+# noise; a state's cyclicality lives in the SLOPE, so use the same
+# language as the national binscatter -- one dot per year, OLS line
 for ax, fips in zip(axes, FIPS_NAME):
-    # full calendar index so the blue line BREAKS where the state-year
-    # sample is too small instead of bridging the gap
-    # annual, unsmoothed -- same convention as the national figure;
-    # both exemplars have complete 1997-2024 coverage
-    L = SS[SS["GESTFIPS"] == fips].set_index("cal_year").reindex(
-        range(1997, 2025))
+    L = SS[SS["GESTFIPS"] == fips].copy()
     u = SU[SU["GESTFIPS"] == fips].copy()
     u["cal_year"] = u["survey_year"] - 1
-    u = u.set_index("cal_year").reindex(range(1997, 2025))
-    ax.plot(L.index, L["leave"], color=BLUE, lw=2.0,
-            solid_capstyle="round")
-    ax.plot(u.index, u["u_march"], color=TXT5b, lw=1.6,
-            ls=(0, (5, 3)))
+    L = L.merge(u[["cal_year", "u_march"]], on="cal_year")
+    ax.scatter(L["u_march"], L["leave"], color=BLUE, s=34, alpha=0.8,
+               edgecolors="white", linewidths=1.1, zorder=4)
+    b1, b0 = np.polyfit(L["u_march"], L["leave"], 1)
+    xs = np.linspace(L["u_march"].min(), L["u_march"].max(), 10)
+    ax.plot(xs, b0 + b1 * xs, color=TXT5b, lw=1.6, zorder=3)
     ax.set_title(FIPS_NAME[fips], fontsize=11, color=TXT5b, loc="left")
-    ax.set_xticks(range(2000, 2025, 8))
+    ax.set_xlabel("State unemployment in the survey month (%)",
+                  fontsize=9.3, color=TXT5b)
     ax.tick_params(labelsize=8.8, length=0, colors=MUT5b)
-    ax.grid(axis="y", color="#F1F2F3", lw=1.0)
+    ax.grid(color="#F1F2F3", lw=1.0)
     ax.set_axisbelow(True)
     for s in ("top", "right", "left"):
         ax.spines[s].set_visible(False)
     ax.spines["bottom"].set_color("#D8DBDE")
-axes[0].set_ylabel("Percent", fontsize=10, color=TXT5b)
-axes[0].set_ylim(0, 17)
-axes[0].annotate("teachers leaving", (1998.5, 15.5),
-                 fontsize=8.8, color=BLUE, fontweight="bold")
-axes[0].annotate("state unemployment\n(March, BLS)", (2011.5, 1.2),
-                 fontsize=8.6, color=TXT5b)
+axes[0].set_ylabel("Percent of teachers leaving", fontsize=10,
+                   color=TXT5b)
+axes[0].annotate("each dot: one year, 1997–2024", (0.97, 0.04),
+                 xycoords="axes fraction", fontsize=8.6, color=MUT5b,
+                 ha="right")
 fig.tight_layout()
 fig.savefig(f"{FIG}/n5b_states_trio.pdf")
 plt.close(fig)
