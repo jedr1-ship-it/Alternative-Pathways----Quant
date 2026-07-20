@@ -117,7 +117,7 @@ fig.savefig(f"{FIG}/n5_cyclicality.pdf")
 plt.close(fig)
 
 # ------ N5b: three cyclicality regimes, one exemplar state each ------
-FIPS_NAME = {28: "Mississippi", 34: "New Jersey"}
+FIPS_NAME = {37: "North Carolina", 34: "New Jersey"}
 SS = pd.read_csv("outputs/p_state_series.csv")
 SU = pd.read_csv("outputs/n_urate_states.csv")
 SC = pd.read_csv("outputs/p_state_cycl.csv").set_index("GESTFIPS")
@@ -126,15 +126,14 @@ fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9), sharey=True)
 for ax, fips in zip(axes, FIPS_NAME):
     # full calendar index so the blue line BREAKS where the state-year
     # sample is too small instead of bridging the gap
+    # annual, unsmoothed -- same convention as the national figure;
+    # both exemplars have complete 1997-2024 coverage
     L = SS[SS["GESTFIPS"] == fips].set_index("cal_year").reindex(
         range(1997, 2025))
-    L["leave_s"] = L["leave"].rolling(3, center=True,
-                                      min_periods=2).mean()
-    L.loc[L["leave"].isna(), "leave_s"] = np.nan
     u = SU[SU["GESTFIPS"] == fips].copy()
     u["cal_year"] = u["survey_year"] - 1
     u = u.set_index("cal_year").reindex(range(1997, 2025))
-    ax.plot(L.index, L["leave_s"], color=BLUE, lw=2.2,
+    ax.plot(L.index, L["leave"], color=BLUE, lw=2.0,
             solid_capstyle="round")
     ax.plot(u.index, u["u_march"], color=TXT5b, lw=1.6,
             ls=(0, (5, 3)))
@@ -147,10 +146,10 @@ for ax, fips in zip(axes, FIPS_NAME):
         ax.spines[s].set_visible(False)
     ax.spines["bottom"].set_color("#D8DBDE")
 axes[0].set_ylabel("Percent", fontsize=10, color=TXT5b)
-axes[0].set_ylim(0, 15)
-axes[0].annotate("teachers leaving (3-yr avg)", (1998.5, 13.6),
+axes[0].set_ylim(0, 17)
+axes[0].annotate("teachers leaving", (1998.5, 15.5),
                  fontsize=8.8, color=BLUE, fontweight="bold")
-axes[0].annotate("state unemployment\n(March, BLS)", (2010.5, 1.4),
+axes[0].annotate("state unemployment\n(March, BLS)", (2011.5, 1.2),
                  fontsize=8.6, color=TXT5b)
 fig.tight_layout()
 fig.savefig(f"{FIG}/n5b_states_trio.pdf")
