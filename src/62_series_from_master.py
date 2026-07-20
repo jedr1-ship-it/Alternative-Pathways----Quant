@@ -227,3 +227,33 @@ for a, b, tag in [(2004, 2014, "2004-2014"), (2015, 2025, "2015-2025")]:
                          s.loc[cw >= 0.5, "real"].iloc[0] / 1000, 1)})
 pd.DataFrame(wrow).to_csv("outputs/p_pay_windows.csv", index=False)
 print("pay series/windows -> p_pay_profs.csv, p_pay_windows.csv")
+
+# ---- linked March-to-March earnings changes (micro, for the density
+# figure): teachers BA+ linked to their next-March record ----
+TL = M[(M["teacher"] == 1) & (M["ba_plus"] == 1)
+       & M["PERIDNUM"].notna() & (M["PERIDNUM"] != "")]
+mlink = []
+for ay in range(2011, 2025):
+    t0 = TL[TL["asec_year"] == ay]
+    b = M[M["asec_year"] == ay + 1][["PERIDNUM", "WSAL_VAL", "female",
+                                     "A_AGE"]]
+    mm = t0.merge(b, on="PERIDNUM", suffixes=("", "_1"))
+    mm = mm[(mm["female"] == mm["female_1"])
+            & (mm["A_AGE_1"] - mm["A_AGE"]).between(0, 2)]
+    mlink.append(mm)
+LKm = pd.concat(mlink, ignore_index=True)
+LKm = LKm[LKm["WSAL_VAL"] > 0]
+LKm["dlog"] = np.where(
+    LKm["WSAL_VAL_1"] > 0,
+    (np.log(LKm["WSAL_VAL_1"]) - np.log(LKm["WSAL_VAL"])) * 100, np.nan)
+out_m = pd.concat([
+    pd.DataFrame({"group": "stayer",
+                  "dlog": LKm.loc[(LKm["leaver"] == 0)
+                                  & LKm["dlog"].notna(), "dlog"]}),
+    pd.DataFrame({"group": "leaver_employed",
+                  "dlog": LKm.loc[(LKm["switch"] == 1)
+                                  & LKm["dlog"].notna(), "dlog"]})])
+out_m.round(2).to_csv("outputs/p_dlog_micro.csv", index=False)
+print(f"dlog micro -> p_dlog_micro.csv "
+      f"({(out_m['group'] == 'stayer').sum()} stayers, "
+      f"{(out_m['group'] == 'leaver_employed').sum()} leavers)")

@@ -245,36 +245,47 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/n6b_pay_windows.pdf")
 plt.close(fig)
 
-# ==== N6c (candidate): real pay indexed, pruned to three lines ====
-PP = pd.read_csv("outputs/p_pay_profs.csv")
-fig, ax = plt.subplots(figsize=(8.4, 4.4))
-for prof, c, lw, ls in [("Registered nurses", "#3E7C59", 1.7, "-"),
-                        ("All college graduates", INK, 1.8, (0, (5, 3))),
-                        ("Teachers", BLUE, 2.6, "-")]:
-    d = PP[PP["prof"] == prof].sort_values("cal_year")
-    sm = d["real_med"].rolling(3, center=True, min_periods=2).mean()
-    idx = sm / sm.iloc[0] * 100
-    ax.plot(d["cal_year"], idx, color=c, lw=lw, ls=ls)
-    ax.text(2024.6, idx.iloc[-1], prof, fontsize=9, color=c,
-            va="center",
-            fontweight="bold" if prof == "Teachers" else "normal")
-    ax.annotate(f"{idx.iloc[-1]:.0f}", (2024, idx.iloc[-1]),
-                xytext=(-4, -11 if prof == "Teachers" else 8),
-                textcoords="offset points", fontsize=8.8, color=c,
-                fontweight="bold", ha="center")
-ax.axhline(100, color="#CCCCCC", lw=0.8)
-ax.set_xticks(range(2002, 2025, 4))
-ax.set_xlim(2002, 2033)
-ax.set_ylabel("Real median earnings, 2002 = 100\n(full-time full-year, "
-              "3-yr avg)", fontsize=9.6, color=TXT6)
+# ==== G5b (approved): the earnings gamble as overlapping densities ====
+# details (n's, link construction) belong in the FIGURE NOTE, not here
+from scipy.stats import gaussian_kde  # noqa: E402
+DM = pd.read_csv("outputs/p_dlog_micro.csv")
+STd = DM.loc[DM["group"] == "stayer", "dlog"]
+LVd = DM.loc[DM["group"] == "leaver_employed", "dlog"]
+NAVY6, RED6 = "#33526E", "#B04A42"
+fig, ax = plt.subplots(figsize=(8.8, 4.6))
+xg = np.linspace(-160, 210, 500)
+ys_ = gaussian_kde(STd, bw_method=0.25)(xg)
+yl_ = gaussian_kde(LVd, bw_method=0.25)(xg)
+ax.fill_between(xg, 0, ys_, color="#E2E7EC", alpha=0.9, zorder=2)
+ax.fill_between(xg, 0, yl_, color="#F3DCD8", alpha=0.75, zorder=3)
+ax.plot(xg, ys_, color=NAVY6, lw=2.4, solid_capstyle="round", zorder=4)
+ax.plot(xg, yl_, color=RED6, lw=2.4, solid_capstyle="round", zorder=5)
+for d, c, yy in [(STd, NAVY6, ys_), (LVd, RED6, yl_)]:
+    med = np.median(d)
+    ax.plot([med, med], [0, np.interp(med, xg, yy)], color=c, lw=1.1,
+            ls=(0, (3, 2)), zorder=6)
+ax.annotate("Stayers", (12, 0.0146), fontsize=11, color=NAVY6,
+            fontweight="bold")
+ax.annotate("median +3", (12, 0.0134), fontsize=8.8, color=NAVY6)
+ax.annotate("Leavers, employed", (68, 0.0054), fontsize=11,
+            color=RED6, fontweight="bold")
+ax.annotate("median +15", (68, 0.0042), fontsize=8.8, color=RED6)
+ax.annotate("24% lose big", (-92, 0.0035), fontsize=9, color=RED6,
+            ha="center", fontweight="bold")
+ax.annotate("45% win big", (146, 0.0035), fontsize=9, color=RED6,
+            ha="center", fontweight="bold")
+ax.set_xlim(-160, 210)
+ax.set_ylim(0, 0.0175)
+ax.set_yticks([])
+ax.set_xticks([-150, -100, -50, 0, 50, 100, 150, 200])
+ax.set_xlabel("Change in annual earnings, log points ×100",
+              fontsize=10, color=TXT6)
 ax.tick_params(labelsize=9, length=0, colors=MUT6)
-ax.grid(axis="y", color="#F1F2F3", lw=1.0)
-ax.set_axisbelow(True)
 for s in ("top", "right", "left"):
     ax.spines[s].set_visible(False)
 ax.spines["bottom"].set_color("#D8DBDE")
 fig.tight_layout()
-fig.savefig(f"{FIG}/n6c_pay_index.pdf")
+fig.savefig(f"{FIG}/g5b_earnings_density.pdf")
 plt.close(fig)
 
 # ------ N6a: occupational leaving, teachers vs other professions ------
@@ -313,35 +324,44 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/n6a_professions_series.pdf")
 plt.close(fig)
 
-# ---------- N6 relative pay ----------
-P = pd.read_csv("outputs/n_relative_pay.csv")
-fig, ax = plt.subplots(figsize=(8.2, 4.2))
-ax.axhline(100, color=INK, lw=0.9)
-ax.text(2010.1, 100.8, "parity with the median college graduate",
-        fontsize=8.4, color=SUBTLE)
-ax.plot(P["cal_year"], P["rel_college"], color=BLUE, lw=2.2, marker="o",
-        ms=4.4)
-ax.plot(P["cal_year"], P["rel_nurses"], color=GREEN, lw=1.5, marker="s",
-        ms=3.4, alpha=0.85)
-ax.annotate(f"{P['rel_college'].iloc[0]:.0f}",
-            (P["cal_year"].iloc[0], P["rel_college"].iloc[0]),
-            xytext=(-2, 8), textcoords="offset points", fontsize=9,
-            color=BLUE, fontweight="bold")
-ax.annotate(f"{P['rel_college'].iloc[-1]:.0f}",
-            (P["cal_year"].iloc[-1], P["rel_college"].iloc[-1]),
-            xytext=(4, 8), textcoords="offset points", fontsize=9,
-            color=BLUE, fontweight="bold", ha="right")
-ax.annotate("teachers / all college graduates", (2017.4, 78.3), fontsize=9,
-            color=BLUE, fontweight="bold", ha="center")
-ax.annotate("teachers / registered nurses", (2014.5, 69.6), fontsize=8.6,
-            color=GREEN, ha="center")
-ax.set_ylim(60, 105)
-ax.set_ylabel("Teacher median weekly earnings, % of comparison group")
-ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+# ---- APPENDIX: real pay indexed, all comparison professions ----
+PP = pd.read_csv("outputs/p_pay_profs.csv")
+IDX_STYLE = {"Teachers": (BLUE, 2.6, "-"),
+             "All college graduates": (INK, 1.8, (0, (5, 3))),
+             "Registered nurses": ("#3E7C59", 1.6, "-"),
+             "Social workers": ("#C9A227", 1.6, "-"),
+             "Accountants": ("#8D87A8", 1.6, "-"),
+             "Lawyers": ("#B0B6BC", 1.6, "-")}
+fig, ax = plt.subplots(figsize=(8.4, 4.4))
+endy = {}
+for prof, (c, lw, ls) in IDX_STYLE.items():
+    d = PP[PP["prof"] == prof].sort_values("cal_year")
+    sm = d["real_med"].rolling(3, center=True, min_periods=2).mean()
+    idx = sm / sm.iloc[0] * 100
+    ax.plot(d["cal_year"], idx, color=c, lw=lw, ls=ls)
+    endy[prof] = idx.iloc[-1]
+order6 = sorted(endy, key=endy.get)
+ys6 = sorted(endy.values())
+for i in range(1, len(ys6)):
+    if ys6[i] - ys6[i - 1] < 1.6:
+        ys6[i] = ys6[i - 1] + 1.6
+for prof, y in zip(order6, ys6):
+    ax.text(2024.6, y, f"{prof}  {endy[prof]:.0f}", fontsize=8.8,
+            color=IDX_STYLE[prof][0], va="center",
+            fontweight="bold" if prof == "Teachers" else "normal")
+ax.axhline(100, color="#CCCCCC", lw=0.8)
+ax.set_xticks(range(2002, 2025, 4))
+ax.set_xlim(2002, 2034.5)
+ax.set_ylabel("Real median earnings, 2002 = 100\n(full-time full-year, "
+              "3-yr avg)", fontsize=9.6, color=TXT6)
+ax.tick_params(labelsize=9, length=0, colors=MUT6)
+ax.grid(axis="y", color="#F1F2F3", lw=1.0)
 ax.set_axisbelow(True)
-despine(ax)
+for s in ("top", "right", "left"):
+    ax.spines[s].set_visible(False)
+ax.spines["bottom"].set_color("#D8DBDE")
 fig.tight_layout()
-fig.savefig(f"{FIG}/n6_relative_pay.pdf")
+fig.savefig(f"{FIG}/napp_pay_index.pdf")
 plt.close(fig)
 
 # ---------- appendix: balance bar chart by block ----------
