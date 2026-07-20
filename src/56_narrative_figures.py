@@ -31,52 +31,35 @@ def despine(ax):
         ax.spines[s].set_visible(False)
 
 
-# ---------- annual route rates 2010-2024 ----------
-R = pd.concat([pd.read_parquet(f) for f in
-               sorted(glob.glob(f"{RAW}/asec_rich_*.parquet"))],
-              ignore_index=True)
-for c in ("OCCUP", "PEIOOCC", "A_LFSR", "A_HGA", "A_AGE", W, "asec_year"):
-    R[c] = pd.to_numeric(R[c], errors="coerce")
-rows = []
-for ay, g in R.groupby("asec_year"):
-    cs = tset(int(ay))
-    b = g[g["OCCUP"].isin(cs) & (g["A_HGA"] >= 43) & (g["A_AGE"] >= 18)]
-    emp = b["A_LFSR"].isin([1, 2])
-    w = b[W]
-    rows.append({"cal_year": int(ay) - 1,
-                 "leave": np.average(~(emp & b["PEIOOCC"].isin(cs)),
-                                     weights=w) * 100,
-                 "switch": np.average(emp & ~b["PEIOOCC"].isin(cs),
-                                      weights=w) * 100,
-                 "leftlf": np.average(~b["A_LFSR"].isin([1, 2, 3, 4]),
-                                      weights=w) * 100,
-                 "unemp": np.average(b["A_LFSR"].isin([3, 4]),
-                                     weights=w) * 100})
-RT = pd.DataFrame(rows).sort_values("cal_year")
-U = pd.read_csv("outputs/n_urate.csv")
-M = RT.merge(U, on="cal_year")
+# ---------- N5 cyclicality: THE series (p_series, same as Figure 2)
+# against the OFFICIAL unemployment rate (BLS via FRED), 1997-2024 ----
+S5 = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
+U = pd.read_csv("outputs/n_urate_official.csv")
+M = S5.merge(U[["cal_year", "urate"]], on="cal_year")
+M = M[M["leaver_ba"].notna()]
+M = M.rename(columns={"leaver_ba": "leave", "rate_switch": "switch",
+                      "rate_unemp": "unemp", "rate_leftlf": "leftlf"})
 M.to_csv("outputs/n_cyclicality.csv", index=False)
 
-for a, bcol in [("leave", "urate"), ("switch", "urate"),
-                ("leftlf", "urate"), ("unemp", "urate")]:
-    r = np.corrcoef(M[a], M[bcol])[0, 1]
-    print(f"corr({a}, unemployment) = {r:+.2f}")
+for a in ("leave", "switch", "leftlf", "unemp"):
+    r = np.corrcoef(M[a], M["urate"])[0, 1]
+    print(f"corr({a}, official unemployment) = {r:+.2f}")
 
-# ---------- N5 cyclicality ----------
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.8, 4.3),
                              gridspec_kw={"width_ratios": [1.35, 1]})
 a1.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-a1.plot(M["cal_year"], M["leave"], color=BLUE, lw=2.2, marker="o", ms=4.2)
+a1.plot(M["cal_year"], M["leave"], color=BLUE, lw=2.2, marker="o", ms=4.0)
 a1.plot(M["cal_year"], M["urate"], color=INK, lw=1.6, ls="--", marker="s",
-        ms=3.2)
-a1.annotate("teachers leaving the profession", (2016.9, 9.9), fontsize=9,
+        ms=3.0)
+a1.annotate("teachers leaving the profession", (2011.5, 11.0), fontsize=9,
             color=BLUE, fontweight="bold", ha="center")
-a1.annotate("unemployment rate\n(own CPS monthly files)", (2013.3, 4.6),
-            fontsize=8.6, color=INK, ha="center")
-a1.text(2019.5, 11.6, "Covid", ha="center", fontsize=9, color=SUBTLE)
-a1.set_ylim(0, 12.5)
+a1.annotate("unemployment rate (BLS)", (2002.5, 2.6), fontsize=8.6,
+            color=INK, ha="center")
+a1.text(2019.5, 11.9, "Covid", ha="center", fontsize=9, color=SUBTLE)
+a1.set_ylim(0, 12.8)
+a1.set_xticks(range(1998, 2025, 4))
 a1.set_ylabel("Percent")
-a1.set_title("Levels move together only at Covid", fontsize=10.5,
+a1.set_title("Leaving is flat while unemployment swings", fontsize=10.5,
              loc="left")
 a1.grid(axis="y", color="#EFEFEF", lw=0.6)
 a1.set_axisbelow(True)
@@ -92,7 +75,7 @@ for dep, c, lab in [("switch", GOLD, "to another job"),
     a2.annotate(f"{lab}  (r = {r:+.2f})", (xs[-1], ypos), fontsize=8.8,
                 color=c, va="bottom", ha="right",
                 xytext=(0, 5), textcoords="offset points")
-a2.set_xlabel("Unemployment rate (%)")
+a2.set_xlabel("Unemployment rate (%), BLS annual average")
 a2.set_ylabel("Exit rate by route (%)")
 a2.set_title("Routes respond differently to the cycle", fontsize=10.5,
              loc="left")
@@ -101,6 +84,42 @@ a2.set_axisbelow(True)
 despine(a2)
 fig.tight_layout(w_pad=3)
 fig.savefig(f"{FIG}/n5_cyclicality.pdf")
+plt.close(fig)
+
+# ------ N6a: occupational leaving, teachers vs other professions ------
+PSER = pd.read_csv("outputs/p_prof_series.csv")
+PROF_STYLE = [("Teachers", BLUE, 2.6, 1.0),
+              ("Registered nurses", "#3E7C59", 1.8, 0.9),
+              ("Social workers", GOLD, 1.8, 0.9),
+              ("Accountants", "#8D87A8", 1.8, 0.9),
+              ("Lawyers", "#B0B6BC", 1.8, 0.9)]
+fig, ax = plt.subplots(figsize=(8.8, 4.5))
+lab_y = {}
+for prof, c, lw, al in PROF_STYLE:
+    d = PSER[PSER["prof"] == prof].sort_values("cal_year")
+    sm = d["leave"].rolling(3, center=True, min_periods=2).mean()
+    ax.plot(d["cal_year"], sm, color=c, lw=lw, alpha=al)
+    lab_y[prof] = sm.iloc[-1]
+# de-collide right-margin labels
+order = sorted(lab_y, key=lab_y.get)
+ys = sorted(lab_y.values())
+for i in range(1, len(ys)):
+    if ys[i] - ys[i - 1] < 1.0:
+        ys[i] = ys[i - 1] + 1.0
+for prof, y in zip(order, ys):
+    c = dict((p, cc) for p, cc, *_ in PROF_STYLE)[prof]
+    ax.text(2024.6, y, prof, fontsize=9, color=c, va="center",
+            fontweight="bold" if prof == "Teachers" else "normal")
+ax.set_xticks(range(2002, 2025, 2))
+ax.set_xticklabels(range(2002, 2025, 2), fontsize=8.4, rotation=45)
+ax.set_xlim(2002, 2032)
+ax.set_ylim(0, 16)
+ax.set_ylabel("Percent leaving the occupation (3-yr avg)")
+ax.grid(axis="y", color="#EFEFEF", lw=0.6)
+ax.set_axisbelow(True)
+despine(ax)
+fig.tight_layout()
+fig.savefig(f"{FIG}/n6a_professions_series.pdf")
 plt.close(fig)
 
 # ---------- N6 relative pay ----------

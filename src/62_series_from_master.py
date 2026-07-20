@@ -37,6 +37,10 @@ for cy, g in T.groupby("cal_year"):
         row["leaver_ba"] = round(p * 100, 2)
         row["se_ba"] = round(np.sqrt(1.5 * p * (1 - p) / len(ba)) * 100, 2)
         row["weighted"] = 1
+        for k, col in [("rate_switch", "switch"), ("rate_unemp", "unemp"),
+                       ("rate_leftlf", "leftlf")]:
+            row[k] = round(np.average(ba[col] == 1,
+                                      weights=ba["WGT"]) * 100, 2)
     rows.append(row)
 S = pd.DataFrame(rows).sort_values("cal_year")
 S.to_csv("outputs/p_series.csv", index=False)
@@ -97,3 +101,39 @@ for a, b in [(21, 25), (26, 30), (31, 35), (36, 40), (41, 45), (46, 50),
         "total": round(np.average(g["leaver"], weights=w) * 100, 2)})
 pd.DataFrame(age_rows).to_csv("outputs/p_routes_age.csv", index=False)
 print("routes by age -> outputs/p_routes_age.csv")
+
+# ---- annual occupational-leaving series for comparison professions ----
+# (2000-census occupation codes: surveys 2003+, calendar 2002-2024)
+def prof_codes(ay):
+    """2002-census codes (surveys 2003-2010), 2010 codes (2011-2019),
+    2018 codes (2020+). Teachers/accountants/lawyers are stable except
+    the teacher n.e.c. bucket; nurses and social workers move."""
+    rn = {3130} if ay <= 2010 else {3255, 3256, 3257, 3258}
+    sw = {2010} if ay <= 2019 else {2011, 2012, 2013, 2014}
+    return {
+        "Teachers": {2300, 2310, 2320, 2330} | ({2340} if ay <= 2019
+                                                else {2360}),
+        "Registered nurses": rn,
+        "Social workers": sw,
+        "Accountants": {800},
+        "Lawyers": {2100},
+    }
+
+
+W2 = M[(M["ba_plus"] == 1) & (M["A_AGE"] >= 18) & M["WGT"].notna()
+       & (M["asec_year"] >= 2003)]
+prows = []
+for ay, g in W2.groupby("asec_year"):
+    emp = g["A_LFSR"].isin([1, 2])
+    for prof, codes in prof_codes(int(ay)).items():
+        b = g[g["OCCUP"].isin(codes)]
+        if len(b) < 150:
+            continue
+        st = emp.loc[b.index] & b["PEIOOCC"].isin(codes)
+        prows.append({"cal_year": int(ay) - 1, "prof": prof,
+                      "n": len(b),
+                      "leave": round(np.average(~st, weights=b["WGT"])
+                                     * 100, 2)})
+PS = pd.DataFrame(prows).sort_values(["prof", "cal_year"])
+PS.to_csv("outputs/p_prof_series.csv", index=False)
+print("profession series -> outputs/p_prof_series.csv")
