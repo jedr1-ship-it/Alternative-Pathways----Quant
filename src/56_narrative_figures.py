@@ -89,17 +89,18 @@ MS = MS.copy()
 MS["bin"] = pd.qcut(MS["urate_obs"], 10, labels=False,
                     duplicates="drop")
 NAVY, GRPH = "#2F5D8C", "#6B7280"
-for dep, c, lab, dy in [("leftlf", NAVY, "Out of the labor force", 13),
-                        ("switch", GRPH, "To another job", -18)]:
+for dep, c, lab in [("leftlf", NAVY, "Out of the labor force"),
+                    ("switch", GRPH, "To another job")]:
     bx = MS.groupby("bin")["urate_obs"].mean()
     by = MS.groupby("bin")[dep].mean()
     a2.scatter(bx, by, color=c, s=42, zorder=4)
     b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
     xs = np.linspace(MS["urate_obs"].min(), MS["urate_obs"].max(), 10)
     a2.plot(xs, b0 + b1 * xs, color=c, lw=1.4, zorder=3)
-    a2.annotate(lab, (xs[-2], b0 + b1 * xs[-2]), fontsize=9,
-                color=TXT5, va="center", ha="right",
-                xytext=(0, dy), textcoords="offset points")
+    # both labels hang BELOW the right end of their fitted line
+    a2.annotate(lab, (xs[-1], b0 + b1 * xs[-1]), fontsize=9,
+                color=TXT5, va="top", ha="right",
+                xytext=(0, -8), textcoords="offset points")
 a2.set_xlabel("Unemployment rate in the survey month (%)",
               fontsize=10, color=TXT5)
 a2.set_ylabel("Exit rate by route (%)", fontsize=10, color=TXT5)
