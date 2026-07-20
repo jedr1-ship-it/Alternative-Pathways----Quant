@@ -89,9 +89,15 @@ MS = MS.copy()
 MS["bin"] = pd.qcut(MS["urate_obs"], 10, labels=False,
                     duplicates="drop")
 NAVY, GRPH = "#2F5D8C", "#6B7280"
+# one bin = one x-position = two paired points; faint stems make the
+# pairing visible
+bx = MS.groupby("bin")["urate_obs"].mean()
+by_top = MS.groupby("bin")["leftlf"].mean()
+by_bot = MS.groupby("bin")["switch"].mean()
+for xv, y1, y2 in zip(bx, by_bot, by_top):
+    a2.plot([xv, xv], [y1, y2], color="#E3E6E9", lw=1.0, zorder=1)
 for dep, c, lab in [("leftlf", NAVY, "Out of the labor force"),
                     ("switch", GRPH, "To another job")]:
-    bx = MS.groupby("bin")["urate_obs"].mean()
     by = MS.groupby("bin")[dep].mean()
     a2.scatter(bx, by, color=c, s=42, zorder=4)
     b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
