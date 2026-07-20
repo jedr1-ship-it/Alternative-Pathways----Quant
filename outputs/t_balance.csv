@@ -1,0 +1,15 @@
+block,variable,"Teachers, women","Teachers, men",All teachers,Other college workers
+Demographics,Age (years),44.2 (12.8),44.9 (13.3),44.3 (12.9),44.1 (13.6)
+Demographics,Female,100.0,0.0,76.0,48.7
+Demographics,Black,9.6,9.5,9.6,9.6
+Demographics,Married,66.6,67.7,66.9,62.6
+Demographics,Child under 6,16.1,17.2,16.4,15.0
+Demographics,Number of children,0.8 (1.1),0.8 (1.1),0.8 (1.1),0.6 (1.0)
+Education,Master's degree or higher,51.3,53.6,51.9,35.4
+Job held last year,Government employer,70.3,70.4,70.3,15.5
+Job held last year,Part-time (<35 h/wk),15.2,11.4,14.3,13.5
+Job held last year,Full year (50+ weeks),71.1,74.8,72.0,85.0
+Job held last year,Pension plan at work,66.4,67.3,66.6,46.1
+Job held last year,"Wage earnings, median $","50,000","58,000","52,000","70,000"
+Transitions,Leaves teaching within a year,7.9,9.1,8.2,--
+,Person-years (unweighted N),"22,097","6,785","28,882","277,364"
