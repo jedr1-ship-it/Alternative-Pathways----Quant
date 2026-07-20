@@ -450,8 +450,10 @@ for i, (prof, r) in enumerate(piv.iterrows()):
             zorder=2)
     ax.plot(r[W1], i, "o", color=c, ms=6.5, mfc="white", zorder=3)
     ax.plot(r[W2L], i, "o", color=c, ms=7.5, zorder=3)
+    lower = r[W2L] < r[W1]
     ax.annotate(h1(r[W2L]), (r[W2L], i), textcoords="offset points",
-                xytext=(9, -3), fontsize=8.7, color=c,
+                xytext=(-9, -3) if lower else (9, -3),
+                ha="right" if lower else "left", fontsize=8.7, color=c,
                 fontweight="bold" if prof == "Teachers" else "normal")
 ax.set_yticks(y)
 ax.set_yticklabels(piv.index, fontsize=9.6)
