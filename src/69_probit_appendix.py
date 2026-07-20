@@ -107,17 +107,17 @@ win = T[T["cal_year"].between(2015, 2024)]
 full = T[T["cal_year"].between(1997, 2024)]
 print("estimating Table R ...", flush=True)
 R_COLS = [
-    ("(1) Probit", col(estimate(win, kind="probit"))),
-    ("(2) LPM, weighted", col(estimate(win, kind="lpm",
-                                       weighted=True))),
-    ("(3) Logit", col(estimate(win, kind="logit"))),
-    ("(4) LPM, state+year FE", col(estimate(win, kind="lpm",
-                                            weighted=True,
-                                            fe=("year", "state")))),
-    ("(5) Probit, 1997--2024", col(estimate(full, kind="probit"))),
-    ("(6) LPM, pair definition", col(estimate(win, dep="leaver_pair",
-                                              kind="lpm",
-                                              weighted=True))),
+    ("(1)|Probit", col(estimate(win, kind="probit"))),
+    ("(2)|LPM, wtd.", col(estimate(win, kind="lpm",
+                                   weighted=True))),
+    ("(3)|Logit", col(estimate(win, kind="logit"))),
+    ("(4)|LPM, FE", col(estimate(win, kind="lpm",
+                                 weighted=True,
+                                 fe=("year", "state")))),
+    ("(5)|Probit, full", col(estimate(full, kind="probit"))),
+    ("(6)|LPM, pair", col(estimate(win, dep="leaver_pair",
+                                   kind="lpm",
+                                   weighted=True))),
 ]
 print("estimating Table S ...", flush=True)
 S_COLS = [
@@ -145,10 +145,18 @@ def write_table(cols, fname, drop_vars=()):
         rows.append([LABELS[v]] + [c[1][v][0] for c in cols])
         rows.append([""] + [c[1][v][1] for c in cols])
     rows.append(["Observations"] + [c[1]["_N"] for c in cols])
-    df = pd.DataFrame(rows, columns=["variable"] + names)
+    df = pd.DataFrame(rows, columns=["variable"]
+                      + [n.replace("|", " ") for n in names])
     df.to_csv(f"outputs/{fname}.csv", index=False)
-    lines = ["\\begin{tabular}{l" + "c" * len(cols) + "}", "\\toprule",
-             " & " + " & ".join(names) + " \\\\", "\\midrule"]
+    lines = ["\\begin{tabular}{l" + "c" * len(cols) + "}", "\\toprule"]
+    if any("|" in n for n in names):
+        top = [n.split("|")[0] for n in names]
+        bot = [n.split("|")[1] if "|" in n else "" for n in names]
+        lines += [" & " + " & ".join(top) + " \\\\",
+                  " & " + " & ".join(bot) + " \\\\", "\\midrule"]
+        names = [n.replace("|", " ") for n in names]
+    else:
+        lines += [" & " + " & ".join(names) + " \\\\", "\\midrule"]
     for r in rows[:-1]:
         lines.append(" & ".join(str(x) for x in r) + " \\\\")
     lines += ["\\midrule",

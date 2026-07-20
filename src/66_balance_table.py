@@ -70,7 +70,7 @@ BLOCKS = [
          "pct", None),
         ("Pension plan at work", lambda d: wmean(d, "pension") * 100,
          "pct", None),
-        ("Wage earnings, median $", lambda d: wmedian(d, "WSAL_VAL"),
+        ("Wage earnings, median (\\$)", lambda d: wmedian(d, "WSAL_VAL"),
          "money", None),
     ]),
     ("Transitions", [
