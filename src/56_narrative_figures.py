@@ -131,13 +131,9 @@ for ax, fips in zip(axes, FIPS_NAME):
     u = SU[SU["GESTFIPS"] == fips].copy()
     u["cal_year"] = u["survey_year"] - 1
     L = L.merge(u[["cal_year", "u_march"]], on="cal_year")
-    # binscatter: quantile bins of the state unemployment rate; the OLS
-    # line is fitted on the underlying annual data (Stata binscatter)
-    L["bin"] = pd.qcut(L["u_march"], 10, labels=False,
-                       duplicates="drop")
-    bx = L.groupby("bin")["u_march"].mean()
-    by = L.groupby("bin")["leave"].mean()
-    ax.scatter(bx, by, color=BLUE, s=44, zorder=4)
+    # all 28 years as dots, OLS line on the same annual data
+    ax.scatter(L["u_march"], L["leave"], color=BLUE, s=34, alpha=0.85,
+               edgecolors="white", linewidths=1.1, zorder=4)
     b1, b0 = np.polyfit(L["u_march"], L["leave"], 1)
     xs = np.linspace(L["u_march"].min(), L["u_march"].max(), 10)
     ax.plot(xs, b0 + b1 * xs, color=TXT5b, lw=1.6, zorder=3)
@@ -152,7 +148,7 @@ for ax, fips in zip(axes, FIPS_NAME):
     ax.spines["bottom"].set_color("#D8DBDE")
 axes[0].set_ylabel("Percent of teachers leaving", fontsize=10,
                    color=TXT5b)
-axes[0].annotate("dots: bin means of the years 1997–2024", (0.97, 0.04),
+axes[0].annotate("each dot: one year, 1997–2024", (0.97, 0.04),
                  xycoords="axes fraction", fontsize=8.6, color=MUT5b,
                  ha="right")
 fig.tight_layout()
