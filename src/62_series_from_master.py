@@ -78,3 +78,22 @@ for tag, g in [("public", P[P["public_ly"] == 1]),
         "outlf": round(np.average(g["leftlf"] == 1, weights=w) * 100, 2)})
 pd.DataFrame(sec_rows).to_csv("outputs/p_sector_routes.csv", index=False)
 print("sector route rates -> outputs/p_sector_routes.csv")
+
+# ---- routes by age group, pooled 2015-2024 (weighted midpoints) ----
+A = M[(M["teacher"] == 1) & (M["ba_plus"] == 1) & M["WGT"].notna()
+      & M["cal_year"].between(2015, 2024) & M["A_AGE"].between(21, 80)]
+age_rows = []
+for a, b in [(21, 25), (26, 30), (31, 35), (36, 40), (41, 45), (46, 50),
+             (51, 55), (56, 60), (61, 64), (65, 80)]:
+    g = A[A["A_AGE"].between(a, b)]
+    w = g["WGT"]
+    age_rows.append({
+        "age": f"{a}-{b}", "mid": round(np.average(g["A_AGE"],
+                                                   weights=w), 2),
+        "n": len(g),
+        "switch": round(np.average(g["switch"] == 1, weights=w) * 100, 2),
+        "unemp": round(np.average(g["unemp"] == 1, weights=w) * 100, 2),
+        "leftlf": round(np.average(g["leftlf"] == 1, weights=w) * 100, 2),
+        "total": round(np.average(g["leaver"], weights=w) * 100, 2)})
+pd.DataFrame(age_rows).to_csv("outputs/p_routes_age.csv", index=False)
+print("routes by age -> outputs/p_routes_age.csv")

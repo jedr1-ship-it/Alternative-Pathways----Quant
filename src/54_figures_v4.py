@@ -308,7 +308,7 @@ fig.tight_layout()
 fig.savefig(f"{FIG}/g3_flow100.pdf")
 plt.close(fig)
 
-# ================ G4 routes over the lifecycle ================
+# ===== G4 routes over the lifecycle (approved: original + % labels) =====
 R5 = pd.read_csv("outputs/p_routes_age.csv")
 x = np.arange(len(R5))
 fig, ax = plt.subplots(figsize=(8.2, 4.2))
@@ -316,7 +316,7 @@ ax.stackplot(x, R5["switch"], R5["unemp"], R5["leftlf"],
              colors=[GOLD, GRAY, BLUE], alpha=0.92)
 ax.plot(x, R5["total"], color=INK, lw=1.5)
 for i in (0, 5, len(R5) - 1):
-    ax.annotate(f"{R5['total'].iloc[i]:.0f}", (i, R5["total"].iloc[i]),
+    ax.annotate(f"{R5['total'].iloc[i]:.0f}%", (i, R5["total"].iloc[i]),
                 textcoords="offset points", xytext=(0, 6), ha="center",
                 fontsize=8.6, color=INK, fontweight="bold")
 last = len(R5) - 1
