@@ -34,6 +34,12 @@ FW_FILES = {
     2010: "asec2010_pubuse.dat.gz"}
 CSV_URL = ("https://www2.census.gov/programs-surveys/cps/datasets/"
            "{y}/march/asecpub{yy}csv.zip")
+FW_A = {2011: "asec2011_pubuse.dat.gz", 2012: "asec2012_pubuse.dat.gz",
+        2013: "asec2013_pubuse.dat.gz",
+        2014: "asec2014_pubuse_tax_fix_5x8_2017.dat.gz",
+        2015: "asec2015_pubuse.dat.gz",
+        2016: "asec2016_pubuse_v3.dat.gz",
+        2017: "asec2017_pubuse.dat.gz", 2018: "asec2018_pubuse.dat.gz"}
 FIPS_ABBR = {
     1: "AL", 2: "AK", 4: "AZ", 5: "AR", 6: "CA", 8: "CO", 9: "CT",
     10: "DE", 11: "DC", 12: "FL", 13: "GA", 15: "HI", 16: "ID",
@@ -97,23 +103,47 @@ def state_tier_b(y):
 
 
 def state_tier_a(y):
+    """Surveys 2011-2018: household records of the documented
+    fixed-width files (same positions as tier B). Surveys 2019+: the
+    hhpub file inside the official CSV zip."""
     out = f"{RAW}/asec_state_{y}.parquet"
     if os.path.exists(out):
         return
-    yy = str(y)[2:]
-    z = f"{RAW}/asecpub{yy}csv.zip"
-    if not os.path.exists(z):
-        urllib.request.urlretrieve(CSV_URL.format(y=y, yy=yy), z + ".part")
-        os.rename(z + ".part", z)
-    zf = zipfile.ZipFile(z)
-    pp = [n for n in zf.namelist() if "pppub" in n.lower()][0]
-    d = pd.read_csv(zf.open(pp), usecols=["PH_SEQ", "GESTFIPS"])
-    d = d.drop_duplicates("PH_SEQ")
+    if y <= 2018:
+        local = f"{RAW}/{FW_A[y]}"
+        if not os.path.exists(local):
+            urllib.request.urlretrieve(
+                f"https://www2.census.gov/programs-surveys/cps/datasets/"
+                f"{y}/march/{FW_A[y]}", local + ".part")
+            os.rename(local + ".part", local)
+        hseq, st = [], []
+        with open_lines(local) as fh:
+            for line in fh:
+                if line and line[0] == "1":
+                    try:
+                        hseq.append(int(line[1:6]))
+                        st.append(int(line[41:43]))
+                    except ValueError:
+                        continue
+        d = pd.DataFrame({"PH_SEQ": hseq, "GESTFIPS": st})
+        os.remove(local)
+    else:
+        yy = str(y)[2:]
+        z = f"{RAW}/asecpub{yy}csv.zip"
+        if not os.path.exists(z):
+            urllib.request.urlretrieve(CSV_URL.format(y=y, yy=yy),
+                                       z + ".part")
+            os.rename(z + ".part", z)
+        zf = zipfile.ZipFile(z)
+        hh = [n for n in zf.namelist() if "hhpub" in n.lower()][0]
+        d = pd.read_csv(zf.open(hh), usecols=["H_SEQ", "GESTFIPS"])
+        d = d.rename(columns={"H_SEQ": "PH_SEQ"}).drop_duplicates(
+            "PH_SEQ")
+        os.remove(z)
     d = d[d["GESTFIPS"].isin(FIPS_ABBR)]
     d["asec_year"] = y
     assert d["GESTFIPS"].nunique() >= 50, f"{y}: state field implausible"
     d.to_parquet(out, index=False)
-    os.remove(z)
     print(f"{y}: households={len(d):,} states={d['GESTFIPS'].nunique()}",
           flush=True)
 
