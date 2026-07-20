@@ -25,7 +25,7 @@ import pandas as pd
 
 RAW = "data/raw/asec"
 FW_FILES = {
-    1998: "mar98supp.dat.gz", 1999: "mar99supp.cps.gz",
+    1998: "mar98supp.cps.gz", 1999: "mar99supp.cps.gz",
     2000: "mar00supp.cps.gz", 2001: "mar01supp.dat.gz",
     2002: "mar02supp.dat.gz", 2003: "asec2003.pub.gz",
     2004: "asec2004.zip", 2005: "asec2005_pubuse.pub.gz",
@@ -54,21 +54,40 @@ def open_lines(path):
     return gzip.open(path, "rt", encoding="latin-1")
 
 
+# surveys 1998-2000 carry only the 1960-census state code (HG-ST60@40);
+# GESTFIPS@42 exists from survey 2001 on
+ST60_FIPS = {11: 23, 12: 33, 13: 50, 14: 25, 15: 44, 16: 9,
+             21: 36, 22: 34, 23: 42,
+             31: 39, 32: 18, 33: 17, 34: 26, 35: 55,
+             41: 27, 42: 19, 43: 29, 44: 38, 45: 46, 46: 31, 47: 20,
+             51: 10, 52: 24, 53: 11, 54: 51, 55: 54, 56: 37, 57: 45,
+             58: 13, 59: 12,
+             61: 21, 62: 47, 63: 1, 64: 28,
+             71: 5, 72: 22, 73: 40, 74: 48,
+             81: 30, 82: 16, 83: 56, 84: 8, 85: 35, 86: 4, 87: 49,
+             88: 32,
+             91: 53, 92: 41, 93: 6, 94: 2, 95: 15}
+
+
 def state_tier_b(y):
     out = f"{RAW}/asec_state_{y}.parquet"
     if os.path.exists(out):
         return
     local = f"{RAW}/{FW_FILES[y]}"
+    old60 = y <= 2000
+    o0, o1 = (39, 41) if old60 else (41, 43)
     hseq, st = [], []
     with open_lines(local) as fh:
         for line in fh:
             if line and line[0] == "1":
                 try:
                     hseq.append(int(line[1:6]))
-                    st.append(int(line[41:43]))
+                    st.append(int(line[o0:o1]))
                 except ValueError:
                     continue
     d = pd.DataFrame({"PH_SEQ": hseq, "GESTFIPS": st})
+    if old60:
+        d["GESTFIPS"] = d["GESTFIPS"].map(ST60_FIPS)
     d = d[d["GESTFIPS"].isin(FIPS_ABBR)]
     d["asec_year"] = y
     assert d["GESTFIPS"].nunique() >= 50, f"{y}: state field implausible"
