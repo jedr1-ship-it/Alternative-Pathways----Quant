@@ -36,52 +36,75 @@ def despine(ax):
 S5 = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 U = pd.read_csv("outputs/n_urate_official.csv")
 M = S5.merge(U[["cal_year", "urate"]], on="cal_year")
-M = M[M["leaver_ba"].notna()]
+M = M[M["leaver_ba"].notna()].sort_values("cal_year").reset_index(
+    drop=True)
 M = M.rename(columns={"leaver_ba": "leave", "rate_switch": "switch",
                       "rate_unemp": "unemp", "rate_leftlf": "leftlf"})
+# the exit assigned to calendar t is observed in March t+1: the market
+# it faces is the survey year's, so the scatter uses u(t+1)
+M["urate_obs"] = M["urate"].shift(-1)   # NaN for the last year: u(2025)
 M.to_csv("outputs/n_cyclicality.csv", index=False)
-
+MS = M.dropna(subset=["urate_obs"])
 for a in ("leave", "switch", "leftlf", "unemp"):
-    r = np.corrcoef(M[a], M["urate"])[0, 1]
-    print(f"corr({a}, official unemployment) = {r:+.2f}")
+    r = np.corrcoef(MS[a], MS["urate_obs"])[0, 1]
+    print(f"corr({a}, official unemployment t+1) = {r:+.2f}")
 
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.8, 4.3),
+TXT5, MUT5 = "#3B4046", "#8A9096"
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.6, 4.3),
                              gridspec_kw={"width_ratios": [1.35, 1]})
 a1.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-a1.plot(M["cal_year"], M["leave"], color=BLUE, lw=2.2, marker="o", ms=4.0)
-a1.plot(M["cal_year"], M["urate"], color=INK, lw=1.6, ls="--", marker="s",
-        ms=3.0)
-a1.annotate("teachers leaving the profession", (2011.5, 11.0), fontsize=9,
-            color=BLUE, fontweight="bold", ha="center")
-a1.annotate("unemployment rate (BLS)", (2002.5, 2.6), fontsize=8.6,
-            color=INK, ha="center")
-a1.text(2019.5, 11.9, "Covid", ha="center", fontsize=9, color=SUBTLE)
+lv_s = M["leave"].rolling(3, center=True, min_periods=2).mean()
+ur_s = M["urate"].rolling(3, center=True, min_periods=2).mean()
+a1.plot(M["cal_year"], M["leave"], color="#C3D3E4", lw=1.0)
+a1.plot(M["cal_year"], M["urate"], color="#D4D7DA", lw=1.0)
+a1.plot(M["cal_year"], lv_s, color=BLUE, lw=2.4,
+        solid_capstyle="round")
+a1.plot(M["cal_year"], ur_s, color=TXT5, lw=2.0, ls=(0, (5, 3)),
+        solid_capstyle="round")
+for ser, c in [(lv_s, BLUE), (ur_s, TXT5)]:
+    a1.plot(M["cal_year"].iloc[-1], ser.iloc[-1], "o", color=c, ms=6,
+            mec="white", mew=1.6, zorder=6)
+    a1.annotate(f"{ser.iloc[-1]:.1f}", (M["cal_year"].iloc[-1],
+                ser.iloc[-1]), xytext=(4, 8),
+                textcoords="offset points", fontsize=9, color=c,
+                fontweight="bold")
+a1.annotate("Teachers leaving the profession", (2010.5, 10.6),
+            fontsize=9.5, color=BLUE, fontweight="bold", ha="center")
+a1.annotate("Unemployment rate (BLS)", (2005.6, 2.4), fontsize=9,
+            color=TXT5, ha="center")
+a1.text(2019.5, 11.9, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
 a1.set_ylim(0, 12.8)
+a1.set_yticks([0, 2, 4, 6, 8, 10, 12])
 a1.set_xticks(range(1998, 2025, 4))
-a1.set_ylabel("Percent")
-a1.set_title("Leaving is flat while unemployment swings", fontsize=10.5,
-             loc="left")
-a1.grid(axis="y", color="#EFEFEF", lw=0.6)
+a1.tick_params(labelsize=9, length=0, colors=MUT5)
+a1.set_ylabel("Percent (3-yr averages; annual in light)", fontsize=10,
+              color=TXT5)
+a1.grid(axis="y", color="#F1F2F3", lw=1.0)
 a1.set_axisbelow(True)
-despine(a1)
-for dep, c, lab in [("switch", GOLD, "to another job"),
-                    ("leftlf", BLUE, "out of the labor force")]:
-    a2.scatter(M["urate"], M[dep], color=c, s=30, zorder=3)
-    b1, b0 = np.polyfit(M["urate"], M[dep], 1)
-    xs = np.linspace(M["urate"].min(), M["urate"].max(), 10)
-    a2.plot(xs, b0 + b1 * xs, color=c, lw=1.6)
-    r = np.corrcoef(M["urate"], M[dep])[0, 1]
-    ypos = (b0 + b1 * xs[-1])
-    a2.annotate(f"{lab}  (r = {r:+.2f})", (xs[-1], ypos), fontsize=8.8,
-                color=c, va="bottom", ha="right",
-                xytext=(0, 5), textcoords="offset points")
-a2.set_xlabel("Unemployment rate (%), BLS annual average")
-a2.set_ylabel("Exit rate by route (%)")
-a2.set_title("Routes respond differently to the cycle", fontsize=10.5,
-             loc="left")
-a2.grid(color="#EFEFEF", lw=0.6)
+for s in ("top", "right", "left"):
+    a1.spines[s].set_visible(False)
+a1.spines["bottom"].set_color("#D8DBDE")
+for dep, c, lab, dy in [("switch", GOLD, "To another job", -14),
+                        ("leftlf", BLUE, "Out of the labor force", 8)]:
+    a2.scatter(MS["urate_obs"], MS[dep], color=c, s=34, alpha=0.75,
+               edgecolors="white", linewidths=1.2, zorder=3)
+    b1, b0 = np.polyfit(MS["urate_obs"], MS[dep], 1)
+    xs = np.linspace(MS["urate_obs"].min(), MS["urate_obs"].max(), 10)
+    a2.plot(xs, b0 + b1 * xs, color=c, lw=2.0, solid_capstyle="round")
+    r = np.corrcoef(MS["urate_obs"], MS[dep])[0, 1]
+    a2.annotate(f"{lab}   r = {r:+.2f}", (xs[-1], b0 + b1 * xs[-1]),
+                fontsize=9.2, color=c, va="center", ha="right",
+                fontweight="bold", xytext=(0, dy),
+                textcoords="offset points")
+a2.set_xlabel("Unemployment rate (%), year the exit is observed",
+              fontsize=10, color=TXT5)
+a2.set_ylabel("Exit rate by route (%)", fontsize=10, color=TXT5)
+a2.tick_params(labelsize=9, length=0, colors=MUT5)
+a2.grid(color="#F1F2F3", lw=1.0)
 a2.set_axisbelow(True)
-despine(a2)
+for s in ("top", "right", "left"):
+    a2.spines[s].set_visible(False)
+a2.spines["bottom"].set_color("#D8DBDE")
 fig.tight_layout(w_pad=3)
 fig.savefig(f"{FIG}/n5_cyclicality.pdf")
 plt.close(fig)
