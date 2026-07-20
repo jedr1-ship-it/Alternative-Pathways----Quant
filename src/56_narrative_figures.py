@@ -117,12 +117,12 @@ fig.savefig(f"{FIG}/n5_cyclicality.pdf")
 plt.close(fig)
 
 # ------ N5b: three cyclicality regimes, one exemplar state each ------
-FIPS_NAME = {28: "Mississippi", 6: "California", 34: "New Jersey"}
+FIPS_NAME = {28: "Mississippi", 34: "New Jersey"}
 SS = pd.read_csv("outputs/p_state_series.csv")
 SU = pd.read_csv("outputs/n_urate_states.csv")
 SC = pd.read_csv("outputs/p_state_cycl.csv").set_index("GESTFIPS")
 TXT5b, MUT5b = "#3B4046", "#8A9096"
-fig, axes = plt.subplots(1, 3, figsize=(11.6, 3.9), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9), sharey=True)
 for ax, fips in zip(axes, FIPS_NAME):
     # full calendar index so the blue line BREAKS where the state-year
     # sample is too small instead of bridging the gap
@@ -138,10 +138,7 @@ for ax, fips in zip(axes, FIPS_NAME):
             solid_capstyle="round")
     ax.plot(u.index, u["u_march"], color=TXT5b, lw=1.6,
             ls=(0, (5, 3)))
-    b, se = SC.loc[fips, "beta_pp"], SC.loc[fips, "se_pp"]
-    ax.set_title(f"{FIPS_NAME[fips]}   " + r"$\beta$"
-                 + f" = {b:+.1f} ({se:.1f})", fontsize=10.5,
-                 color=TXT5b, loc="left")
+    ax.set_title(FIPS_NAME[fips], fontsize=11, color=TXT5b, loc="left")
     ax.set_xticks(range(2000, 2025, 8))
     ax.tick_params(labelsize=8.8, length=0, colors=MUT5b)
     ax.grid(axis="y", color="#F1F2F3", lw=1.0)
