@@ -15,7 +15,7 @@
 \definecolor{citeblue}{HTML}{2A5DB0}
 \hypersetup{citecolor=citeblue,linkcolor=citeblue,urlcolor=citeblue}
 
-\captionsetup{font={small},labelfont={bf},
+\captionsetup{font={small},labelfont={bf},labelsep=period,
               justification=justified,singlelinecheck=false}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.6}
@@ -34,6 +34,10 @@
 
 \newcommand{\fignote}[1]{\par\vspace{4pt}%
   \begin{minipage}{\linewidth}\footnotesize\color{ecgray}#1\end{minipage}}
+\newcommand{\starlegend}{\\[2pt]
+\hspace*{0pt}***Significant at the 1 percent level.\\
+\hspace*{0pt}\phantom{*}**Significant at the 5 percent level.\\
+\hspace*{0pt}\phantom{**}*Significant at the 10 percent level.}
 
 \begin{document}
 
@@ -133,8 +137,8 @@ recently used its modern files to establish the level; the school-roster
 surveys of the National Center for Education Statistics confirm the same
 level independently \citep{nces2024}. What no one has done is run the
 instrument at full depth and full length: every supplement from 1998 to
-2025, read from the raw fixed-width Census files at the byte positions
-of the official technical documentation, harmonized into a single
+2025, rebuilt from the raw Census files exactly as the Census Bureau
+documents them, harmonized into a single
 database of five million person-year records, validated person by
 person against within-panel classifications, decomposed by route, age,
 sex, sector, state, and family event, and priced by linking consecutive
@@ -147,29 +151,29 @@ apart---10.3 percent in 2001, at the end of the dot-com boom, and 10.2
 in 2019, on the eve of the pandemic---and a 2024 reading of 7.7, below
 the long-run mean (Figure~\ref{fig:evolution}). Covid produced a
 two-year excursion that fully reversed. The anatomy underneath explains
-why the rate is so stable, and the explanation is the story of this
-paper. Most leaving is not career change: of every 100 leavers, 62 are
-not working the following March---38 of them at ages 55 or older, the
-retirement route---and only 26 hold another job, a third of those still
-in education and care (Figure~\ref{fig:flow100}). The exits respond to
-life, not to the labor market. A new baby raises a woman's probability
-of leaving by 5.9 percentage points, roughly double the effect in
-nursing or accounting (Figure~\ref{fig:newbaby})---though that margin
-has been closing for twenty-five years as the motherhood exit fades
-from American labor supply (Figure~\ref{fig:mothers}). A booming
-economy, by contrast, does not lure teachers away: across twenty-eight
-years and fifty-one jurisdictions, every statistically detectable
-cyclical response says recessions push teachers out, and none says
-booms pull them away (Figures~\ref{fig:cycle} and~\ref{fig:states}).
-And leaving does not pay---or pays like a lottery. The median career
-changer gains 15 log points, but a quarter lose more than 30, and 47
-percent of all leavers report no earnings at all the following year
+why the rate is so stable. Most leaving is not career change: of every
+100 leavers, 62 are not working the following March---38 of them at
+ages 55 or older, the retirement route---and only 26 hold another job,
+a third of those still in education and care
+(Figure~\ref{fig:flow100}). The exits respond to life, not to the
+labor market. A new baby raises a woman's probability of leaving by
+5.9 percentage points, roughly double the effect in nursing or
+accounting (Figure~\ref{fig:newbaby})---though that margin has been
+closing for twenty-five years as the motherhood exit fades from
+American labor supply (Figure~\ref{fig:mothers}). A booming economy,
+by contrast, does not lure teachers away: across twenty-eight years
+and fifty-one jurisdictions, every statistically detectable cyclical
+response says recessions push teachers out, and none says booms pull
+them away (Figures~\ref{fig:cycle} and~\ref{fig:states}). And leaving
+does not pay---or pays like a lottery. The median career changer gains
+15 log points, but a quarter lose more than 30, and 47 percent of all
+leavers report no earnings at all the following year
 (Figure~\ref{fig:density}). A risk-averse, pension-covered workforce
-buys few such tickets, which is precisely what the flat series shows.
-Meanwhile the pay of those who stay slid from 80 to 72 percent of the
-median college graduate (Figure~\ref{fig:paywindows})---and teaching is
-nonetheless the only comparison profession whose attrition fell between
-the first and second halves of the sample
+takes few such gambles, which is what the flat series shows. Meanwhile
+the pay of those who stay slid from 80 to 72 percent of the median
+college graduate (Figure~\ref{fig:paywindows})---and teaching is
+nonetheless the only comparison profession whose attrition fell
+between the first and second halves of the sample
 (Figure~\ref{fig:professions}).
 
 The paper is organized around its figures. Section~\ref{sec:data}
@@ -184,17 +188,16 @@ comparison with \citet{harris2007}, construction details, robustness
 tables, and additional figures.
 
 % =====================================================================
-\section{Data and measurement}\label{sec:data}
+\section{Data and Measurement}\label{sec:data}
 
-\subsection{The March retrospective instrument}
+\subsection{The March Retrospective Instrument}
 
 The Annual Social and Economic Supplement (ASEC) of the CPS, fielded
 every March, asks two questions that together identify profession
 leaving. The first is retrospective: the occupation of the longest job
-held during the previous calendar year (\texttt{OCCUP}). The second is
-contemporaneous: the occupation of the job held this week
-(\texttt{PEIOOCC}), together with the labor force status recode
-(\texttt{A\_LFSR}), which distinguishes the employed, the unemployed,
+held during the previous calendar year. The second is contemporaneous:
+the occupation of the job held this week, together with a recode of
+labor force status that distinguishes the employed, the unemployed,
 and those outside the labor force. A teacher is a respondent whose
 longest job last year carried a K--12 teaching occupation code
 (preschool through secondary and special education, plus the ``other
@@ -202,7 +205,7 @@ teachers'' residual; postsecondary teachers, aides, and tutors are
 excluded). A leaver is a teacher who, by the March interview, is not
 employed in a teaching occupation: working in some other occupation
 (a switcher), unemployed, or out of the labor force. Because status
-comes from \texttt{A\_LFSR} rather than from the occupation
+comes from the labor force recode rather than from the occupation
 variable---which carries the last job held even for the
 unemployed---the three routes are mutually exclusive and exhaustive.
 
@@ -222,7 +225,7 @@ A teacher who changes school but keeps teaching keeps the occupation
 code and is a stayer. This is precisely what makes the CPS number a
 measure of profession attrition rather than school turnover.
 
-\subsection{One pooled database from the raw files}
+\subsection{One Pooled Database from the Raw Files}
 
 All results come from a single person-level database built from the
 original Census public-use files: 5,009,129 person-year records across
@@ -231,9 +234,9 @@ teacher-year observations (85,497 for college graduates aged 18 and
 over, the baseline universe). For survey years 2011--2025 the modern
 machine-readable files are used directly. For survey years 1998--2010
 the public files are fixed-width records whose layouts are not
-machine-readable; every variable was extracted at the byte positions
-published in the official Census technical documentation
-(\texttt{cpsmar98.pdf}--\texttt{cpsmar10.pdf}), so that education,
+machine-readable; every variable was extracted at the positions
+published in the official Census technical documentation, so that
+education,
 supplement weights, labor force status, demographics, household
 structure, last-year job characteristics (weeks, hours, class of
 worker, pension coverage), earnings, and state of residence exist on a
@@ -243,7 +246,7 @@ Appendix~\ref{app:construction} documents the construction;
 Table~\ref{tab:sources} reports record counts by source. All series are
 weighted with the ASEC supplement weight unless noted.
 
-\subsection{What ``leaving'' means: reconciling the public numbers}
+\subsection{Reconciling the Public Numbers}
 \label{sec:definitions}
 
 The headline numbers in the policy debate are consistent with one
@@ -283,27 +286,27 @@ claims to. External anchors point the same way: the NCES leaver rates
 for its five overlapping waves fall within a point of the series.
 
 % =====================================================================
-\section{A changing profession}\label{sec:workforce}
+\section{The Teaching Workforce}\label{sec:workforce}
 
-Before following anyone out the door, it is worth looking at who is in
-the room. Figure~\ref{fig:workforce} tracks the composition of the
-teaching workforce over the last two decades, panel by panel; each
-panel shows the annual series in light gray and a three-year average
-in blue. Four slow-moving facts stand out, and each returns later in
-the paper as a mechanical driver of attrition.
+Figure~\ref{fig:workforce} tracks the composition of the teaching
+workforce over the last two decades, panel by panel; each panel shows
+the annual series in light gray and a three-year average in blue. Four
+slow-moving facts stand out, and each returns later in the paper as a
+mechanical driver of attrition.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/g1_workforce.pdf}
-\caption{The changing profile of the teaching workforce, 2005--2024.}
+\caption{Composition of the Teaching Workforce, 2005--2024}
 \label{fig:workforce}
-\fignote{College-graduate teachers aged 18+ whose longest job last year
-was K--12 teaching; ASEC supplement weights. Thin gray lines are annual
-values; blue lines are centered 3-year averages, with endpoint values
-printed. ``Public school,'' ``part-time,'' and ``pension plan'' refer
-to the longest job held last year; the open circle marks 2013, a year
-with a reduced sample due to the ASEC redesign. Source: author's
-calculations from March CPS supplements, survey years 2006--2025.}
+\fignote{\textit{Notes:} College-graduate teachers aged 18+ whose
+longest job last year was K--12 teaching; ASEC supplement weights.
+Thin gray lines are annual values; blue lines are centered 3-year
+averages, with endpoint values printed. ``Public school,''
+``part-time,'' and ``pension plan'' refer to the longest job held last
+year; the open circle marks 2013, a year with a reduced sample due to
+the ASEC redesign. \textit{Source:} Author's calculations from March
+CPS supplements, survey years 2006--2025.}
 \end{figure}
 
 The workforce is aging: mean age rose from 42.8 to 44.8, and the share
@@ -320,84 +323,86 @@ the attrition model will single out: pension coverage at the last-year
 job fell from 80 to 66 percent, the steepest change in any panel.
 
 % =====================================================================
-\section{The rate: twenty-eight years without a trend}
+\section{The Rate of Leaving, 1997--2024}
 \label{sec:evolution}
 
-Figure~\ref{fig:evolution} is the paper's spine: the share of
-college-graduate teachers who left the profession each calendar year
-from 1997 to 2024, on one continuous, consistently defined, weighted
-series---to my knowledge the longest ever assembled from this
-instrument.
+Figure~\ref{fig:evolution} presents the paper's central estimate: the
+share of college-graduate teachers who left the profession each
+calendar year from 1997 to 2024, on one continuous, consistently
+defined, weighted series---to my knowledge the longest ever assembled
+from this instrument.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/g2_evolution.pdf}
-\caption{Leaving teaching, 1997--2024.}
+\caption{Leaving Teaching, 1997--2024}
 \label{fig:evolution}
-\fignote{Share of college-graduate teachers (longest job last calendar
-year) not employed in a teaching occupation the following March, by
-route-based definition; ASEC weights. Shaded band: 95 percent
-confidence interval using a design factor of 1.5. Dotted line: the
-1997--2024 mean (8.6). The gray band marks the Covid supplements. The
-occupation classification changes between calendar 2001 and 2002
-(1990 to 2000 Census codes); a core-codes-only series shows the same
-profile (Appendix~\ref{app:figures}). Source: author's calculations
-from March CPS supplements, survey years 1998--2025.}
+\fignote{\textit{Notes:} Share of college-graduate teachers (longest
+job last calendar year) not employed in a teaching occupation the
+following March, by route-based definition; ASEC weights. Shaded band:
+95 percent confidence interval using a design factor of 1.5. Dotted
+line: the 1997--2024 mean (8.6). The gray band marks the Covid
+supplements. The occupation classification changes between calendar
+2001 and 2002 (1990 to 2000 Census codes); a core-codes-only series
+shows the same profile (Appendix~\ref{app:figures}).
+\textit{Source:} Author's calculations from March CPS supplements,
+survey years 1998--2025.}
 \end{figure}
 
-Read it the way a policymaker should. The level: 8.6 percent on
+Three features deserve emphasis. First, the level: 8.6 percent on
 average, never below 7, above 10 only three times in twenty-eight
-years. The trend: there is none. The two highest points sit eighteen
+years. Second, there is no trend: the two highest points sit eighteen
 years apart, one at the end of a boom and one on the eve of a
-pandemic, and the series ends below its mean. Covid, the event that
-launched a thousand exodus headlines, reads as an excursion, not a
-break: 10.2 in 2019, 9.0 in 2020, 7.1 in 2021, back to trend since.
-An annual outflow of eight percent, composed overwhelmingly---as the
-next section shows---of retirements, family spells, and early-career
-sorting, is best understood as the profession's natural rate of
-attrition: the turnover a five-million-person, majority-female,
-pension-covered occupation generates in the ordinary course of
-life-cycle events. Fluctuations around it have never exceeded two
-points in either direction. Any policy narrative that begins from an
-accelerating exodus begins from a fact the data do not contain.
+pandemic, and the series ends below its mean. The Covid episode reads
+as an excursion, not a break---10.2 in 2019, 9.0 in 2020, 7.1 in 2021,
+back to trend since. Third, the stability suggests a particular
+framing. An annual outflow of eight percent, composed
+overwhelmingly---as the next section shows---of retirements, family
+spells, and early-career sorting, is best understood as the
+profession's natural rate of attrition: the turnover a
+five-million-person, majority-female, pension-covered occupation
+generates in the ordinary course of life-cycle events. Fluctuations
+around it have never exceeded two points in either direction. Any
+policy narrative that begins from an accelerating exodus begins from a
+fact the data do not contain.
 
 % =====================================================================
-\section{Where leavers go}\label{sec:routes}
+\section{Exit Routes}\label{sec:routes}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/g3_flow100.pdf}
-\caption{Of every 100 teachers who leave the profession.}
+\caption{Destinations of Teachers Who Leave the Profession}
 \label{fig:flow100}
-\fignote{College-graduate leavers pooled over calendar 2015--2024,
-ASEC weights. Top bar: labor force status the March after the teaching
-year; ``out of the labor force'' is split at age 55. Bottom bar: the
-occupational destination of the 26 employed leavers, rescaled to sum
-to their total. Source: author's calculations from March CPS
-supplements.}
+\fignote{\textit{Notes:} College-graduate leavers pooled over calendar
+2015--2024, ASEC weights. Top bar: labor force status the March after
+the teaching year; ``out of the labor force'' is split at age 55.
+Bottom bar: the occupational destination of the 26 employed leavers,
+rescaled to sum to their total. \textit{Source:} Author's calculations
+from March CPS supplements.}
 \end{figure}
 
-So eight of every hundred teachers leave each year. Where do they go?
-Figure~\ref{fig:flow100} follows them. Of every 100 college-graduate
-teachers who leave, 62 are not working the following March: 38 are out
-of the labor force at ages 55 or older---the retirement route---24 are
-out of the labor force younger than 55, and 12 are unemployed. Only 26
-hold a job. And of those 26, eight remain in education or care
-work---school administration, counseling, childcare---so that barely
-one leaver in six matches the scenario the exodus narrative describes:
-a working-age teacher productively employed outside education a year
-later.
+Figure~\ref{fig:flow100} decomposes the flow. Of every 100
+college-graduate teachers who leave, 62 are not working the following
+March: 38 are out of the labor force at ages 55 or older---the
+retirement route---24 are out of the labor force younger than 55, and
+12 are unemployed. Only 26 hold a job. And of those 26, eight remain
+in education or care work---school administration, counseling,
+childcare---so that barely one leaver in six matches the scenario the
+exodus narrative describes: a working-age teacher productively
+employed outside education a year later.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/g4_routes_age.pdf}
-\caption{Leaving by age, decomposed by route.}
+\caption{Leaving Teaching by Age and Route}
 \label{fig:routesage}
-\fignote{College-graduate teachers pooled over calendar 2015--2024,
-ASEC weights; ten age groups. The black line is the total leaving
-rate; stacked areas decompose it into exits to another job (gold),
-unemployment (gray), and out of the labor force (blue). Source:
-author's calculations from March CPS supplements.}
+\fignote{\textit{Notes:} College-graduate teachers pooled over
+calendar 2015--2024, ASEC weights; ten age groups. The black line is
+the total leaving rate; stacked areas decompose it into exits to
+another job (gold), unemployment (gray), and out of the labor force
+(blue). \textit{Source:} Author's calculations from March CPS
+supplements.}
 \end{figure}
 
 The age profile in Figure~\ref{fig:routesage} shows where each route
@@ -418,14 +423,14 @@ implicitly describes---are the least mobile workers in the figure.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.62\linewidth]{figures/g10_sector_routes.pdf}
-\caption{Public and private school teachers leave differently.}
+\caption{Exit Routes by School Sector}
 \label{fig:sector}
-\fignote{Route-specific annual exit rates of college-graduate teachers
-by sector of the last-year job (class-of-worker: government vs.\
-private), pooled 2015--2024, ASEC weights. A private-school teacher
-who moves to a public school---or vice versa---remains a teacher and
-is not a leaver here. Source: author's calculations from March CPS
-supplements.}
+\fignote{\textit{Notes:} Route-specific annual exit rates of
+college-graduate teachers by sector of the last-year job
+(class-of-worker: government vs.\ private), pooled 2015--2024, ASEC
+weights. A private-school teacher who moves to a public school---or
+vice versa---remains a teacher and is not a leaver here.
+\textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
 
 One split deserves its own figure. Private school teachers leave the
@@ -443,21 +448,21 @@ and above all pension coverage---previews the multivariate result of
 Section~\ref{sec:probit}.
 
 % =====================================================================
-\section{The family margin, and its slow disappearance}
+\section{The Family Margin}
 \label{sec:family}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.82\linewidth]{figures/g8_newbaby.pdf}
-\caption{The birth-year exit, teaching versus seven professions.}
+\caption{The Effect of a New Baby on Leaving, by Profession}
 \label{fig:newbaby}
-\fignote{Average marginal effect of a new baby (own child aged 0 in the
-household) on the probability that a woman leaves each profession, from
-profession-specific probits with age, age squared, marital status,
-education, and year effects; whiskers are 95 percent confidence
-intervals. Solid bars are significant at 5 percent; light bars are
-not. Samples pool 2010--2024. Source: author's calculations from March
-CPS supplements.}
+\fignote{\textit{Notes:} Average marginal effect of a new baby (own
+child aged 0 in the household) on the probability that a woman leaves
+each profession, from profession-specific probits with age, age
+squared, marital status, education, and year effects; whiskers are 95
+percent confidence intervals. Solid bars are significant at 5 percent;
+light bars are not. Samples pool 2010--2024. \textit{Source:} Author's
+calculations from March CPS supplements.}
 \end{figure}
 
 If the contract is the main systematic predictor of exit, the main
@@ -487,13 +492,15 @@ revolving door, not only an exit.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/g9_mothers.pdf}
-\caption{The fading motherhood exit, 1997--2024.}
+\caption{Labor Force Exit of Women Teachers, With and Without Young
+Children}
 \label{fig:mothers}
-\fignote{Women teachers aged 22--45, college graduates; annual
-probability of leaving the labor force (thin lines) and centered
-3-year averages (bold), separately for those with and without an own
-child under 6 at home. Endpoint values printed. Source: author's
-calculations from March CPS supplements, survey years 1998--2025.}
+\fignote{\textit{Notes:} Women teachers aged 22--45, college
+graduates; annual probability of leaving the labor force (thin lines)
+and centered 3-year averages (bold), separately for those with and
+without an own child under 6 at home. Endpoint values printed.
+\textit{Source:} Author's calculations from March CPS supplements,
+survey years 1998--2025.}
 \end{figure}
 
 Whatever its interpretation in the cross-section, the margin is
@@ -510,25 +517,25 @@ shift visible in Appendix Figure~\ref{fig:routesevol}. A state-level
 test of whether paid family leave programs accelerate this decline is
 underpowered but points the right way: the birth-year exit effect is
 2.1 points smaller in state-years with an active program, on only 268
-treated births (Appendix~\ref{app:tables}).
+treated births (Appendix~\ref{app:tables}, Table~\ref{tab:pfl}).
 
 % =====================================================================
-\section{Attrition and the business cycle}\label{sec:cycle}
+\section{Attrition and the Business Cycle}\label{sec:cycle}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/n5_cyclicality.pdf}
-\caption{Leaving teaching and the labor market, 1997--2024.}
+\caption{Leaving Teaching and the Unemployment Rate, 1997--2024}
 \label{fig:cycle}
-\fignote{Left: the leaving series of Figure~\ref{fig:evolution}
-(annual, from calendar 2000) against the BLS national unemployment
-rate (annual average). Right: binned scatter (deciles of the
-unemployment rate in the survey month, March of $t{+}1$, when the exit
-is observed) of the two labor-market routes, with OLS fits on the
-underlying annual data; correlations are $-0.16$ (to another job) and
-$+0.29$ (out of the labor force). Unemployment: BLS via FRED
-(\texttt{UNRATE}). Source: author's calculations from March CPS
-supplements.}
+\fignote{\textit{Notes:} Left: the leaving series of
+Figure~\ref{fig:evolution} (annual, from calendar 2000) against the
+BLS national unemployment rate (annual average). Right: binned scatter
+(deciles of the unemployment rate in the survey month, March of
+$t{+}1$, when the exit is observed) of the two labor-market routes,
+with OLS fits on the underlying annual data; correlations are $-0.16$
+(to another job) and $+0.29$ (out of the labor force). Unemployment:
+BLS via FRED (\texttt{UNRATE}). \textit{Source:} Author's calculations
+from March CPS supplements.}
 \end{figure}
 
 A popular version of the exodus story is cyclical: when the economy
@@ -548,16 +555,17 @@ instrument.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.85\linewidth]{figures/n5b_states_trio.pdf}
-\caption{Two illustrative states.}
+\caption{Leaving and State Unemployment: Two Examples}
 \label{fig:states}
-\fignote{Annual state leaving rates of college-graduate teachers
-(dots; one per year, 1997--2024) against the state unemployment rate
-in the survey month (BLS Local Area Unemployment Statistics), with OLS
-fits. North Carolina and New Jersey are shown as examples of the two
-signs; the full 51-state distribution of slopes is in Appendix
-Figure~\ref{fig:stateforest}. State of residence is recovered from the
-household records of the raw files (Appendix~\ref{app:construction}).
-Source: author's calculations from March CPS supplements.}
+\fignote{\textit{Notes:} Annual state leaving rates of
+college-graduate teachers (dots; one per year, 1997--2024) against the
+state unemployment rate in the survey month (BLS Local Area
+Unemployment Statistics), with OLS fits. North Carolina and New Jersey
+are shown as examples of the two signs; the full 51-state distribution
+of slopes is in Appendix Figure~\ref{fig:stateforest}. State of
+residence is recovered from the household records of the raw files
+(Appendix~\ref{app:construction}). \textit{Source:} Author's
+calculations from March CPS supplements.}
 \end{figure}
 
 State-level variation sharpens the asymmetry. Estimating the
@@ -575,57 +583,56 @@ Where teacher exits respond to the cycle at all, recessions push;
 booms do not pull.
 
 % =====================================================================
-\section{Pay: the gamble of leaving and the slide of staying}
+\section{Teacher Pay and the Returns to Leaving}
 \label{sec:pay}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/g5b_earnings_density.pdf}
-\caption{The earnings change of leaving, person by person.}
+\caption{The Distribution of Earnings Changes: Stayers and Leavers}
 \label{fig:density}
-\fignote{Kernel densities of the person-level change in annual wage
-and salary earnings (log points $\times$100) between the teaching year
-and the next, for teachers linked across consecutive supplements
-(rotation-group links, survey years 2011--2025; identity validated on
-sex and age). Navy: stayers (12,195 links; median $+3$). Red: leavers
-employed the following year (225 links; median $+15$). ``Lose
-big''/``win big'' denote changes beyond $\pm$30 log points. The sample
-conditions on positive earnings in both years; 47 percent of all
-leavers report zero wage and salary earnings the following year.
-Bandwidth 0.25. Source: author's calculations from March CPS
+\fignote{\textit{Notes:} Kernel densities of the person-level change
+in annual wage and salary earnings (log points $\times$100) between
+the teaching year and the next, for teachers linked across consecutive
+supplements (rotation-group links, survey years 2011--2025; identity
+validated on sex and age). Navy: stayers (12,195 links; median $+3$).
+Red: leavers employed the following year (225 links; median $+15$).
+``Lose big''/``win big'' denote changes beyond $\pm$30 log points. The
+sample conditions on positive earnings in both years; 47 percent of
+all leavers report zero wage and salary earnings the following year.
+Bandwidth 0.25. \textit{Source:} Author's calculations from March CPS
 supplements.}
 \end{figure}
 
-Does leaving pay? The honest answer is that it can, and that is
-different from it does. Linking teachers across consecutive Marches
-prices each transition at the person level, and
-Figure~\ref{fig:density} draws the result. Stayers experience ordinary
-wage growth: a median of $+3$ log points, tightly distributed. Leavers
-who land in another job show a median of $+15$---a real premium---but
-around that median the distribution is a flattened tent with mass far
-into both tails: 24 percent lose more than 30 log points, 45 percent
-gain more than 30. And the figure conditions on earning anything at
-all. Forty-seven percent of leavers report zero wage and salary
-earnings the following year, consistent with the route decomposition
-of Figure~\ref{fig:flow100}: most leavers were not walking into
-better-paid jobs, because most leavers were not walking into jobs.
-Leaving teaching for money is a lottery with a modest median prize.
-The rational response of a risk-averse, pension-covered workforce is
-to buy few tickets---and that is what Figure~\ref{fig:evolution}
-shows.
+Does leaving pay? Linking teachers across consecutive Marches prices
+each transition at the person level, and Figure~\ref{fig:density}
+draws the result. Stayers experience ordinary wage growth: a median of
+$+3$ log points, tightly distributed. Leavers who land in another job
+show a median of $+15$---a real premium---but around that median the
+distribution is far wider than the stayers': 24 percent lose more than
+30 log points, 45 percent gain more than 30. And the figure conditions
+on earning anything at all. Forty-seven percent of leavers report zero
+wage and salary earnings the following year, consistent with the route
+decomposition of Figure~\ref{fig:flow100}: most leavers were not
+walking into better-paid jobs, because most leavers were not walking
+into jobs. Leaving teaching for money is a gamble with a modest median
+prize and substantial downside risk; for a risk-averse,
+pension-covered workforce, the low and stable exit rate of
+Figure~\ref{fig:evolution} is the expected response.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.85\linewidth]{figures/n6b_pay_windows.pdf}
-\caption{Real pay by profession, two symmetric windows.}
+\caption{Real Median Earnings by Profession, 2004--2014 and
+2015--2025}
 \label{fig:paywindows}
-\fignote{Weighted median annual wage and salary earnings of full-time,
-full-year college graduates aged 25--60, in each profession and
-overall, deflated to 2024 dollars with the CPI-U; the two windows pool
-survey years 2004--2014 and 2015--2025. Filled dots (with values):
-recent window. Occupation codes harmonized across classification
-regimes. Source: author's calculations from March CPS supplements;
-CPI: BLS via FRED.}
+\fignote{\textit{Notes:} Weighted median annual wage and salary
+earnings of full-time, full-year college graduates aged 25--60, in
+each profession and overall, deflated to 2024 dollars with the CPI-U;
+the two windows pool survey years 2004--2014 and 2015--2025. Filled
+dots (with values): recent window. Occupation codes harmonized across
+classification regimes. \textit{Source:} Author's calculations from
+March CPS supplements; CPI: BLS via FRED.}
 \end{figure}
 
 The staying side of the ledger has deteriorated. In real terms, the
@@ -647,35 +654,36 @@ rate hides---who enters, who feels trapped, how retention interacts
 with pensions---not as a simple valve on the outflow.
 
 % =====================================================================
-\section{Who leaves: the multivariate portrait}\label{sec:probit}
+\section{Multivariate Evidence}\label{sec:probit}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.8\linewidth]{figures/g6_ame.pdf}
-\caption{Who leaves teaching: probit average marginal effects.}
+\caption{Average Marginal Effects on the Probability of Leaving
+Teaching}
 \label{fig:ame}
-\fignote{Average marginal effects (percentage points) on the
-probability of leaving teaching, from a probit on college-graduate
-teachers pooled over calendar 2015--2024 with year effects; whiskers
-are 95 percent confidence intervals; filled markers are significant at
-5 percent. ``Worked full year'' is 50+ weeks at the last-year job;
-``part-time'' is under 35 weekly hours. $n=28{,}900$. Robustness
-across estimators, weights, fixed effects, windows, and definitions,
-and subsample estimates, are in Appendix~\ref{app:tables}. Source:
-author's calculations from March CPS supplements.}
+\fignote{\textit{Notes:} Average marginal effects (percentage points)
+on the probability of leaving teaching, from a probit on
+college-graduate teachers pooled over calendar 2015--2024 with year
+effects; whiskers are 95 percent confidence intervals; filled markers
+are significant at 5 percent. ``Worked full year'' is 50+ weeks at the
+last-year job; ``part-time'' is under 35 weekly hours. $n=28{,}900$.
+Robustness across estimators, weights, fixed effects, windows, and
+definitions, and subsample estimates, are in Appendix~\ref{app:tables}.
+\textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
 
 Figure~\ref{fig:ame} assembles the portrait in one model, and the
-model tells one story: the contract, not the person. A teacher who
+dominant predictors are contractual, not personal. A teacher who
 worked the full year is 9.3 points less likely to leave; part-time
 hours add 4.5 points; pension coverage subtracts 2.4; a public school
 subtracts 1.7. Against these, demographics are small: each year of age
 subtracts 0.7 (the U-shape enters through age squared), women are 1.4
 points less likely to leave than men, Black teachers 1.9 more, a
-master's degree subtracts 0.9. The family block is a tale of one
+master's degree subtracts 0.9. The family block reduces to a single
 variable: the number of children and the presence of a child under six
-do essentially nothing, but the birth year itself adds 4.7
-points---the event, not the state, drives the exit.
+do essentially nothing, but the birth year itself adds 4.7 points---the
+event, not the state, drives the exit.
 
 The appendix battery shows the portrait is not an artifact of
 specification. Across probit, weighted LPM, logit, state-and-year
@@ -683,48 +691,46 @@ fixed effects, the full 1997--2024 window ($n=85{,}430$), and the
 occupation-pair definition of leaving, the job-attachment and birth
 coefficients never lose significance or change sign
 (Table~\ref{tab:robustness}). The subsample estimates
-(Table~\ref{tab:subsamples}) add two findings worth text: a child
-under six raises women's exit ($+1.3$) but lowers men's
-($-2.2$)---household specialization in one row---and pension coverage
-retains men more than twice as strongly as women ($-4.5$ versus
-$-2.0$).
+(Table~\ref{tab:subsamples}) add two further findings: a child under
+six raises women's exit ($+1.3$) but lowers men's ($-2.2$), a pattern
+consistent with household specialization; and pension coverage retains
+men more than twice as strongly as women ($-4.5$ versus $-2.0$).
 
 % =====================================================================
-\section{Teaching among the professions}\label{sec:professions}
+\section{Comparison with Other Professions}\label{sec:professions}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.85\linewidth]{figures/g7_professions.pdf}
-\caption{Occupational leaving in eight professions, two symmetric
-windows.}
+\caption{Rates of Leaving by Profession, 2004--2014 and 2015--2025}
 \label{fig:professions}
-\fignote{Annual rate of leaving each profession (same route-based
-definition as for teachers, college graduates, ASEC weights), pooled
-over survey years 2004--2014 (open) and 2015--2025 (filled, with
-values). Occupation codes harmonized across the 2002, 2010, and 2018
-Census classification regimes. Source: author's calculations from
-March CPS supplements.}
+\fignote{\textit{Notes:} Annual rate of leaving each profession (same
+route-based definition as for teachers, college graduates, ASEC
+weights), pooled over survey years 2004--2014 (open) and 2015--2025
+(filled, with values). Occupation codes harmonized across the 2002,
+2010, and 2018 Census classification regimes. \textit{Source:}
+Author's calculations from March CPS supplements.}
 \end{figure}
 
-Is an eight percent outflow a lot? Figure~\ref{fig:professions}
-answers with the only benchmark that means anything: other
-professions, measured identically. Teaching sits in the middle of the
-college-professional range---above accountants and lawyers (5--6),
-essentially tied with nurses and physicians (8), far below social
-workers (14) and the therapy professions (11). Two things elevate the
-comparison beyond a ranking. First, teaching is the only profession in
-the figure whose leaving rate fell between the two windows (9.3 to
-8.3); every other profession rose. Second, the comparison disciplines
-interpretation: whatever is pushing pharmacists and physical
-therapists up is economy-wide, not a crisis of schools. The annual
-series behind these windows are in Appendix
+Whether an eight percent outflow is large can only be judged against
+other professions, measured identically.
+Figure~\ref{fig:professions} makes the comparison. Teaching sits in
+the middle of the college-professional range---above accountants and
+lawyers (5--6), essentially tied with nurses and physicians (8), far
+below social workers (14) and the therapy professions (11). Two
+things elevate the comparison beyond a ranking. First, teaching is the
+only profession in the figure whose leaving rate fell between the two
+windows (9.3 to 8.3); every other profession rose. Second, the
+comparison disciplines interpretation: whatever is pushing pharmacists
+and physical therapists up is economy-wide, not a crisis of schools.
+The annual series behind these windows are in Appendix
 Figure~\ref{fig:profseries}, and the same comparison estimated on
 Harris and Adams's 1992--2001 window is in
 Appendix~\ref{app:harris}---the ordering of professions is the same
 three decades later.
 
 % =====================================================================
-\section{What the anatomy means for policy}\label{sec:policy}
+\section{Policy Implications}\label{sec:policy}
 
 This paper set out to measure, not to prescribe; but a measurement
 this long constrains prescriptions, and it is worth stating how.
@@ -885,7 +891,7 @@ Learning Policy Institute, Palo Alto, CA.
 \appendix
 
 % =====================================================================
-\section{The instrument, audited}\label{app:instrument}
+\section{Instrument Validation}\label{app:instrument}
 
 For respondents in CPS rotation groups that yield four consecutive
 monthly interviews after the reference year together with a March
@@ -903,13 +909,13 @@ every year since 1998.
 
 \begin{table}[h]
 \centering\small
-\caption{March retrospective vs.\ linked-panel classification.}
+\caption{March Retrospective versus Linked-Panel Classification}
 \label{tab:confusion}
 \input{table_app_confusion}
-\fignote{Pooled linked sample, survey years 2011--2024. Rows: 4-month
-within-panel classification; columns: March retrospective
-classification. Source: author's calculations from CPS basic monthly
-files and March supplements.}
+\fignote{\textit{Notes:} Pooled linked sample, survey years
+2011--2024. Rows: 4-month within-panel classification; columns: March
+retrospective classification. \textit{Source:} Author's calculations
+from CPS basic monthly files and March supplements.}
 \end{table}
 
 % =====================================================================
@@ -928,32 +934,36 @@ relative anatomy of professional turnover is a slow-moving object.
 
 \begin{table}[h]
 \centering\small
-\caption{Leaving rates and routes: 1992--2001 vs.\ 2015--2024.}
+\caption{Leaving Rates and Routes: 1992--2001 versus 2015--2024}
 \label{tab:ha}
 \input{table_app_ha}
-\fignote{Left block: Harris and Adams (2007), Table~1, March CPS
-1992--2001. Right block: author's calculations, identical definitions,
-March CPS 2015--2024 (survey years 2016--2025). All rates in percent
-per year.}
+\fignote{\textit{Notes:} Left block: Harris and Adams (2007),
+Table~1, March CPS 1992--2001. Right block: author's calculations,
+identical definitions, March CPS 2015--2024 (survey years 2016--2025).
+All rates in percent per year. \textit{Source:} \citet{harris2007} and
+author's calculations from March CPS supplements.}
 \end{table}
 
 % =====================================================================
-\section{Data construction}\label{app:construction}
+\section{Data Construction}\label{app:construction}
 
 \textbf{Sources.} Survey years 2011--2025: Census machine-readable
 ASEC person files. Survey years 1998--2010: the original fixed-width
 public-use files, parsed at the byte positions published in the
 official technical documentation (\texttt{cpsmarYY.pdf}); positions
 are constant within the 1998--2002 and 2003--2010 layout eras.
-Household-level variables (state of residence) are read from the
-household records and merged on the household sequence number. Every
+The retrospective occupation is variable \texttt{OCCUP}, the current
+occupation \texttt{PEIOOCC}, and labor force status the recode
+\texttt{A\_LFSR}. Household-level variables (state of residence) are
+read from the household records and merged on the household sequence
+number. Every
 extraction is validated with sanity gates (age distributions, weight
 positivity, education recode ranges, teacher shares of occupation) that
 abort rather than ship on failure.
 
 \begin{table}[h]
 \centering\small
-\caption{Record counts by source.}
+\caption{Record Counts by Source}
 \label{tab:sources}
 \begin{tabular}{lcccc}
 \toprule
@@ -965,9 +975,11 @@ Fixed-width files, official layouts & 1998--2010 & 2,423,332 & 49,925 & 40,201 \
 Total & 1998--2025 & 5,009,129 & 104,545 & 85,497 \\
 \bottomrule
 \end{tabular}
-\fignote{Teacher-years: longest job last year in a K--12 teaching
-occupation. The baseline analysis universe is college-graduate
-teachers aged 18+. Calendar-year coverage is 1997--2024.}
+\fignote{\textit{Notes:} Teacher-years: longest job last year in a
+K--12 teaching occupation. The baseline analysis universe is
+college-graduate teachers aged 18+. Calendar-year coverage is
+1997--2024. \textit{Source:} Author's calculations from March CPS
+supplements.}
 \end{table}
 
 \textbf{Occupation codes.} K--12 teaching is defined as codes 155--159
@@ -985,127 +997,143 @@ annual averages via FRED, base 2024. All cached with their sources in
 the replication package.
 
 % =====================================================================
-\section{Additional figures}\label{app:figures}
+\section{Additional Figures}\label{app:figures}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/gapp_routes_evolution.pdf}
-\caption{Route composition of leavers, 1997--2024.}
+\caption{Route Composition of Leavers, 1997--2024}
 \label{fig:routesevol}
-\fignote{Shares of college-graduate leavers by route (3-year averages,
-renormalized to 100). The retirement-age share rises from roughly a
-quarter to nearly forty percent; the young out-of-labor-force
-(family) share falls symmetrically. Source: author's calculations from
-March CPS supplements.}
+\fignote{\textit{Notes:} Shares of college-graduate leavers by route
+(3-year averages, renormalized to 100). The retirement-age share rises
+from roughly a quarter to nearly forty percent; the young
+out-of-labor-force (family) share falls symmetrically.
+\textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.62\linewidth]{figures/napp_state_cyclicality.pdf}
-\caption{State-level cyclicality of leaving: all 51 jurisdictions.}
+\caption{State-Level Cyclicality of Leaving, All 51 Jurisdictions}
 \label{fig:stateforest}
-\fignote{Slope of a weighted linear probability model of leaving on
-the state unemployment rate in the survey month, estimated separately
-by state on all years 1997--2024; 95 percent intervals,
-heteroskedasticity-robust. Bold: significant at 5 percent. Source:
-author's calculations from March CPS supplements and BLS LAUS.}
+\fignote{\textit{Notes:} Slope of a weighted linear probability model
+of leaving on the state unemployment rate in the survey month,
+estimated separately by state on all years 1997--2024; 95 percent
+intervals, heteroskedasticity-robust. Bold: significant at 5 percent.
+\textit{Source:} Author's calculations from March CPS supplements and
+BLS LAUS.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/n6a_professions_series.pdf}
-\caption{Occupational leaving in five professions, annual series.}
+\caption{Leaving Rates in Five Professions, Annual Series}
 \label{fig:profseries}
-\fignote{Three-year averages of the annual occupational leaving rate,
-college graduates, identical definitions across professions; the
-window figures of the main text pool these series. Source: author's
-calculations from March CPS supplements, survey years 2003--2025.}
+\fignote{\textit{Notes:} Three-year averages of the annual
+occupational leaving rate, college graduates, identical definitions
+across professions; the window figures of the main text pool these
+series. \textit{Source:} Author's calculations from March CPS
+supplements, survey years 2003--2025.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/napp_pay_index.pdf}
-\caption{Real median pay by profession, indexed.}
+\caption{Real Median Earnings by Profession, Indexed to 2002}
 \label{fig:payindex}
-\fignote{Real median annual earnings of full-time full-year college
-graduates aged 25--60 by profession, CPI-U deflated, indexed to 2002
-= 100, 3-year averages; endpoint values printed. Source: author's
-calculations from March CPS supplements.}
+\fignote{\textit{Notes:} Real median annual earnings of full-time
+full-year college graduates aged 25--60 by profession, CPI-U deflated,
+indexed to 2002 = 100, 3-year averages; endpoint values printed.
+\textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/gapp_evolution_layers.pdf}
-\caption{The leaving series under alternative definitions.}
+\caption{The Leaving Series under Alternative Definitions}
 \label{fig:layers}
-\fignote{The baseline route-based college-graduate series alongside
-the all-education series and the harmonized occupation-pair-only
-construction. Levels differ by universe; profiles coincide. Source:
-author's calculations from March CPS supplements.}
+\fignote{\textit{Notes:} The baseline route-based college-graduate
+series alongside the all-education series and the harmonized
+occupation-pair-only construction. Levels differ by universe; profiles
+coincide. \textit{Source:} Author's calculations from March CPS
+supplements.}
 \end{figure}
 
 % =====================================================================
-\section{Appendix tables}\label{app:tables}
+\section{Additional Tables}\label{app:tables}
 
 \begin{table}[h]
 \centering\footnotesize
-\caption{Sample balance: teachers and other college graduates,
-2015--2024.}
+\caption{Descriptive Statistics: Teachers and Other College Graduates,
+2015--2024}
 \label{tab:balance}
 \input{tables/balance_appendix}
-\fignote{Weighted means; standard deviations in parentheses for
-continuous variables. Wage earnings are medians, current dollars,
-conditional on positive earnings. ``Leaves teaching'' is undefined for
-non-teachers. Source: author's calculations from March CPS
-supplements.}
+\fignote{\textit{Notes:} Weighted means; standard deviations in
+parentheses for continuous variables. Wage earnings are medians,
+current dollars, conditional on positive earnings. ``Leaves teaching''
+is undefined for non-teachers. \textit{Source:} Author's calculations
+from March CPS supplements.}
 \end{table}
 
 \begin{table}[h]
 \centering\footnotesize
-\caption{Robustness of the attrition model.}
+\caption{Robustness of the Attrition Model}
 \label{tab:robustness}
 \input{tables/probit_robustness}
-\fignote{Dependent variable: leaving teaching (percentage points).
-Column (1): baseline probit AMEs, 2015--2024, year effects,
-unweighted. (2): weighted linear probability model, HC1. (3): logit
-AMEs. (4): weighted LPM with state and year effects. (5): probit on
-the full 1997--2024 window. (6): weighted LPM with the
-occupation-pair definition of leaving. Standard errors in
-parentheses; *, **, *** denote 10, 5, and 1 percent.}
+\fignote{\textit{Notes:} The dependent variable is an indicator for
+leaving teaching, scaled so that coefficients are percentage points.
+Column 1 reports baseline probit average marginal effects, calendar
+2015--2024, with year effects, unweighted. Column 2: linear
+probability model, ASEC weights, heteroskedasticity-robust standard
+errors. Column 3: logit average marginal effects. Column 4: weighted
+linear probability model with state and year effects. Column 5: probit
+on the full 1997--2024 window. Column 6: weighted linear probability
+model with the occupation-pair definition of leaving. Standard errors
+in parentheses.\starlegend}
 \end{table}
 
 \begin{table}[h]
 \centering\footnotesize
-\caption{The attrition model in subsamples.}
+\caption{The Attrition Model in Subsamples}
 \label{tab:subsamples}
 \input{tables/probit_subsamples}
-\fignote{Weighted linear probability models with year effects,
-2015--2024, HC1 standard errors in parentheses; ``--'' marks
-regressors without variation in the subsample. *, **, *** denote 10,
-5, and 1 percent.}
+\fignote{\textit{Notes:} Linear probability models of leaving teaching
+(percentage points) estimated separately by subsample, with year
+effects, ASEC weights, calendar 2015--2024;
+heteroskedasticity-robust standard errors in parentheses. ``--'' marks
+regressors without variation in the subsample.\starlegend}
 \end{table}
 
 \begin{table}[h]
 \centering\small
-\caption{Paid family leave and the birth-year exit.}
+\caption{Paid Family Leave and the Birth-Year Exit}
 \label{tab:pfl}
-\begin{tabular}{lccc}
+\begin{tabular}{lc}
 \toprule
- & Coefficient (pp) & SE & $p$ \\
+ & Leaves teaching \\
 \midrule
-New baby & $+6.60$ & (1.19) & 0.000 \\
-Paid family leave active & $+0.47$ & (0.35) & 0.181 \\
-New baby $\times$ paid leave & $-2.10$ & (2.24) & 0.349 \\
+New baby & 6.60*** \\
+ & (1.19) \\
+New baby $\times$ paid family leave & $-$2.10 \\
+ & (2.24) \\
+Paid family leave active & 0.47 \\
+ & (0.35) \\
+\midrule
+State and year effects & Yes \\
+Demographic controls & Yes \\
+Observations & 77,883 \\
+Births under active programs & 268 \\
 \bottomrule
 \end{tabular}
-\fignote{Weighted LPM of leaving on a new-baby indicator interacted
-with an indicator for the state having an active paid family leave
-program (first full benefit years: CA 2005, NJ 2010, RI 2014, NY
-2018, WA 2020, DC/MA 2021, CT 2022, OR 2024), with state and year
-effects and demographic controls; standard errors clustered by state.
-$n=77{,}883$ teacher-years; 268 births under active programs. The
-interaction is right-signed and uninformative: the design awaits more
-treated cohorts.}
+\fignote{\textit{Notes:} Weighted linear probability model of leaving
+teaching (percentage points) on an indicator for a new baby,
+interacted with an indicator for the state having an active paid
+family leave program in the teaching year. First full benefit years:
+California 2005, New Jersey 2010, Rhode Island 2014, New York 2018,
+Washington 2020, District of Columbia and Massachusetts 2021,
+Connecticut 2022, Oregon 2024. Demographic controls as in
+Table~\ref{tab:robustness}. Standard errors, clustered by state, in
+parentheses.\starlegend}
 \end{table}
 
 \end{document}
