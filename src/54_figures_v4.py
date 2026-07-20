@@ -386,44 +386,53 @@ NAMES = {"fullyear": "Worked full year (50+ wks)",
          "married": "Married", "sepdiv": "Separated/divorced",
          "A_AGE": "Age (per year)", "female": "Female", "black": "Black",
          "ma_plus": "Master's+"}
-order, colors, labels, blocks = [], [], [], []
+# approved: forest plot; names live in the tick margin so they can
+# never collide with the estimates
+Mi = M.set_index("var")
+rows = []   # (kind, payload)
 for bl, vs, c in BLOCKS:
+    rows.append(("head", bl, c))
     for v in vs:
-        order.append(v); colors.append(c); labels.append(NAMES[v])
-        blocks.append(bl)
-M = M.set_index("var").loc[order].reset_index()
-n = len(M)
-ypos = np.arange(n)[::-1]
-fig, ax = plt.subplots(figsize=(8.2, 5.4))
-# background bands per block
-prev = 0
-for bl, vs, c in BLOCKS:
-    top = ypos[prev] + 0.5
-    bot = ypos[prev + len(vs) - 1] - 0.5
-    ax.axhspan(bot, top, color=c, alpha=0.055, zorder=0)
-    ax.annotate(bl, (7.15, (top + bot) / 2), fontsize=9.2, color=c,
-                fontweight="bold", va="center", ha="left",
-                annotation_clip=False)
-    prev += len(vs)
-sig = (M["AME_pp"].abs() > 1.96 * M["se_pp"])
-for i, (yv, (_, r), c, s) in enumerate(zip(ypos, M.iterrows(), colors,
-                                           sig)):
-    if s:
-        ax.barh(yv, r["AME_pp"], color=c, height=0.6, zorder=3)
-    else:
-        ax.barh(yv, r["AME_pp"], color="white", edgecolor=c, lw=1.2,
-                height=0.6, zorder=3)
-ax.errorbar(M["AME_pp"], ypos, xerr=1.96 * M["se_pp"], fmt="none",
-            ecolor=INK, elinewidth=0.9, capsize=2.0, zorder=4)
+        rows.append(("var", v, c))
+    rows.append(("gap", None, None))
+rows = rows[:-1]
+ypos = np.arange(len(rows))[::-1]
+fig, ax = plt.subplots(figsize=(8.0, 6.0))
+ax.axvline(0, color="#999999", lw=1.0)
+ylabels = []
+for yv, (kind, payload, c) in zip(ypos, rows):
+    if kind == "head":
+        ylabels.append(payload)
+        continue
+    if kind == "gap":
+        ylabels.append("")
+        continue
+    r = Mi.loc[payload]
+    s = abs(r["AME_pp"]) > 1.96 * r["se_pp"]
+    ax.errorbar(r["AME_pp"], yv, xerr=1.96 * r["se_pp"], fmt="o",
+                color=c, ms=6.5, elinewidth=1.4, capsize=3,
+                mfc=c if s else "white", mew=1.6)
+    ax.annotate(f"{r['AME_pp']:+.1f}", (r["AME_pp"], yv), xytext=(0, 7),
+                textcoords="offset points", ha="center", fontsize=8,
+                color="#3B4046")
+    ylabels.append(NAMES[payload])
 ax.set_yticks(ypos)
-ax.set_yticklabels(labels, fontsize=9.4)
-ax.axvline(0, color=INK, lw=0.9)
-ax.set_xlim(-11.5, 7)
+ax.set_yticklabels(ylabels, fontsize=9.2)
+for tick, (kind, payload, c) in zip(ax.get_yticklabels(), rows):
+    if kind == "head":
+        tick.set_fontweight("bold")
+        tick.set_color(c)
+        tick.set_fontsize(9.6)
+ax.tick_params(axis="y", length=0)
+ax.set_xlim(-10.6, 7)
+ax.set_ylim(ypos[-1] - 0.7, ypos[0] + 0.9)
+ax.set_xticks([-9, -6, -3, 0, 3, 6])
 ax.set_xlabel("Average marginal effect on P(leave teaching), pp   "
-              "(filled: significant at 5%)")
+              "(filled: significant at 5%)", fontsize=9.5)
 ax.grid(axis="x", color="#EFEFEF", lw=0.6)
 ax.set_axisbelow(True)
-despine(ax)
+for s in ("top", "right", "left"):
+    ax.spines[s].set_visible(False)
 fig.tight_layout()
 fig.savefig(f"{FIG}/g6_ame.pdf")
 plt.close(fig)
