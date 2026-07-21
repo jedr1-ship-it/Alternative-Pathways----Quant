@@ -136,38 +136,41 @@ they earn. \citet{harris2007} introduced this design; \citet{aldeman2025}
 recently used its modern files to establish the level; the school-roster
 surveys of the National Center for Education Statistics confirm the same
 level independently \citep{nces2024}. What no one has done is run the
-instrument at full depth and full length: every supplement from 1998 to
-2025, rebuilt from the raw Census files exactly as the Census Bureau
-documents them, harmonized into a single
-database of five million person-year records, validated person by
-person against within-panel classifications, decomposed by route, age,
-sex, sector, state, and family event, and priced by linking consecutive
-Marches. The result is a twenty-eight-year anatomy of who leaves
-teaching, where they go, and why.
+instrument at full depth and full length. I rebuild every supplement
+from 1998 to 2025 from the raw Census files, harmonize them into a
+single database of five million person-year records, and validate the
+instrument person by person against panel classifications. I then
+follow every exit: by route, by age, by sex, by sector, by state, by
+family event, and---linking consecutive Marches---by what it pays. The
+result is a twenty-eight-year anatomy of who leaves teaching, where
+they go, and why.
 
 The headline is that there is no trend. Leaving teaching averaged 8.6
 percent over 1997--2024, with two nearly identical peaks a generation
 apart---10.3 percent in 2001, at the end of the dot-com boom, and 10.2
 in 2019, on the eve of the pandemic---and a 2024 reading of 7.7, below
 the long-run mean (Figure~\ref{fig:evolution}). Covid produced a
-two-year excursion that fully reversed. The anatomy underneath explains
-why the rate is so stable. Most leaving is not career change: of every
-100 leavers, 62 are not working the following March---38 of them at
-ages 55 or older, the retirement route---and only 26 hold another job,
-a third of those still in education and care
-(Figure~\ref{fig:flow100}). The exits respond to life, not to the
-labor market. A new baby raises a woman's probability of leaving by
-5.9 percentage points, roughly double the effect in nursing or
-accounting (Figure~\ref{fig:newbaby})---though that margin has been
-closing for twenty-five years as the motherhood exit fades from
-American labor supply (Figure~\ref{fig:mothers}). A booming economy,
-by contrast, does not lure teachers away: across twenty-eight years
-and fifty-one jurisdictions, every statistically detectable cyclical
-response says recessions push teachers out, and none says booms pull
-them away (Figures~\ref{fig:cycle} and~\ref{fig:states}). And leaving
-does not pay---or pays like a lottery. The median career changer gains
-15 log points, but a quarter lose more than 30, and 47 percent of all
-leavers report no earnings at all the following year
+two-year excursion that fully reversed. The rate is stable because of
+what it is made of, and its composition is the story of this paper.
+
+Most leaving is not career change. Of every 100 leavers, 62 are not
+working the following March---38 of them at ages 55 or older, the
+retirement route---and only 26 hold another job, a third of those
+still in education and care (Figure~\ref{fig:flow100}). The exits that
+remain respond to life, not to the labor market. A new baby raises a
+woman's probability of leaving by 5.9 percentage points, roughly
+double the effect in nursing or accounting
+(Figure~\ref{fig:newbaby})---though that margin has been closing for
+twenty-five years as the motherhood exit fades from American labor
+supply (Figure~\ref{fig:mothers}). A booming economy, by contrast,
+does not lure teachers away. Across twenty-eight years and fifty-one
+jurisdictions, every statistically detectable cyclical response says
+recessions push teachers out; none says booms pull them away
+(Figures~\ref{fig:cycle} and~\ref{fig:states}).
+
+Nor does leaving pay---or it pays like a lottery. The median career
+changer gains 15 log points, but a quarter lose more than 30, and 47
+percent of all leavers report no earnings at all the following year
 (Figure~\ref{fig:density}). A risk-averse, pension-covered workforce
 takes few such gambles, which is what the flat series shows. Meanwhile
 the pay of those who stay slid from 80 to 72 percent of the median
@@ -190,7 +193,7 @@ tables, and additional figures.
 % =====================================================================
 \section{Data and Measurement}\label{sec:data}
 
-\subsection{The March Retrospective Instrument}
+\subsection{The March Supplement}
 
 The Annual Social and Economic Supplement (ASEC) of the CPS, fielded
 every March, asks two questions that together identify profession
@@ -225,49 +228,51 @@ A teacher who changes school but keeps teaching keeps the occupation
 code and is a stayer. This is precisely what makes the CPS number a
 measure of profession attrition rather than school turnover.
 
-\subsection{One Pooled Database from the Raw Files}
+\subsection{Sample}
 
-All results come from a single person-level database built from the
-original Census public-use files: 5,009,129 person-year records across
-the 28 supplements of survey years 1998--2025, containing 104,545
-teacher-year observations (85,497 for college graduates aged 18 and
-over, the baseline universe). For survey years 2011--2025 the modern
-machine-readable files are used directly. For survey years 1998--2010
-the public files are fixed-width records whose layouts are not
-machine-readable; every variable was extracted at the positions
-published in the official Census technical documentation, so that
-education,
-supplement weights, labor force status, demographics, household
-structure, last-year job characteristics (weeks, hours, class of
-worker, pension coverage), earnings, and state of residence exist on a
-common footing in every year. Occupation codes are harmonized across
-the four Census classification regimes with era-consistent code sets.
+The analysis pools all twenty-eight supplements, survey years
+1998--2025: 5,009,129 person-year records, of which 104,545 are
+teacher-years and 85,497 belong to the baseline universe of
+college-graduate teachers aged 18 and over. Building this sample is
+the paper's main measurement investment. The modern files
+(2011--2025) are machine-readable and enter directly. The older files
+(1998--2010) must be read position by position from the original
+fixed-width records; I extract every variable at the positions the
+Census technical documentation publishes, and I subject every
+extraction to validation gates---age distributions, weight positivity,
+teacher shares of employment---that abort rather than ship on failure.
+The payoff is a dataset in which education, weights, labor force
+status, demographics, household structure, the characteristics of last
+year's job (weeks, hours, class of worker, pension coverage),
+earnings, and state of residence exist on the same footing in every
+single year, and in which occupation codes are harmonized across the
+four Census classification regimes.
 Appendix~\ref{app:construction} documents the construction;
-Table~\ref{tab:sources} reports record counts by source. All series are
-weighted with the ASEC supplement weight unless noted.
+Table~\ref{tab:sources} reports record counts by source. All estimates
+are weighted with the ASEC supplement weight unless noted.
 
-\subsection{Reconciling the Public Numbers}
+\subsection{Definitions}
 \label{sec:definitions}
 
-The headline numbers in the policy debate are consistent with one
-another once definitions are aligned; the alarm comes from mixing them.
-The NCES Teacher Follow-up Survey reports total turnover of public
-school teachers of 13--16 percent across its waves. That total is the
-sum of two components the survey itself keeps separate: movers, who
-change school but keep teaching (5--8 percent per wave), and leavers,
-who exit the profession (5.6 percent in 1988--89, rising to 7.4--8.4
-percent from 2000--01 onward) \citep{nces2024,tan2025}. The CPS
-estimate of roughly 7.6 percent in \citet{aldeman2025} measures leavers
-only, as does the 7.7 percent of \citet{harris2007} for 1992--2001,
-and as does the series built here, which averages 8.2 percent for
-college-graduate teachers over 2015--2024 and 8.6 percent over the
-full window. There is no contradiction anywhere in this literature:
-school-to-school mobility roughly doubles profession leaving, and only
-the latter belongs in a sentence containing the word exodus. The
-estimates here sit slightly above the NCES leaver rates for
-overlapping years, as they should: the CPS covers private school
-teachers, whose attrition is nearly twice the public rate
-(Section~\ref{sec:routes}), while the NCES figure is public-only.
+The numbers in the public debate are all correct and all measure
+different things; the alarm comes from mixing them. The NCES Teacher
+Follow-up Survey reports total turnover of public school teachers of
+13--16 percent across its waves. That total is the sum of two
+components the survey itself keeps separate: movers, who change school
+but keep teaching (5--8 percent per wave), and leavers, who exit the
+profession (5.6 percent in 1988--89, rising to 7.4--8.4 percent from
+2000--01 onward) \citep{nces2024,tan2025}. The CPS estimate of roughly
+7.6 percent in \citet{aldeman2025} measures leavers only, as does the
+7.7 percent of \citet{harris2007} for 1992--2001, and as does the
+series built here, which averages 8.2 percent for college-graduate
+teachers over 2015--2024 and 8.6 percent over the full window. There
+is no contradiction anywhere in this literature: school-to-school
+mobility roughly doubles profession leaving, and only the latter
+belongs in a sentence containing the word exodus. My estimates sit
+slightly above the NCES leaver rates for overlapping years, as they
+should: the CPS covers private school teachers, whose attrition is
+nearly twice the public rate (Section~\ref{sec:routes}), while the
+NCES figure is public-only.
 
 \subsection{Validation}\label{sec:validation}
 
