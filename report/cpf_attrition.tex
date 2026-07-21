@@ -1,0 +1,174 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tgtermes}
+\usepackage[margin=2.2cm,top=2.2cm,bottom=2.4cm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,caption,amsmath,float,array}
+\usepackage{microtype}
+\usepackage[colorlinks=true]{hyperref}
+
+\definecolor{ecink}{HTML}{1A2430}
+\definecolor{ecgray}{HTML}{5A6572}
+\definecolor{citeblue}{HTML}{2A5DB0}
+\hypersetup{linkcolor=citeblue,urlcolor=citeblue}
+\captionsetup{font={small},labelsep=period,
+              justification=justified,singlelinecheck=false}
+\setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
+\color{ecink}
+\newcommand{\fignote}[1]{\par\vspace{4pt}%
+  \begin{minipage}{\linewidth}\footnotesize\color{ecgray}#1\end{minipage}}
+
+\begin{document}
+
+\begin{center}
+{\fontsize{15}{20}\selectfont\bfseries
+Teacher Attrition in the Seven CPF Countries\par}
+\vspace{4pt}
+{\fontsize{11.5}{15}\selectfont
+How Often Do Teachers Leave the Profession, and How Do We Know?\par}
+\vspace{8pt}
+{\small José Elías Durán Roa \quad\textcolor{ecgray}{University of
+Alicante and OECD} \quad\textcolor{ecgray}{July 2026}}
+\end{center}
+\vspace{4pt}
+
+The Comparative Panel File (CPF) harmonizes the seven longest-running
+national household panels: the PSID (United States), BHPS/Understanding
+Society (United Kingdom), SOEP (Germany), HILDA (Australia), KLIPS
+(South Korea), RLMS-HSE (Russia), and SHP (Switzerland). For each of
+the seven countries, this note assembles the annual rate at which
+school teachers leave the teaching profession, contrasting at least
+three independent within-country sources per country---administrative
+censuses and registers, household and follow-up surveys, and academic
+studies---about twenty-five sources in all. Table~\ref{tab:head}
+summarizes the country-level answer; Table~\ref{tab:detail} lists the
+underlying sources.
+
+Three regularities organize the evidence. First, within every country
+the measured rate falls along the same definitional ladder: gross
+separations from individual schools exceed exits from the school
+sector, which exceed exits from the profession, which exceed
+definitive exits net of returns, which exceed voluntary quits. Most
+of the apparent disagreement between sources disappears once
+definitions are aligned; in Switzerland, for example, the 8.4 percent
+of teachers who leave the school registers each year shrinks to 1--2
+percent once retirements and the 61 percent of under-55 leavers who
+return within four years are netted out. Second, attrition scales
+inversely with civil-service protection: voluntary quits are nearly
+nil where teachers are tenured civil servants (Korea 0.2--0.3 percent,
+German Beamte 0.2 percent) and the all-cause rate rises from about 2
+percent in Korea to 5 percent in Australia, 4--6 percent in Russia,
+7.5--8 percent in the United States, and roughly 9 percent leaving the
+state-funded sector in England. The United States sits at the high end
+of the distribution but is no outlier. Third, the household panels of
+the CPF themselves are largely unable to measure teacher attrition:
+no published teacher-exit rate exists for the PSID, SOEP, KLIPS,
+RLMS-HSE, or SHP, whose per-wave teacher samples are too small, and
+where household-panel estimates do exist they run roughly double the
+administrative benchmark (12.3 percent in Understanding Society
+against 9 percent in the English workforce census; 11.6 percent in
+HILDA against 5 percent in Australian tax records), a gap that
+Australian work traces to occupational miscoding between waves. This
+is precisely the measurement problem the March CPS design
+avoids---one instrument, annual, public, validated person by person
+against panel classifications---and it is why the retrospective
+instrument, not the household panels, carries the burden of
+measurement in this literature. Everywhere, finally, stated intentions
+vastly overstate behavior: 36--39 percent of Australian teachers
+intend to leave and about 5 percent do; 87 percent of Korean teachers
+have considered leaving and 0.2--0.3 percent resign.
+
+\begin{table}[H]
+\centering\small
+\caption{Annual Teacher Profession-Leaving Rates in the CPF Countries}
+\label{tab:head}
+\begin{tabular}{lccc}
+\toprule
+Country (CPF panel) & Best estimate & Years & Range across sources \\
+\midrule
+United States (PSID)        & 7.5--8            & 2000s--2024      & 5--13.5 \\
+United Kingdom (UKHLS)      & $\sim$9$^{a}$     & 2022/23--2024/25 & 5--12.3 \\
+Germany (SOEP)              & 5--5.5$^{b}$      & 2010/11--2024/25 & 0.2--11.8 \\
+Australia (HILDA)           & $\sim$5$^{c}$     & 2009--2021       & 1.3--11.6 \\
+South Korea (KLIPS)         & $\sim$2$^{d}$     & 2019--2024       & 0.1--2.1 \\
+Russia (RLMS-HSE)           & 4--6$^{e}$        & 2016--2024       & $<$1--14.4 \\
+Switzerland (SHP)           & 7--8$^{f}$        & 2010--2021       & 1--8.4 \\
+\bottomrule
+\end{tabular}
+\fignote{\textit{Notes:} Percent of the teacher stock leaving the
+teaching profession per year; ``range'' spans all credible
+within-country sources under their own definitions.
+$^{a}$Share leaving the state-funded sector (England); genuine
+profession exit is an estimated 5--8 percent.
+$^{b}$Permanent exits from the school service including regular
+retirement; voluntary quits are 0.2--0.4 percent.
+$^{c}$All-cause; 4.5 percent among working-age teachers (21--64).
+$^{d}$Departures before statutory retirement age, dominated by
+honorary early retirement; voluntary resignations are 0.2--0.3
+percent.
+$^{e}$Early-career cohort exit is firmly documented at about 6
+percent; official gross school separations (14.4 percent in 2023)
+conflate profession exit with school-to-school moves.
+$^{f}$Gross annual exits from the school registers, of which about 3
+points are retirements; definitive profession-leaving of under-55s is
+1--2 percent after re-entries.
+\textit{Source:} Author's compilation, July 2026; sources in
+Table~\ref{tab:detail}.}
+\end{table}
+
+\begin{table}[H]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Underlying Sources, by Country}
+\label{tab:detail}
+\begin{tabular}{p{2.2cm}p{4.4cm}p{4.2cm}p{1.9cm}p{2.5cm}}
+\toprule
+Country & Source / dataset & Definition & Years & Annual rate (\%) \\
+\midrule
+United States & NCES Teacher Follow-up Survey (TFS/NTPS) & left K--12 teaching, public & 1988--2022 & 5.6 $\rightarrow$ 7.4--8.4; 8.0 (2021--22) \\
+ & March CPS: Harris--Adams; Aldeman--Yi & occupation exit, all sectors & 1992--2001; 2015--24 & 7.7; 7.6 \\
+ & State admin.: Washington S-275; Texas PEIMS & leaving state teaching workforce & 1985--2025 & 5--8 (WA); 9--13.5 (TX) \\
+ & Learning Policy Institute (SASS/TFS) & leavers & 2011--13 & $\sim$8 \\
+\addlinespace
+United Kingdom & DfE School Workforce Census (England) & leaving state-funded sector & 2010/11--24/25 & 8.5--10.6 \\
+ & NFER (SWC; excl.\ retirements) & working-age sector exit & 2022/23 & 8.8 \\
+ & NFER on Understanding Society & profession exit, panel & 2009--17 & 12.3 (upper bound) \\
+ & GTC Scotland; EWC Wales registers & de-registration & 2024--25 & $\sim$5; $\sim$4.5--5 \\
+\addlinespace
+Germany & Destatis Fachserie 11 / FiBS & permanent exits from school service & 2010/11--24/25 & $\sim$5.4 (gross 9.5--11.8) \\
+ & Destatis pension statistics & new teacher retirements (Beamte) & 2003--23 & $\sim$2--3 \\
+ & L\"ander data (NRW, BW) & voluntary resignation & 2013--24 & 0.2 (Beamte); 2--2.4 (angestellte) \\
+\addlinespace
+Australia & e61 Institute, PLIDA/BLADE tax data & not teaching in any of next 3 years & 2009--21 & 5.9 $\rightarrow$ 5.1; 4.5 working-age \\
+ & AITSL ATWD registration data & registration discontinuation & 2019--23 & $\sim$1.3 (early-career) \\
+ & HILDA (Cuervo--Vera-Toscano) & occupation exit, panel & 2001--22 & 11.6 (upper bound) \\
+ & NSW CESE; Queensland College of Teachers & employer separations; register removal & 2006--19 & 3.7--5.3; $\sim$3.6 \\
+\addlinespace
+South Korea & MOE/KEDI administrative data & pre-retirement departures; resignations & 2019--24 & 1.5--2.1; 0.2--0.3 \\
+ & Jung et al.\ (2021), provincial panel & profession exit, public elementary & 2009--18 & $<$2 \\
+ & OECD TALIS 2024 (KEDI) & 5-year leaving intention & 2024 & $\le$1.2 implied \\
+\addlinespace
+Russia & Minprosveshcheniya form OO-1 & school separations (incl.\ moves) & 2017--23 & 10.7 $\rightarrow$ 14.4 (upper bound) \\
+ & HSE graduate-employment panels & school-system exit, early career & 2016--24 & 5.9--6.9 \\
+ & Tochno.st (OO-1/Rosstat) & net stock change; education-sector exit & 2016--25 & $-$0.9 net; $\sim$2.4 \\
+\addlinespace
+Switzerland & BFS LABB, Mobilit\"at (2014) & exit from school service & 2010--11 & 8.4; 16 first-year \\
+ & BFS LABB, Verbleib (2022) & under-55 school-employment exit & 2015/16--20/21 & $\sim$2 ($\sim$1 definitive) \\
+ & Canton Z\"urich; Herzog--Sandmeier; SKBF & system exit $\le$54; profession exits; retirements & 2016--24 & $\sim$7; 7--8; 3 \\
+\bottomrule
+\end{tabular}
+\fignote{\textit{Notes:} One row per source family; rates as reported
+by each source under its own definition, in percent of the relevant
+teacher stock per year. Arrows denote change over the period.
+``Upper bound'' marks household-panel estimates inflated by
+occupational coding churn between waves. Intention measures are
+excluded except the TALIS row, shown as an implied upper bound. For
+the PSID, SOEP, KLIPS, RLMS-HSE, and SHP no published teacher-exit
+rate exists; those countries rely on administrative sources. Full
+citations and URLs in the replication file
+\texttt{outputs/cpf\_teacher\_attrition.md}.
+\textit{Source:} Author's compilation from the sources listed, July
+2026.}
+\end{table}
+
+\end{document}
