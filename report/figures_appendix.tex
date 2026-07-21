@@ -5,10 +5,12 @@
 \usepackage[margin=2.5cm,top=2.4cm,bottom=2.6cm]{geometry}
 \usepackage{graphicx,booktabs,xcolor,caption,amsmath,float}
 \usepackage{microtype}
-\usepackage[hidelinks]{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 
 \definecolor{ecink}{HTML}{1A2430}
 \definecolor{ecgray}{HTML}{5A6572}
+\definecolor{citeblue}{HTML}{2A5DB0}
+\hypersetup{linkcolor=citeblue,urlcolor=citeblue}
 \captionsetup{font={small},labelsep=period,
               justification=justified,singlelinecheck=false}
 \setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
@@ -35,6 +37,11 @@ Alicante and OECD}}\par
 {\small\textcolor{ecgray}{Figures and appendix material \quad July 2026}}
 \end{center}
 \vspace{6pt}
+
+{\small\listoffigures}
+\vspace{6pt}
+{\small\listoftables}
+\clearpage
 
 % ================= main figures =================
 \begin{figure}[H]
@@ -228,7 +235,7 @@ Author's calculations from March CPS supplements.}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\linewidth]{figures/gapp_routes_evolution.pdf}
+\includegraphics[width=0.7\linewidth]{figures/gapp_routes_evolution.pdf}
 \caption{Route Composition of Leavers, 1997--2024}
 \fignote{\textit{Notes:} Shares of college-graduate leavers by route
 (3-year averages, renormalized to 100). The retirement-age share rises
@@ -236,11 +243,10 @@ from roughly a quarter to nearly forty percent; the young
 out-of-labor-force (family) share falls symmetrically.
 \textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
-\clearpage
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.62\linewidth]{figures/napp_state_cyclicality.pdf}
+\includegraphics[width=0.46\linewidth]{figures/napp_state_cyclicality.pdf}
 \caption{State-Level Cyclicality of Leaving, All 51 Jurisdictions}
 \fignote{\textit{Notes:} Slope of a weighted linear probability model
 of leaving on the state unemployment rate in the survey month,
@@ -249,11 +255,10 @@ intervals, heteroskedasticity-robust. Bold: significant at 5 percent.
 \textit{Source:} Author's calculations from March CPS supplements and
 BLS LAUS.}
 \end{figure}
-\clearpage
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\linewidth]{figures/n6a_professions_series.pdf}
+\includegraphics[width=0.7\linewidth]{figures/n6a_professions_series.pdf}
 \caption{Leaving Rates in Five Professions, Annual Series}
 \fignote{\textit{Notes:} Three-year averages of the annual
 occupational leaving rate, college graduates, identical definitions
@@ -261,22 +266,20 @@ across professions; the window figures pool these series.
 \textit{Source:} Author's calculations from March CPS supplements,
 survey years 2003--2025.}
 \end{figure}
-\clearpage
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\linewidth]{figures/napp_pay_index.pdf}
+\includegraphics[width=0.7\linewidth]{figures/napp_pay_index.pdf}
 \caption{Real Median Earnings by Profession, Indexed to 2002}
 \fignote{\textit{Notes:} Real median annual earnings of full-time
 full-year college graduates aged 25--60 by profession, CPI-U deflated,
 indexed to 2002 = 100, 3-year averages; endpoint values printed.
 \textit{Source:} Author's calculations from March CPS supplements.}
 \end{figure}
-\clearpage
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\linewidth]{figures/gapp_evolution_layers.pdf}
+\includegraphics[width=0.7\linewidth]{figures/gapp_evolution_layers.pdf}
 \caption{The Leaving Series under Alternative Definitions}
 \fignote{\textit{Notes:} The baseline route-based college-graduate
 series alongside the all-education series and the harmonized
@@ -284,6 +287,7 @@ occupation-pair-only construction. Levels differ by universe; profiles
 coincide. \textit{Source:} Author's calculations from March CPS
 supplements.}
 \end{figure}
+
 \clearpage
 
 % ================= appendix tables =================
