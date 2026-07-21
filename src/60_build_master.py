@@ -77,7 +77,8 @@ def build_tier_a():
         parts.append(d)
     R = pd.concat(parts, ignore_index=True)
     R = add_children(R, ["A_PARENT", "PEPAR1", "PEPAR2"])
-    R["WGT"] = R["MARSUPWT"]
+    # modern csv MARSUPWT carries two implied decimals; scale to persons
+    R["WGT"] = R["MARSUPWT"] / 100.0
     R["tier"] = "A"
     print(f"  tier A: {len(R):,} persons, surveys "
           f"{int(R['asec_year'].min())}-{int(R['asec_year'].max())}",
