@@ -6,7 +6,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 import sys
-sys.path.insert(0, "src")
+sys.path.insert(0, "replication")
 from paperstyle import BLUE, CORAL, GOLD, GREEN, GRAY, INK, SUBTLE
 
 FIG = "report/figures"
