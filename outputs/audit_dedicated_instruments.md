@@ -24,3 +24,18 @@ Verification of the proposal claim across the seven CPF 2.0 countries. Compiled 
 ## Recommended wording (implemented in the proposal)
 
 "Most countries now publish an aggregate attrition rate each year from administrative records. What is scarce is everything behind the rate: person-level records sit in secure enclaves, closed registers or restricted licenses, and the public tables carry no personal characteristics, no destinations and no returns. The one national survey that follows leavers to where they go, the American Teacher Follow-up Survey, has run eight times since 1988, with a nine-year gap before its latest wave, and its recent microdata are available only to licensed institutions in the United States."
+
+## Verified start years (second-pass verification, July 2026)
+
+| Source | Verified start | Correction vs. common citation |
+|---|---|---|
+| NCES Teacher Follow-up Survey | 1988-89 (after SASS 1987-88) | confirmed |
+| Texas PEIMS | first statewide data year 1987-88 | 1984 is the HB 72 legislation year, not a data year |
+| Washington S-275 | research-usable annual files since 1984-85 | form itself dates to the 1970s; OSPI web downloads currently 2019-20+ |
+| England School Workforce Census | first census November 2010 | replaced Form 618G etc.; the Database of Teacher Records is a TPS admin register still in use, not a replaced survey |
+| Destatis teacher flow tables (Zu-/Abgänge by reason) | published since the 1984 Fachserie edition (possibly 1983) | NOT a 2010s innovation; FiBS's 2010/11 start was analytic choice |
+| Australia ATWD | commissioned Dec 2016; data since 2018; first national report Dec 2021 | confirmed |
+| KEDI yearbook | national survey since 1962, yearbook since 1963 (renamed 1991) | confirmed with naming caveat |
+| Korea Teachers' Pension | corporation established 11 Jan 1974 (Act of Dec 1973); coverage effective 1975 | "founded 1975" imprecise |
+| NL Trendrapportage Arbeidsmarkt Leraren | annual since December 2020 | earlier OCW Kamerbrieven were not this series; DUO open data files cover 2011+ |
+| Swiss SSP | annual since 2010/11 with AHVN13 | confirmed |
