@@ -11,7 +11,8 @@ Cross-country synthesis for the countries of the Comparative Panel File (CPF), w
 | Germany (SOEP) | ~5–5.5 permanent exits; quits only 0.2–0.4 | 2010/11–2024/25 | 0.2–11.8 | Beamte status; exits dominated by (early) retirement |
 | Australia (HILDA) | ~5 (4.5 excl. retirement) | 2009–2021 | 1.3–11.6 | Tax-data measure is gold standard; HILDA inflated by coding churn |
 | South Korea (KLIPS) | ~2 incl. honorary retirement; quits 0.2–0.3 | 2019–2024 | 0.1–2.1 | Lowest of the seven; rising post-2023 but from tiny base |
-| Russia (RLMS-HSE) | ~4–6 | 2016–2024 | <1 (net) – 14.4 (gross school separations) | 6%/yr firm for early-career cohorts; official churn conflates school moves |
+| Russia (RLMS-HSE; excluded from CPF 2.0) | ~4–6 | 2016–2024 | <1 (net) – 14.4 (gross school separations) | 6%/yr firm for early-career cohorts; official churn conflates school moves |
+| Netherlands (LISS) | ~6–8 sector exit; ~2–4 durable profession exit | 2019–2024 | 2–9.6 | DUO annual registers; half of leavers return; vo > mbo > po |
 | Switzerland (SHP) | ~7–8 gross; ~1–2 definitive (under-55) | 2010–2021 | 1–8.4 | 61% of under-55 leavers return within 4 years |
 
 ## Cross-country patterns
@@ -112,6 +113,24 @@ Best estimate: ~4–6 percent per year; ~6 firmly documented for early-career co
 RLMS note: no published RLMS-based teacher exit rate; teacher subsample ~200–300/wave. Caveats: OO-1 double-counts multi-school part-timers; post-2022 data releases less complete.
 
 Key URLs: istories.media/news/2024/02/12/v-2023-godu-iz-rossiiskikh-shkol-uvolilis-193-tisyachi-uchitelei-eto-maksimum-za-7-let/ · publications.hse.ru/books/1068215329 · ioe.hse.ru/ds/teachers · tochno.st/materials/skolko-v-rossii-ucitelei-kak-mnogo-oni-rabotaiut-i-kakuiu-zarplatu-polucaiut-issledovanie-esli-byt-tocnym · vo.hse.ru/article/download/15573/14686/
+
+
+## Netherlands (CPF panel: LISS; added in CPF 2.0)
+
+Best estimate: ~6–8 percent leave the education sector per year (po 6–7, vo ~8, mbo ~9.6, incl. retirement); under-60s ~4–5; durable pre-retirement profession exit ~2–4.
+
+| Source | Type | Definition | Years | Rate (%) |
+|---|---|---|---|---|
+| OCW Trendrapportage Arbeidsmarkt Leraren 2025 (DUO payroll) | administrative, annual | leaving government-funded education | 2020/21–2023/24 | po 7.0, vo 8.1, mbo 9.6; 60+ >22, under-60 4–5 |
+| OCW in cijfers, Uitval startende leraren (DUO cohorts) | administrative dashboard | starters leaving the sector | cohorts 2006–2021 | po 9 in year 1 (~22 in 5 yrs); vo 18–21 in year 1 (~31 in 5 yrs) |
+| Arbeidsmarktplatform PO 2024 (DUO) | sector report | leaving education (excl. sector switches) | 2019–2022 | po 5.9–6.1; vo 7.7; mbo 9.1 |
+| CBS Statistische Trends (Traag 2018), Labour Force Survey | survey, occupation level | exit from the teaching occupation | 2014–2017 | ~6 to pension/disability + ~6 occupation change (mostly education-adjacent) → durable exit ~2–4 |
+| Loopbaanmonitor Onderwijs 2025 (Centerdata/MOOZ, CBS-DUO microdata) | linked microdata monitor | graduates in education at 1–5 years | cohorts 2014–2023 | in education at 1 yr: pabo 89, ulo 73; "fast leavers" ≈2.4–4.3/yr years 1–5 |
+| den Brok, Wubbels & van Tartwijk 2017, Teachers and Teaching | academic review | beginners leaving the profession | 2007–2014 | ~9–15 over first 3–5 years |
+
+LISS note: no LISS-based teacher exit estimate exists; ~100–200 teachers per wave. Dutch research runs on full-population DUO registers and CBS microdata.
+
+Key URLs: open.overheid.nl/documenten/c0734b61-05a1-4480-be61-fa76d3b238f1/file · ocwincijfers.nl/sectoren/primair-onderwijs/personeel/uitval-startende-leraren-primair-onderwijs · arbeidsmarktplatformpo.nl/wp-content/uploads/2024/09/Arbeidsmarktanalyse-primair-onderwijs-2024-Arbeidsmarktplatform-PO.pdf · cbs.nl/nl-nl/achtergrond/2018/26/leerkrachten-in-het-basisonderwijs · centerdata.nl/publicaties/loopbaanmonitor-onderwijs-2025 · doi.org/10.1080/13540602.2017.1360859
 
 ## Switzerland (CPF panel: SHP)
 
