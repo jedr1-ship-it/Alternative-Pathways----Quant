@@ -10,3 +10,5 @@ report/*.out
 data/processed/asec_master.parquet
 report/*.lof
 report/*.lot
+data/processed/teachers.parquet
+data/processed/teachers_main.parquet
