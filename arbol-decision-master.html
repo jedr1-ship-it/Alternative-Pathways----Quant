@@ -71,10 +71,12 @@
     -webkit-font-smoothing:antialiased;
   }
   .page{max-width:1080px;margin:0 auto;padding:46px 28px 56px}
+  a{color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
 
-  /* ---------- masthead ---------- */
+  /* ---------- masthead y cabeceras de sección ---------- */
   .mast{padding:6px 0 28px;margin-bottom:36px;position:relative}
-  .mast::after{
+  .mast::after,.sect::after{
     content:'';position:absolute;left:0;right:0;bottom:0;height:5px;
     border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);
   }
@@ -95,8 +97,16 @@
     font-size:clamp(16px,2.3vw,19px);line-height:1.55;color:var(--muted);
     text-wrap:pretty;
   }
+  .sect{margin:56px 0 32px;padding:0 0 24px;position:relative}
+  .sect .eyebrow{margin-bottom:12px}
+  .sect h2{
+    margin:0 0 10px;
+    font-family:"Old Standard TT",Georgia,serif;font-weight:700;
+    font-size:clamp(25px,3.6vw,36px);line-height:1.1;text-wrap:balance;
+  }
+  .sect .lede{font-size:clamp(15px,2vw,17.5px)}
 
-  /* ---------- nodes ---------- */
+  /* ---------- nodos ---------- */
   .node{
     background:var(--surface);border:1px solid var(--border);border-radius:8px;
     box-shadow:var(--shadow);padding:22px 26px;
@@ -228,6 +238,56 @@
   }
   .hint em{font-style:normal;font-weight:600;color:var(--ink)}
 
+  /* ---------- calendario (gantt) ---------- */
+  .gantt-wrap{overflow-x:auto;margin-top:4px;padding-bottom:4px}
+  .g-row{
+    display:grid;grid-template-columns:172px repeat(25,minmax(0,1fr));
+    column-gap:3px;align-items:center;padding:7px 0;
+    border-top:1px dashed var(--border);
+  }
+  .gantt{min-width:1000px}
+  .g-row.g-head,.g-row.g-months{border-top:0;padding:2px 0}
+  .g-lab{
+    position:sticky;left:0;z-index:1;background:var(--surface);
+    padding-right:14px;align-self:stretch;display:flex;flex-direction:column;justify-content:center;
+  }
+  .g-lab b{font:600 12.5px/1.3 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink)}
+  .g-lab i{
+    font:500 9.5px/1.5 "IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+  }
+  .g-yr{
+    font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);
+    border-left:2px solid var(--line);padding:2px 0 2px 7px;
+  }
+  .g-mo{
+    font:500 9.5px/1 "IBM Plex Mono",monospace;color:var(--muted);
+    text-align:center;padding:3px 0 5px;
+  }
+  .g-mo.jan{border-left:2px solid var(--line)}
+  .bar{
+    height:26px;border-radius:5px;display:flex;align-items:center;
+    padding:0 8px;font:600 11px/1 "IBM Plex Sans",sans-serif;
+    white-space:nowrap;overflow:hidden;
+  }
+  .b-app{background:var(--accent-bg);border:1px solid var(--accent);color:var(--accent)}
+  .b-wait{background:var(--surface);border:1px dashed var(--line);color:var(--muted)}
+  .b-work{background:var(--fund-bg);border:1px solid var(--fund-border);color:var(--fund)}
+  .b-beca{background:var(--go-bg);border:1px solid var(--go-border);color:var(--go)}
+  .b-start{background:var(--go);border:1px solid var(--go);color:var(--surface);justify-content:center}
+  .ms{
+    display:flex;align-items:center;gap:7px;white-space:nowrap;
+    font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--go);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--go);flex:none}
+  .notes{
+    list-style:none;margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--border);
+    display:grid;gap:7px;font-size:12.5px;color:var(--muted);line-height:1.55;
+  }
+  .notes b{color:var(--ink);font-weight:600}
+
   /* footer */
   .foot{
     margin-top:48px;padding-top:16px;border-top:1px solid var(--border);
@@ -273,7 +333,7 @@
     <article class="node stage">
       <div class="badge"><span class="n" aria-hidden="true">1</span>Etapa 1 · La pregunta de fondo</div>
       <h2 class="q">¿Quieres hacer un doctorado?</h2>
-      <p>Todo el árbol cuelga de esta pregunta, así que va primero. No compares programas todavía: decide qué tiene que hacer el máster por ti.</p>
+      <p>Respóndela antes de comparar programas: todo lo demás cuelga de aquí.</p>
     </article>
 
     <div class="exitj">
@@ -284,7 +344,7 @@
         <article class="leaf">
           <div class="badge"><span class="tick" aria-hidden="true">✓</span>Decisión</div>
           <h2 class="q">Haz el máster de la ESPOL</h2>
-          <p>Si la meta es el mercado laboral, el máster de la ESPOL suma muchos puntos. Decisión cerrada: fin del árbol para ti.</p>
+          <p>Para el mercado laboral suma muchos puntos. Fin del árbol.</p>
         </article>
       </div>
     </div>
@@ -299,19 +359,19 @@
     <article class="node stage">
       <div class="badge"><span class="n" aria-hidden="true">2</span>Etapa 2 · El triple filtro</div>
       <h2 class="q">Pásale el triple filtro al máster de la ESPOL</h2>
-      <p>Que responda con datos, no con impresiones. Y las tres cosas a la vez:</p>
+      <p>Con datos, no impresiones — y las tres a la vez:</p>
       <ul class="filters">
         <li>
           <span class="fn" aria-hidden="true">1</span>
-          <div><b>Placements en doctorados</b><span>¿Estudiantes de este máster han acabado en buenos doctorados? Pide la lista de admisiones de los últimos años.</span></div>
+          <div><b>Placements en doctorados</b><span>¿Egresados en buenos doctorados? Pide la lista de admisiones recientes.</span></div>
         </li>
         <li>
           <span class="fn" aria-hidden="true">2</span>
-          <div><b>Base cuantitativa</b><span>¿Da fundamentos sólidos de econometría, macroeconomía y estadística?</span></div>
+          <div><b>Base cuantitativa</b><span>¿Fundamentos sólidos de econometría, macroeconomía y estadística?</span></div>
         </li>
         <li>
           <span class="fn" aria-hidden="true">3</span>
-          <div><b>Red de profesores</b><span>¿Hay profesores con contactos internacionales cuyas cartas te abran la puerta de universidades competitivas?</span></div>
+          <div><b>Red de profesores</b><span>¿Contactos internacionales cuyas cartas abran universidades competitivas?</span></div>
         </li>
       </ul>
     </article>
@@ -324,7 +384,7 @@
         <article class="leaf">
           <div class="badge"><span class="tick" aria-hidden="true">✓</span>Decisión</div>
           <h2 class="q">La ESPOL también vale</h2>
-          <p>Como plataforma hacia el doctorado, cumple. Hazlo — y desde el primer día trabaja cerca de los profesores mejor conectados.</p>
+          <p>Cumple como plataforma al doctorado. Hazlo, y pégate desde el día uno a los profesores mejor conectados.</p>
         </article>
       </div>
     </div>
@@ -339,11 +399,11 @@
     <article class="node stage wide">
       <div class="badge"><span class="n" aria-hidden="true">3</span>Etapa 3 · Mirar fuera</div>
       <h2 class="q">Compite en uno de estos tres sistemas</h2>
-      <p>Arma una lista corta mezclando sistemas — cada uno tiene su propia puerta de entrada al doctorado.</p>
+      <p>Arma la lista corta mezclando sistemas; cada uno entra al doctorado por su puerta.</p>
       <div class="regions">
         <section class="region">
           <h3>Estados Unidos</h3>
-          <p class="how">Aquí no se entra vía máster: se aplica directo al PhD (financiado) o a un predoc de investigación.</p>
+          <p class="how">No se entra vía máster: directo al PhD (financiado) o a un predoc.</p>
           <ul class="uni">
             <li>MIT</li>
             <li>Harvard</li>
@@ -359,7 +419,7 @@
         </section>
         <section class="region">
           <h3>Europa</h3>
-          <p class="how">La puerta habitual es un máster de investigación de dos años.</p>
+          <p class="how">La puerta habitual: máster de investigación de dos años.</p>
           <p class="country">España</p>
           <ul class="uni">
             <li>CEMFI (Madrid)</li>
@@ -385,7 +445,7 @@
         </section>
         <section class="region">
           <h3>Latinoamérica</h3>
-          <p class="how">Máster regional fuerte, y de ahí al doctorado — allí mismo o saltando a EE.&nbsp;UU. o Europa.</p>
+          <p class="how">Máster regional fuerte y de ahí al doctorado, allí o fuera.</p>
           <p class="country">Chile</p>
           <ul class="uni">
             <li>Pontificia Universidad Católica de Chile</li>
@@ -408,25 +468,99 @@
     <!-- FILTRO FINAL -->
     <article class="node stage fund">
       <div class="badge"><span class="n" aria-hidden="true">4</span>Filtro final · La financiación</div>
-      <h2 class="q">¿Te financian, o pones tú el dinero?</h2>
-      <p>Hazle esta pregunta a cada programa de la lista corta antes de enamorarte de ninguno.</p>
+      <h2 class="q">¿De dónde sale el dinero?</h2>
+      <p>Pregúntalo para cada programa de la lista corta. Dos vías buenas, una mala:</p>
       <div class="opts">
         <div class="opt">
           <span class="ic ok" aria-hidden="true">✓</span>
-          <div><b>Ofrecen financiación</b><p>Beca, matrícula cubierta o plaza de ayudante: sube puestos en tu lista. Que te financien también es información — el programa apuesta por ti.</p></div>
+          <div><b>Te financia el propio sitio</b><p>Beca del programa, matrícula cubierta o plaza de ayudante. Sube puestos: apuestan por ti.</p></div>
+        </div>
+        <div class="opt">
+          <span class="ic ok" aria-hidden="true">✓</span>
+          <div><b>Beca desde Ecuador</b><p>Fulbright Ecuador o cofinanciación Fulbright–SENESCYT. Corre en paralelo a las solicitudes: sus fechas están en el calendario de abajo.</p></div>
         </div>
         <div class="opt">
           <span class="ic ko" aria-hidden="true">✕</span>
-          <div><b>Necesitas financiación propia</b><p>Se queda en la lista solo si puedes cubrir matrícula y vida sin ahogar el plan del doctorado. Si no, táchalo: en los tres sistemas hay opciones financiadas.</p></div>
+          <div><b>Financiación propia</b><p>Solo si cubres matrícula y vida sin ahogar el plan. Si no, táchalo.</p></div>
         </div>
       </div>
-      <p class="hint"><em>Referencia rápida:</em> en EE.&nbsp;UU. el PhD viene financiado casi siempre; en Europa hay programas que financian a la mayoría de admitidos (CEMFI, EUI); en el resto, pregunta primero por las becas del propio programa.</p>
+      <p class="hint"><em>Referencia:</em> en EE.&nbsp;UU. el PhD viene financiado; CEMFI y el EUI financian a la mayoría; en el resto, pregunta por las becas del propio programa.</p>
     </article>
 
   </section>
 
+  <!-- ================= CALENDARIO ================= -->
+  <header class="sect">
+    <p class="eyebrow">Segundo gráfico · Cómo organizar el tiempo</p>
+    <h2>¿Cuándo toca cada cosa?</h2>
+    <p class="lede">Cada sistema tiene su reloj: Europa decide en primavera para empezar en septiembre; EE.&nbsp;UU. cierra en diciembre para empezar en agosto; Latinoamérica admite en sus propios semestres.</p>
+  </header>
+
+  <article class="node stage wide">
+    <div class="gantt-wrap">
+      <div class="gantt" role="img" aria-label="Calendario de solicitudes de septiembre de 2026 a septiembre de 2028 por sistema: Europa, Estados Unidos, Chile, Colombia y becas desde Ecuador">
+        <div class="g-row g-head">
+          <span class="g-lab"></span>
+          <span class="g-yr" style="grid-column:2/6">2026</span>
+          <span class="g-yr" style="grid-column:6/18">2027</span>
+          <span class="g-yr" style="grid-column:18/27">2028</span>
+        </div>
+        <div class="g-row g-months">
+          <span class="g-lab"></span>
+          <span class="g-mo">S</span><span class="g-mo">O</span><span class="g-mo">N</span><span class="g-mo">D</span><span class="g-mo jan">E</span><span class="g-mo">F</span><span class="g-mo">M</span><span class="g-mo">A</span><span class="g-mo">M</span><span class="g-mo">J</span><span class="g-mo">J</span><span class="g-mo">A</span><span class="g-mo">S</span><span class="g-mo">O</span><span class="g-mo">N</span><span class="g-mo">D</span><span class="g-mo jan">E</span><span class="g-mo">F</span><span class="g-mo">M</span><span class="g-mo">A</span><span class="g-mo">M</span><span class="g-mo">J</span><span class="g-mo">J</span><span class="g-mo">A</span><span class="g-mo">S</span>
+        </div>
+
+        <div class="g-row">
+          <span class="g-lab"><b>Europa</b><i>máster · sep 2027</i></span>
+          <span class="bar b-app" style="grid-column:6/9">solicitudes</span>
+          <span class="bar b-wait" style="grid-column:9/12">respuestas</span>
+          <span class="ms" style="grid-column:14/27"><span class="dot" aria-hidden="true"></span>inicio sep</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>Europa</b><i>mientras esperas</i></span>
+          <span class="bar b-work" style="grid-column:6/14">busca trabajo (RA, analista)</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>EE. UU.</b><i>ciclo dic 2026</i></span>
+          <span class="bar b-app" style="grid-column:2/6">solicitudes · dic</span>
+          <span class="bar b-wait" style="grid-column:7/10">respuestas</span>
+          <span class="ms" style="grid-column:13/27"><span class="dot" aria-hidden="true"></span>inicio ago</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>EE. UU.</b><i>ciclo dic 2027</i></span>
+          <span class="bar b-app" style="grid-column:14/18">solicitudes · dic</span>
+          <span class="bar b-wait" style="grid-column:19/22">respuestas</span>
+          <span class="bar b-start" style="grid-column:25/27">inicio</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>Chile</b><i>PUC · magíster</i></span>
+          <span class="bar b-app" style="grid-column:9/11">postula</span>
+          <span class="ms" style="grid-column:13/27"><span class="dot" aria-hidden="true"></span>inicio ago</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>Colombia</b><i>Uniandes · PEG</i></span>
+          <span class="bar b-app" style="grid-column:13/17">postula</span>
+          <span class="ms" style="grid-column:18/27"><span class="dot" aria-hidden="true"></span>inicio ene 2028</span>
+        </div>
+        <div class="g-row">
+          <span class="g-lab"><b>Becas Ecuador</b><i>Fulbright</i></span>
+          <span class="bar b-beca" style="grid-column:7/10">convocatoria</span>
+          <span class="bar b-beca" style="grid-column:19/22">convocatoria</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="notes">
+      <li><b>Europa:</b> la mayoría de solicitudes cierra entre enero y abril; las rondas con beca, antes. Respuestas entre marzo y junio; inicio en septiembre de 2027. <b>De enero a septiembre: busca trabajo</b> — llegas al máster con colchón y con CV.</li>
+      <li><b>EE. UU.:</b> cierres el 1–15 de diciembre, respuestas febrero–abril e inicio en agosto/septiembre (no en enero). El ciclo de diciembre de 2026 solo si GRE, TOEFL y cartas están listos ya; si no, al de diciembre de 2027 para empezar en 2028.</li>
+      <li><b>Chile (PUC):</b> una admisión al año (~50 cupos): postulación abril–mayo para entrar en agosto del mismo año.</li>
+      <li><b>Colombia (Uniandes):</b> entradas en enero y en agosto; para enero, el proceso va de agosto a noviembre del año anterior.</li>
+      <li><b>Becas desde Ecuador:</b> Fulbright convoca cada año — la de 2026 cerró el 20 de abril, con ventana extra en julio–agosto — y se postula ±año y medio antes de viajar; existe cofinanciación Fulbright–SENESCYT. Confirma fechas en <a href="https://fulbright.org.ec/beca-fulbright-maestrias-doctorados/">fulbright.org.ec</a>.</li>
+    </ul>
+  </article>
+
   <footer class="foot">
-    <span>Árbol de decisión · v1 · ago 2026</span>
+    <span>Árbol + calendario · v2 · ago 2026</span>
     <span>Placements y financiación son datos; el prestigio es una opinión</span>
   </footer>
 </div>
