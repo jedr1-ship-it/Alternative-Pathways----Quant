@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Máster en la ESPOL o fuera?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f3f5f9;
+    --surface:#ffffff;
+    --ink:#1b2330;
+    --muted:#5b6678;
+    --line:#a7b1c3;
+    --border:#d9dfe9;
+    --accent:#2a49c9;
+    --accent-bg:#ebf0ff;
+    --go:#17694a;
+    --go-bg:#e9f4ee;
+    --go-border:#bcdcca;
+    --no:#a83d49;
+    --fund:#8a6404;
+    --fund-bg:#faf3de;
+    --fund-border:#e4d3a3;
+    --shadow:0 1px 2px rgba(23,31,46,.05),0 10px 28px rgba(23,31,46,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0f141f;
+      --surface:#161d2b;
+      --ink:#e6eaf3;
+      --muted:#98a2b6;
+      --line:#4a5570;
+      --border:#2b3448;
+      --accent:#95aaff;
+      --accent-bg:#1c2542;
+      --go:#66c992;
+      --go-bg:#152720;
+      --go-border:#2c5741;
+      --no:#e08a95;
+      --fund:#d4aa4c;
+      --fund-bg:#262010;
+      --fund-border:#4d4121;
+      --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.38);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0f141f;
+    --surface:#161d2b;
+    --ink:#e6eaf3;
+    --muted:#98a2b6;
+    --line:#4a5570;
+    --border:#2b3448;
+    --accent:#95aaff;
+    --accent-bg:#1c2542;
+    --go:#66c992;
+    --go-bg:#152720;
+    --go-border:#2c5741;
+    --no:#e08a95;
+    --fund:#d4aa4c;
+    --fund-bg:#262010;
+    --fund-border:#4d4121;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.38);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font:400 15px/1.6 "IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:1080px;margin:0 auto;padding:46px 28px 56px}
+
+  /* ---------- masthead ---------- */
+  .mast{padding:6px 0 28px;margin-bottom:36px;position:relative}
+  .mast::after{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:5px;
+    border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);
+  }
+  .eyebrow{
+    margin:0 0 16px;
+    font:600 11px/1 "IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  }
+  h1{
+    margin:0 0 14px;
+    font-family:"Old Standard TT",Georgia,"Times New Roman",serif;
+    font-weight:700;font-size:clamp(30px,4.6vw,46px);line-height:1.08;
+    letter-spacing:-.01em;text-wrap:balance;
+  }
+  .lede{
+    margin:0;max-width:64ch;
+    font-family:"Old Standard TT",Georgia,serif;font-style:italic;
+    font-size:clamp(16px,2.3vw,19px);line-height:1.55;color:var(--muted);
+    text-wrap:pretty;
+  }
+
+  /* ---------- nodes ---------- */
+  .node{
+    background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    box-shadow:var(--shadow);padding:22px 26px;
+  }
+  .stage{max-width:640px;margin:0 auto}
+  .stage.wide{max-width:none}
+  .badge{
+    display:inline-flex;align-items:center;gap:9px;margin-bottom:11px;
+    font:600 11px/1 "IBM Plex Mono",ui-monospace,monospace;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--accent);
+  }
+  .badge .n{
+    display:inline-grid;place-items:center;width:21px;height:21px;
+    border:1.5px solid currentColor;border-radius:50%;font-size:10.5px;
+  }
+  .q{
+    margin:0 0 8px;
+    font-family:"Old Standard TT",Georgia,serif;font-weight:700;
+    font-size:23px;line-height:1.22;text-wrap:balance;color:var(--ink);
+  }
+  .node > p{margin:0;color:var(--muted);font-size:14.5px}
+
+  /* etapa 2: triple filtro */
+  .filters{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--border)}
+  .filters li{
+    display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;
+    padding:13px 0;border-bottom:1px solid var(--border);
+  }
+  .filters li:last-child{border-bottom:0;padding-bottom:2px}
+  .fn{
+    display:grid;place-items:center;width:22px;height:22px;margin-top:1px;
+    border:1.5px solid var(--accent);border-radius:50%;
+    font:600 11px "IBM Plex Mono",monospace;color:var(--accent);
+  }
+  .filters b{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+  .filters span{display:block;color:var(--muted);font-size:13.5px;line-height:1.55}
+
+  /* hojas / veredictos */
+  .leaf{
+    background:var(--go-bg);border:1px solid var(--go-border);border-radius:8px;
+    box-shadow:var(--shadow);padding:18px 22px;
+  }
+  .leaf .badge{color:var(--go);margin-bottom:9px}
+  .tick{
+    display:inline-grid;place-items:center;width:17px;height:17px;
+    border:1.5px solid currentColor;border-radius:50%;font-size:10px;
+  }
+  .leaf .q{font-size:20px;margin-bottom:6px}
+  .leaf p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.55}
+
+  /* ---------- conectores ---------- */
+  .tree{margin-top:40px}
+  .pill{
+    display:inline-block;white-space:nowrap;
+    font:600 10.5px/1 "IBM Plex Mono",ui-monospace,monospace;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;
+  }
+  .vline{display:block;width:2px;height:15px;background:var(--line)}
+  .adown{
+    display:block;width:0;height:0;
+    border-top:7px solid var(--line);
+    border-left:5px solid transparent;border-right:5px solid transparent;
+  }
+  .spine-seg{display:flex;flex-direction:column;align-items:center}
+
+  .exitj{position:relative}
+  .exitj::before{
+    content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;
+    transform:translateX(-50%);background:var(--line);
+  }
+  .exit{
+    position:relative;margin-left:50%;width:50%;
+    display:flex;align-items:center;padding:20px 0;
+  }
+  .exit::before{ /* punto de bifurcación sobre la espina */
+    content:'';position:absolute;left:-4px;top:50%;width:8px;height:8px;
+    border-radius:50%;background:var(--line);transform:translateY(-50%);
+  }
+  .h{display:block;flex:0 0 26px;height:2px;background:var(--line)}
+  .h2{display:block;flex:0 0 22px;height:2px;background:var(--line);position:relative}
+  .h2::after{
+    content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+    border-left:7px solid var(--line);
+    border-top:5px solid transparent;border-bottom:5px solid transparent;
+  }
+  .exit .leaf{flex:1;min-width:0;margin-left:10px}
+
+  /* etapa 3: sistemas */
+  .regions{display:grid;grid-template-columns:1fr 1.35fr .9fr;gap:14px;margin-top:18px}
+  .region{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+  .region h3{
+    margin:0 0 6px;
+    font:600 11.5px/1.4 "IBM Plex Mono",ui-monospace,monospace;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--ink);
+  }
+  .how{margin:0 0 12px;font-size:12.5px;font-style:italic;color:var(--muted);line-height:1.5}
+  .country{
+    margin:13px 0 3px;
+    font:600 10.5px/1 "IBM Plex Mono",ui-monospace,monospace;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--accent);
+  }
+  .uni + .country{margin-top:14px}
+  .uni{list-style:none;margin:0;padding:0;font-size:13.5px}
+  .uni li{padding:4.5px 0;border-bottom:1px dashed var(--border);line-height:1.4}
+  .uni li:last-child{border-bottom:0}
+
+  /* filtro final */
+  .fund{background:var(--fund-bg);border-color:var(--fund-border);max-width:760px}
+  .fund .badge{color:var(--fund)}
+  .opts{margin-top:16px;border-top:1px solid var(--fund-border)}
+  .opt{
+    display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;
+    padding:13px 0;border-bottom:1px solid var(--fund-border);
+  }
+  .opt:last-of-type{border-bottom:0}
+  .ic{
+    display:grid;place-items:center;width:22px;height:22px;margin-top:1px;
+    border-radius:50%;border:1.5px solid;font-size:11px;font-weight:700;background:var(--surface);
+  }
+  .ic.ok{color:var(--go);border-color:var(--go)}
+  .ic.ko{color:var(--no);border-color:var(--no)}
+  .opt b{display:block;font-size:14.5px;font-weight:600;margin-bottom:2px}
+  .opt p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.55}
+  .hint{
+    margin-top:2px;padding-top:13px;border-top:1px solid var(--fund-border);
+    font-size:12.5px;color:var(--muted);line-height:1.55;
+  }
+  .hint em{font-style:normal;font-weight:600;color:var(--ink)}
+
+  /* footer */
+  .foot{
+    margin-top:48px;padding-top:16px;border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;
+    font:500 10.5px/1.7 "IBM Plex Mono",ui-monospace,monospace;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ---------- móvil: espina a la izquierda ---------- */
+  @media (max-width:920px){
+    .page{padding:34px 18px 48px}
+    .node{padding:19px 20px}
+    .exitj::before{left:13px;transform:none}
+    .exit{margin-left:13px;width:auto;flex-wrap:wrap;padding:16px 0 20px}
+    .exit::before{top:28px;transform:none}
+    .h{flex:0 0 15px}
+    .h2{flex:0 0 14px}
+    .h2::after{display:none}
+    .exit .leaf{flex:1 1 100%;margin-left:27px;margin-top:13px;position:relative}
+    .exit .leaf::before{
+      content:'';position:absolute;left:-15px;top:-14px;width:13px;height:28px;
+      border-left:2px solid var(--line);border-bottom:2px solid var(--line);
+      border-bottom-left-radius:9px;
+    }
+    .spine-seg{align-items:flex-start}
+    .spine-seg .vline{margin-left:13px}
+    .spine-seg .adown{margin-left:9px}
+    .spine-seg .pill{margin-left:1px}
+    .regions{grid-template-columns:1fr}
+  }
+</style>
+
+<div class="page">
+  <header class="mast">
+    <p class="eyebrow">Árbol de decisión · Máster en economía</p>
+    <h1>¿Máster en la ESPOL, o mirar fuera?</h1>
+    <p class="lede">Si no hay doctorado en el plan, la ESPOL gana. Si lo hay, exígele pruebas al máster. Y si no las da, compite fuera — donde te financien.</p>
+  </header>
+
+  <section class="tree" aria-label="Árbol de decisión en tres etapas más filtro final">
+
+    <!-- ETAPA 1 -->
+    <article class="node stage">
+      <div class="badge"><span class="n" aria-hidden="true">1</span>Etapa 1 · La pregunta de fondo</div>
+      <h2 class="q">¿Quieres hacer un doctorado?</h2>
+      <p>Todo el árbol cuelga de esta pregunta, así que va primero. No compares programas todavía: decide qué tiene que hacer el máster por ti.</p>
+    </article>
+
+    <div class="exitj">
+      <div class="exit">
+        <span class="h" aria-hidden="true"></span>
+        <span class="pill">No quiero PhD</span>
+        <span class="h2" aria-hidden="true"></span>
+        <article class="leaf">
+          <div class="badge"><span class="tick" aria-hidden="true">✓</span>Decisión</div>
+          <h2 class="q">Haz el máster de la ESPOL</h2>
+          <p>Si la meta es el mercado laboral, el máster de la ESPOL suma muchos puntos. Decisión cerrada: fin del árbol para ti.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="spine-seg">
+      <span class="pill">Sí, quiero un PhD</span>
+      <span class="vline" aria-hidden="true"></span>
+      <span class="adown" aria-hidden="true"></span>
+    </div>
+
+    <!-- ETAPA 2 -->
+    <article class="node stage">
+      <div class="badge"><span class="n" aria-hidden="true">2</span>Etapa 2 · El triple filtro</div>
+      <h2 class="q">Pásale el triple filtro al máster de la ESPOL</h2>
+      <p>Que responda con datos, no con impresiones. Y las tres cosas a la vez:</p>
+      <ul class="filters">
+        <li>
+          <span class="fn" aria-hidden="true">1</span>
+          <div><b>Placements en doctorados</b><span>¿Estudiantes de este máster han acabado en buenos doctorados? Pide la lista de admisiones de los últimos años.</span></div>
+        </li>
+        <li>
+          <span class="fn" aria-hidden="true">2</span>
+          <div><b>Base cuantitativa</b><span>¿Da fundamentos sólidos de econometría, macroeconomía y estadística?</span></div>
+        </li>
+        <li>
+          <span class="fn" aria-hidden="true">3</span>
+          <div><b>Red de profesores</b><span>¿Hay profesores con contactos internacionales cuyas cartas te abran la puerta de universidades competitivas?</span></div>
+        </li>
+      </ul>
+    </article>
+
+    <div class="exitj">
+      <div class="exit">
+        <span class="h" aria-hidden="true"></span>
+        <span class="pill">Sí a las tres</span>
+        <span class="h2" aria-hidden="true"></span>
+        <article class="leaf">
+          <div class="badge"><span class="tick" aria-hidden="true">✓</span>Decisión</div>
+          <h2 class="q">La ESPOL también vale</h2>
+          <p>Como plataforma hacia el doctorado, cumple. Hazlo — y desde el primer día trabaja cerca de los profesores mejor conectados.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="spine-seg">
+      <span class="pill">Falla alguna de las tres</span>
+      <span class="vline" aria-hidden="true"></span>
+      <span class="adown" aria-hidden="true"></span>
+    </div>
+
+    <!-- ETAPA 3 -->
+    <article class="node stage wide">
+      <div class="badge"><span class="n" aria-hidden="true">3</span>Etapa 3 · Mirar fuera</div>
+      <h2 class="q">Compite en uno de estos tres sistemas</h2>
+      <p>Arma una lista corta mezclando sistemas — cada uno tiene su propia puerta de entrada al doctorado.</p>
+      <div class="regions">
+        <section class="region">
+          <h3>Estados Unidos</h3>
+          <p class="how">Aquí no se entra vía máster: se aplica directo al PhD (financiado) o a un predoc de investigación.</p>
+          <ul class="uni">
+            <li>MIT</li>
+            <li>Harvard</li>
+            <li>Stanford</li>
+            <li>Princeton</li>
+            <li>Universidad de Chicago</li>
+            <li>UC Berkeley</li>
+            <li>Yale</li>
+            <li>Columbia</li>
+            <li>Northwestern</li>
+            <li>UPenn</li>
+          </ul>
+        </section>
+        <section class="region">
+          <h3>Europa</h3>
+          <p class="how">La puerta habitual es un máster de investigación de dos años.</p>
+          <p class="country">España</p>
+          <ul class="uni">
+            <li>CEMFI (Madrid)</li>
+            <li>Barcelona School of Economics (UPF)</li>
+            <li>Universidad Carlos III de Madrid</li>
+            <li>Universitat Autònoma de Barcelona</li>
+            <li>Universidad de Alicante</li>
+          </ul>
+          <p class="country">Francia</p>
+          <ul class="uni">
+            <li>Paris School of Economics</li>
+            <li>Toulouse School of Economics</li>
+          </ul>
+          <p class="country">Italia</p>
+          <ul class="uni">
+            <li>Università Bocconi (Milán)</li>
+            <li>European University Institute (Florencia)</li>
+          </ul>
+          <p class="country">Suiza</p>
+          <ul class="uni">
+            <li>Universidad de Zúrich</li>
+          </ul>
+        </section>
+        <section class="region">
+          <h3>Latinoamérica</h3>
+          <p class="how">Máster regional fuerte, y de ahí al doctorado — allí mismo o saltando a EE.&nbsp;UU. o Europa.</p>
+          <p class="country">Chile</p>
+          <ul class="uni">
+            <li>Pontificia Universidad Católica de Chile</li>
+          </ul>
+          <p class="country">Colombia</p>
+          <ul class="uni">
+            <li>Universidad de los Andes (Bogotá)</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <div class="spine-seg">
+      <span class="vline" aria-hidden="true"></span>
+      <span class="pill">Con tu lista corta</span>
+      <span class="vline" aria-hidden="true"></span>
+      <span class="adown" aria-hidden="true"></span>
+    </div>
+
+    <!-- FILTRO FINAL -->
+    <article class="node stage fund">
+      <div class="badge"><span class="n" aria-hidden="true">4</span>Filtro final · La financiación</div>
+      <h2 class="q">¿Te financian, o pones tú el dinero?</h2>
+      <p>Hazle esta pregunta a cada programa de la lista corta antes de enamorarte de ninguno.</p>
+      <div class="opts">
+        <div class="opt">
+          <span class="ic ok" aria-hidden="true">✓</span>
+          <div><b>Ofrecen financiación</b><p>Beca, matrícula cubierta o plaza de ayudante: sube puestos en tu lista. Que te financien también es información — el programa apuesta por ti.</p></div>
+        </div>
+        <div class="opt">
+          <span class="ic ko" aria-hidden="true">✕</span>
+          <div><b>Necesitas financiación propia</b><p>Se queda en la lista solo si puedes cubrir matrícula y vida sin ahogar el plan del doctorado. Si no, táchalo: en los tres sistemas hay opciones financiadas.</p></div>
+        </div>
+      </div>
+      <p class="hint"><em>Referencia rápida:</em> en EE.&nbsp;UU. el PhD viene financiado casi siempre; en Europa hay programas que financian a la mayoría de admitidos (CEMFI, EUI); en el resto, pregunta primero por las becas del propio programa.</p>
+    </article>
+
+  </section>
+
+  <footer class="foot">
+    <span>Árbol de decisión · v1 · ago 2026</span>
+    <span>Placements y financiación son datos; el prestigio es una opinión</span>
+  </footer>
+</div>
+</html>
