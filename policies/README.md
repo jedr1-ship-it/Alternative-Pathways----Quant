@@ -46,3 +46,8 @@ node build.js          # escribe Re-attracting_Former_Teachers.pptx en esta carp
 Los datos de cada política están en `build/policies.js`; el diseño, en `build/build.js`
 (pptxgenjs; banderas de `flag-icons`, iconos de `react-icons`). Fuentes: Cambria (títulos)
 y Calibri (texto); dos colores de texto por diapositiva.
+
+## Deck de contacto
+`Three_countries_to_contact.pptx` (6 diapositivas): los tres países que proponemos contactar
+(Nueva Gales del Sur, Quebec, Países Bajos), la política a consultar y el borrador de preguntas,
+más una lista de reserva. Se regenera con `node build/build_contact.js`.
