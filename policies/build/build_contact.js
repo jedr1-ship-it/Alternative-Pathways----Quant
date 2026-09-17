@@ -25,7 +25,7 @@ const T = [
    policy: "Incentive pay for retired teachers who return (since 2020, permanent)",
    what: "Retired teachers who come back are paid from day one at the salary step they had at retirement, about 412 Canadian dollars a day (about 275 euros) instead of the 212-dollar substitute rate, while keeping the full pension. 700 retirees returned in 2020-21; more than 5,000 worked in schools in 2022-23. In 2023 the minister also wrote to every retiree.",
    why: "It is the only financial incentive for retirees running at large scale and now permanent, so the ministry can show whether money changes behaviour, at what cost, and with what side effects on active substitutes and on retirement decisions.",
-   contact: "Ministère de l'Éducation du Québec, human-resources and workforce planning branch for the school network (Direction générale des relations du travail / ressources humaines du réseau).",
+   contact: "Quebec Ministry of Education, human-resources and workforce-planning branch for the school network.",
    questions: [
      "Number of retirees working each year since 2019-20 (before and after the incentive), with days worked per person and the split between substitute work and fixed-term contracts.",
      "Annual cost of paying retirees at their former salary step rather than the substitute rate, and how it compares with the cost of unfilled absences.",
@@ -38,7 +38,7 @@ const T = [
    policy: "Grant to primary schools for re-hiring former teachers (2017–2020)",
    what: "The Ministry of Education paid a primary-school board up to 2,500 euros for every qualified teacher it re-hired after at least twelve months out of primary teaching, on a contract of six months or more, to fund the returner's coaching and refresher training. The first budget covered 500 returners; the scheme closed in 2020.",
    why: "It is the only measure in our set that pays the school rather than the teacher, it is closed, so the whole story can be told, and the Netherlands has the best data on the pool of qualified teachers working outside education.",
-   contact: "Ministry of Education, Culture and Science (OCW), primary education directorate, and DUS-I, the agency that administered the grant.",
+   contact: "Dutch Ministry of Education, Culture and Science, primary-education directorate, and the ministry's subsidy agency (DUS-I) that administered the grant.",
    questions: [
      "Take-up: how many returners were actually funded in each round, out of the 500 places, and the profile of those returners (years away, sector they came from, age).",
      "Whether school boards said the grant changed their decision to hire, or mostly subsidised hires that would have happened anyway.",
