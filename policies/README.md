@@ -12,15 +12,16 @@ y *retired* (jubilados).
    Flexible re-certification).
 3. Una diapositiva por política (16), ordenadas por país y categoría. Cada una lleva:
    bandera y país (arriba a la izquierda), categoría principal y grupos objetivo (arriba a
-   la derecha), nombre y año de la política, descripción estructurada en cuatro bloques (*What it is /
-   How it works / Means / Since*), línea de instrumentos secundarios y el pie `Source:` con
+   la derecha), nombre y año de la política, descripción en texto corrido y lenguaje llano (importes con su equivalente
+   aproximado en euros), línea de instrumentos secundarios y el pie `Source:` con
    enlace clicable.
    Las notas del orador de cada diapositiva contienen la verificación de fuentes y datos
    secundarios.
 4. Tabla resumen: País | Política | Categoría | Grupo(s) objetivo.
 
 `policies.csv` contiene los mismos datos en formato tabular (una fila por política, con
-los cuatro bloques de la descripción, instrumentos secundarios y enlaces).
+descripción, instrumentos secundarios y enlaces). Las conversiones a euros son
+aproximadas y redondeadas.
 
 ## Fuentes y verificación
 Todas las fuentes son primarias (leyes, decretos, circulares, páginas de ministerios o

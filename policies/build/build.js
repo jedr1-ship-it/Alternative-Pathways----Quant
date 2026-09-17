@@ -82,7 +82,7 @@ function slideNumber(slide, n) {
     s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 4.45, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
     // flag strip (unique flags, in deck order)
     const uniq = [...new Set(POLICIES.map(p => p.flag))];
-    const fw = 0.78, fh = 0.585, gap = 0.19;
+    const fw = 0.72, fh = 0.54, gap = 0.14;
     const total = uniq.length * fw + (uniq.length - 1) * gap;
     let x = (W - total) / 2;
     for (const code of uniq) {
@@ -141,12 +141,7 @@ function slideNumber(slide, n) {
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
     iconCircle(s, pres, icons[p.cat], 0.85, 1.85, 0.85);
     s.addText(p.title, { x: 1.95, y: 1.68, w: 10.65, h: 0.95, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
-    const dr = [];
-    p.desc.forEach(([lab, txt], i) => {
-      dr.push({ text: lab + ": ", options: { bold: true, color: INK } });
-      dr.push({ text: txt, options: { color: INK, breakLine: i < p.desc.length - 1 } });
-    });
-    s.addText(dr, { x: 1.95, y: 2.62, w: 10.65, h: 2.68, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.04, paraSpaceAfter: 4 });
+    s.addText(p.desc, { x: 1.95, y: 2.62, w: 10.65, h: 2.68, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
     // secondary instruments line (replaces the former fact chips)
     const alsoChip = (p.chips || []).find(t => /^Also:/.test(t));
     const also = alsoChip ? alsoChip.replace(/^Also:\s*/, "").replace(/\s*\(.*\)$/, "") : null;
@@ -162,7 +157,7 @@ function slideNumber(slide, n) {
     });
     s.addText(runs, { x: 0.5, y: 5.92, w: 12.33, h: 0.95, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
     slideNumber(s, n);
-    s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — ${p.cat} — Target: ${p.groups.join(", ")}.\n\n${p.notes}`);
+    s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — ${p.cat} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
     n++;
   }
 
