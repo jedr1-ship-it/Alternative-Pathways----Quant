@@ -64,7 +64,7 @@ function slideNumber(slide, n) {
 (async () => {
   const pres = new pptxgen();
   pres.layout = "LAYOUT_WIDE"; // 13.333 x 7.5 in
-  pres.author = "Comparative education policy review";
+  pres.author = "José Manuel Torres, José Elías Durán Roa";
   pres.title = "Re-attracting Former Teachers";
 
   const icons = {};
@@ -78,9 +78,8 @@ function slideNumber(slide, n) {
     const s = pres.addSlide();
     s.background = { color: GREEN };
     s.addText("Re-attracting Former Teachers", { x: 0.8, y: 1.25, w: 11.7, h: 1.2, fontFace: HEAD, fontSize: 46, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
-    s.addText("Policies that bring switchers, leavers and retired teachers back into education", { x: 0.8, y: 2.55, w: 11.7, h: 0.7, fontFace: BODY, fontSize: 22, color: "CFE3D9", margin: 0, isTextBox: true });
-    s.addText("A comparative review of 16 verified policies from 13 countries, one policy per slide, classified by target group and main policy instrument.", { x: 0.8, y: 3.35, w: 10.5, h: 0.9, fontFace: BODY, fontSize: 15, color: WHITE, margin: 0, isTextBox: true, valign: "top" });
-    s.addText("Comparative education policy analysis  ·  September 2026", { x: 0.8, y: 4.45, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
+    s.addText("Policies that bring them back into education", { x: 0.8, y: 2.55, w: 11.7, h: 0.7, fontFace: BODY, fontSize: 22, color: "CFE3D9", margin: 0, isTextBox: true });
+    s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 4.45, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
     // flag strip (unique flags, in deck order)
     const uniq = [...new Set(POLICIES.map(p => p.flag))];
     const fw = 0.78, fh = 0.585, gap = 0.19;
@@ -97,8 +96,7 @@ function slideNumber(slide, n) {
   {
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText("Definitions", { x: 0.5, y: 0.35, w: 8, h: 0.65, fontFace: HEAD, fontSize: 32, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Who counts as a former teacher, what counts as re-attracting them, and the five instrument categories used to classify each policy", { x: 0.5, y: 1.0, w: 12.3, h: 0.4, fontFace: BODY, fontSize: 13, color: ACCENT, margin: 0, isTextBox: true });
+    s.addText("Definitions", { x: 0.6, y: 0.65, w: 8, h: 0.65, fontFace: HEAD, fontSize: 32, bold: true, color: INK, margin: 0, isTextBox: true });
 
     // left card: target groups
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.55, w: 4.55, h: 5.35, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
@@ -110,14 +108,10 @@ function slideNumber(slide, n) {
       s.addText(g.def, { x: 1.5, y: y + 0.32, w: 3.4, h: 0.6, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 1.02;
     }
-    s.addText([
-      { text: "A policy may target one group or several. ", options: { bold: true } },
-      { text: "“Re-attract” means any return to the education system: full-time teaching first of all, but also flexible roles such as tutor, mentor, substitute or classroom support." }
-    ], { x: 0.75, y: 5.4, w: 4.1, h: 1.35, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
 
     // right card: instruments
     s.addShape(pres.ShapeType.roundRect, { x: 5.3, y: 1.55, w: 7.53, h: 5.35, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
-    s.addText("Five instrument categories (each policy is classified by its main instrument; secondary instruments are noted)", { x: 5.55, y: 1.72, w: 7.1, h: 0.4, fontFace: BODY, fontSize: 15, bold: true, color: INK, margin: 0, isTextBox: true });
+    s.addText("Five categories: each policy is classified by the instrument it uses", { x: 5.55, y: 1.72, w: 7.1, h: 0.4, fontFace: BODY, fontSize: 15, bold: true, color: INK, margin: 0, isTextBox: true });
     y = 2.3;
     for (const c of CATS) {
       iconCircle(s, pres, icons[c.name], 5.58, y + 0.04, 0.55);
@@ -147,14 +141,19 @@ function slideNumber(slide, n) {
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
     iconCircle(s, pres, icons[p.cat], 0.85, 1.85, 0.85);
     s.addText(p.title, { x: 1.95, y: 1.68, w: 10.65, h: 0.95, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
-    s.addText(p.desc, { x: 1.95, y: 2.68, w: 10.65, h: 2.05, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.08 });
-    // chips
-    const cx0 = 1.95, cw = 3.45, cg = 0.15, cy = 4.8, ch = 0.66;
-    p.chips.forEach((t, i) => {
-      const x = cx0 + i * (cw + cg);
-      s.addShape(pres.ShapeType.roundRect, { x, y: cy, w: cw, h: ch, fill: { color: WHITE }, line: { color: LINE, width: 0.75 }, rectRadius: 0.1 });
-      s.addText(t, { x: x + 0.1, y: cy, w: cw - 0.2, h: ch, fontFace: BODY, fontSize: 10.5, color: INK, margin: 0, isTextBox: true, valign: "middle", align: "left" });
+    const dr = [];
+    p.desc.forEach(([lab, txt], i) => {
+      dr.push({ text: lab + ": ", options: { bold: true, color: INK } });
+      dr.push({ text: txt, options: { color: INK, breakLine: i < p.desc.length - 1 } });
     });
+    s.addText(dr, { x: 1.95, y: 2.62, w: 10.65, h: 2.68, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.04, paraSpaceAfter: 4 });
+    // secondary instruments line (replaces the former fact chips)
+    const alsoChip = (p.chips || []).find(t => /^Also:/.test(t));
+    const also = alsoChip ? alsoChip.replace(/^Also:\s*/, "").replace(/\s*\(.*\)$/, "") : null;
+    s.addText([
+      { text: "Secondary instruments: ", options: { bold: true, color: INK } },
+      { text: also || "none (single-instrument policy)", options: { color: INK } }
+    ], { x: 1.95, y: 5.32, w: 10.65, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
     // footer: sources (clickable)
     const runs = [];
     p.sources.forEach((u, i) => {
@@ -172,7 +171,6 @@ function slideNumber(slide, n) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
     s.addText("Summary: 16 policies at a glance", { x: 0.5, y: 0.3, w: 9, h: 0.6, fontFace: HEAD, fontSize: 28, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Ordered by country, then category. Source links are on each policy slide.", { x: 0.5, y: 0.9, w: 12.3, h: 0.3, fontFace: BODY, fontSize: 11, color: ACCENT, margin: 0, isTextBox: true });
     const hdr = ["Country", "Policy", "Category", "Target group(s)"].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: GREEN }, fontSize: 10.5, valign: "middle" } }));
     const rows = [hdr];
     POLICIES.forEach((p, i) => {
