@@ -1,7 +1,7 @@
 # Re-attracting former teachers — políticas comparadas
 
-Presentación (`Re-attracting_Former_Teachers.pptx`, 19 diapositivas, 16:9) que recopila
-**16 políticas reales de 13 países** dirigidas a traer de vuelta al sistema educativo a
+Presentación (`Re-attracting_Former_Teachers.pptx`, 33 diapositivas, 16:9) que recopila
+**29 políticas reales de 17 países** dirigidas a traer de vuelta al sistema educativo a
 ex docentes: *switchers* (cambiaron de sector), *leavers* (salieron del mercado laboral)
 y *retired* (jubilados).
 
@@ -10,14 +10,20 @@ y *retired* (jubilados).
 2. Definiciones: los tres grupos objetivo y las cinco categorías de instrumento
    (Financial incentives · Information & nudges · Support & training · Flexible positions ·
    Flexible re-certification).
-3. Una diapositiva por política (16), ordenadas por país y categoría. Cada una lleva:
+3. Una diapositiva por política (29), ordenadas por país y categoría. Cada una lleva:
    bandera y país (arriba a la izquierda), categoría principal y grupos objetivo (arriba a
    la derecha), nombre y año de la política, descripción en texto corrido y lenguaje llano (importes con su equivalente
    aproximado en euros), línea de instrumentos secundarios y el pie `Source:` con
    enlace clicable.
    Las notas del orador de cada diapositiva contienen la verificación de fuentes y datos
    secundarios.
-4. Tabla resumen: País | Política | Categoría | Grupo(s) objetivo.
+4. Tabla resumen (dos diapositivas): País | Política | Categoría | Grupo(s) objetivo | Escala.
+
+Cada diapositiva de política lleva además una etiqueta de escala abajo a la derecha: Large
+(nacional), Medium (estado, región, provincia o cantón), Small (distrito o institución concreta).
+
+`INITIATIVES_A_COMPLETAR.xlsx` es la hoja de trabajo del equipo con una columna `Instrument`
+(desplegable con las cinco categorías) y las políticas del deck que faltaban añadidas.
 
 `policies.csv` contiene los mismos datos en formato tabular (una fila por política, con
 descripción, instrumentos secundarios y enlaces). Las conversiones a euros son

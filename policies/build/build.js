@@ -57,6 +57,11 @@ function iconCircle(slide, pres, data, x, y, d) {
   slide.addImage({ data, x: x + pad, y: y + pad, w: d - 2 * pad, h: d - 2 * pad });
 }
 
+const SCALE_COLORS = { Large: GREEN, Medium: "C8892B", Small: ACCENT };
+function scaleLabel(slide, pres, scale) {
+  slide.addShape(pres.ShapeType.ellipse, { x: W - 2.75, y: H - 0.355, w: 0.13, h: 0.13, fill: { color: SCALE_COLORS[scale] }, line: { color: SCALE_COLORS[scale], width: 0 } });
+  slide.addText("Scale: " + scale, { x: W - 2.56, y: H - 0.42, w: 1.4, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+}
 function slideNumber(slide, n) {
   slide.addText(String(n), { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "right", margin: 0, isTextBox: true });
 }
@@ -119,6 +124,15 @@ function slideNumber(slide, n) {
       s.addText(c.def, { x: 6.3, y: y + 0.3, w: 6.35, h: 0.58, fontFace: BODY, fontSize: 11, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 0.9;
     }
+    const lg = [["Large", "national"], ["Medium", "state, region, province or canton"], ["Small", "district, city or single institution"]];
+    let lx = 0.6;
+    s.addText("Scale label on each policy slide:", { x: lx, y: 7.02, w: 2.6, h: 0.3, fontFace: BODY, fontSize: 9.5, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    lx += 2.5;
+    for (const [k, v] of lg) {
+      s.addShape(pres.ShapeType.ellipse, { x: lx, y: 7.105, w: 0.12, h: 0.12, fill: { color: SCALE_COLORS[k] }, line: { color: SCALE_COLORS[k], width: 0 } });
+      s.addText(k + " = " + v, { x: lx + 0.18, y: 7.02, w: 3.0, h: 0.3, fontFace: BODY, fontSize: 9.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+      lx += (k === "Large" ? 1.6 : 3.1);
+    }
     slideNumber(s, 2);
     s.addNotes("Definitions follow the brief: three target groups (switchers, leavers, retired) and five instrument categories (financial incentives; information & nudges; support & training; flexible positions; flexible re-certification).");
   }
@@ -156,19 +170,21 @@ function slideNumber(slide, n) {
       runs.push({ text: u, options: { hyperlink: { url: u, tooltip: u }, color: ACCENT, underline: { style: "sng", color: ACCENT }, breakLine: i < p.sources.length - 1 } });
     });
     s.addText(runs, { x: 0.5, y: 5.92, w: 12.33, h: 0.95, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    scaleLabel(s, pres, p.scale);
     slideNumber(s, n);
     s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — ${p.cat} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
     n++;
   }
 
-  // ================= 4. SUMMARY TABLE =================
-  {
+  // ================= 4. SUMMARY TABLE (two slides) =================
+  const half = Math.ceil(POLICIES.length / 2);
+  [POLICIES.slice(0, half), POLICIES.slice(half)].forEach((part, pi) => {
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText("Summary: 16 policies at a glance", { x: 0.5, y: 0.3, w: 9, h: 0.6, fontFace: HEAD, fontSize: 28, bold: true, color: INK, margin: 0, isTextBox: true });
-    const hdr = ["Country", "Policy", "Category", "Target group(s)"].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: GREEN }, fontSize: 10.5, valign: "middle" } }));
+    s.addText(`Summary: ${POLICIES.length} policies at a glance (${pi + 1}/2)`, { x: 0.5, y: 0.3, w: 10, h: 0.6, fontFace: HEAD, fontSize: 28, bold: true, color: INK, margin: 0, isTextBox: true });
+    const hdr = ["Country", "Policy", "Category", "Target group(s)", "Scale"].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: GREEN }, fontSize: 10.5, valign: "middle" } }));
     const rows = [hdr];
-    POLICIES.forEach((p, i) => {
+    part.forEach((p, i) => {
       const fill = i % 2 === 0 ? WHITE : "F4F8F6";
       const o = { color: INK, fontSize: 9.5, fill: { color: fill }, valign: "middle" };
       rows.push([
@@ -176,12 +192,13 @@ function slideNumber(slide, n) {
         { text: p.title, options: { ...o } },
         { text: p.cat, options: { ...o } },
         { text: p.groups.join(" / "), options: { ...o } },
+        { text: p.scale, options: { ...o } },
       ]);
     });
-    s.addTable(rows, { x: 0.5, y: 1.3, w: 12.33, colW: [2.35, 5.85, 2.2, 1.93], fontFace: BODY, border: { type: "solid", pt: 0.5, color: LINE }, margin: [2, 5, 2, 5], rowH: 0.28, autoPage: false });
-    slideNumber(s, n);
+    s.addTable(rows, { x: 0.5, y: 1.1, w: 12.33, colW: [2.35, 5.3, 2.0, 1.93, 0.75], fontFace: BODY, border: { type: "solid", pt: 0.5, color: LINE }, margin: [2, 5, 2, 5], rowH: 0.28, autoPage: false });
+    slideNumber(s, n + pi);
     s.addNotes("Summary table of all policies in the deck, in the same order as the slides.");
-  }
+  });
 
   const out = path.join(__dirname, "Re-attracting_Former_Teachers.pptx");
   await pres.writeFile({ fileName: out });
