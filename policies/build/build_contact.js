@@ -41,8 +41,19 @@ const T = [
      "Why did the scheme end, and what has taken its place since?",
      "What would you advise a country thinking of a similar scheme today?"
    ]},
+{ country: "Canada", region: "Quebec", flag: "ca", cat: "Financial incentives", groups: "Retired",
+   policy: "Measure 15178: pay at the pre-retirement step (2020, permanent)",
+   what: "A pay rule inside the operating budget rules the ministry sets each year for the school service centres. A retired teacher who takes supply work is paid from the first day at the salary step and experience held at retirement, where the ordinary rules grant that step only from the twentieth day, and the pension keeps running in full. Announced in September 2020, opened by ministerial order to teachers who had retired earlier, and later made permanent.",
+   why: "The only case in our set where the instrument sits in the budget rules for school boards rather than in a programme with its own staff, and one of the few kept once the emergency that prompted it had passed.",
+   contact: "Ministere de l'Education du Quebec, direction responsible for teaching staff and for the budget rules of the centres de services scolaires.",
+   questions: [
+     "Why was a pay rule chosen over other ways of bringing retired teachers back?",
+     "How was it settled with the parties to teachers' working conditions and with the pension side?",
+     "Which retired teachers came back, and for what kind of work?",
+     "Has the measure changed the way schools cover absences, and has it been assessed?"
+   ]},
 { country: "United States", region: "Michigan", flag: "us", cat: "Financial incentives", groups: "Retired",
-   policy: "Public Act 147 of 2023: shorter wait and no earnings cap for retirees who return",
+   policy: "Public Act 147 of 2023: shorter wait, no earnings cap (to 2028)",
    what: "Retired school staff can be rehired sooner and earn without limit. The waiting period after retirement fell from nine months to six; during the wait a retiree may work if earnings stay under a ceiling, and afterwards there is no earnings cap and no penalty on the pension. Passed in response to shortages, the change expires in 2028.",
    why: "A clean before-and-after in a single state, with every rehired retiree recorded by the state pension office, and a 2028 expiry that forces the state to decide, and probably to measure, whether it worked.",
    contact: "Michigan Office of Retirement Services, which administers the school employees' retirement system, and the Michigan Department of Education's educator workforce office.",
@@ -53,7 +64,7 @@ const T = [
      "What will decide whether the rules are kept when they expire, and what would you want to know before then?"
    ]},
  { country: "Portugal", region: "", flag: "pt", cat: "Financial incentives", groups: "Retired",
-   policy: "Hiring retired teachers for shortage posts (since 2024/25)",
+   policy: "Decree-Law 51/2024: retired teachers in shortage posts (2024/25)",
    what: "Schools with an unfilled post in a shortage subject, or officially classed as under-staffed, may sign a fixed-term contract with a teacher who retired five years ago or less. The school applies through an online form and the ministry authorises the contract within a yearly quota agreed with the finance ministry. Returners keep the full pension and receive an extra payment tied to the first step of the salary scale, in proportion to the hours they teach.",
    why: "On paper the offer is generous, a full pension and a supplement on top, and yet fewer than a third of the posts were filled in the first round. It is the case most likely to tell us why retired teachers say no, and because the ministry ran a formal application process the answers exist in its own records.",
    contact: "Portuguese Ministry of Education, Directorate-General for School Administration, teacher recruitment.",
@@ -81,13 +92,13 @@ const T = [
   s = pres.addSlide(); s.background = { color: WHITE };
   s.addText("Why these six", { x: 0.6, y: 0.5, w: 8, h: 0.7, fontFace: HEAD, fontSize: 32, bold: true, color: INK, margin: 0, isTextBox: true });
   s.addText("We chose the countries we can learn most from, not the ones with the most or the least information. Each one passes three tests: the policy is real and recent, it adds a different instrument or lesson to the others, and the questions we care about have answers sitting in the administration's own records rather than in what has been published.", { x: 0.6, y: 1.25, w: 12.1, h: 0.85, fontFace: BODY, fontSize: 13.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
-  let y = 2.2;
+  let y = 2.05;
   for (const t of T) {
-    s.addShape(pres.ShapeType.roundRect, { x: 0.6, y, w: 12.1, h: 0.88, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.1 });
-    s.addImage({ data: flags[t.flag], x: 0.85, y: y + 0.155, w: 0.76, h: 0.57 });
+    s.addShape(pres.ShapeType.roundRect, { x: 0.6, y, w: 12.1, h: 0.82, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.1 });
+    s.addImage({ data: flags[t.flag], x: 0.85, y: y + 0.13, w: 0.74, h: 0.555 });
     s.addText([{ text: t.country + (t.region ? " (" + t.region + ")" : "") + ": " + t.policy, options: { bold: true, breakLine: true } }, { text: t.why }],
-      { x: 1.85, y: y + 0.06, w: 10.7, h: 0.76, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-    y += 0.98;
+      { x: 1.85, y: y + 0.04, w: 10.7, h: 0.74, fontFace: BODY, fontSize: 11, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    y += 0.90;
   }
   s.addText("2", { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "right", margin: 0, isTextBox: true });
 
@@ -102,8 +113,8 @@ const T = [
     s.addText(t.cat, { x: 8.93, y: 0.45, w: 3.8, h: 0.47, fontFace: BODY, fontSize: 13.5, bold: true, color: ACCENT, align: "center", valign: "middle", margin: 0, isTextBox: true });
     s.addText("Target: " + t.groups, { x: 7.93, y: 0.96, w: 4.8, h: 0.3, fontFace: BODY, fontSize: 11, color: INK, align: "right", margin: 0, isTextBox: true });
     // left column
-    s.addText(t.policy, { x: 0.6, y: 1.55, w: 5.3, h: 0.9, fontFace: HEAD, fontSize: 20, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
-    s.addText(t.what, { x: 0.6, y: 2.5, w: 5.3, h: 2.3, fontFace: BODY, fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
+    s.addText(t.policy, { x: 0.6, y: 1.52, w: 5.3, h: 1.05, fontFace: HEAD, fontSize: 18.5, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(t.what, { x: 0.6, y: 2.66, w: 5.3, h: 2.05, fontFace: BODY, fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
     s.addText([{ text: "Whom to contact: ", options: { bold: true } }, { text: t.contact }], { x: 0.6, y: 4.75, w: 5.3, h: 1.2, fontFace: BODY, fontSize: 12.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
     // right column card
     s.addShape(pres.ShapeType.roundRect, { x: 6.3, y: 1.55, w: 6.43, h: 3.75, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });

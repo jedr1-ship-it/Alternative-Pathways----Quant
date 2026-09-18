@@ -1,5 +1,10 @@
 # Draft outreach emails
 
+The middle of each letter, the part that names the instrument and asks the
+questions, is now in `paragraphs.md`, written per country and without the
+video-call sentence. Use those paragraphs; what follows is the older full-letter
+version, kept for the opening and closing formulas.
+
 Five drafts, in the tone of the letter to the Bahamas but shorter. Replace the
 bracketed parts before sending. Each one names a different reason why that case
 is worth a call, so the recipient sees we have read their policy and not a list.
