@@ -59,8 +59,9 @@ function iconCircle(slide, pres, data, x, y, d) {
 
 const SCALE_COLORS = { Large: GREEN, Medium: "C8892B", Small: ACCENT };
 function scaleLabel(slide, pres, scale) {
-  slide.addShape(pres.ShapeType.ellipse, { x: W - 3.05, y: H - 0.52, w: 0.24, h: 0.24, fill: { color: SCALE_COLORS[scale] }, line: { color: SCALE_COLORS[scale], width: 0 } });
-  slide.addText(scale, { x: W - 2.72, y: H - 0.58, w: 1.7, h: 0.36, fontFace: BODY, fontSize: 14, bold: true, color: SCALE_COLORS[scale], margin: 0, isTextBox: true, valign: "middle" });
+  const w = 1.4, h = 0.4, x = 11.2, y = 5.24;
+  slide.addShape(pres.ShapeType.roundRect, { x, y, w, h, fill: { color: SCALE_COLORS[scale] }, line: { color: SCALE_COLORS[scale], width: 0 }, rectRadius: 0.2 });
+  slide.addText(scale, { x, y, w, h, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
 }
 function slideNumber(slide, n) {
   slide.addText(String(n), { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "right", margin: 0, isTextBox: true });
@@ -101,13 +102,13 @@ function slideNumber(slide, n) {
   {
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText("Who we mean by former teachers", { x: 0.75, y: 0.7, w: 11.8, h: 0.8, fontFace: HEAD, fontSize: 36, bold: true, color: INK, margin: 0, isTextBox: true });
-    let y = 2.15;
+    s.addText("Who we mean by former teachers", { x: 0.7, y: 0.6, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
+    let y = 2.05;
     for (const g of GROUPS) {
-      iconCircle(s, pres, icons[g.name], 0.9, y, 1.15);
-      s.addText(g.name, { x: 2.45, y: y - 0.02, w: 9.8, h: 0.52, fontFace: BODY, fontSize: 26, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-      s.addText(g.def, { x: 2.45, y: y + 0.5, w: 9.8, h: 0.6, fontFace: BODY, fontSize: 17, color: INK, margin: 0, isTextBox: true, valign: "top" });
-      y += 1.62;
+      iconCircle(s, pres, icons[g.name], 0.9, y, 0.8);
+      s.addText(g.name, { x: 2.0, y: y - 0.04, w: 10.2, h: 0.42, fontFace: BODY, fontSize: 19, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+      s.addText(g.def, { x: 2.0, y: y + 0.38, w: 10.2, h: 0.55, fontFace: BODY, fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "top" });
+      y += 1.32;
     }
     slideNumber(s, 2);
     s.addNotes("Three target groups, as defined in the brief. A policy may target one group or several.");
@@ -117,14 +118,14 @@ function slideNumber(slide, n) {
   {
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText("Five policy instruments", { x: 0.75, y: 0.5, w: 11.8, h: 0.75, fontFace: HEAD, fontSize: 36, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Each policy is classified by the instrument it uses", { x: 0.78, y: 1.22, w: 11.8, h: 0.4, fontFace: BODY, fontSize: 16, color: ACCENT, margin: 0, isTextBox: true });
-    let y = 1.9;
+    s.addText("Five policy instruments", { x: 0.7, y: 0.45, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
+    s.addText("Each policy is classified by the instrument it uses", { x: 0.73, y: 1.12, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
+    let y = 1.85;
     for (const c of CATS) {
-      iconCircle(s, pres, icons[c.name], 0.9, y, 0.9);
-      s.addText(c.name, { x: 2.2, y: y - 0.04, w: 10.2, h: 0.42, fontFace: BODY, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-      s.addText(c.def, { x: 2.2, y: y + 0.38, w: 10.2, h: 0.6, fontFace: BODY, fontSize: 14.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
-      y += 1.08;
+      iconCircle(s, pres, icons[c.name], 0.9, y, 0.68);
+      s.addText(c.name, { x: 1.85, y: y - 0.05, w: 10.6, h: 0.36, fontFace: BODY, fontSize: 16.5, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+      s.addText(c.def, { x: 1.85, y: y + 0.3, w: 10.6, h: 0.6, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
+      y += 1.0;
     }
     slideNumber(s, 3);
     s.addNotes("The five instrument categories used to classify every policy in the deck. Secondary instruments are named on each policy slide.");
@@ -134,15 +135,15 @@ function slideNumber(slide, n) {
   {
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText("Scale", { x: 0.75, y: 0.7, w: 11.8, h: 0.8, fontFace: HEAD, fontSize: 36, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Every policy slide carries one of these labels in the bottom-right corner", { x: 0.78, y: 1.45, w: 11.8, h: 0.4, fontFace: BODY, fontSize: 16, color: ACCENT, margin: 0, isTextBox: true });
+    s.addText("Scale", { x: 0.7, y: 0.6, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
+    s.addText("Every policy slide carries one of these labels at the bottom right of its card", { x: 0.73, y: 1.27, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
     const scales = [["Large", "National policy"], ["Medium", "State, region, province or canton"], ["Small", "District, city or a single institution"]];
-    let y = 2.7;
+    let y = 2.35;
     for (const [k, v] of scales) {
-      s.addShape(pres.ShapeType.ellipse, { x: 1.0, y: y + 0.08, w: 0.42, h: 0.42, fill: { color: SCALE_COLORS[k] }, line: { color: SCALE_COLORS[k], width: 0 } });
-      s.addText(k, { x: 1.75, y, w: 2.6, h: 0.58, fontFace: BODY, fontSize: 30, bold: true, color: SCALE_COLORS[k], margin: 0, isTextBox: true, valign: "middle" });
-      s.addText(v, { x: 4.4, y, w: 8.2, h: 0.58, fontFace: BODY, fontSize: 19, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-      y += 1.15;
+      s.addShape(pres.ShapeType.ellipse, { x: 0.95, y: y + 0.09, w: 0.28, h: 0.28, fill: { color: SCALE_COLORS[k] }, line: { color: SCALE_COLORS[k], width: 0 } });
+      s.addText(k, { x: 1.45, y, w: 2.2, h: 0.46, fontFace: BODY, fontSize: 20, bold: true, color: SCALE_COLORS[k], margin: 0, isTextBox: true, valign: "middle" });
+      s.addText(v, { x: 3.6, y, w: 9.0, h: 0.46, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+      y += 0.95;
     }
     slideNumber(s, 4);
     s.addNotes("Scale tells the reader how far a policy reaches: a whole country, a state or region, or one district or institution.");
@@ -173,7 +174,7 @@ function slideNumber(slide, n) {
     s.addText([
       { text: "Secondary instruments: ", options: { bold: true, color: INK } },
       { text: also || "none (single-instrument policy)", options: { color: INK } }
-    ], { x: 1.95, y: 5.32, w: 10.65, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    ], { x: 1.95, y: 5.32, w: 8.95, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
     // footer: sources (clickable)
     const runs = [];
     p.sources.forEach((u, i) => {

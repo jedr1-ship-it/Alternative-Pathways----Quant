@@ -357,7 +357,7 @@ module.exports = [
       "Switchers",
       "Leavers"
     ],
-    "title": "Skolverket web-based training for returning teachers and preschool teachers (since 2018)",
+    "title": "Online refresher course for returning teachers (National Agency for Education, since 2018)",
     "desc": "Sweden's National Agency for Education runs a free online course for qualified teachers who want to go back to the classroom after working elsewhere. The returner logs into the agency's learning platform, picks the track for schools or for preschools and takes only the modules they need, in any order, with a certificate for each one completed. The modules bring them up to date on the curricula, laws and official guidelines that changed while they were away, which is the part of returning that most worries people who have been out for years. Built at the government's request and available since October 2018, it is open to anyone with a Swedish teaching licence or a qualifying degree.",
     "chips": [
       "Online since October 2018; government assignment reported 2020",
