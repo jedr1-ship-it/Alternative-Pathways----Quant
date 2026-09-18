@@ -12,7 +12,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Teachers Re-Engage: the department calls back recent leavers (since 2023)",
-    "desc": "The Department of Education of New South Wales directly contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. The initiative was launched shortly after teachers received one of the largest pay rises in decades and a significant cut in administrative work, and the department credits both with helping the returns. More than 1,500 former teachers were contacted from November 2023; by May 2024, 260 had expressed interest and 145 were placed across more than 600 schools, about sixty percent of them coming out of retirement. The pathway is still open, but nothing has been published since.",
+    "desc": "The Department of Education directly contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. The initiative was launched shortly after teachers received one of the largest pay rises in decades and a significant cut in administrative work, and the department credits both with helping the returns. More than 1,500 former teachers were contacted from November 2023; by May 2024, 260 had expressed interest and 145 were placed across more than 600 schools, about sixty percent of them coming out of retirement. The pathway is still open, but nothing has been published since.",
     "sources": [
       "https://www.nsw.gov.au/media-releases/retired-teachers-return-to-classrooms",
       "https://education.nsw.gov.au/teach-nsw/find-teaching-jobs/returning-teachers"
@@ -35,7 +35,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Teacher Re-Engagement Initiative (TREI), since 2022",
-    "desc": "The Teacher Re-Engagement Initiative is a scheme of the Department of Education of the state of Victoria for qualified teachers who stopped teaching at least a year ago, whether they retired or moved to another job. It lets them spend up to forty paid days in a public school to get used to the classroom again before they apply for a real post. After a teacher registers, a team from the department calls them, offers free coaching on writing a CV, preparing for interviews and the current curriculum, and finds them a school; during the forty days they observe lessons, teach and are guided by serving teachers. Those returning from retirement or a career break are paid up to 12,000 Australian dollars (about 7,200 euros) for the forty days. The initiative began in late 2022, received more than 1,100 expressions of interest in its first months and was given 12 million Australian dollars (about 7.2 million euros) in the 2023/24 state budget, which funded placements up to June 2025.",
+    "desc": "Qualified teachers who stopped teaching at least a year ago, whether they retired or moved to another job, are offered up to forty paid days in a public school to get used to the classroom again before they apply for a real post. After a teacher registers, a team from the Department of Education calls them, offers free coaching on writing a CV, preparing for interviews and the current curriculum, and finds them a school; during the forty days they observe lessons, teach and are guided by serving teachers. Those returning from retirement or a career break are paid up to 12,000 Australian dollars (about 7,200 euros) for the forty days. It began in late 2022, drew more than 1,100 expressions of interest in its first months and was given 12 million Australian dollars (about 7.2 million euros) in the 2023/24 state budget, which funded placements up to June 2025.",
     "sources": [
       "https://www.vic.gov.au/teacher-re-engagement-initiative"
     ],
@@ -56,7 +56,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Regional education authorities recruit retired teachers back (2022–)",
-    "desc": "The regional education directorates, the authorities that administer schools in each province, wrote to teachers who had already retired and asked them to come back to the classroom. The Vienna directorate posted letters in December 2022 to some 300 retired teachers, and extended the offer to every retired teacher up to the age of 67; according to ORF, three accepted. From February 2023 the directorate passed the task to school principals, who were asked to put the question in person, this time to staff approaching retirement age, usually proposing that they stay on with reduced hours; Vorarlberg created a post to promote the option. A returning teacher keeps the full pension and signs a separate contract paid on the beginner's salary scale. The Wiener Zeitung reported 42 returns from retirement across the country's compulsory schools in 2022/23, out of more than 70,000 teachers, and a 2025 study in the European Journal of Teacher Education points to pension and service-crediting rules as the main barrier.",
+    "desc": "The regional education directorates, which run the schools in each province, wrote to teachers who had already retired and asked them to come back. Vienna posted letters in December 2022 to some 300 of them, and to every retired teacher up to the age of 67; the public broadcaster (ORF) reports that three accepted. From February 2023 the directorate passed the job to school principals, who put the question in person to staff approaching retirement age, usually offering reduced hours to stay on. A teacher who returns keeps the full pension and signs a separate contract paid on the beginner's salary scale. A national newspaper (Wiener Zeitung) counted 42 returns from retirement in the country's compulsory schools in 2022/23, out of more than 70,000 teachers, and a 2025 academic study points to pension and seniority rules as the main barrier.",
     "sources": [
       "https://wien.orf.at/stories/3200562/",
       "https://www.wienerzeitung.at/nachrichten/politik/oesterreich/2175563-Nur-42-Pflichtschullehrer-kamen-aus-Pension-zurueck.html",
@@ -79,7 +79,7 @@ module.exports = [
     ],
     "scale": "Large",
     "title": "Teacher Reservist Program: a standing reserve of former teachers (announced July 2026)",
-    "desc": "The Bahamian Ministry of Education is turning its supply-teacher platform into a permanent register where retired teachers, former teachers now working in other careers and recent graduates sign up in advance, so that a school can call one of them in when a post falls vacant or a teacher is absent. A task force drawn from several agencies checks records and accreditation quickly, so a reservist can start without the usual delay. The point of the design is that the pool exists before the gap appears, rather than being assembled each time. It was announced in July 2026, when the country was short of about 300 teachers across 162 schools spread over 24 islands, and no regulations, enrolment figures or results have been published yet.",
+    "desc": "The Ministry of Education is turning its supply-teacher platform into a permanent register where retired teachers, former teachers now working in other careers and recent graduates sign up in advance, so that a school can call one of them in when a post falls vacant or a teacher is absent. A task force drawn from several agencies checks records and accreditation quickly, so a reservist can start without the usual delay. The point of the design is that the pool exists before the gap appears, rather than being assembled each time. It was announced in July 2026, when the country was short of about 300 teachers across 162 schools spread over 24 islands, and no regulations, enrolment figures or results have been published yet.",
     "sources": [
       "https://www.bahamas.gov.bs/news-press-release/the-ministry-of-education-aiming-to-attract-more-bahamian-teachers",
       "https://www.bahamaspress.com/statement-by-the-minister-of-education-dpm-chester-cooper-on-the-recruitment-of-upto-300-teachers/"
@@ -99,7 +99,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Ontario Teachers' Pension Plan: the 50-day re-employment rule, raised to 95 days in shortages",
-    "desc": "Ontario's teachers' pension plan caps at fifty the number of days a retired teacher may work for a school board in a school year while still drawing the full pension; past that limit the pension stops for the rest of the year. The provincial government and the teachers' federation, which sponsor the plan together, have lifted the cap to ninety-five days when schools ran short of staff, as they did during and after the pandemic. Boards then had to report how they used retirees, so that the extra days did not take work from occasional teachers at the start of their careers. Teacher unions have argued that leaning on retirees is not a lasting answer to shortages.",
+    "desc": "A retired teacher may work for a school board for up to fifty days in a school year and still draw the full pension; past that limit the pension stops for the rest of the year. The provincial government and the teachers' federation, which sponsor the pension plan together, have lifted the cap to ninety-five days when schools ran short of staff, as they did during and after the pandemic. Boards then had to report how they used retirees, so that the extra days did not take work from occasional teachers at the start of their careers. Teacher unions have argued that leaning on retirees is not a lasting answer to shortages.",
     "sources": [
       "https://help.oct.ca/hc/en-us/articles/360025778433-If-I-retire-can-I-teach-occasionally",
       "https://www.otffeo.on.ca/en/news/50-day-re-employment-rule-increased-to-95-days-for-some-otpp-retirees-until-june-30-2023/"
@@ -118,7 +118,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Incentive pay for returning retired teachers (2020, made permanent) and ministerial letter campaign (2023)",
-    "desc": "Quebec pays a retired teacher who goes back to the classroom at the salary step they had reached when they retired, from the first day of substitute work, rather than the flat substitute rate, and the pension keeps running in full. The measure was introduced during the pandemic and later made permanent, and the ministry followed it with a personal letter from the minister to every retired teacher. A returning retiree earns about 412 Canadian dollars a day (about 275 euros) instead of 212 dollars (about 140 euros), and up to 578 dollars (about 385 euros) on longer contracts. Seven hundred retirees came back in the first year and more than 5,000 worked in schools in 2022-23.",
+    "desc": "A retired teacher who goes back to the classroom is paid at the salary step they had reached when they retired, from the first day of substitute work, rather than the flat substitute rate, and the pension keeps running in full. The measure was introduced during the pandemic and later made permanent, and the ministry followed it with a personal letter from the minister to every retired teacher. A returning retiree earns about 412 Canadian dollars a day (about 275 euros) instead of 212 dollars (about 140 euros), and up to 578 dollars (about 385 euros) on longer contracts. Seven hundred retirees came back in the first year and more than 5,000 worked in schools in 2022-23.",
     "sources": [
       "https://www.quebec.ca/en/government/work-government/jobs-education/teaching-general-education-youth-sector-vocational-training-adult-education/return-work-retired-teacher",
       "https://www.ledevoir.com/actualites/education/912921/quebec-espere-nouveau-attirer-milliers-enseignants-retraites-ecoles"
@@ -139,7 +139,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Silver-Age Lecturing Plan: retired teachers posted to rural schools, 2018–",
-    "desc": "The Silver-Age Lecturing Plan posts retired principals, senior teachers and ‘special-grade’ teachers aged 65 or under to rural primary and lower-secondary schools in poor and remote counties, for at least one school year, where they teach classes, coach the school's young teachers and advise the head on running the school. They apply to a call issued by their province, keep their pension and receive an allowance from the central government of 20,000 yuan a year (about 2,500 euros) that covers a stipend, travel and insurance. The Ministries of Education and Finance have run the plan since 2018, aiming at 10,000 posts in its first three years, and recruited 7,000 teachers in the 2024 round alone.",
+    "desc": "Retired principals, senior teachers and ‘special-grade’ teachers aged 65 or under are posted to rural primary and lower-secondary schools in poor and remote counties, for at least one school year, where they teach classes, coach the school's young teachers and advise the head on running the school. They apply to a call issued by their province, keep their pension and receive an allowance from the central government of 20,000 yuan a year (about 2,500 euros) that covers a stipend, travel and insurance. The Ministries of Education and Finance have run the plan since 2018, aiming at 10,000 posts in its first three years, and recruited 7,000 teachers in the 2024 round alone.",
     "sources": [
       "http://www.moe.gov.cn/srcsite/A10/s7151/201807/t20180719_343448.html",
       "https://www.gov.cn/zhengce/zhengceku/202408/content_6967278.htm"
@@ -160,7 +160,7 @@ module.exports = [
     ],
     "scale": "Large",
     "title": "Combining pension and pay: retired teachers rehired as contract or substitute staff",
-    "desc": "French rules on drawing a pension while working let a retired public-school teacher take a contract or substitute post and receive both the salary and the pension, once six months have passed since the pension took effect. A written answer from the Ministry of Education to the National Assembly confirmed that this applies to retired civil servants and contract teachers alike, including at the last school where they served. School authorities use it to cover posts in shortage subjects, and deputies have pressed the government to make it easier to call retired teachers in for replacements. It is a rule that removes an obstacle rather than a programme that recruits, and no figures on how many teachers come back are published.",
+    "desc": "The general rules on drawing a pension while working let a retired public-school teacher take a contract or substitute post and receive both the salary and the pension, once six months have passed since the pension took effect. A written answer from the Ministry of Education to the National Assembly confirmed that this applies to retired civil servants and contract teachers alike, including at the last school where they served. School authorities use it to cover posts in shortage subjects, and deputies have pressed the government to make it easier to call retired teachers in for replacements. It is a rule that removes an obstacle rather than a programme that recruits, and no figures on how many teachers come back are published.",
     "sources": [
       "https://questions.assemblee-nationale.fr/q16/16-2072QE.htm",
       "https://questions.assemblee-nationale.fr/q16/16-7305QE.htm"
@@ -179,7 +179,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Earnings ceiling for retired teachers raised, then abolished (2022 and 2024)",
-    "desc": "Lower Saxony raised, and then removed altogether, the ceiling that cut a retired teacher's pension once pay and pension together passed a set share of their former salary. The state parliament lifted it in 2022, which let a pensioner teach around nine or ten hours a week with nothing deducted, and raised overtime pay for serving teachers at the same time. In 2024 the ceiling for retired teachers was dropped completely, so a pensioner can now teach as many hours as a school needs and still draw the full pension. Before the change, teaching after retirement cost a pensioner part of the pension, which is why few did it.",
+    "desc": "A retired teacher used to lose part of the pension once pay and pension together passed a set share of their former salary, which is why few of them taught after retiring. The state parliament raised that ceiling in 2022, enough for a pensioner to teach around nine or ten hours a week with nothing deducted, and increased overtime pay for serving teachers at the same time. In 2024 the ceiling for retired teachers was dropped completely, so a pensioner can now teach as many hours as a school needs and still draw the full pension.",
     "sources": [
       "https://www.mk.niedersachsen.de/startseite/aktuelles/presseinformationen/lehrkrafte-gewinnungspaket-landtag-erhoht-hinzuverdienstgrenze-und-mehrarbeitsvergutung-tonne-unterrichten-lohnt-sich-215592.html",
       "https://www.mk.niedersachsen.de/startseite/aktuelles/presseinformationen/2-schulhalbjahr-2024-2025-unterrichtsversorgung-bleibt-stabil-238881.html"
@@ -199,7 +199,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Minister's letter to teachers approaching retirement (November 2023)",
-    "desc": "The Minister of Education of Lower Saxony wrote personally to every teacher about to retire, with an information sheet and a registration guide setting out two ways to stay in the classroom: a civil-servant teacher can ask to put off retirement by up to three years, or any teacher can retire and be re-hired at once on a fixed-term contract while drawing the pension, under the relaxed earnings rules. The letter thanks them for their service and asks for their help with schools facing rising pupil numbers. It carries no money of its own; its purpose is that nobody signs the retirement paperwork without knowing the options. It was sent in November 2023.",
+    "desc": "The Minister of Education wrote personally to every teacher about to retire, with an information sheet and a registration guide setting out two ways to stay in the classroom: a civil-servant teacher can ask to put off retirement by up to three years, or any teacher can retire and be re-hired at once on a fixed-term contract while drawing the pension, under the relaxed earnings rules. The letter thanks them for their service and asks for their help with schools facing rising pupil numbers. It carries no money of its own; its purpose is that nobody signs the retirement paperwork without knowing the options. It was sent in November 2023.",
     "sources": [
       "https://www.mk.niedersachsen.de/startseite/aktuelles/kultusministerin_hamburg_schreibt_an_angehende_pensionare/umfangreicher-erfahrungsschatz-kultusministerin-hamburg-informiert-lehrkrafte-kurz-vor-dem-ruhestand-uber-moglichkeiten-der-weiterbeschaftigung-227231.html",
       "https://www.mk.niedersachsen.de/download/201317/Schreiben_an_angehende_Pensionaerinnen_und_Pensionaere.pdf"
@@ -219,7 +219,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Waiver of pension abatement for retired teachers: 50 days a year (2021–2027)",
-    "desc": "Ireland exempts the first fifty days a retired teacher works in a calendar year from abatement, the rule that cuts a public-service pension when pension and new salary together pass the pay the person had when they retired. Within those fifty days a retiree can cover absences as a substitute, or take a fixed-term contract, and keep the pension in full; every working day counts as one whatever the hours, and abatement is assessed only from the fifty-first. The Department of Education introduced the waiver by circular in 2021 to ease the shortage of substitutes, and has renewed it twice, most recently for 2026 and 2027.",
+    "desc": "The first fifty days a retired teacher works in a calendar year are exempt from abatement, the rule that cuts a public-service pension when pension and new salary together pass the pay the person had when they retired. Within those fifty days a retiree can cover absences as a substitute, or take a fixed-term contract, and keep the pension in full; every working day counts as one whatever the hours, and abatement is assessed only from the fifty-first. The Department of Education introduced the waiver by circular in 2021 to ease the shortage of substitutes, and has renewed it twice, most recently for 2026 and 2027.",
     "sources": [
       "https://www.gov.ie/en/department-of-education/publications/working-as-a-substitute-while-receiving-a-teachers-pension/"
     ],
@@ -239,7 +239,7 @@ module.exports = [
       "Leavers"
     ],
     "title": "Grant to primary schools for re-hiring former teachers, 2017–2020",
-    "desc": "The Dutch Ministry of Education paid a primary school up to 2,500 euros for every qualified teacher it re-hired who had been out of primary teaching for at least a year, on a contract of six months or more. The money went to the school board, not the teacher, and had to be spent on the returner's first months back: coaching, refresher training, time alongside a colleague. It was aimed at the cost and effort that make a school hesitate to take on someone who has been away. The scheme ran from November 2017 to January 2020, with a first budget covering up to 500 returners and a further round of applications in 2019.",
+    "desc": "The Ministry of Education paid a primary school up to 2,500 euros for every qualified teacher it re-hired who had been out of primary teaching for at least a year, on a contract of six months or more. The money went to the school board, not the teacher, and had to be spent on the returner's first months back: coaching, refresher training, time alongside a colleague. It was aimed at the cost and effort that make a school hesitate to take on someone who has been away. The scheme ran from November 2017 to January 2020, with a first budget covering up to 500 returners and a further round of applications in 2019.",
     "sources": [
       "https://wetten.overheid.nl/1.3:c:BWBR0040130&g=2020-07-01&z=2025-10-18",
       "https://www.nieuwsbrievenminocw.nl/actueel/nieuws/2019/07/03/subsidie-voor-herintreders"
@@ -260,7 +260,7 @@ module.exports = [
       "Leavers"
     ],
     "title": "Return without a refresher course, with registration fees paid (2024–2028)",
-    "desc": "New Zealand dropped the refresher course that a registered teacher who had not taught for five years or more used to need before getting a practising certificate back. With a job offer in hand, a returner now renews the certificate directly, can do substitute teaching for up to twenty half-days while the renewal is processed, and agrees a short teaching plan with the school principal in place of the course. The government also pays the registration fees, so coming back costs the teacher nothing. Fees have been covered since October 2024 and are funded until June 2028; 352 teachers had returned by April 2025.",
+    "desc": "A registered teacher who had not taught for five years or more used to need a refresher course before getting a practising certificate back, and that requirement has gone. With a job offer in hand, a returner now renews the certificate directly, can do substitute teaching for up to twenty half-days while the renewal is processed, and agrees a short teaching plan with the school principal in place of the course. The government also pays the registration fees, so coming back costs the teacher nothing. Fees have been covered since October 2024 and are funded until June 2028; 352 teachers had returned by April 2025.",
     "sources": [
       "https://workforce.education.govt.nz/current-teachers/returning-teaching/returning-teaching-after-break",
       "https://www.beehive.govt.nz/release/backing-teachers-teacher-registrations-funded"
@@ -280,7 +280,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Decree-Law 51/2024: schools may hire retired teachers for shortage posts, 2024/25–",
-    "desc": "Portugal lets a school with an unfilled post in a shortage subject, or a school officially classed as under-staffed, sign a fixed-term contract with a teacher who retired five years ago or less. The school applies through an online form of the schools' administration directorate and the ministry authorises the contract within a yearly quota agreed with the finance ministry. The returning teacher keeps the full pension and receives an extra payment tied to the first step of the teacher salary scale, in proportion to the hours taught each week. The decree-law creating it was published in August 2024, and about 63 of some 200 posts were filled in the first round.",
+    "desc": "A school with an unfilled post in a shortage subject, or a school officially classed as under-staffed, may sign a fixed-term contract with a teacher who retired five years ago or less. The school applies through an online form of the schools' administration directorate and the ministry authorises the contract within a yearly quota agreed with the finance ministry. The returning teacher keeps the full pension and receives an extra payment tied to the first step of the teacher salary scale, in proportion to the hours taught each week. The decree-law creating it was published in August 2024, and about 63 of some 200 posts were filled in the first round.",
     "sources": [
       "https://diariodarepublica.pt/dr/detalhe/decreto-lei/51-2024-885927817",
       "https://www.dgae.medu.pt/noticias/atribuicao-de-servico-docente-aos-aposentados-e-reformados"
@@ -302,7 +302,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Flexi-Adjunct Teaching Scheme (Ministry of Education)",
-    "desc": "Singapore registers trained ex-teachers, retirees among them, on a Ministry of Education portal from which schools hire them directly for spells lasting anywhere from a single day to ten weeks, for teaching alone or for a mix of teaching and other duties agreed case by case. They are paid a daily rate and begin to earn leave after ninety days of cumulative service. A companion scheme signs former ministry teachers to longer contracts, of one year to eighteen months. Between 2022 and 2024 about 220 teachers a year joined the flexible scheme within twelve months of leaving the service.",
+    "desc": "Trained ex-teachers, retirees among them, register on a Ministry of Education portal from which schools hire them directly for spells lasting anywhere from a single day to ten weeks, for teaching alone or for a mix of teaching and other duties agreed case by case. They are paid a daily rate and begin to earn leave after ninety days of cumulative service. A companion scheme signs former ministry teachers to longer contracts, of one year to eighteen months. Between 2022 and 2024 about 220 teachers a year joined the flexible scheme within twelve months of leaving the service.",
     "sources": [
       "https://www.moe.gov.sg/careers/adjunct-and-relief-schemes/flexi-adjunct-teaching-scheme",
       "https://www.moe.gov.sg/news/parliamentary-replies/20250923-statistics-on-teachers-who-joined-flexi-adjunct-teaching-scheme-and-median-duration-of-teachers-on-scheme"
@@ -321,7 +321,7 @@ module.exports = [
     ],
     "scale": "Small",
     "title": "10 Mirrors: retired teachers mentor student teachers (University of Zaragoza, reported 2019)",
-    "desc": "Ten retired teachers from early-childhood and primary education mentored 57 students in the final years of their teaching degrees at the University of Zaragoza, as part of the faculty's student guidance plan. Each group met three times, on the teaching profession and its vocation, on further training and employability, and on the teaching career, with personal contact between mentor and students in between. The mentors were teachers with a recognised professional record, and the role brought them back into teacher education without a contract or a classroom. The experience was documented in a 2019 publication of the university.",
+    "desc": "Ten retired teachers from early-childhood and primary education mentored 57 students in the final years of their teaching degrees, as part of the Faculty of Education's student guidance plan. Each group met three times, on the teaching profession and its vocation, on further training and employability, and on the teaching career, with personal contact between mentor and students in between. The mentors were teachers with a recognised professional record, and the role brought them back into teacher education without a contract or a classroom. The experience was documented in a 2019 publication of the university.",
     "sources": [
       "https://dialnet.unirioja.es/servlet/articulo?codigo=8153125",
       "https://zaguan.unizar.es/record/79095/files/BOOK-2019-021.pdf"
@@ -341,7 +341,7 @@ module.exports = [
       "Leavers"
     ],
     "title": "Online refresher course for returning teachers (National Agency for Education, since 2018)",
-    "desc": "Sweden's National Agency for Education put a free online course on its learning platform for qualified teachers and preschool teachers coming back after working elsewhere. The returner logs in, picks the school or the preschool track and takes only the modules they need, in any order, with a certificate for each one. The modules cover the curricula, laws and official guidelines that changed while they were away, which is what a teacher who has been out for years is least sure about. It was built at the government's request, has been available since October 2018, and is open to anyone with a Swedish teaching licence or a qualifying degree.",
+    "desc": "The National Agency for Education put a free online course on its learning platform for qualified teachers and preschool teachers coming back after working elsewhere. The returner logs in, picks the school or the preschool track and takes only the modules they need, in any order, with a certificate for each one. The modules cover the curricula, laws and official guidelines that changed while they were away, which is what a teacher who has been out for years is least sure about. It was built at the government's request, has been available since October 2018, and is open to anyone with a Swedish teaching licence or a qualifying degree.",
     "sources": [
       "https://www.skolverket.se/skolutveckling/kurser-och-utbildningar/atervandande-larare-och-forskollarare---webbaserad-utbildning",
       "https://www.skolverket.se/publikationsserier/regeringsuppdrag/2020/uppdrag-om-en-webbutbildning-for-atervandande-larare-och-forskollarare"
@@ -360,7 +360,7 @@ module.exports = [
       "Leavers"
     ],
     "title": "Re-entry counselling and induction for returning teachers (Zurich University of Teacher Education)",
-    "desc": "The Zurich University of Teacher Education gives a teacher coming back to the classroom a counselling session and an assessment interview that set out what preparation the return needs, with the first hour free and the rest paid by the canton. In the first school year back, a teacher who has been away for eight years or more uses the university's induction programme free of charge: up to twenty-five hours of mentoring by an experienced colleague in their own school, individual and group supervision, coaching in their subject, and optional courses on grading, classroom management and working with parents. Returners are also encouraged to sit in on lessons before they start.",
+    "desc": "A teacher coming back to the classroom starts with a counselling session and an assessment interview that set out what preparation the return needs, with the first hour free and the rest paid by the canton. In the first school year back, a teacher who has been away for eight years or more uses the university's induction programme free of charge: up to twenty-five hours of mentoring by an experienced colleague in their own school, individual and group supervision, coaching in their subject, and optional courses on grading, classroom management and working with parents. Returners are also encouraged to sit in on lessons before they start.",
     "sources": [
       "https://phzh.ch/de/weiterbildung/weiterbildung-fuer-die-volksschule/berufslaufbahn/wiedereinstieg/"
     ],
@@ -380,7 +380,7 @@ module.exports = [
       "Leavers"
     ],
     "title": "Return to Teaching Advisers (Department for Education)",
-    "desc": "The Department for Education gives any former teacher who asks a named adviser, who then works with them one to one, by phone, text or e-mail and for as long as they need. The adviser goes through the skills they gained while away, helps with applications and interviews, points them to refresher courses and professional qualifications, and passes on vacancies and webinars. It runs through the department's ‘Get Into Teaching’ service and was the channel for its ‘Come back to teaching’ campaign in January 2022. Returners are a large part of teacher supply in England: about 17,500 came back in 2023, some 38 percent of all qualified entrants.",
+    "desc": "Any former teacher who asks is given a named adviser, who then works with them one to one, by phone, text or e-mail and for as long as they need. The adviser goes through the skills they gained while away, helps with applications and interviews, points them to refresher courses and professional qualifications, and passes on vacancies and webinars. It runs through the ‘Get Into Teaching’ service and was the channel for the ‘Come back to teaching’ campaign in January 2022. Returners are a large part of teacher supply: about 17,500 came back in 2023, some 38 percent of all qualified entrants.",
     "sources": [
       "https://getintoteaching.education.gov.uk/returning-to-teaching",
       "https://publications.parliament.uk/pa/cm5901/cmselect/cmeduc/627/report.html"
@@ -402,7 +402,7 @@ module.exports = [
     ],
     "scale": "Large",
     "title": "Return to Teaching pilot (2015–16) and Returners Engagement Programme (2016–17)",
-    "desc": "England paid for refresher courses, time in classrooms and help with applications for qualified teachers returning to secondary maths, science and languages, first through a central pilot in 2015 and then, in 2016, by funding schools to run the support themselves, with a course of two to four weeks, a bursary for the returner and a payment to the school once the returner was hired. The first pilot drew heavy interest but converted little of it: of 5,729 registrations and 354 people supported, 27 were in permanent posts months later, and the independent evaluation judged it poor value for money. Its lessons went into the adviser service on the previous slide.",
+    "desc": "The Department for Education paid for refresher courses, time in classrooms and help with applications for qualified teachers returning to secondary maths, science and languages, first through a central pilot in 2015 and then, in 2016, by funding schools to run the support themselves, with a course of two to four weeks, a bursary for the returner and a payment to the school once the returner was hired. The first pilot drew heavy interest but converted little of it: of 5,729 registrations and 354 people supported, 27 were in permanent posts months later, and the independent evaluation judged it poor value for money. Its lessons went into the adviser service on the previous slide.",
     "sources": [
       "https://assets.publishing.service.gov.uk/media/5b33aeef40f0b67f6744de9d/Evaluation_of_the_Return_to_Teaching_pilot_programme.pdf",
       "https://www.gov.uk/government/publications/returners-engagement-programme"
@@ -421,7 +421,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Retired Mentors for New Teachers (Aurora Public Schools; REL Central evaluation, 2017)",
-    "desc": "Aurora Public Schools hired recently retired teachers part-time to mentor first- and second-year teachers in high-poverty elementary schools, meeting them weekly and sitting in on their lessons for two years. The district's ordinary support for new teachers was a one-year pairing with a colleague, with no training for the mentor and no release time. The retirees were chosen among teachers with a strong record in the district, and the role gave them paid, part-time work back inside the school system. A randomised trial published in 2017 followed 77 new teachers in 11 schools and found a small gain in mathematics after the first year that did not hold, no effect on reading and no effect on whether the new teachers stayed.",
+    "desc": "The district hired recently retired teachers part-time to mentor first- and second-year teachers in high-poverty elementary schools, meeting them weekly and sitting in on their lessons for two years. Its ordinary support for new teachers was a one-year pairing with a colleague, with no training for the mentor and no release time. The retirees were chosen among teachers with a strong record in the district, and the role gave them paid, part-time work back inside the school system. A randomised trial published in 2017 followed 77 new teachers in 11 schools and found a small gain in mathematics after the first year that did not hold, no effect on reading and no effect on whether the new teachers stayed.",
     "sources": [
       "https://ies.ed.gov/use-work/resource-library/report/descriptive-study/impacts-retired-mentors-new-teachers-program"
     ],
@@ -458,7 +458,7 @@ module.exports = [
       "Retired"
     ],
     "title": "House Bill 385: full-time return of retired teachers in high-need subjects (2022–2026)",
-    "desc": "House Bill 385 let a Georgia teacher who had retired with thirty or more years of service, and had been retired at least a year, take a full-time classroom post in one of the three subjects of greatest need in their region and draw a full salary on top of the full pension. The regional education agency decided which subjects counted, usually special education, mathematics, science, English or elementary teaching. The district paid the pension contributions and the retiree earned no further pension rights. The narrow conditions kept numbers low: a state audit found about 350 retirees a year, under one percent of Georgia's teachers. The law expired on 30 June 2026 and was replaced by Senate Bill 150.",
+    "desc": "A teacher who had retired with thirty or more years of service, and had been retired at least a year, could take a full-time classroom post in one of the three subjects of greatest need in their region and draw a full salary on top of the full pension. The regional education agency decided which subjects counted, usually special education, mathematics, science, English or elementary teaching. The district paid the pension contributions and the retiree earned no further pension rights. The narrow conditions kept numbers low: a state audit found about 350 retirees a year, under one percent of the state's teachers. The law expired on 30 June 2026 and was replaced by Senate Bill 150.",
     "sources": [
       "https://www.trsga.com/retiree/working-after-retirement/hb-385-employment/",
       "https://www.audits.ga.gov/ReportSearch/download/32615"
@@ -477,7 +477,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Act 394 of 2024: retired teachers rehired in critical shortage areas keep their pension",
-    "desc": "Louisiana lets a retired teacher take a post that has been declared a critical shortage, full-time or half-time, without the pension being suspended or reduced. The posts covered are classroom teachers, speech therapists and school counsellors. The retiree and the employer keep paying into the retirement system while the re-employment lasts, but the retiree earns no extra service credit or benefit from it. The state education department issued guidance for principals on how to use the rule. It is the most recent of several return-to-work laws the state has passed since 2022, signed in May 2024.",
+    "desc": "A retired teacher may take a post that has been declared a critical shortage, full-time or half-time, without the pension being suspended or reduced. The posts covered are classroom teachers, speech therapists and school counsellors. The retiree and the employer keep paying into the retirement system while the re-employment lasts, but the retiree earns no extra service credit or benefit from it. The state education department issued guidance for principals on how to use the rule. It is the most recent of several return-to-work laws passed since 2022, signed in May 2024.",
     "sources": [
       "https://www.trsl.org/retirees/returning-to-work-rtw",
       "https://www.katc.com/news/covering-louisiana/retired-teachers-can-return-to-the-classroom-under-new-louisiana-law"
@@ -497,7 +497,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Public Act 147 of 2023: shorter wait and no earnings cap for retirees who return",
-    "desc": "Michigan cut from nine months to six the wait before a school can re-hire a retired school employee, and removed the cap on what they may earn once the six months have passed, so the pension keeps running whatever the salary. During the waiting period a retiree may already work, as long as earnings stay under a set ceiling, and may not return as superintendent. The law was passed in response to post-pandemic shortages and signed in October 2023. It is temporary and expires in October 2028, so the state will have to decide whether to keep it.",
+    "desc": "The wait before a school can re-hire a retired school employee fell from nine months to six, and the cap on what they may earn once those six months have passed was removed, so the pension keeps running whatever the salary. During the waiting period a retiree may already work, as long as earnings stay under a set ceiling, and may not return as superintendent. The law was passed in response to post-pandemic shortages and signed in October 2023. It is temporary and expires in October 2028, so the state will have to decide whether to keep it.",
     "sources": [
       "https://www.michigan.gov/orsschools/pa-147-of-2023-faqs",
       "https://mea.org/changes-to-post-retirement-return-to-work-rules-signed-into-law/"
@@ -515,7 +515,7 @@ module.exports = [
     ],
     "scale": "Large",
     "title": "AARP Foundation Experience Corps: volunteers over 50 tutor early readers (since 1996)",
-    "desc": "The AARP Foundation trains people over fifty, many of them retired teachers, and places them in high-poverty public schools to tutor children who are behind in reading, in short weekly sessions with small groups. Volunteers commit for a school year and get training and continuing support from the programme. It has run since 1996 and now reaches several thousand children in 18 communities across the country. A randomised study found substantially greater gains in sounding out words and in reading comprehension among the children tutored, and a separate trial found the tutoring also protects the volunteers' own physical and cognitive health.",
+    "desc": "Volunteers over fifty, many of them retired teachers, are trained and placed in high-poverty public schools to tutor children who are behind in reading, in short weekly sessions with small groups. They commit for a school year and get training and continuing support from the programme. It has run since 1996 and now reaches several thousand children in 18 communities across the country. A randomised study found substantially greater gains in sounding out words and in reading comprehension among the children tutored, and a separate trial found the tutoring also protects the volunteers' own physical and cognitive health.",
     "sources": [
       "https://www.aarp.org/experience-corps/our-impact/experience-corps-research-studies.html",
       "https://www.aarp.org/experience-corps/"
@@ -535,7 +535,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Educational Retirees Returning to Work Act (House Bill 73, 2022)",
-    "desc": "New Mexico lets a retired teacher or college lecturer go back to work in a public school, college or university for up to three years with no limit on salary or hours and no loss of pension. The retiree applies to the state's Educational Retirement Board and must be approved before starting, so every return is on record. The law was signed in March 2022 and announced to retirees that June, opening the classroom to the state's roughly 48,000 retired educators at a time of severe shortages.",
+    "desc": "A retired teacher or college lecturer may go back to work in a public school, college or university for up to three years with no limit on salary or hours and no loss of pension. The retiree applies to the state's Educational Retirement Board and must be approved before starting, so every return is on record. The law was signed in March 2022 and announced to retirees that June, opening the classroom to the state's roughly 48,000 retired educators at a time of severe shortages.",
     "sources": [
       "https://hed.nm.gov/news/retired-educators-now-eligible-to-return-to-work-without-losing-pension-benefits",
       "https://www.governor.state.nm.us/2022/06/28/retired-educators-now-eligible-to-return-to-work-without-losing-pension-benefits/"
@@ -553,7 +553,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Return-to-work policy for retired teachers, 1999–2009",
-    "desc": "North Carolina let a retired teacher take a full-time classroom post and draw the state pension alongside the salary, which put a returning teacher about half as much again as a comparable colleague. Any district could hire a retired teacher back without penalty; it was a pension rule open to all rather than a programme with places. A 2024 study using state administrative data found that schools with many economically disadvantaged or Black pupils, the ones that struggle most to fill vacancies, hired a disproportionate share of these teachers. The provision ran from 1999 to 2009.",
+    "desc": "A retired teacher could take a full-time classroom post and draw the state pension alongside the salary, which put a returning teacher about half as much again as a comparable colleague. Any district could hire a retired teacher back without penalty; it was a pension rule open to all rather than a programme with places. A 2024 study using state administrative data found that schools with many economically disadvantaged or Black pupils, the ones that struggle most to fill vacancies, hired a disproportionate share of these teachers. The provision ran from 1999 to 2009.",
     "sources": [
       "https://files.eric.ed.gov/fulltext/EJ1425366.pdf",
       "https://dialnet.unirioja.es/servlet/articulo?codigo=9286932"
@@ -571,7 +571,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Executive Directive 3: lifting licence and pension obstacles for returning retirees (2022)",
-    "desc": "Virginia told its state superintendent to issue or renew teaching licences for retired and out-of-state teachers whose licences had lapsed, and its education department to work with the state retirement system so that retirees could fill any vacant school post. It built on a rule in force since 2001 under which a retiree who returns to a critical-shortage area draws a new salary on top of the pension. The same directive launched an online licensing system and a wider plan on the educator shortage, under which the department reports adding more than 17,000 endorsements to teacher licences between 2022 and 2025.",
+    "desc": "The governor's directive told the state superintendent to issue or renew teaching licences for retired and out-of-state teachers whose licences had lapsed, and the education department to work with the state retirement system so that retirees could fill any vacant school post. It built on a rule in force since 2001 under which a retiree who returns to a critical-shortage area draws a new salary on top of the pension. The same directive launched an online licensing system and a wider plan on the educator shortage, under which the department reports adding more than 17,000 endorsements to teacher licences between 2022 and 2025.",
     "sources": [
       "https://www.doe.virginia.gov/teaching-learning-assessment/teaching-in-virginia/turning-the-tide",
       "https://www.edweek.org/leadership/could-retired-teachers-be-the-answer-to-shortages-its-complicated/2022/10"
