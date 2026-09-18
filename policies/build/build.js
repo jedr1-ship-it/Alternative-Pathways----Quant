@@ -14,6 +14,7 @@ const INK = "24313A";     // text colour 1
 const ACCENT = "B3542E";  // text colour 2 (category label, links)
 const WHITE = "FFFFFF";
 const LINE = "CFDCD5";
+const ICON_BG = "F79646";   // the colour the team set on the definition slides
 const HEAD = "Cambria";
 const BODY = "Calibri";
 const W = 13.333, H = 7.5;
@@ -52,7 +53,7 @@ async function iconPng(name, color) {
 }
 
 function iconCircle(slide, pres, data, x, y, d) {
-  slide.addShape(pres.ShapeType.ellipse, { x, y, w: d, h: d, fill: { color: GREEN }, line: { color: GREEN, width: 0 } });
+  slide.addShape(pres.ShapeType.ellipse, { x, y, w: d, h: d, fill: { color: ICON_BG }, line: { color: ICON_BG, width: 0 } });
   const pad = d * 0.24;
   slide.addImage({ data, x: x + pad, y: y + pad, w: d - 2 * pad, h: d - 2 * pad });
 }
@@ -71,12 +72,12 @@ function instrumentDots(slide, pres, icons, iconsOff, used, x0, y, d, gap) {
 
 const SCALE_COLORS = { Large: GREEN, Medium: "C8892B", Small: ACCENT };
 function scaleLabel(slide, pres, scale) {
-  const w = 1.4, h = 0.4, x = 11.43, y = 6.5;
+  const w = 1.8, h = 0.47, x = 11.03, y = 0.42;
   slide.addShape(pres.ShapeType.roundRect, { x, y, w, h, fill: { color: SCALE_COLORS[scale] }, line: { color: SCALE_COLORS[scale], width: 0 }, rectRadius: 0.2 });
-  slide.addText(scale, { x, y, w, h, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  slide.addText(scale, { x, y, w, h, fontFace: BODY, fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
 }
 function slideNumber(slide, n) {
-  slide.addText(String(n), { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "right", margin: 0, isTextBox: true });
+  slide.addText(String(n), { x: 0.5, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "left", margin: 0, isTextBox: true });
 }
 
 (async () => {
@@ -167,8 +168,8 @@ function slideNumber(slide, n) {
     // flag + country (top-left)
     s.addImage({ data: flags[p.flag], x: 0.5, y: 0.42, w: 1.05, h: 0.7875 });
     s.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fill: { type: "none" }, line: { color: LINE, width: 0.75 } });
-    s.addText(p.country, { x: 1.75, y: 0.42, w: 8.0, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-    if (p.region) s.addText(p.region, { x: 1.75, y: 0.92, w: 8.0, h: 0.34, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(p.country, { x: 1.75, y: 0.42, w: 9.1, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    if (p.region) s.addText(p.region, { x: 1.75, y: 0.92, w: 9.1, h: 0.34, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
     // body card
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
     s.addText(p.title, { x: 0.95, y: 1.7, w: 11.43, h: 0.9, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
@@ -179,11 +180,14 @@ function slideNumber(slide, n) {
       runs.push({ text: i === 0 ? "Source: " : "Source (see also): ", options: { bold: true, color: INK, breakLine: false } });
       runs.push({ text: u, options: { hyperlink: { url: u, tooltip: u }, color: ACCENT, underline: { style: "sng", color: ACCENT }, breakLine: i < p.sources.length - 1 } });
     });
-    s.addText(runs, { x: 0.5, y: 5.8, w: 12.33, h: 0.62, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(runs, { x: 0.5, y: 5.8, w: 8.9, h: 0.9, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
     // instruments used, as lit dots, with the target groups under them
     const used = [p.cat, ...(p.secondary || [])];
-    instrumentDots(s, pres, icons, iconsOff, used, 0.55, 6.52, 0.42, 0.17);
-    s.addText(p.groups.join(" / "), { x: 0.55, y: 7.02, w: 5.0, h: 0.28, fontFace: BODY, fontSize: 10.5, color: MUTED, margin: 0, isTextBox: true, valign: "middle" });
+    const dotD = 0.52, dotGap = 0.18, dotN = 5;
+    const dotsW = dotN * dotD + (dotN - 1) * dotGap;
+    const dotsX = 12.83 - dotsW;
+    instrumentDots(s, pres, icons, iconsOff, used, dotsX, 6.36, dotD, dotGap);
+    s.addText(p.groups.join(" / "), { x: 7.8, y: 6.95, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: MUTED, align: "right", margin: 0, isTextBox: true, valign: "middle" });
     scaleLabel(s, pres, p.scale);
     slideNumber(s, n);
     s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — Instruments lit: ${used.join(", ")} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
@@ -197,18 +201,19 @@ function slideNumber(slide, n) {
     s.background = { color: WHITE };
     s.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fill: { color: "F4F7F5" }, line: { color: LINE, width: 1 } });
     s.addText("flag", { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fontFace: BODY, fontSize: 10, color: GREY, align: "center", valign: "middle", margin: 0, isTextBox: true });
-    s.addText("Country", { x: 1.75, y: 0.42, w: 8.0, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-    s.addText("Region or state (delete this line if the policy is national)", { x: 1.75, y: 0.92, w: 8.0, h: 0.34, fontFace: BODY, fontSize: 13, color: GREY, margin: 0, isTextBox: true });
+    s.addText("Country", { x: 1.75, y: 0.42, w: 9.1, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    s.addText("Region or state (delete this line if the policy is national)", { x: 1.75, y: 0.92, w: 9.1, h: 0.34, fontFace: BODY, fontSize: 13, color: GREY, margin: 0, isTextBox: true });
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
     s.addText("Policy name, and the year or period", { x: 0.95, y: 1.7, w: 11.43, h: 0.9, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
     s.addText("Write four to six lines of plain prose. Open with what the policy actually does, who runs it and whom it is for, then how it works step by step, then what the returner gets. Put dates and figures at the end, and only the ones that carry the story. Do not repeat the country, the region or the policy name: they are already on the slide.",
       { x: 0.95, y: 2.64, w: 11.43, h: 2.85, fontFace: BODY, fontSize: 15, color: GREY, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
     s.addText([{ text: "Source: ", options: { bold: true, color: INK } }, { text: "paste the link, and add a second line 'Source (see also):' if there is another", options: { color: GREY } }],
-      { x: 0.5, y: 5.8, w: 12.33, h: 0.62, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
-    instrumentDots(s, pres, icons, iconsOff, [], 0.55, 6.52, 0.42, 0.17);
-    s.addText("Switchers / Leavers / Retired", { x: 0.55, y: 7.02, w: 5.0, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, margin: 0, isTextBox: true, valign: "middle" });
-    s.addShape(pres.ShapeType.roundRect, { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.2 });
-    s.addText("Scale", { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
+      { x: 0.5, y: 5.8, w: 8.9, h: 0.9, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
+    const tD = 0.52, tGap = 0.18, tW = 5 * tD + 4 * tGap, tX = 12.83 - tW;
+    instrumentDots(s, pres, icons, iconsOff, [], tX, 6.36, tD, tGap);
+    s.addText("Switchers / Leavers / Retired", { x: 7.8, y: 6.95, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, align: "right", margin: 0, isTextBox: true, valign: "middle" });
+    s.addShape(pres.ShapeType.roundRect, { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.235 });
+    s.addText("Scale", { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fontFace: BODY, fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
     slideNumber(s, n);
     s.addNotes([
       "Blank policy slide, same layout as the deck. Replace every grey placeholder.",
@@ -218,6 +223,33 @@ function slideNumber(slide, n) {
       "Scale: Large for a national policy, Medium for a state, region, province or canton, Small for a district, a city or a single institution. Colours: Large 1F4E46, Medium C8892B, Small B3542E.",
       "Fonts: Cambria for the title, Calibri for everything else. Text colours: 24313A and B3542E."
     ].join("\n"));
+  }
+
+  // ================= 5. INDEX (two slides, every policy linked to its slide) =================
+  {
+    const half = Math.ceil(POLICIES.length / 2);
+    [POLICIES.slice(0, half), POLICIES.slice(half)].forEach((part, pi) => {
+      const s = pres.addSlide();
+      s.background = { color: WHITE };
+      s.addText(`Index: the ${POLICIES.length} policies (${pi + 1}/2)`, { x: 0.5, y: 0.3, w: 10, h: 0.6, fontFace: HEAD, fontSize: 28, bold: true, color: INK, margin: 0, isTextBox: true });
+      s.addText("Click a policy to go to its slide", { x: 0.5, y: 0.88, w: 10, h: 0.3, fontFace: BODY, fontSize: 11.5, color: ACCENT, margin: 0, isTextBox: true });
+      const hdr = ["Country", "Policy", "Target group(s)", "Scale"].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: GREEN }, fontSize: 10.5, valign: "middle" } }));
+      const rows = [hdr];
+      part.forEach((p, i) => {
+        const fill = i % 2 === 0 ? WHITE : "F4F8F6";
+        const o = { color: INK, fontSize: 9.5, fill: { color: fill }, valign: "middle" };
+        const target = 5 + POLICIES.indexOf(p);
+        rows.push([
+          { text: p.country + (p.region ? " (" + p.region + ")" : ""), options: { ...o, bold: true } },
+          { text: [{ text: p.title, options: { hyperlink: { slide: target, tooltip: "Go to slide " + target }, color: ACCENT, underline: { style: "sng", color: ACCENT } } }], options: { ...o } },
+          { text: p.groups.join(" / "), options: { ...o } },
+          { text: p.scale, options: { ...o, color: SCALE_COLORS[p.scale], bold: true } },
+        ]);
+      });
+      s.addTable(rows, { x: 0.5, y: 1.25, w: 12.33, colW: [2.45, 6.25, 2.68, 0.95], fontFace: BODY, border: { type: "solid", pt: 0.5, color: LINE }, margin: [2, 5, 2, 5], rowH: 0.28, autoPage: false });
+      slideNumber(s, n + 1 + pi);
+      s.addNotes("Index of every policy in the deck. Each policy name links to its own slide.");
+    });
   }
 
   const out = path.join(__dirname, "Re-attracting_Former_Teachers.pptx");

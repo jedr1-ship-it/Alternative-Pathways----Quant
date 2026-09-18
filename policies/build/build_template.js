@@ -12,8 +12,8 @@ s.background = { color: WHITE };
 // flag slot
 s.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fill: { color: "F4F7F5" }, line: { color: LINE, width: 1 } });
 s.addText("flag", { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fontFace: BODY, fontSize: 10, color: GREY, align: "center", valign: "middle", margin: 0, isTextBox: true });
-s.addText("Country", { x: 1.75, y: 0.36, w: 6.8, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-s.addText("Region or state (delete this line if the policy is national)", { x: 1.75, y: 0.86, w: 6.8, h: 0.34, fontFace: BODY, fontSize: 13, color: GREY, margin: 0, isTextBox: true });
+s.addText("Country", { x: 1.75, y: 0.42, w: 9.1, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+s.addText("Region or state (delete this line if the policy is national)", { x: 1.75, y: 0.92, w: 9.1, h: 0.34, fontFace: BODY, fontSize: 13, color: GREY, margin: 0, isTextBox: true });
 
 // card
 s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
@@ -23,18 +23,19 @@ s.addText(
   { x: 0.95, y: 2.64, w: 11.43, h: 2.85, fontFace: BODY, fontSize: 15, color: GREY, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
 // sources + scale pill + number
 s.addText([{ text: "Source: ", options: { bold: true, color: INK } }, { text: "paste the link, and add a second line 'Source (see also):' if there is another", options: { color: GREY } }],
-  { x: 0.5, y: 5.8, w: 12.33, h: 0.62, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
+  { x: 0.5, y: 5.8, w: 8.9, h: 0.9, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
 
 // the five instruments: light up the ones the policy uses, leave the rest grey
+const tW = 5 * 0.52 + 4 * 0.18, tX = 12.83 - tW;
 for (let i = 0; i < 5; i++) {
-  const x = 0.55 + i * 0.59;
-  s.addShape(pres.ShapeType.ellipse, { x, y: 6.52, w: 0.42, h: 0.42, fill: { color: "DCE6E0" }, line: { color: "DCE6E0", width: 0 } });
-  s.addText(String(i + 1), { x, y: 6.52, w: 0.42, h: 0.42, fontFace: BODY, fontSize: 9, color: GREY, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  const x = tX + i * 0.70;
+  s.addShape(pres.ShapeType.ellipse, { x, y: 6.36, w: 0.52, h: 0.52, fill: { color: "DCE6E0" }, line: { color: "DCE6E0", width: 0 } });
+  s.addText(String(i + 1), { x, y: 6.36, w: 0.52, h: 0.52, fontFace: BODY, fontSize: 10, color: GREY, align: "center", valign: "middle", margin: 0, isTextBox: true });
 }
-s.addText("Switchers / Leavers / Retired", { x: 0.55, y: 7.02, w: 5.0, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, margin: 0, isTextBox: true, valign: "middle" });
-s.addShape(pres.ShapeType.roundRect, { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.2 });
-s.addText("Scale", { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
-s.addText("0", { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: GREY, align: "right", margin: 0, isTextBox: true });
+s.addText("Switchers / Leavers / Retired", { x: 7.8, y: 6.95, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, align: "right", margin: 0, isTextBox: true, valign: "middle" });
+s.addShape(pres.ShapeType.roundRect, { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.235 });
+s.addText("Scale", { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fontFace: BODY, fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
+s.addText("0", { x: 0.5, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: GREY, align: "left", margin: 0, isTextBox: true });
 
 s.addNotes([
   "Blank policy slide, same layout as the deck. Replace every grey placeholder.",
