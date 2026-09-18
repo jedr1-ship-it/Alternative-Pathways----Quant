@@ -49,6 +49,6 @@ Los datos de cada política están en `build/policies.js`; el diseño, en `build
 y Calibri (texto); dos colores de texto por diapositiva.
 
 ## Deck de contacto
-`Five_countries_to_contact.pptx` (8 diapositivas): los cinco países que proponemos contactar
-(Nueva Gales del Sur, Austria, Quebec, Países Bajos, Míchigan), la política a consultar y cuatro
+`Countries_to_contact.pptx` (8 diapositivas): los cinco países que proponemos contactar
+(Nueva Gales del Sur, Victoria, Países Bajos, Míchigan, Portugal), la política a consultar y cuatro
 preguntas abiertas por país, más una lista de reserva. Se regenera con `node build/build_contact.js`.

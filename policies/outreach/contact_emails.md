@@ -6,7 +6,7 @@ is worth a call, so the recipient sees we have read their policy and not a list.
 
 ---
 
-## 1. Australia — New South Wales, Teachers Re-Engage
+## Australia — New South Wales, Teachers Re-Engage
 **To:** NSW Department of Education, Teach NSW / school workforce
 **Subject:** OECD research on returning teachers: a request to learn about Teachers Re-Engage
 
@@ -45,9 +45,9 @@ Warm regards,
 
 ---
 
-## 2. Austria — reactivation of retired teachers
-**To:** Bildungsdirektion für Wien, staffing unit (copy: Federal Ministry of Education, teacher personnel)
-**Subject:** OECD research on returning teachers: a request to learn from the Austrian experience
+## Australia — Victoria, Teacher Re-Engagement Initiative
+**To:** Victorian Department of Education, teacher re-engagement team, school workforce division
+**Subject:** OECD research on returning teachers: a request to learn about the Teacher Re-Engagement Initiative
 
 Dear [Name],
 
@@ -59,19 +59,17 @@ education systems can use them to address teacher shortages. Our current line of
 research documents policies that seek to bring retired teachers, and teachers who
 have left the profession, back to the classroom.
 
-In that context the Austrian experience is one of the most instructive we have
-found, precisely because it is candid about what worked and what did not. From
-press coverage we understand that Vienna first wrote to recently retired teachers
-and received almost no reply, and then asked school principals to raise the
-question in person with staff approaching retirement age. That shift, and the
-reasons behind it, are exactly the kind of learning that rarely reaches the
-published record.
+In that context the Teacher Re-Engagement Initiative is the clearest case we have
+found of paying former teachers to try the classroom again before they commit to a
+post: a funded placement of several weeks, with coaching on applications and the
+current curriculum and mentoring by serving teachers. Very few systems offer a
+teacher a way back that does not start with a job application.
 
-We would like to hear directly from the directorate how this unfolded: why you
-decided to approach retired teachers, how the different regions went about it,
-what retirees said when they declined and what convinced the few who came back,
-which pension and service-crediting rules get in the way, and whether you see
-retired teachers as a genuine reserve or as an emergency measure.
+Our understanding comes from the Department's public pages, and we would like to
+hear directly how it has worked: how the idea of a paid trial period came about
+and how it was set up inside the Department, what happened after the placements
+and who went on to a teaching post, which part of the offer mattered most to those
+who came back, and what you would change if the scheme were designed again.
 
 We would be delighted to arrange a short video call at a time that suits you and
 your colleagues, and to tell you more about the project and how the insights we
@@ -84,46 +82,7 @@ Warm regards,
 
 ---
 
-## 3. Canada — Quebec, incentive pay for returning retirees
-**To:** Ministère de l'Éducation du Québec, human resources / workforce planning for the school network
-**Subject:** OECD research on returning teachers: a request to learn about the incentive for retired teachers
-
-Dear [Name],
-
-My name is [Name], and I am a Policy Analyst at the OECD Centre for Educational
-Research and Innovation (CERI) in Paris. At CERI I work on a project called
-Unlocking the Potential of Diverse Teaching Profiles, which examines routes into
-the teaching profession beyond the so-called "traditional" pathway and how
-education systems can use them to address teacher shortages. Our current line of
-research documents policies that seek to bring retired teachers, and teachers who
-have left the profession, back to the classroom.
-
-In that context Quebec stands out as the clearest case we have found of a
-financial incentive for returning retirees at real scale. As we understand it,
-a retired teacher who comes back is paid at the salary step they had reached when
-they retired rather than the substitute rate, keeps the pension in full, and the
-measure was made permanent after the pandemic. Very few systems have both the
-scale and the years of experience to show what such an incentive actually does.
-
-We would like to hear directly from the ministry: what led you to pay returning
-retirees on their former scale and why the measure was made permanent, how the
-return of retirees has played out in schools for the retirees themselves, for
-substitutes and for school teams, what you know about who comes back and for how
-long, and how you weigh the cost against what it delivers.
-
-We would be delighted to arrange a short video call at a time that suits you and
-your colleagues, and to tell you more about the project and how the insights we
-gather from country experiences will be used. We would be glad to hold the call in
-French if that is easier.
-
-Thank you very much for considering this request, and I would be very grateful for
-any indication of when you might be available.
-
-Warm regards,
-
----
-
-## 4. Netherlands — grant to primary schools for re-hiring former teachers
+## Netherlands — grant to primary schools for re-hiring former teachers
 **To:** Ministry of Education, Culture and Science, primary education directorate (copy: DUS-I)
 **Subject:** OECD research on returning teachers: a request to learn about the herintreders grant
 
@@ -162,7 +121,7 @@ Warm regards,
 
 ---
 
-## 5. United States — Michigan, Public Act 147 of 2023
+## United States — Michigan, Public Act 147 of 2023
 **To:** Michigan Office of Retirement Services (copy: Michigan Department of Education, educator workforce)
 **Subject:** OECD research on returning teachers: a request to learn about the 2023 return-to-work rules
 
@@ -193,6 +152,45 @@ expire.
 We would be delighted to arrange a short video call at a time that suits you and
 your colleagues, and to tell you more about the project and how the insights we
 gather from country experiences will be used.
+
+Thank you very much for considering this request, and I would be very grateful for
+any indication of when you might be available.
+
+Warm regards,
+
+---
+
+## Portugal — hiring retired teachers for shortage posts
+**To:** Ministério da Educação, Direção-Geral da Administração Escolar, teacher recruitment
+**Subject:** OECD research on returning teachers: a request to learn about the hiring of retired teachers
+
+Dear [Name],
+
+My name is [Name], and I am a Policy Analyst at the OECD Centre for Educational
+Research and Innovation (CERI) in Paris. At CERI I work on a project called
+Unlocking the Potential of Diverse Teaching Profiles, which examines routes into
+the teaching profession beyond the so-called "traditional" pathway and how
+education systems can use them to address teacher shortages. Our current line of
+research documents policies that seek to bring retired teachers, and teachers who
+have left the profession, back to the classroom.
+
+In that context the Portuguese measure interests us for a reason that may seem
+unusual: what it tells us about the limits of a financial incentive. As we
+understand it, a retired teacher who returns to a shortage post keeps the full
+pension and receives a supplement on top, and yet a good part of the posts opened
+in the first round went unfilled. Most of the policies we have collected report
+only their design; very few can say why the people they were meant for said no.
+
+We would like to hear directly from the ministry: what led you to open these posts
+to retired teachers and how the quota was agreed, how the first round went from
+the posts offered to the teachers who actually started, what you know about why
+retired teachers turned the offer down and what those who accepted were looking
+for, and how the measure has been adjusted since.
+
+We would be delighted to arrange a short video call at a time that suits you and
+your colleagues, and to tell you more about the project and how the insights we
+gather from country experiences will be used. We would be glad to hold the call in
+Portuguese or Spanish if that is easier.
 
 Thank you very much for considering this request, and I would be very grateful for
 any indication of when you might be available.

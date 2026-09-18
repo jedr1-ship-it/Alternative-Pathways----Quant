@@ -8,7 +8,7 @@ async function flagPng(code) {
   return "image/png;base64," + (await sharp(svg, { density: 300 }).resize(600, 450).png().toBuffer()).toString("base64");
 }
 const T = [
- { country: "Australia", region: "New South Wales", flag: "au", cat: "Information & nudges", groups: "Switchers / Leavers / Retired",
+{ country: "Australia", region: "New South Wales", flag: "au", cat: "Information & nudges", groups: "Switchers / Leavers / Retired",
    policy: "Teachers Re-Engage (since 2023)",
    what: "The Department of Education directly contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. It was launched just after teachers received one of the largest pay rises in decades and a cut in administrative work, and the department credits both with helping the returns.",
    why: "It is the cleanest example of a direct-outreach nudge with a published funnel from contacts to placements, and the missing pieces (cost, retention, who came back) exist in the department's records.",
@@ -19,29 +19,18 @@ const T = [
      "What made it easy or hard for those who came back to settle into teaching again?",
      "Looking back, what would you keep, change or drop, and does the initiative continue in some form?"
    ]},
- { country: "Austria", region: "", flag: "at", cat: "Information & nudges", groups: "Retired",
-   policy: "Regional education authorities recruit retired teachers back (2022–)",
-   what: "The regional education directorates ask teachers who have retired, or are about to, to keep teaching. Vienna started by writing to recent retirees; when almost nobody replied, it had principals raise the subject personally with staff approaching retirement age, usually offering reduced hours. A teacher who returns keeps the full pension and signs a separate contract paid on the beginner's salary scale. Take-up has stayed small.",
-   why: "It is the one case where a cheap nudge visibly failed and was replaced by a different one, with a 2025 academic study pointing to pension and seniority rules as the barrier: the negative lesson the other four cannot give.",
-   contact: "Vienna regional education directorate (staffing unit), the Federal Ministry of Education's teacher-personnel section, and the authors of the 2025 European Journal of Teacher Education study.",
+ { country: "Australia", region: "Victoria", flag: "au", cat: "Support & training", groups: "Switchers / Leavers / Retired",
+   policy: "Teacher Re-Engagement Initiative (since 2022)",
+   what: "Qualified teachers who stopped teaching at least a year ago, whether they retired or moved to another job, are offered up to forty paid days in a public school to get used to the classroom again before they apply for a post. A departmental team gives them free coaching on applications, interviews and the current curriculum, and places them in a school where serving teachers guide them. Those returning from retirement or a career break receive an honorarium for the placement.",
+   why: "It is the clearest case we have found of paying former teachers to try the classroom again before they commit, with a known budget and strong early interest. What happened after the placements has never been published.",
+   contact: "Victorian Department of Education, teacher re-engagement team in the school workforce division.",
    questions: [
-     "Why did you decide to approach retired teachers, and how did the different regions go about it?",
-     "What did retirees say when they declined, and what convinced the few who came back?",
-     "Which rules on pensions, contracts or seniority get in the way, and is anything being done about them?",
-     "Do you see retired teachers as a real reserve for the future, or only as an emergency measure?"
+     "How did the idea of a paid trial period come about, and how was it set up inside the department?",
+     "What happened after the placements: who went on to a teaching post, and who did not?",
+     "Which part of the offer mattered most to those who came back: the paid days, the coaching or the mentoring?",
+     "What would you change if the scheme were designed again, and how do you see it continuing?"
    ]},
- { country: "Canada", region: "Quebec", flag: "ca", cat: "Financial incentives", groups: "Retired",
-   policy: "Incentive pay for retired teachers who return (since 2020, permanent)",
-   what: "Retired teachers who come back to the classroom are paid at the salary step they had reached when they retired, far above the ordinary substitute rate, and keep their pension in full. Introduced during the pandemic and later made permanent, the measure was reinforced by a personal letter from the minister to every retired teacher inviting them back.",
-   why: "It is the only financial incentive for retirees running at large scale and now permanent, so the ministry can show whether money changes behaviour, at what cost, and with what side effects on active substitutes and on retirement decisions.",
-   contact: "Quebec Ministry of Education, human-resources and workforce-planning branch for the school network.",
-   questions: [
-     "What led the ministry to pay returning retirees on their former salary scale, and why was it made permanent?",
-     "How has the return of retirees played out in schools, for the retirees themselves, for substitutes and for school teams?",
-     "What do you know about who comes back, for how long, and why others do not?",
-     "How do you weigh the cost of the measure against what it delivers, and how do you see it evolving?"
-   ]},
- { country: "Netherlands", region: "", flag: "nl", cat: "Financial incentives", groups: "Switchers / Leavers",
+{ country: "Netherlands", region: "", flag: "nl", cat: "Financial incentives", groups: "Switchers / Leavers",
    policy: "Grant to primary schools for re-hiring former teachers (2017–2020)",
    what: "The ministry paid the school rather than the teacher. A primary-school board that hired a qualified teacher who had been out of primary education for at least a year, on a contract of six months or more, received a grant earmarked for that person's coaching and refresher training in the first months back. The scheme ran for two years and then closed.",
    why: "It is the only measure in our set that pays the school rather than the teacher, it is closed, so the whole story can be told, and the Netherlands has the best data on the pool of qualified teachers working outside education.",
@@ -52,7 +41,7 @@ const T = [
      "Why did the scheme end, and what has taken its place since?",
      "What would you advise a country thinking of a similar scheme today?"
    ]},
- { country: "United States", region: "Michigan", flag: "us", cat: "Financial incentives", groups: "Retired",
+{ country: "United States", region: "Michigan", flag: "us", cat: "Financial incentives", groups: "Retired",
    policy: "Public Act 147 of 2023: shorter wait and no earnings cap for retirees who return",
    what: "Retired school staff can be rehired sooner and earn without limit. The waiting period after retirement fell from nine months to six; during the wait a retiree may work if earnings stay under a ceiling, and afterwards there is no earnings cap and no penalty on the pension. Passed in response to shortages, the change expires in 2028.",
    why: "A clean before-and-after in a single state, with every rehired retiree recorded by the state pension office, and a 2028 expiry that forces the state to decide, and probably to measure, whether it worked.",
@@ -62,17 +51,28 @@ const T = [
      "How have schools and retirees actually used the new rules since they came in?",
      "Have you seen any unintended effects, on retirement decisions, on younger teachers or on the pension system?",
      "What will decide whether the rules are kept when they expire, and what would you want to know before then?"
+   ]},
+ { country: "Portugal", region: "", flag: "pt", cat: "Financial incentives", groups: "Retired",
+   policy: "Hiring retired teachers for shortage posts (since 2024/25)",
+   what: "Schools with an unfilled post in a shortage subject, or officially classed as under-staffed, may sign a fixed-term contract with a teacher who retired five years ago or less. The school applies through an online form and the ministry authorises the contract within a yearly quota agreed with the finance ministry. Returners keep the full pension and receive an extra payment tied to the first step of the salary scale, in proportion to the hours they teach.",
+   why: "On paper the offer is generous, a full pension and a supplement on top, and yet fewer than a third of the posts were filled in the first round. It is the case most likely to tell us why retired teachers say no, and because the ministry ran a formal application process the answers exist in its own records.",
+   contact: "Portuguese Ministry of Education, Directorate-General for School Administration, teacher recruitment.",
+   questions: [
+     "What led the ministry to open these posts to retired teachers, and how was the quota agreed with the finance ministry?",
+     "How did the first round go, from the posts offered to the teachers who actually started?",
+     "What do you know about why retired teachers turned the offer down, and what those who accepted were looking for?",
+     "How has the measure been adjusted since, and what would make it work better?"
    ]}
 ];
 
 (async () => {
   const pres = new pptxgen(); pres.layout = "LAYOUT_WIDE";
-  pres.author = "José Manuel Torres, José Elías Durán Roa"; pres.title = "Five countries to contact";
+  pres.author = "José Manuel Torres, José Elías Durán Roa"; pres.title = "Countries to contact";
   const flags = {}; for (const t of T) flags[t.flag] = await flagPng(t.flag);
 
   // cover
   let s = pres.addSlide(); s.background = { color: GREEN };
-  s.addText("Five countries to contact", { x: 0.8, y: 1.6, w: 11.7, h: 1.1, fontFace: HEAD, fontSize: 44, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
+  s.addText("Countries to contact", { x: 0.8, y: 1.6, w: 11.7, h: 1.1, fontFace: HEAD, fontSize: 44, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
   s.addText("Re-attracting former teachers: the policies we want to ask about, and what we would like to learn", { x: 0.8, y: 2.85, w: 11.7, h: 0.8, fontFace: BODY, fontSize: 20, color: "CFE3D9", margin: 0, isTextBox: true });
   s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 4.3, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
   let fx = 0.8; for (const t of T) { s.addImage({ data: flags[t.flag], x: fx, y: 5.4, w: 1.0, h: 0.75 }); fx += 1.25; }
@@ -116,13 +116,13 @@ const T = [
 
   // reserve list
   s = pres.addSlide(); s.background = { color: WHITE };
-  s.addText("If one of the five does not answer", { x: 0.6, y: 0.5, w: 11, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
+  s.addText("If one of them does not answer", { x: 0.6, y: 0.5, w: 11, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
   const reserve = [
     ["Australia (Victoria), Teacher Re-Engagement Initiative", "Paid placements with a known budget and strong initial interest; conversion into jobs never published, and funding after mid-2025 unconfirmed. Same contact route as New South Wales."],
     ["Germany (Lower Saxony), earnings ceiling and letter to retiring teachers", "A clean before-and-after: the ceiling was raised in 2022 and abolished in 2024, with a letter campaign in between. Pension records would show how many hours pensioners now teach."],
     ["New Zealand, streamlined return with fees covered", "352 returners counted by April 2025; the Ministry monitors the pathway and could say who returns and whether they stay."],
-    ["Portugal, hiring of retired teachers (Decree-Law 51/2024)", "Low take-up (about 63 of 200 posts) is itself the lesson: why retirees did not come back despite pension plus pay."],
-    ["United States (New Mexico), Educational Retirees Returning to Work Act (2022)", "Every returning retiree must be approved by the Educational Retirement Board, so exact counts of applications, approvals and destinations exist; the three-year cap shows how long returners stay."]
+    ["United States (New Mexico), Educational Retirees Returning to Work Act (2022)", "Every returning retiree must be approved by the Educational Retirement Board, so exact counts of applications, approvals and destinations exist; the three-year cap shows how long returners stay."],
+    ["Singapore, Flexi-Adjunct Teaching Scheme", "A standing register of former teachers with published figures on how many join after leaving the service; the ministry could say how long they stay and what they do next."]
   ];
   y = 1.35;
   for (const [a, b] of reserve) {
@@ -132,6 +132,6 @@ const T = [
   }
   s.addText(String(T.length + 3), { x: W - 1.1, y: H - 0.42, w: 0.6, h: 0.3, fontFace: BODY, fontSize: 9, color: INK, align: "right", margin: 0, isTextBox: true });
 
-  const out = path.join(__dirname, "Five_countries_to_contact.pptx");
+  const out = path.join(__dirname, "Countries_to_contact.pptx");
   await pres.writeFile({ fileName: out }); console.log("written", out);
 })().catch(e => { console.error(e); process.exit(1); });
