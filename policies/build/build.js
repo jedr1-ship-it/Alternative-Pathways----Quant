@@ -14,7 +14,7 @@ const INK = "24313A";     // text colour 1
 const ACCENT = "B3542E";  // text colour 2 (category label, links)
 const WHITE = "FFFFFF";
 const LINE = "CFDCD5";
-const ICON_BG = "F79646";   // the colour the team set on the definition slides
+const ICON_BG = GREEN;   // dark green on the pale card, as in the first version of the deck
 const HEAD = "Cambria";
 const BODY = "Calibri";
 const W = 13.333, H = 7.5;
@@ -180,14 +180,14 @@ function slideNumber(slide, n) {
       runs.push({ text: i === 0 ? "Source: " : "Source (see also): ", options: { bold: true, color: INK, breakLine: false } });
       runs.push({ text: u, options: { hyperlink: { url: u, tooltip: u }, color: ACCENT, underline: { style: "sng", color: ACCENT }, breakLine: i < p.sources.length - 1 } });
     });
-    s.addText(runs, { x: 0.5, y: 5.8, w: 8.9, h: 0.9, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(runs, { x: 0.5, y: 5.8, w: 8.3, h: 0.9, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
     // instruments used, as lit dots, with the target groups under them
     const used = [p.cat, ...(p.secondary || [])];
-    const dotD = 0.52, dotGap = 0.18, dotN = 5;
+    const dotD = 0.62, dotGap = 0.20, dotN = 5;
     const dotsW = dotN * dotD + (dotN - 1) * dotGap;
     const dotsX = 12.83 - dotsW;
-    instrumentDots(s, pres, icons, iconsOff, used, dotsX, 6.36, dotD, dotGap);
-    s.addText(p.groups.join(" / "), { x: 7.8, y: 6.95, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: MUTED, align: "right", margin: 0, isTextBox: true, valign: "middle" });
+    instrumentDots(s, pres, icons, iconsOff, used, dotsX, 6.26, dotD, dotGap);
+    s.addText(p.groups.join(" / "), { x: 7.8, y: 6.97, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: MUTED, align: "right", margin: 0, isTextBox: true, valign: "middle" });
     scaleLabel(s, pres, p.scale);
     slideNumber(s, n);
     s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — Instruments lit: ${used.join(", ")} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
@@ -208,10 +208,10 @@ function slideNumber(slide, n) {
     s.addText("Write four to six lines of plain prose. Open with what the policy actually does, who runs it and whom it is for, then how it works step by step, then what the returner gets. Put dates and figures at the end, and only the ones that carry the story. Do not repeat the country, the region or the policy name: they are already on the slide.",
       { x: 0.95, y: 2.64, w: 11.43, h: 2.85, fontFace: BODY, fontSize: 15, color: GREY, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
     s.addText([{ text: "Source: ", options: { bold: true, color: INK } }, { text: "paste the link, and add a second line 'Source (see also):' if there is another", options: { color: GREY } }],
-      { x: 0.5, y: 5.8, w: 8.9, h: 0.9, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
-    const tD = 0.52, tGap = 0.18, tW = 5 * tD + 4 * tGap, tX = 12.83 - tW;
-    instrumentDots(s, pres, icons, iconsOff, [], tX, 6.36, tD, tGap);
-    s.addText("Switchers / Leavers / Retired", { x: 7.8, y: 6.95, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, align: "right", margin: 0, isTextBox: true, valign: "middle" });
+      { x: 0.5, y: 5.8, w: 8.3, h: 0.9, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
+    const tD = 0.62, tGap = 0.20, tW = 5 * tD + 4 * tGap, tX = 12.83 - tW;
+    instrumentDots(s, pres, icons, iconsOff, [], tX, 6.26, tD, tGap);
+    s.addText("Switchers / Leavers / Retired", { x: 7.8, y: 6.97, w: 5.03, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, align: "right", margin: 0, isTextBox: true, valign: "middle" });
     s.addShape(pres.ShapeType.roundRect, { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.235 });
     s.addText("Scale", { x: 11.03, y: 0.42, w: 1.8, h: 0.47, fontFace: BODY, fontSize: 14, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
     slideNumber(s, n);
