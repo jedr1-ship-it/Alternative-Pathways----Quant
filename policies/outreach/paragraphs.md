@@ -75,7 +75,8 @@ we have not found an evaluation, which is why we would like to learn from the
 Ministry how it worked: how school boards used the grant, whether it changed their
 willingness to consider a candidate who had been out of the classroom, what kind
 of teachers came back through it and whether they stayed, and what lay behind the
-decision not to continue it after January 2020. If there is a colleague at the
+decision to let the regulation lapse rather than renew it once applications
+closed in November 2020. If there is a colleague at the
 Ministry, or at the body that handled the applications, who followed the scheme
 closely and could speak to its experience and its results, we would be very
 grateful if you could point us to them.
