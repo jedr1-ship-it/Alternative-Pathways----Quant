@@ -1,15 +1,14 @@
 # Re-attracting former teachers — políticas comparadas
 
-Presentación (`Re-attracting_Former_Teachers.pptx`, 33 diapositivas, 16:9) que recopila
+Presentación (`Re-attracting_Former_Teachers.pptx`, 35 diapositivas, 16:9) que recopila
 **29 políticas reales de 17 países** dirigidas a traer de vuelta al sistema educativo a
 ex docentes: *switchers* (cambiaron de sector), *leavers* (salieron del mercado laboral)
 y *retired* (jubilados).
 
 ## Estructura del archivo
 1. Portada.
-2. Definiciones: los tres grupos objetivo y las cinco categorías de instrumento
-   (Financial incentives · Information & nudges · Support & training · Flexible positions ·
-   Flexible re-certification).
+2. Tres diapositivas de definiciones, en letra grande: los tres grupos objetivo, las cinco
+   categorías de instrumento y las etiquetas de escala.
 3. Una diapositiva por política (29), ordenadas por país y categoría. Cada una lleva:
    bandera y país (arriba a la izquierda), categoría principal y grupos objetivo (arriba a
    la derecha), nombre y año de la política, descripción en texto corrido y lenguaje llano (importes con su equivalente

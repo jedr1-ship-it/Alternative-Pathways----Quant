@@ -446,7 +446,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Retired Mentors for New Teachers (Aurora Public Schools; REL Central evaluation, 2017)",
-    "desc": "Aurora Public Schools, a district in Colorado, pays recently retired teachers to mentor new ones. Retired teachers with a strong record in the district are hired part-time to accompany first- and second-year teachers in high-poverty elementary schools for two years, meeting them every week and sitting in on their lessons, far more support than the district's usual one-year ‘buddy’ scheme. For the retiree it is a paid, part-time way back into the school system; for the district it keeps hard-won expertise close to the classroom. A randomised trial published in 2017 followed 77 new teachers in 11 schools and found a small, short-lived gain in mathematics, no effect on reading and none on whether the new teachers stayed.",
+    "desc": "Retired Mentors for New Teachers was a programme of Aurora Public Schools, a district in Colorado, that paid recently retired teachers to mentor new ones. Retired teachers with a strong record in the district were hired part-time to accompany first- and second-year teachers in high-poverty elementary schools for two years, meeting them every week and sitting in on their lessons, far more support than the district's usual one-year ‘buddy’ scheme. For the retiree it was a paid, part-time way back into the school system; for the district, a way to keep hard-won expertise close to the classroom. A randomised trial published in 2017 followed 77 new teachers in 11 schools and found a small, short-lived gain in mathematics, no effect on reading and none on whether the new teachers stayed.",
     "chips": [
       "Aurora Public Schools, Colorado; RCT report 2017",
       "77 new teachers in 11 Title I schools; two-year mentoring",
@@ -455,7 +455,7 @@ module.exports = [
     "sources": [
       "https://ies.ed.gov/use-work/resource-library/report/descriptive-study/impacts-retired-mentors-new-teachers-program"
     ],
-    "notes": "Source: Institute of Education Sciences, REL Central, 'Impacts of the Retired Mentors for New Teachers program' (DeCesare, McClelland & Randel, 2017, REL 2017-225). Design: 77 classroom teachers across 11 schools randomly assigned to mentoring by retired, highly effective district educators or to the district's business-as-usual mentoring. Results: no effect on retention; effect size 0.06 on maths achievement (significant at end of year one, not at end of year two); no effect on reading. Programme start year not stated on the summary page.",
+    "notes": "Source: Institute of Education Sciences, REL Central, 'Impacts of the Retired Mentors for New Teachers program' (DeCesare, McClelland & Randel, 2017, REL 2017-225). Design: 77 classroom teachers across 11 schools randomly assigned to mentoring by retired, highly effective district educators or to the district's business-as-usual mentoring. Results: no effect on retention; effect size 0.06 on maths achievement (significant at end of year one, not at end of year two); no effect on reading. Programme start year not stated on the summary page. Written in the past tense: the programme is documented through its 2017 evaluation and its current status in the district could not be confirmed.",
     "scale": "Small"
   },
   {
@@ -487,7 +487,7 @@ module.exports = [
       "Retired"
     ],
     "title": "House Bill 385: full-time return of retired teachers in high-need subjects (2022–2026)",
-    "desc": "Georgia lets teachers who retired after a long career go back to full-time teaching while keeping their pension in full. A teacher who retired with thirty or more years of service, and has been retired at least a year, can be hired as a full-time classroom teacher in one of the three subjects of greatest need in their region, typically special education, mathematics, science, English or elementary teaching, and draws a full salary on top of the pension. The district pays the pension contributions and the retiree earns no further pension rights. The narrow eligibility rules kept numbers low: a state audit found about 350 retirees a year, under one percent of Georgia's teachers. The law runs to June 2026 and is being replaced.",
+    "desc": "House Bill 385 was a Georgia law that let teachers who had retired after a long career go back to full-time teaching while keeping their pension in full. A teacher who had retired with thirty or more years of service, and had been retired at least a year, could be hired as a full-time classroom teacher in one of the three subjects of greatest need in their region, typically special education, mathematics, science, English or elementary teaching, and drew a full salary on top of the pension. The district paid the pension contributions and the retiree earned no further pension rights. The narrow eligibility rules kept numbers low: a state audit found about 350 retirees a year, under one percent of Georgia's teachers. The law expired on 30 June 2026 and was replaced by Senate Bill 150.",
     "chips": [
       "1 Jul 2022 – 30 Jun 2026; succeeded by Senate Bill 150 (2026)",
       "≈350 retirees a year, <1% of the workforce (2025 state audit)",
@@ -497,7 +497,7 @@ module.exports = [
       "https://www.trsga.com/retiree/working-after-retirement/hb-385-employment/",
       "https://www.audits.ga.gov/ReportSearch/download/32615"
     ],
-    "notes": "Sources: Teachers Retirement System of Georgia 'HB 385 Employment' page (30+ years of service, retired for one year, full-time classroom teacher in a highest-need area determined by the RESA, effective 1 July 2022 to 30 June 2026, employer pays contributions, no additional creditable service; HB 385 sunsets 30 June 2026 and SB 150 was passed in the 2026 session) and the Georgia Department of Audits and Accounts report 'Retired Teachers Return to Work' (about 350 full-time retirees employed each year, less than 1% of the workforce), summarised by Georgia Public Broadcasting, 7 May 2025.",
+    "notes": "Sources: Teachers Retirement System of Georgia 'HB 385 Employment' page (30+ years of service, retired for one year, full-time classroom teacher in a highest-need area determined by the RESA, effective 1 July 2022 to 30 June 2026, employer pays contributions, no additional creditable service; HB 385 sunsets 30 June 2026 and SB 150 was passed in the 2026 session) and the Georgia Department of Audits and Accounts report 'Retired Teachers Return to Work' (about 350 full-time retirees employed each year, less than 1% of the workforce), summarised by Georgia Public Broadcasting, 7 May 2025. Updated September 2026: HB 385 reached its sunset date of 30 June 2026, so the slide is written in the past tense; Senate Bill 150, passed in the 2026 session, now governs full-time re-employment of retired Georgia teachers.",
     "scale": "Medium"
   },
   {
