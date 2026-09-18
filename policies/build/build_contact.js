@@ -9,8 +9,8 @@ async function flagPng(code) {
 }
 const T = [
  { country: "Australia", region: "New South Wales", flag: "au", cat: "Information & nudges", groups: "Switchers / Leavers / Retired",
-   policy: "Teachers Re-Engage (2023–24)",
-   what: "The Department of Education used its own staff records to contact more than 1,500 teachers who had resigned in the previous five years and offered them fast re-accreditation and a casual or temporary post. By May 2024, 260 had shown interest and 145 were placed. Nothing has been published since.",
+   policy: "Teachers Re-Engage (since 2023)",
+   what: "The Department of Education directly contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. It was launched just after teachers received one of the largest pay rises in decades and a cut in administrative work, and the department credits both with helping the returns.",
    why: "It is the cleanest example of a direct-outreach nudge with a published funnel from contacts to placements, and the missing pieces (cost, retention, who came back) exist in the department's records.",
    contact: "NSW Department of Education, Teach NSW / school workforce division (teachers re-engage initiative team).",
    questions: [
@@ -21,7 +21,7 @@ const T = [
    ]},
  { country: "Austria", region: "", flag: "at", cat: "Information & nudges", groups: "Retired",
    policy: "Regional education authorities recruit retired teachers back (2022–)",
-   what: "From late 2022 Austria's regional education directorates tried to bring retired teachers back. Vienna wrote to about 300 recent retirees and got three positive replies; it then asked every principal to talk personally with teachers approaching 65 about staying on, often part-time. Vorarlberg created a post to promote the option. Returners keep the full pension and are paid on the beginner's scale; take-up has been a few dozen teachers nationwide.",
+   what: "The regional education directorates ask teachers who have retired, or are about to, to keep teaching. Vienna started by writing to recent retirees; when almost nobody replied, it had principals raise the subject personally with staff approaching retirement age, usually offering reduced hours. A teacher who returns keeps the full pension and signs a separate contract paid on the beginner's salary scale. Take-up has stayed small.",
    why: "It is the one case where a cheap nudge visibly failed and was replaced by a different one, with a 2025 academic study pointing to pension and seniority rules as the barrier: the negative lesson the other four cannot give.",
    contact: "Vienna regional education directorate (staffing unit), the Federal Ministry of Education's teacher-personnel section, and the authors of the 2025 European Journal of Teacher Education study.",
    questions: [
@@ -32,7 +32,7 @@ const T = [
    ]},
  { country: "Canada", region: "Quebec", flag: "ca", cat: "Financial incentives", groups: "Retired",
    policy: "Incentive pay for retired teachers who return (since 2020, permanent)",
-   what: "Retired teachers who come back are paid from day one at the salary step they had at retirement, about 412 Canadian dollars a day (about 275 euros) instead of the 212-dollar substitute rate, while keeping the full pension. 700 retirees returned in 2020-21; more than 5,000 worked in schools in 2022-23. In 2023 the minister also wrote to every retiree.",
+   what: "Retired teachers who come back to the classroom are paid at the salary step they had reached when they retired, far above the ordinary substitute rate, and keep their pension in full. Introduced during the pandemic and later made permanent, the measure was reinforced by a personal letter from the minister to every retired teacher inviting them back.",
    why: "It is the only financial incentive for retirees running at large scale and now permanent, so the ministry can show whether money changes behaviour, at what cost, and with what side effects on active substitutes and on retirement decisions.",
    contact: "Quebec Ministry of Education, human-resources and workforce-planning branch for the school network.",
    questions: [
@@ -43,7 +43,7 @@ const T = [
    ]},
  { country: "Netherlands", region: "", flag: "nl", cat: "Financial incentives", groups: "Switchers / Leavers",
    policy: "Grant to primary schools for re-hiring former teachers (2017–2020)",
-   what: "The Ministry of Education paid a primary-school board up to 2,500 euros for every qualified teacher it re-hired after at least twelve months out of primary teaching, on a contract of six months or more, to fund the returner's coaching and refresher training. The first budget covered 500 returners; the scheme closed in 2020.",
+   what: "The ministry paid the school rather than the teacher. A primary-school board that hired a qualified teacher who had been out of primary education for at least a year, on a contract of six months or more, received a grant earmarked for that person's coaching and refresher training in the first months back. The scheme ran for two years and then closed.",
    why: "It is the only measure in our set that pays the school rather than the teacher, it is closed, so the whole story can be told, and the Netherlands has the best data on the pool of qualified teachers working outside education.",
    contact: "Dutch Ministry of Education, Culture and Science, primary-education directorate, and the ministry's subsidy agency (DUS-I) that administered the grant.",
    questions: [
@@ -54,7 +54,7 @@ const T = [
    ]},
  { country: "United States", region: "Michigan", flag: "us", cat: "Financial incentives", groups: "Retired",
    policy: "Public Act 147 of 2023: shorter wait and no earnings cap for retirees who return",
-   what: "Public Act 147 cut the waiting period before a retired school employee can be rehired from nine months to six, allowed limited earnings during the wait (below 15,100 dollars a year, about 13,000 euros) and removed the earnings cap afterwards, so retirees keep the full pension whatever they earn. Signed in October 2023 in response to shortages, it expires on 10 October 2028.",
+   what: "Retired school staff can be rehired sooner and earn without limit. The waiting period after retirement fell from nine months to six; during the wait a retiree may work if earnings stay under a ceiling, and afterwards there is no earnings cap and no penalty on the pension. Passed in response to shortages, the change expires in 2028.",
    why: "A clean before-and-after in a single state, with every rehired retiree recorded by the state pension office, and a 2028 expiry that forces the state to decide, and probably to measure, whether it worked.",
    contact: "Michigan Office of Retirement Services, which administers the school employees' retirement system, and the Michigan Department of Education's educator workforce office.",
    questions: [
@@ -118,8 +118,8 @@ const T = [
   s = pres.addSlide(); s.background = { color: WHITE };
   s.addText("If one of the five does not answer", { x: 0.6, y: 0.5, w: 11, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
   const reserve = [
-    ["Australia (Victoria), Teacher Re-Engagement Initiative", "Paid 40-day placements with a known budget and 1,100+ expressions of interest; conversion into jobs never published. Same contact route as New South Wales."],
-    ["Germany (Lower Saxony), earnings ceiling and letter to retiring teachers", "A clean before-and-after: ceiling raised in 2022 and abolished in 2024, plus a letter campaign in 2023. Pension records would show how many hours pensioners teach."],
+    ["Australia (Victoria), Teacher Re-Engagement Initiative", "Paid placements with a known budget and strong initial interest; conversion into jobs never published, and funding after mid-2025 unconfirmed. Same contact route as New South Wales."],
+    ["Germany (Lower Saxony), earnings ceiling and letter to retiring teachers", "A clean before-and-after: the ceiling was raised in 2022 and abolished in 2024, with a letter campaign in between. Pension records would show how many hours pensioners now teach."],
     ["New Zealand, streamlined return with fees covered", "352 returners counted by April 2025; the Ministry monitors the pathway and could say who returns and whether they stay."],
     ["Portugal, hiring of retired teachers (Decree-Law 51/2024)", "Low take-up (about 63 of 200 posts) is itself the lesson: why retirees did not come back despite pension plus pay."],
     ["United States (New Mexico), Educational Retirees Returning to Work Act (2022)", "Every returning retiree must be approved by the Educational Retirement Board, so exact counts of applications, approvals and destinations exist; the three-year cap shows how long returners stay."]
