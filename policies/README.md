@@ -1,12 +1,14 @@
 # Re-attracting former teachers — políticas comparadas
 
-Presentación (`Re-attracting_Former_Teachers.pptx`, 35 diapositivas, 16:9) que recopila
+Presentación (`Re-attracting_Former_Teachers.pptx`, 36 diapositivas, 16:9) que recopila
 **29 políticas reales de 17 países** dirigidas a traer de vuelta al sistema educativo a
 ex docentes: *switchers* (cambiaron de sector), *leavers* (salieron del mercado laboral)
 y *retired* (jubilados).
 
 ## Estructura del archivo
-1. Portada.
+1. Dos portadas alternativas: una sobria y otra con las banderas de los 17 países.
+   Para poner el logo del Directorate for Education and Skills, deja el archivo
+   `build/oecd-logo.png` y vuelve a generar: el script lo coloca arriba a la izquierda.
 2. Tres diapositivas de definiciones, en letra grande: los tres grupos objetivo, las cinco
    categorías de instrumento y las etiquetas de escala.
 3. Una diapositiva por política (29), ordenadas por país y categoría. Cada una lleva:

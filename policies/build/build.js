@@ -59,7 +59,7 @@ function iconCircle(slide, pres, data, x, y, d) {
 
 const SCALE_COLORS = { Large: GREEN, Medium: "C8892B", Small: ACCENT };
 function scaleLabel(slide, pres, scale) {
-  const w = 1.4, h = 0.4, x = 11.2, y = 5.24;
+  const w = 1.4, h = 0.4, x = 11.43, y = 6.5;
   slide.addShape(pres.ShapeType.roundRect, { x, y, w, h, fill: { color: SCALE_COLORS[scale] }, line: { color: SCALE_COLORS[scale], width: 0 }, rectRadius: 0.2 });
   slide.addText(scale, { x, y, w, h, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
 }
@@ -79,24 +79,34 @@ function slideNumber(slide, n) {
   const flags = {};
   for (const p of POLICIES) if (!flags[p.flag]) flags[p.flag] = await flagPng(p.flag);
 
-  // ================= 1. COVER =================
-  {
+  // ================= 1. COVERS (professional, then with flags) =================
+  const logoPath = path.join(__dirname, "oecd-logo.png");
+  const hasLogo = fs.existsSync(logoPath);
+  const logoData = hasLogo ? "image/png;base64," + fs.readFileSync(logoPath).toString("base64") : null;
+  const uniqueFlags = [...new Set(POLICIES.map(p => p.flag))];
+  const nCountries = new Set(POLICIES.map(p => p.country)).size;
+
+  function coverBase(withFlags) {
     const s = pres.addSlide();
     s.background = { color: GREEN };
-    s.addText("Re-attracting Former Teachers", { x: 0.8, y: 1.25, w: 11.7, h: 1.2, fontFace: HEAD, fontSize: 46, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
-    s.addText("Policies that bring them back into education", { x: 0.8, y: 2.55, w: 11.7, h: 0.7, fontFace: BODY, fontSize: 22, color: "CFE3D9", margin: 0, isTextBox: true });
-    s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 4.45, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
-    // flag strip (unique flags, in deck order)
-    const uniq = [...new Set(POLICIES.map(p => p.flag))];
-    const fw = 0.72, fh = 0.54, gap = 0.14;
-    const total = uniq.length * fw + (uniq.length - 1) * gap;
-    let x = (W - total) / 2;
-    for (const code of uniq) {
-      s.addImage({ data: flags[code], x, y: 5.55, w: fw, h: fh });
-      x += fw + gap;
+    if (logoData) s.addImage({ data: logoData, x: 0.8, y: 0.6, w: 2.6, h: 0.75, sizing: { type: "contain", w: 2.6, h: 0.75 } });
+    s.addText("Re-attracting Former Teachers", { x: 0.8, y: 2.0, w: 11.7, h: 1.15, fontFace: HEAD, fontSize: 44, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
+    s.addText("Policies that bring them back into education", { x: 0.8, y: 3.25, w: 11.7, h: 0.6, fontFace: BODY, fontSize: 21, color: "CFE3D9", margin: 0, isTextBox: true });
+    s.addText(`${POLICIES.length} policies · ${nCountries} countries`, { x: 0.8, y: 4.0, w: 11.7, h: 0.45, fontFace: BODY, fontSize: 15, color: WHITE, margin: 0, isTextBox: true });
+    s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 6.5, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
+    if (withFlags) {
+      const gap = 0.12, avail = 12.33;
+      const fw = Math.min(0.78, (avail - (uniqueFlags.length - 1) * gap) / uniqueFlags.length);
+      const fh = fw * 0.75;
+      const total = uniqueFlags.length * fw + (uniqueFlags.length - 1) * gap;
+      let x = (W - total) / 2;
+      for (const code of uniqueFlags) { s.addImage({ data: flags[code], x, y: 5.15, w: fw, h: fh }); x += fw + gap; }
     }
-    s.addNotes("Deck built from official sources (laws, ministry and agency web pages) plus, where noted, institutional evaluations and reputable press. Each policy slide carries its main source link in the footer; secondary sources and verification notes are in the speaker notes of each slide. Direct HTTP access was not available in the build environment, so every URL was verified through search-engine indexing of the official pages on 17 September 2026.");
+    return s;
   }
+
+  coverBase(false).addNotes("Cover without flags. Delete whichever of the two covers you do not use." + (hasLogo ? "" : " The OECD Directorate for Education and Skills logo has not been supplied yet; drop oecd-logo.png into the build folder and rebuild to place it."));
+  coverBase(true).addNotes("Cover with the flags of every country in the deck. Delete whichever of the two covers you do not use.");
 
   // ================= 2. TARGET GROUPS =================
   {
@@ -110,7 +120,7 @@ function slideNumber(slide, n) {
       s.addText(g.def, { x: 2.0, y: y + 0.38, w: 10.2, h: 0.55, fontFace: BODY, fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 1.32;
     }
-    slideNumber(s, 2);
+    slideNumber(s, 3);
     s.addNotes("Three target groups, as defined in the brief. A policy may target one group or several.");
   }
 
@@ -127,7 +137,7 @@ function slideNumber(slide, n) {
       s.addText(c.def, { x: 1.85, y: y + 0.3, w: 10.6, h: 0.6, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 1.0;
     }
-    slideNumber(s, 3);
+    slideNumber(s, 4);
     s.addNotes("The five instrument categories used to classify every policy in the deck. Secondary instruments are named on each policy slide.");
   }
 
@@ -145,12 +155,12 @@ function slideNumber(slide, n) {
       s.addText(v, { x: 3.6, y, w: 9.0, h: 0.46, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "middle" });
       y += 0.95;
     }
-    slideNumber(s, 4);
+    slideNumber(s, 5);
     s.addNotes("Scale tells the reader how far a policy reaches: a whole country, a state or region, or one district or institution.");
   }
 
   // ================= 3. POLICY SLIDES =================
-  let n = 5;
+  let n = 6;
   for (const p of POLICIES) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
@@ -174,14 +184,14 @@ function slideNumber(slide, n) {
     s.addText([
       { text: "Secondary instruments: ", options: { bold: true, color: INK } },
       { text: also || "none (single-instrument policy)", options: { color: INK } }
-    ], { x: 1.95, y: 5.32, w: 8.95, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    ], { x: 1.95, y: 5.32, w: 10.65, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
     // footer: sources (clickable)
     const runs = [];
     p.sources.forEach((u, i) => {
       runs.push({ text: i === 0 ? "Source: " : "Source (see also): ", options: { bold: true, color: INK, breakLine: false } });
       runs.push({ text: u, options: { hyperlink: { url: u, tooltip: u }, color: ACCENT, underline: { style: "sng", color: ACCENT }, breakLine: i < p.sources.length - 1 } });
     });
-    s.addText(runs, { x: 0.5, y: 5.92, w: 12.33, h: 0.95, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(runs, { x: 0.5, y: 5.92, w: 10.6, h: 0.95, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
     scaleLabel(s, pres, p.scale);
     slideNumber(s, n);
     s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — ${p.cat} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
