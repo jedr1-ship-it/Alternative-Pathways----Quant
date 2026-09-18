@@ -11,8 +11,8 @@ module.exports = [
       "Retired"
     ],
     "scale": "Medium",
-    "title": "Teachers Re-Engage: the department calls back recent leavers (since 2023)",
-    "desc": "The Department of Education directly contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. The initiative was launched shortly after teachers received one of the largest pay rises in decades and a significant cut in administrative work, and the department credits both with helping the returns. More than 1,500 former teachers were contacted from November 2023; by May 2024, 260 had expressed interest and 145 were placed across more than 600 schools, about sixty percent of them coming out of retirement. The pathway is still open, but nothing has been published since.",
+    "title": "Teachers Re-Engage: department calls back recent leavers (since 2023)",
+    "desc": "The Department of Education contacted teachers who had resigned in the previous five years and asked them to consider coming back. Those interested were offered assistance to renew their accreditation and a placement in casual or temporary work, with the possibility of moving to a permanent post later. The initiative was launched shortly after teachers in that district received one of the largest pay rises in decades and a significant cut in administrative work. More than 1,500 former teachers were contacted; by May 2024, 260 had expressed interest and 145 were placed across more than 600 schools, about sixty percent of them coming out of retirement. As the best of our knowledge the pathway is still open.",
     "sources": [
       "https://www.nsw.gov.au/media-releases/retired-teachers-return-to-classrooms",
       "https://education.nsw.gov.au/teach-nsw/find-teaching-jobs/returning-teachers"
@@ -35,7 +35,7 @@ module.exports = [
       "Retired"
     ],
     "title": "Teacher Re-Engagement Initiative (TREI), since 2022",
-    "desc": "Qualified teachers who stopped teaching at least a year ago, whether they retired or moved to another job, are offered up to forty paid days in a public school to get used to the classroom again before they apply for a real post. After a teacher registers, a team from the Department of Education calls them, offers free coaching on writing a CV, preparing for interviews and the current curriculum, and finds them a school; during the forty days they observe lessons, teach and are guided by serving teachers. Those returning from retirement or a career break are paid up to 12,000 Australian dollars (about 7,200 euros) for the forty days. It began in late 2022, drew more than 1,100 expressions of interest in its first months and was given 12 million Australian dollars (about 7.2 million euros) in the 2023/24 state budget, which funded placements up to June 2025.",
+    "desc": "Qualified teachers who stopped teaching at least a year ago are offered up to forty paid days in a public school to get used to the classroom again before they apply for a real post. After a teacher registers, a team from the Department of Education calls them, offers free coaching on writing a CV, preparing for interviews and the current curriculum, and finds them a school; during the forty days they observe lessons, teach and are guided by serving teachers. Those returning from retirement or a career break are paid up to 12,000 Australian dollars (about 7,200 euros) for the forty days. It began in late 2022, drew more than 1,100 expressions of interest in its first months and was given 12 million Australian dollars (about 7.2 million euros) in the 2023/24 state budget, which funded placements up to June 2025.",
     "sources": [
       "https://www.vic.gov.au/teacher-re-engagement-initiative"
     ],
@@ -56,7 +56,7 @@ module.exports = [
     ],
     "scale": "Medium",
     "title": "Regional education authorities recruit retired teachers back (2022–)",
-    "desc": "The regional education directorates, which run the schools in each province, wrote to teachers who had already retired and asked them to come back. In Vienna about 300 letters went out and, according to the public broadcaster (ORF), three teachers accepted. The directorate then passed the job to school principals, who put the question in person to staff approaching retirement age, usually offering reduced hours to stay on. Returners keep the full pension and sign a separate contract paid on the beginner's salary scale. Take-up has stayed very low across the country, and an academic study points to pension and seniority rules as the main barrier.",
+    "desc": "The regional education directorates, which run the schools in each province, wrote to teachers who had already retired and asked them to come back. In Vienna about 300 letters went out and, according to the public broadcaster (ORF), only three teachers accepted. The directorate then passed the job to school principals, who put the question in person to staff approaching retirement age, usually offering reduced hours to stay on. Returners keep the full pension and sign a separate contract paid on the beginner's salary scale. Take-up has stayed very low across the country, and an academic study points to pension and seniority rules as the main barrier.",
     "sources": [
       "https://wien.orf.at/stories/3200562/",
       "https://www.wienerzeitung.at/nachrichten/politik/oesterreich/2175563-Nur-42-Pflichtschullehrer-kamen-aus-Pension-zurueck.html",
@@ -78,7 +78,7 @@ module.exports = [
       "Retired"
     ],
     "scale": "Large",
-    "title": "Teacher Reservist Program: a standing reserve of former teachers (announced July 2026)",
+    "title": "Teacher Reservist Program: reserve of former teachers (announced July 2026)",
     "desc": "The Ministry of Education is turning its supply-teacher platform into a permanent register where retired teachers, former teachers now working in other careers and recent graduates sign up in advance, so that a school can call one of them in when a post falls vacant or a teacher is absent. A task force drawn from several agencies checks records and accreditation quickly, so a reservist can start without the usual delay. The point of the design is that the pool exists before the gap appears, rather than being assembled each time. It was announced in July 2026, when the country was short of about 300 teachers across 162 schools spread over 24 islands, and no regulations, enrolment figures or results have been published yet.",
     "sources": [
       "https://www.bahamas.gov.bs/news-press-release/the-ministry-of-education-aiming-to-attract-more-bahamian-teachers",
@@ -238,8 +238,8 @@ module.exports = [
       "Switchers",
       "Leavers"
     ],
-    "title": "Grant to primary schools for re-hiring former teachers, 2017–2020",
-    "desc": "The Ministry of Education paid a primary school up to 2,500 euros for every qualified teacher it re-hired who had been out of primary teaching for at least a year, on a contract of six months or more. The money went to the school board, not the teacher, and had to be spent on the returner's first months back: coaching, refresher training, time alongside a colleague. It was aimed at the cost and effort that make a school hesitate to take on someone who has been away. The scheme ran from November 2017 to January 2020, with a first budget covering up to 500 returners and a further round of applications in 2019.",
+    "title": "Grant to primary schools for re-hiring former teachers, 2017–2022",
+    "desc": "The Ministry of Education paid primary schools up to 2,500 euros for every qualified teacher it re-hired who had been out of primary teaching for at least a year, on a contract of six months or more. The money went to the school board, not the teacher, and had to be spent on the returner's first months back: coaching, refresher training, time alongside a colleague. It was aimed at the cost and effort that make a school hesitate to take on someone who has been away. The scheme ran from November 2017 to January 2020, with a first budget covering up to 500 returners and a further round of applications in 2019.",
     "sources": [
       "https://wetten.overheid.nl/1.3:c:BWBR0040130&g=2020-07-01&z=2025-10-18",
       "https://www.nieuwsbrievenminocw.nl/actueel/nieuws/2019/07/03/subsidie-voor-herintreders"

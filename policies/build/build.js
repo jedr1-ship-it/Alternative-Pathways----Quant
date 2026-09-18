@@ -20,15 +20,15 @@ const W = 13.333, H = 7.5;
 
 const CATS = [
   { name: "Financial incentives", icon: "FaCoins",
-    def: "Direct payments or legal changes with an economic effect: rules letting retirees draw salary plus pension, return bonuses for switchers or leavers, bonuses for schools that re-hire them." },
+    def: "Direct payments or legal changes with an economic effect: rules letting retirees draw salary plus pension, return bonuses." },
   { name: "Information & nudges", icon: "FaEnvelopeOpenText",
-    def: "Informing, reminding or prompting the decision to return: information sessions, career guidance or peer mentoring, a leaflet with the retirement form, personalised letters, calls or e-mails." },
+    def: "Informing, reminding or prompting the decision to return: information sessions, peer mentoring, calls or e-mails." },
   { name: "Support & training", icon: "FaChalkboardTeacher",
     def: "Refresher courses, return-to-teaching programmes, induction and coaching that make re-entry easier." },
   { name: "Flexible positions", icon: "FaUserClock",
-    def: "Roles other than a full-time teaching post: tutoring pupils, mentoring future or novice teachers, part-time or flexible substitute work." },
+    def: "Roles other than a full-time teaching post: tutoring pupils, mentoring future or novice teachers or part time work." },
   { name: "Flexible re-certification", icon: "FaCertificate",
-    def: "Lowering administrative or training barriers where former teachers must re-certify: fewer compulsory course days, simplified procedures, limited teaching hours while re-certifying." },
+    def: "Lowering administrative or training : fewer compulsory course days, simplified procedures, limited teaching hours while re-certifying." },
 ];
 const GROUPS = [
   { name: "(a) Switchers", icon: "FaExchangeAlt", def: "Left the teaching profession to work in another sector." },
@@ -57,6 +57,18 @@ function iconCircle(slide, pres, data, x, y, d) {
   slide.addImage({ data, x: x + pad, y: y + pad, w: d - 2 * pad, h: d - 2 * pad });
 }
 
+// the five instruments as a row of dots: the ones a policy uses are lit
+const OFF = "DCE6E0", OFF_ICON = "AFC0B8", MUTED = "7C8B93";
+function instrumentDots(slide, pres, icons, iconsOff, used, x0, y, d, gap) {
+  CATS.forEach((c, i) => {
+    const on = used.includes(c.name);
+    const x = x0 + i * (d + gap);
+    slide.addShape(pres.ShapeType.ellipse, { x, y, w: d, h: d, fill: { color: on ? GREEN : OFF }, line: { color: on ? GREEN : OFF, width: 0 } });
+    const pad = d * 0.24;
+    slide.addImage({ data: on ? icons[c.name] : iconsOff[c.name], x: x + pad, y: y + pad, w: d - 2 * pad, h: d - 2 * pad });
+  });
+}
+
 const SCALE_COLORS = { Large: GREEN, Medium: "C8892B", Small: ACCENT };
 function scaleLabel(slide, pres, scale) {
   const w = 1.4, h = 0.4, x = 11.43, y = 6.5;
@@ -73,8 +85,8 @@ function slideNumber(slide, n) {
   pres.author = "José Manuel Torres, José Elías Durán Roa";
   pres.title = "Re-attracting Former Teachers";
 
-  const icons = {};
-  for (const c of CATS) icons[c.name] = await iconPng(c.icon, WHITE);
+  const icons = {}, iconsOff = {};
+  for (const c of CATS) { icons[c.name] = await iconPng(c.icon, WHITE); iconsOff[c.name] = await iconPng(c.icon, OFF_ICON); }
   for (const g of GROUPS) icons[g.name] = await iconPng(g.icon, WHITE);
   const flags = {};
   for (const p of POLICIES) if (!flags[p.flag]) flags[p.flag] = await flagPng(p.flag);
@@ -85,17 +97,15 @@ function slideNumber(slide, n) {
     const logoData = fs.existsSync(logoPath) ? "image/png;base64," + fs.readFileSync(logoPath).toString("base64") : null;
     const s = pres.addSlide();
     s.background = { color: GREEN };
-    if (logoData) s.addImage({ data: logoData, x: 0.8, y: 0.6, w: 2.6, h: 0.75, sizing: { type: "contain", w: 2.6, h: 0.75 } });
+    s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: W, h: 1.58, fill: { color: WHITE }, line: { color: WHITE, width: 0 } });
+    if (logoData) s.addImage({ data: logoData, x: 0.7, y: 0.47, w: 2.0, h: 0.51 });
+    s.addText("Directorate for Education and Skills", { x: 0.7, y: 0.98, w: 6.0, h: 0.32, fontFace: "Garamond", fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "middle" });
     s.addText("Re-attracting Former Teachers", { x: 0.8, y: 2.0, w: 11.7, h: 1.15, fontFace: HEAD, fontSize: 44, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
-    s.addText("Policies that bring them back into education", { x: 0.8, y: 3.25, w: 11.7, h: 0.6, fontFace: BODY, fontSize: 21, color: "CFE3D9", margin: 0, isTextBox: true });
-    s.addText("José Manuel Torres &  José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 6.5, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
-    const uniqueFlags = [...new Set(POLICIES.map(p => p.flag))];
-    const gap = 0.12, avail = 12.33;
-    const fw = Math.min(0.78, (avail - (uniqueFlags.length - 1) * gap) / uniqueFlags.length);
-    const fh = fw * 0.75;
-    const total = uniqueFlags.length * fw + (uniqueFlags.length - 1) * gap;
-    let x = (W - total) / 2;
-    for (const code of uniqueFlags) { s.addImage({ data: flags[code], x, y: 5.15, w: fw, h: fh }); x += fw + gap; }
+    s.addText("Various international policies and experiences", { x: 0.8, y: 3.25, w: 11.7, h: 0.6, fontFace: BODY, fontSize: 21, color: "CFE3D9", margin: 0, isTextBox: true });
+    s.addText([
+      { text: "José Manuel Torres &  José Elías Durán Roa ", options: { bold: true, breakLine: true } },
+      { text: "September 2026" }
+    ], { x: 0.93, y: 5.2, w: 10, h: 0.4, fontFace: HEAD, fontSize: 16, color: "CFE3D9", margin: 0, isTextBox: true });
     s.addNotes("Deck built from official sources, plus institutional evaluations and reputable press where noted. Each policy slide carries its source links; verification notes are in the speaker notes of each slide." + (logoData ? "" : " No logo file supplied yet: drop oecd-logo.png into the build folder and rebuild to place it top-left."));
   }
 
@@ -120,7 +130,7 @@ function slideNumber(slide, n) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
     s.addText("Five policy instruments", { x: 0.7, y: 0.45, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Classified by the instrument it uses to re-attract teachers", { x: 0.73, y: 1.12, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
+    s.addText("Classified by the instrument used to re-attract teachers", { x: 0.73, y: 1.12, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
     let y = 1.85;
     for (const c of CATS) {
       iconCircle(s, pres, icons[c.name], 0.9, y, 0.68);
@@ -157,58 +167,58 @@ function slideNumber(slide, n) {
     // flag + country (top-left)
     s.addImage({ data: flags[p.flag], x: 0.5, y: 0.42, w: 1.05, h: 0.7875 });
     s.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fill: { type: "none" }, line: { color: LINE, width: 0.75 } });
-    s.addText(p.country, { x: 1.75, y: 0.36, w: 6.8, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
-    if (p.region) s.addText(p.region, { x: 1.75, y: 0.86, w: 6.8, h: 0.34, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
-    // category pill + target groups (top-right)
-    s.addShape(pres.ShapeType.roundRect, { x: 9.03, y: 0.42, w: 3.8, h: 0.47, fill: { color: SAGE }, line: { color: ACCENT, width: 1 }, rectRadius: 0.235 });
-    s.addText(p.cat, { x: 9.03, y: 0.42, w: 3.8, h: 0.47, fontFace: BODY, fontSize: 13.5, bold: true, color: ACCENT, align: "center", valign: "middle", margin: 0, isTextBox: true });
-    s.addText("Target: " + p.groups.join(" / "), { x: 8.03, y: 0.93, w: 4.8, h: 0.3, fontFace: BODY, fontSize: 11, color: INK, align: "right", valign: "top", margin: 0, isTextBox: true });
+    s.addText(p.country, { x: 1.75, y: 0.42, w: 8.0, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    if (p.region) s.addText(p.region, { x: 1.75, y: 0.92, w: 8.0, h: 0.34, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
     // body card
     s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
-    iconCircle(s, pres, icons[p.cat], 0.85, 1.85, 0.85);
-    s.addText(p.title, { x: 1.95, y: 1.68, w: 10.65, h: 0.95, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
-    s.addText(p.desc, { x: 1.95, y: 2.62, w: 10.65, h: 2.68, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
-    // secondary instruments line
-    s.addText([
-      { text: "Secondary instruments: ", options: { bold: true, color: INK } },
-      { text: (p.secondary && p.secondary.length) ? p.secondary.join(", ") : "none", options: { color: INK } }
-    ], { x: 1.95, y: 5.32, w: 10.65, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    s.addText(p.title, { x: 0.95, y: 1.7, w: 11.43, h: 0.9, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(p.desc, { x: 0.95, y: 2.64, w: 11.43, h: 2.85, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
     // footer: sources (clickable)
     const runs = [];
     p.sources.forEach((u, i) => {
       runs.push({ text: i === 0 ? "Source: " : "Source (see also): ", options: { bold: true, color: INK, breakLine: false } });
       runs.push({ text: u, options: { hyperlink: { url: u, tooltip: u }, color: ACCENT, underline: { style: "sng", color: ACCENT }, breakLine: i < p.sources.length - 1 } });
     });
-    s.addText(runs, { x: 0.5, y: 5.92, w: 10.6, h: 0.95, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText(runs, { x: 0.5, y: 5.8, w: 12.33, h: 0.62, fontFace: BODY, fontSize: 10, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    // instruments used, as lit dots, with the target groups under them
+    const used = [p.cat, ...(p.secondary || [])];
+    instrumentDots(s, pres, icons, iconsOff, used, 0.55, 6.52, 0.42, 0.17);
+    s.addText(p.groups.join(" / "), { x: 0.55, y: 7.02, w: 5.0, h: 0.28, fontFace: BODY, fontSize: 10.5, color: MUTED, margin: 0, isTextBox: true, valign: "middle" });
     scaleLabel(s, pres, p.scale);
     slideNumber(s, n);
-    s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — ${p.cat} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
+    s.addNotes(`${p.country}${p.region ? " (" + p.region + ")" : ""} — Instruments lit: ${used.join(", ")} — Target: ${p.groups.join(", ")}.\n\n${p.notes}\n\nEuro amounts in brackets are approximate conversions, rounded, for orientation only.`);
     n++;
   }
 
-  // ================= 4. SUMMARY TABLE (two slides) =================
-  const half = Math.ceil(POLICIES.length / 2);
-  [POLICIES.slice(0, half), POLICIES.slice(half)].forEach((part, pi) => {
+  // ================= 4. BLANK TEMPLATE SLIDE =================
+  {
+    const GREY = "8C9B95";
     const s = pres.addSlide();
     s.background = { color: WHITE };
-    s.addText(`Summary: ${POLICIES.length} policies at a glance (${pi + 1}/2)`, { x: 0.5, y: 0.3, w: 10, h: 0.6, fontFace: HEAD, fontSize: 28, bold: true, color: INK, margin: 0, isTextBox: true });
-    const hdr = ["Country", "Policy", "Category", "Target group(s)", "Scale"].map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: GREEN }, fontSize: 10.5, valign: "middle" } }));
-    const rows = [hdr];
-    part.forEach((p, i) => {
-      const fill = i % 2 === 0 ? WHITE : "F4F8F6";
-      const o = { color: INK, fontSize: 9.5, fill: { color: fill }, valign: "middle" };
-      rows.push([
-        { text: p.country + (p.region ? " (" + p.region + ")" : ""), options: { ...o, bold: true } },
-        { text: p.title, options: { ...o } },
-        { text: p.cat, options: { ...o } },
-        { text: p.groups.join(" / "), options: { ...o } },
-        { text: p.scale, options: { ...o } },
-      ]);
-    });
-    s.addTable(rows, { x: 0.5, y: 1.1, w: 12.33, colW: [2.35, 5.3, 2.0, 1.93, 0.75], fontFace: BODY, border: { type: "solid", pt: 0.5, color: LINE }, margin: [2, 5, 2, 5], rowH: 0.28, autoPage: false });
-    slideNumber(s, n + pi);
-    s.addNotes("Summary table of all policies in the deck, in the same order as the slides.");
-  });
+    s.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fill: { color: "F4F7F5" }, line: { color: LINE, width: 1 } });
+    s.addText("flag", { x: 0.5, y: 0.42, w: 1.05, h: 0.7875, fontFace: BODY, fontSize: 10, color: GREY, align: "center", valign: "middle", margin: 0, isTextBox: true });
+    s.addText("Country", { x: 1.75, y: 0.42, w: 8.0, h: 0.5, fontFace: BODY, fontSize: 22, bold: true, color: INK, margin: 0, isTextBox: true, valign: "middle" });
+    s.addText("Region or state (delete this line if the policy is national)", { x: 1.75, y: 0.92, w: 8.0, h: 0.34, fontFace: BODY, fontSize: 13, color: GREY, margin: 0, isTextBox: true });
+    s.addShape(pres.ShapeType.roundRect, { x: 0.5, y: 1.5, w: 12.33, h: 4.22, fill: { color: SAGE }, line: { color: SAGE, width: 0 }, rectRadius: 0.12 });
+    s.addText("Policy name, and the year or period", { x: 0.95, y: 1.7, w: 11.43, h: 0.9, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
+    s.addText("Write four to six lines of plain prose. Open with what the policy actually does, who runs it and whom it is for, then how it works step by step, then what the returner gets. Put dates and figures at the end, and only the ones that carry the story. Do not repeat the country, the region or the policy name: they are already on the slide.",
+      { x: 0.95, y: 2.64, w: 11.43, h: 2.85, fontFace: BODY, fontSize: 15, color: GREY, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
+    s.addText([{ text: "Source: ", options: { bold: true, color: INK } }, { text: "paste the link, and add a second line 'Source (see also):' if there is another", options: { color: GREY } }],
+      { x: 0.5, y: 5.8, w: 12.33, h: 0.62, fontFace: BODY, fontSize: 10, margin: 0, isTextBox: true, valign: "top" });
+    instrumentDots(s, pres, icons, iconsOff, [], 0.55, 6.52, 0.42, 0.17);
+    s.addText("Switchers / Leavers / Retired", { x: 0.55, y: 7.02, w: 5.0, h: 0.28, fontFace: BODY, fontSize: 10.5, color: GREY, margin: 0, isTextBox: true, valign: "middle" });
+    s.addShape(pres.ShapeType.roundRect, { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fill: { color: GREY }, line: { color: GREY, width: 0 }, rectRadius: 0.2 });
+    s.addText("Scale", { x: 11.43, y: 6.5, w: 1.4, h: 0.4, fontFace: BODY, fontSize: 12.5, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0, isTextBox: true });
+    slideNumber(s, n);
+    s.addNotes([
+      "Blank policy slide, same layout as the deck. Replace every grey placeholder.",
+      "Flag: delete the grey box and drop in a flag image of the same size (1.05 x 0.79 inches), then put a thin light border around it.",
+      "Instrument dots: in order, Financial incentives, Information & nudges, Support & training, Flexible positions, Flexible re-certification. Copy a lit dot from any slide over the ones this policy uses and leave the rest grey.",
+      "Target groups: the grey line under the dots. Any combination of Switchers, Leavers and Retired.",
+      "Scale: Large for a national policy, Medium for a state, region, province or canton, Small for a district, a city or a single institution. Colours: Large 1F4E46, Medium C8892B, Small B3542E.",
+      "Fonts: Cambria for the title, Calibri for everything else. Text colours: 24313A and B3542E."
+    ].join("\n"));
+  }
 
   const out = path.join(__dirname, "Re-attracting_Former_Teachers.pptx");
   await pres.writeFile({ fileName: out });
