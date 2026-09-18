@@ -22,7 +22,7 @@ const CATS = [
   { name: "Financial incentives", icon: "FaCoins",
     def: "Direct payments or legal changes with an economic effect: rules letting retirees draw salary plus pension, return bonuses for switchers or leavers, bonuses for schools that re-hire them." },
   { name: "Information & nudges", icon: "FaEnvelopeOpenText",
-    def: "Informing, reminding or prompting the decision to return without changing economic incentives: information sessions, career guidance or peer mentoring, a leaflet with the retirement form, personalised letters, calls or e-mails." },
+    def: "Informing, reminding or prompting the decision to return: information sessions, career guidance or peer mentoring, a leaflet with the retirement form, personalised letters, calls or e-mails." },
   { name: "Support & training", icon: "FaChalkboardTeacher",
     def: "Refresher courses, return-to-teaching programmes, induction and coaching that make re-entry easier." },
   { name: "Flexible positions", icon: "FaUserClock",
@@ -79,34 +79,25 @@ function slideNumber(slide, n) {
   const flags = {};
   for (const p of POLICIES) if (!flags[p.flag]) flags[p.flag] = await flagPng(p.flag);
 
-  // ================= 1. COVERS (professional, then with flags) =================
-  const logoPath = path.join(__dirname, "oecd-logo.png");
-  const hasLogo = fs.existsSync(logoPath);
-  const logoData = hasLogo ? "image/png;base64," + fs.readFileSync(logoPath).toString("base64") : null;
-  const uniqueFlags = [...new Set(POLICIES.map(p => p.flag))];
-  const nCountries = new Set(POLICIES.map(p => p.country)).size;
-
-  function coverBase(withFlags) {
+  // ================= 1. COVER =================
+  {
+    const logoPath = path.join(__dirname, "oecd-logo.png");
+    const logoData = fs.existsSync(logoPath) ? "image/png;base64," + fs.readFileSync(logoPath).toString("base64") : null;
     const s = pres.addSlide();
     s.background = { color: GREEN };
     if (logoData) s.addImage({ data: logoData, x: 0.8, y: 0.6, w: 2.6, h: 0.75, sizing: { type: "contain", w: 2.6, h: 0.75 } });
     s.addText("Re-attracting Former Teachers", { x: 0.8, y: 2.0, w: 11.7, h: 1.15, fontFace: HEAD, fontSize: 44, bold: true, color: WHITE, margin: 0, isTextBox: true, valign: "bottom" });
     s.addText("Policies that bring them back into education", { x: 0.8, y: 3.25, w: 11.7, h: 0.6, fontFace: BODY, fontSize: 21, color: "CFE3D9", margin: 0, isTextBox: true });
-    s.addText(`${POLICIES.length} policies · ${nCountries} countries`, { x: 0.8, y: 4.0, w: 11.7, h: 0.45, fontFace: BODY, fontSize: 15, color: WHITE, margin: 0, isTextBox: true });
-    s.addText("José Manuel Torres – José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 6.5, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
-    if (withFlags) {
-      const gap = 0.12, avail = 12.33;
-      const fw = Math.min(0.78, (avail - (uniqueFlags.length - 1) * gap) / uniqueFlags.length);
-      const fh = fw * 0.75;
-      const total = uniqueFlags.length * fw + (uniqueFlags.length - 1) * gap;
-      let x = (W - total) / 2;
-      for (const code of uniqueFlags) { s.addImage({ data: flags[code], x, y: 5.15, w: fw, h: fh }); x += fw + gap; }
-    }
-    return s;
+    s.addText("José Manuel Torres &  José Elías Durán Roa  ·  September 2026", { x: 0.8, y: 6.5, w: 10, h: 0.4, fontFace: BODY, fontSize: 13, color: "CFE3D9", margin: 0, isTextBox: true });
+    const uniqueFlags = [...new Set(POLICIES.map(p => p.flag))];
+    const gap = 0.12, avail = 12.33;
+    const fw = Math.min(0.78, (avail - (uniqueFlags.length - 1) * gap) / uniqueFlags.length);
+    const fh = fw * 0.75;
+    const total = uniqueFlags.length * fw + (uniqueFlags.length - 1) * gap;
+    let x = (W - total) / 2;
+    for (const code of uniqueFlags) { s.addImage({ data: flags[code], x, y: 5.15, w: fw, h: fh }); x += fw + gap; }
+    s.addNotes("Deck built from official sources, plus institutional evaluations and reputable press where noted. Each policy slide carries its source links; verification notes are in the speaker notes of each slide." + (logoData ? "" : " No logo file supplied yet: drop oecd-logo.png into the build folder and rebuild to place it top-left."));
   }
-
-  coverBase(false).addNotes("Cover without flags. Delete whichever of the two covers you do not use." + (hasLogo ? "" : " The OECD Directorate for Education and Skills logo has not been supplied yet; drop oecd-logo.png into the build folder and rebuild to place it."));
-  coverBase(true).addNotes("Cover with the flags of every country in the deck. Delete whichever of the two covers you do not use.");
 
   // ================= 2. TARGET GROUPS =================
   {
@@ -120,7 +111,7 @@ function slideNumber(slide, n) {
       s.addText(g.def, { x: 2.0, y: y + 0.38, w: 10.2, h: 0.55, fontFace: BODY, fontSize: 14, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 1.32;
     }
-    slideNumber(s, 3);
+    slideNumber(s, 2);
     s.addNotes("Three target groups, as defined in the brief. A policy may target one group or several.");
   }
 
@@ -129,7 +120,7 @@ function slideNumber(slide, n) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
     s.addText("Five policy instruments", { x: 0.7, y: 0.45, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Each policy is classified by the instrument it uses", { x: 0.73, y: 1.12, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
+    s.addText("Classified by the instrument it uses to re-attract teachers", { x: 0.73, y: 1.12, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
     let y = 1.85;
     for (const c of CATS) {
       iconCircle(s, pres, icons[c.name], 0.9, y, 0.68);
@@ -137,7 +128,7 @@ function slideNumber(slide, n) {
       s.addText(c.def, { x: 1.85, y: y + 0.3, w: 10.6, h: 0.6, fontFace: BODY, fontSize: 13, color: INK, margin: 0, isTextBox: true, valign: "top" });
       y += 1.0;
     }
-    slideNumber(s, 4);
+    slideNumber(s, 3);
     s.addNotes("The five instrument categories used to classify every policy in the deck. Secondary instruments are named on each policy slide.");
   }
 
@@ -146,7 +137,6 @@ function slideNumber(slide, n) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
     s.addText("Scale", { x: 0.7, y: 0.6, w: 11.8, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText("Every policy slide carries one of these labels at the bottom right of its card", { x: 0.73, y: 1.27, w: 11.8, h: 0.35, fontFace: BODY, fontSize: 14, color: ACCENT, margin: 0, isTextBox: true });
     const scales = [["Large", "National policy"], ["Medium", "State, region, province or canton"], ["Small", "District, city or a single institution"]];
     let y = 2.35;
     for (const [k, v] of scales) {
@@ -155,12 +145,12 @@ function slideNumber(slide, n) {
       s.addText(v, { x: 3.6, y, w: 9.0, h: 0.46, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "middle" });
       y += 0.95;
     }
-    slideNumber(s, 5);
+    slideNumber(s, 4);
     s.addNotes("Scale tells the reader how far a policy reaches: a whole country, a state or region, or one district or institution.");
   }
 
   // ================= 3. POLICY SLIDES =================
-  let n = 6;
+  let n = 5;
   for (const p of POLICIES) {
     const s = pres.addSlide();
     s.background = { color: WHITE };
@@ -178,12 +168,10 @@ function slideNumber(slide, n) {
     iconCircle(s, pres, icons[p.cat], 0.85, 1.85, 0.85);
     s.addText(p.title, { x: 1.95, y: 1.68, w: 10.65, h: 0.95, fontFace: HEAD, fontSize: 21, bold: true, color: INK, margin: 0, isTextBox: true, valign: "top" });
     s.addText(p.desc, { x: 1.95, y: 2.62, w: 10.65, h: 2.68, fontFace: BODY, fontSize: 15, color: INK, margin: 0, isTextBox: true, valign: "top", lineSpacingMultiple: 1.06 });
-    // secondary instruments line (replaces the former fact chips)
-    const alsoChip = (p.chips || []).find(t => /^Also:/.test(t));
-    const also = alsoChip ? alsoChip.replace(/^Also:\s*/, "").replace(/\s*\(.*\)$/, "") : null;
+    // secondary instruments line
     s.addText([
       { text: "Secondary instruments: ", options: { bold: true, color: INK } },
-      { text: also || "none (single-instrument policy)", options: { color: INK } }
+      { text: (p.secondary && p.secondary.length) ? p.secondary.join(", ") : "none", options: { color: INK } }
     ], { x: 1.95, y: 5.32, w: 10.65, h: 0.3, fontFace: BODY, fontSize: 11.5, color: INK, margin: 0, isTextBox: true, valign: "middle" });
     // footer: sources (clickable)
     const runs = [];
