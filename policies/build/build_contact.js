@@ -79,7 +79,7 @@ const T = [
 
   // why these three
   s = pres.addSlide(); s.background = { color: WHITE };
-  s.addText("Why these five", { x: 0.6, y: 0.5, w: 8, h: 0.7, fontFace: HEAD, fontSize: 32, bold: true, color: INK, margin: 0, isTextBox: true });
+  s.addText("Why these six", { x: 0.6, y: 0.5, w: 8, h: 0.7, fontFace: HEAD, fontSize: 32, bold: true, color: INK, margin: 0, isTextBox: true });
   s.addText("We chose the countries we can learn most from, not the ones with the most or the least information. Each one passes three tests: the policy is real and recent, it adds a different instrument or lesson to the others, and the questions we care about have answers sitting in the administration's own records rather than in what has been published.", { x: 0.6, y: 1.25, w: 12.1, h: 0.85, fontFace: BODY, fontSize: 13.5, color: INK, margin: 0, isTextBox: true, valign: "top" });
   let y = 2.2;
   for (const t of T) {
@@ -118,7 +118,6 @@ const T = [
   s = pres.addSlide(); s.background = { color: WHITE };
   s.addText("If one of them does not answer", { x: 0.6, y: 0.5, w: 11, h: 0.7, fontFace: HEAD, fontSize: 30, bold: true, color: INK, margin: 0, isTextBox: true });
   const reserve = [
-    ["Australia (Victoria), Teacher Re-Engagement Initiative", "Paid placements with a known budget and strong initial interest; conversion into jobs never published, and funding after mid-2025 unconfirmed. Same contact route as New South Wales."],
     ["Germany (Lower Saxony), earnings ceiling and letter to retiring teachers", "A clean before-and-after: the ceiling was raised in 2022 and abolished in 2024, with a letter campaign in between. Pension records would show how many hours pensioners now teach."],
     ["New Zealand, streamlined return with fees covered", "352 returners counted by April 2025; the Ministry monitors the pathway and could say who returns and whether they stay."],
     ["United States (New Mexico), Educational Retirees Returning to Work Act (2022)", "Every returning retiree must be approved by the Educational Retirement Board, so exact counts of applications, approvals and destinations exist; the three-year cap shows how long returners stay."],

@@ -52,3 +52,6 @@ y Calibri (texto); dos colores de texto por diapositiva.
 `Countries_to_contact.pptx` (8 diapositivas): los cinco países que proponemos contactar
 (Nueva Gales del Sur, Victoria, Países Bajos, Míchigan, Portugal), la política a consultar y cuatro
 preguntas abiertas por país, más una lista de reserva. Se regenera con `node build/build_contact.js`.
+
+`Policy_slide_template.pptx` es una diapositiva en blanco con el mismo diseño, para
+añadir políticas nuevas a mano. Se regenera con `node build/build_template.js`.
