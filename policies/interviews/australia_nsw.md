@@ -4,19 +4,19 @@
 **Who to ask:** the School Workforce directorate of the NSW Department of
 Education.
 
-**What we know.** Teachers Re-Engage is an initiative of the NSW Department of
-Education that has run since November 2023. The Department went through its own
-records of teachers who had left in the previous five years and invited them
-back; those who were interested were helped with accreditation, approval to teach
-and the working-with-children check, and registered on the casual booking
-platform that schools use. In the same month, the standards authority opened a
-shorter re-accreditation route for retired teachers. By May 2024, more than 1,500
-former teachers had been contacted, 260 had expressed interest and 145 had joined
-the pool of casual and temporary teachers that serves more than 600 schools;
-about six in ten of them were retirees. Three things the record does not tell
-us: how the teachers were contacted, since the press says by phone and the
-Department has not said; what became of the 145; and whether the initiative is
-still running, as nothing has been published since May 2024.
+**What we know.** Since November 2023 the NSW Department of Education has
+contacted teachers who resigned in the previous five years and asked them to
+consider coming back. Those interested are offered assistance to renew their
+accreditation and a placement in casual or temporary work, with the possibility
+of moving to a permanent post later; the standards authority opened a shorter
+re-accreditation route for retired teachers in the same month. The initiative
+was launched shortly after teachers received one of the largest pay rises in
+decades and a significant cut in administrative work. More than 1,500 former
+teachers were contacted; by May 2024, 260 had expressed interest and 145 had
+been placed in casual and temporary work, about sixty percent of them coming out
+of retirement. As far as we know the pathway is still open, but nothing has been
+published since May 2024, and we do not know how the teachers were contacted
+(the press says by phone) or what became of the 145.
 
 ---
 
