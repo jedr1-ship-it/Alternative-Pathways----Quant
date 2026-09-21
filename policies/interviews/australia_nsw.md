@@ -7,8 +7,9 @@ public schools.
 
 **What we know.** From November 2023 the Department went through its own records
 of teachers who had left in the previous five years and approached more than
-1,500 of them. By May 2024, 260 had expressed interest and 145 had been linked
-with schools, about six in ten of them retirees. Returners are helped with
+1,500 of them. By May 2024, 260 had expressed interest and 145 had joined the
+pool of casual and temporary teachers serving more than 600 schools, about six
+in ten of them retirees. Returners are helped with
 accreditation, approval to teach and the working-with-children check, and
 register on the casual booking platform schools use. A shorter re-accreditation
 route for retired teachers appeared at the standards authority the month the
