@@ -8,78 +8,73 @@ scolaires.
 **What we already know, so we do not ask it.** The measure was announced on
 21 September 2020 as a pandemic response and sits in the Règles budgétaires de
 fonctionnement of the school service centres, where it now appears as measure
-15178 with several volets. A retired teacher doing supply work is paid from the
+15178 in several volets. A retired teacher doing supply work is paid from the
 first day at the salary step and experience held at retirement, where the
 ordinary rules grant that step only after twenty days, and the pension continues
-because the retiree may elect not to rejoin the pension plan. It was initially
+because the retiree may elect not to rejoin the pension plan. It was at first
 limited to teachers who had retired since July 2015; a ministerial act effective
-in late January 2022 removed that condition, and the measure was announced as
-permanent in the same month. The mechanism rests on an agreement outside the
-collective agreement, between the employers' negotiating committee and the
-teaching unions, and that agreement is renewed on a school-year cycle.
+in late January 2022 removed that condition and the measure was announced as
+permanent the same month. It rests on an agreement outside the collective
+agreement, between the employers' negotiating committee and the teaching unions,
+renewed on a school-year cycle. The minister has written personally to retired
+teachers twice, in June 2023 and August 2025. The ministry's figure for 2024-25
+is more than 5,000 retirees back in schools; the press has since reported that
+some school service centres place retirees last on the supply list because they
+cost more.
 
 ---
 
-### Opening
+1. **Could you tell us how this came about in 2020?** We are interested in why
+   a pay rule was chosen, rather than a programme, a campaign or a change to the
+   pension rules.
+   - Who had to agree before it could exist, and what was the hardest part of
+     that conversation?
+   - Was there a reason it went into the budget rules rather than into the
+     collective agreement?
 
-1. Could you tell us how this came about in 2020? We are interested in why a pay
-   rule was the instrument chosen, rather than a programme, a campaign or a
-   change to the rules on pensions.
+2. **The measure is permanent on the budget side, but the agreement that carries
+   it is renewed each year with the unions. How does that work in practice?**
+   - What gets renegotiated, and what has changed from one year to the next?
+   - What will decide whether it is renewed again?
 
-2. Who had to agree before it could exist, and what was the hardest part of that
-   conversation?
+3. **What does the measure look like from the school service centre's side?**
+   - How do they draw on it, and what do they have to show?
+   - We have read that some centres call retirees last because they cost more.
+     Is that something you recognise, and is the premium borne centrally or by
+     the school?
 
-### The instrument
+4. **Who comes back, and to do what?** We would like to hear what kind of
+   retired teacher takes this up, how long after retiring, and whether they do
+   supply days, contracts or something else.
+   - Which do retirees actually take up — occasional supply, or the contract
+     with its own incentive?
+   - Is the choice not to rejoin the pension plan explained to them, or
+     something they have to find out?
 
-3. The measure is permanent on the budget side, but the agreement that carries it
-   is renewed each year with the unions. How does that work in practice, and what
-   gets renegotiated?
+5. **The minister has written to retired teachers twice. What came of those
+   letters, and what do they tell you about what moves this group?**
+   - What do retirees say when they say no?
 
-4. What does the measure look like from the school service centre's side: how do
-   they draw on it, and what do they have to show?
+6. **When you think about why teachers leave Quebec's schools, are the retirees
+   who come back covering for the same problem, or a different one?** This is
+   the question our chapter turns on.
+   - Has the measure changed how schools cover absences, and has it changed
+     anything about the number of classrooms without a qualified teacher?
+   - Does it reach the teacher who left mid-career, or only the one who
+     retired?
 
-5. In 2022 the condition limiting it to teachers who had retired after 2015 was
-   removed. What was behind that decision, and what did it change?
+7. **How has take-up developed since 2020, and how do you follow it?**
+   - Does the 5,000 count anyone paid for a single day, or people with a
+     meaningful volume of work?
+   - Has the ministry assessed the measure, and what would you say it has and
+     has not solved?
 
-6. There is also an incentive for a retiree who signs a contract rather than
-   doing occasional supply. Which of the two do retirees actually take up?
-
-7. How is the pension side handled in practice — is the choice not to rejoin the
-   plan explained to the returner, or is it something they have to find out?
-
-### The teachers
-
-8. Who comes back? We would like to hear what kind of retired teacher takes this
-   up, and how long after retiring they tend to do it.
-
-9. What do they come back to do: supply days, part-time contracts, mentoring,
-   something else? And is that what the network needed?
-
-10. In 2023 the minister wrote personally to retired teachers. What came of that,
-    and what does it tell you about what moves this group?
-
-11. What do retirees say when they say no?
-
-### Results and what comes next
-
-12. How has take-up developed since 2020, and how do you follow it?
-
-13. Has the measure changed the way schools cover absences — and has it changed
-    anything about the number of classrooms left without a qualified teacher?
-
-14. Has the ministry assessed it, and what would you say it has and has not
-    solved?
-
-15. What will decide whether the agreement is renewed again?
-
-### Close
-
-16. Is there a colleague who has followed this measure closely and could speak to
-    its experience and its results? An introduction would be very welcome.
+8. **Is there a colleague who has followed this closely and could speak to the
+   experience and the results?** An introduction would be very welcome.
 
 ---
 
-**Note for the interviewer.** Two things we could not settle from the public
-record and could ask directly if the conversation allows: the number and official
-citation of the ministerial act of January 2022, and whether the measure carried
-the number 15178 from the start. Both are useful for citing the policy correctly.
+**Note for the interviewer.** Two things the public record does not settle and
+that we could ask in passing: the number and official citation of the
+ministerial act of January 2022, and whether the measure carried the number
+15178 from the start. Both matter for citing the policy correctly.

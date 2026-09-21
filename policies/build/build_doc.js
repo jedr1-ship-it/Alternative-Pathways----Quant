@@ -7,6 +7,7 @@ const { Document, Packer, Paragraph, TextRun, HeadingLevel, TableOfContents,
 const SRC = "/home/user/Alternative-Pathways----Quant/policies/interviews";
 const FILES = [
   ["_introduction.md",      "The introduction we use in every interview"],
+  ["_how_to_use.md",        "How to use these scripts"],
   ["australia_nsw.md",      null],
   ["australia_victoria.md", null],
   ["canada_quebec.md",      null],
@@ -48,6 +49,7 @@ function blocks(md) {
       flush(); buf = { kind: "num", n: m[1], text: m[2] }; continue;
     }
     if (line.startsWith("> ")) { flush(); buf = { kind: "quote", text: line.slice(2) }; continue; }
+    if (/^\s+- /.test(line)) { flush(); buf = { kind: "probe", text: line.trim().slice(2) }; continue; }
     if (line.startsWith("- ")) { flush(); buf = { kind: "bullet", text: line.slice(2) }; continue; }
     if (buf) { buf.text += " " + line.trim(); continue; }
     buf = { kind: "p", text: line.trim() };
@@ -135,11 +137,18 @@ FILES.forEach(([file, overrideTitle], idx) => {
     if (b.kind === "rule") return;
     if (b.kind === "num") {
       children.push(new Paragraph({
-        spacing: { before: 60, after: 120 },
+        spacing: { before: 200, after: 80 },
         indent: { left: convertInchesToTwip(0.45), hanging: convertInchesToTwip(0.3) },
         children: [new TextRun({ text: b.n + ".", font: BODY, size: 22, bold: true, color: GREEN }),
                    new TextRun({ text: "\t", font: BODY, size: 22 }),
                    ...runs(b.text)] }));
+      return;
+    }
+    if (b.kind === "probe") {
+      children.push(new Paragraph({
+        spacing: { before: 0, after: 60 },
+        indent: { left: convertInchesToTwip(0.85), hanging: convertInchesToTwip(0.2) },
+        children: [new TextRun({ text: "–\t", font: BODY, size: 20, color: MUTED }), ...runs(b.text, { size: 20, color: MUTED })] }));
       return;
     }
     if (b.kind === "bullet") {
