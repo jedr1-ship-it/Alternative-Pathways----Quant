@@ -5,16 +5,19 @@ const D = require("docx");
 const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, PageBreak, convertInchesToTwip } = D;
 
 const SRC = "/home/user/Alternative-Pathways----Quant/policies/interviews";
-// file, short title for the heading and the index, one-line subtitle
+// file, country, region (null when the script is national), one-line subtitle under the heading
 const FILES = [
-  ["_introduction.md",      "Introduction",     null],
-  ["australia_nsw.md",      "New South Wales",  "Teachers Re-Engage, since 2023"],
-  ["australia_victoria.md", "Victoria",         "Teacher Re-Engagement Initiative, since 2022"],
-  ["canada_quebec.md",      "Quebec",           "Measure 15178, pay for returning retired teachers, since 2020"],
-  ["china.md",              "China",            "Silver-Age Lecturing Plan, since 2018"],
-  ["netherlands.md",        "Netherlands",      "Grant to schools for re-hiring former teachers, 2017–2022"],
-  ["united_states.md",      "United States",    "State laws on retired teachers returning to work"],
+  ["australia_nsw.md",      "Australia",     "New South Wales", "Teachers Re-Engage, since 2023"],
+  ["australia_victoria.md", "Australia",     "Victoria",        "Teacher Re-Engagement Initiative, since 2022"],
+  ["canada_quebec.md",      "Canada",        "Quebec",          "Measure 15178, pay for returning retired teachers, since 2020"],
+  ["china.md",              "China",         null,              "Silver-Age Lecturing Plan, since 2018"],
+  ["netherlands.md",        "Netherlands",   null,              "Grant to schools for re-hiring former teachers, 2017–2022"],
+  ["united_states.md",      "United States", null,              "State laws on retired teachers returning to work"],
 ];
+// heading of each section: the region where a country has more than one script, otherwise the country
+const countryCount = FILES.reduce((m, f) => (m[f[1]] = (m[f[1]] || 0) + 1, m), {});
+const headingOf = f => (countryCount[f[1]] > 1 ? f[2] : f[1]);
+const subtitleOf = f => (countryCount[f[1]] > 1 || !f[2]) ? f[3] : f[2] + ". " + f[3];
 
 const FONT = "Garamond", BLACK = "000000", GREY = "555555";
 const SZ = 24; // 12 pt
@@ -59,18 +62,29 @@ children.push(
   new Paragraph({ spacing: { after: 480 },
     children: [new TextRun({ text: "Interview scripts", font: FONT, size: 28, color: GREY })] }),
 );
-FILES.forEach(([, title, sub], i) => {
-  children.push(new Paragraph({
-    spacing: { before: 100, after: 0 },
+// index: the country, and under it each region when a country has more than one script
+let lastCountry = null;
+FILES.forEach((f, i) => {
+  const [, country, region] = f;
+  const link = (text, size, indent) => new Paragraph({
+    spacing: { before: indent ? 40 : 120, after: 0 },
+    indent: indent ? { left: convertInchesToTwip(0.35) } : undefined,
     children: [new D.InternalHyperlink({ anchor: "sec" + i, children: [
-      new TextRun({ text: title, font: FONT, size: SZ, bold: true, color: BLACK, underline: { type: D.UnderlineType.SINGLE } })] })] }));
-  if (sub) children.push(new Paragraph({ spacing: { after: 60 },
-    children: [new TextRun({ text: sub, font: FONT, size: 20, color: GREY })] }));
+      new TextRun({ text, font: FONT, size, bold: !indent, color: BLACK, underline: { type: D.UnderlineType.SINGLE } })] })] });
+  if (countryCount[country] > 1) {
+    if (country !== lastCountry) children.push(new Paragraph({ spacing: { before: 120, after: 0 },
+      children: [new TextRun({ text: country, font: FONT, size: SZ, bold: true, color: BLACK })] }));
+    children.push(link(region, 22, true));
+  } else {
+    children.push(link(country, SZ, false));
+  }
+  lastCountry = country;
 });
 children.push(new Paragraph({ children: [new PageBreak()] }));
 
 // ---------- the scripts ----------
-FILES.forEach(([file, title, sub], idx) => {
+FILES.forEach((f, idx) => {
+  const [file] = f; const title = headingOf(f); const sub = subtitleOf(f);
   const bs = blocks(fs.readFileSync(path.join(SRC, file), "utf8"));
   bs.forEach(b => {
     if (b.kind === "h1") {
