@@ -1,10 +1,5 @@
 # Shared introduction
 
-The same opening for every interview script. Read it out or paste it into the
-invitation; it is three ideas and nothing more.
-
----
-
 We are working on a chapter about former teachers for an OECD project on the
 diversity of routes into the teaching profession. We are gathering the policies
 and the experiences that countries have used to bring former teachers back to
