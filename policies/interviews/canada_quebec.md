@@ -1,9 +1,8 @@
 # Canada — Quebec
-## Financial incentives for the return of retired teachers, measure 15178 of the operating budget rules (since September 2020)
+## Measure 15178, pay for returning retired teachers, since 2020
 
 **Who to ask:** the direction of the Ministère de l'Éducation responsible for
-teaching staff and for the operating budget rules of the centres de services
-scolaires.
+teaching staff and for the budget rules of the centres de services scolaires.
 
 **What we know.** Announced on 21 September 2020 as a pandemic measure, the
 incentive sits in the Règles budgétaires de fonctionnement of the school service
@@ -22,41 +21,47 @@ centres call retirees last because they cost more.
 
 ---
 
-1. **How did this come about in 2020?** Why a pay rule, rather than a programme,
-   a campaign or a change to pension rules?
+1. **In what context did this measure come about in 2020, and with what
+   purpose?** We understand it was a pandemic response; why a pay rule, rather
+   than a programme, a campaign or a change to pension rules?
    - Who had to agree, and what was hardest to agree?
-   - Why the budget rules rather than the collective agreement?
 
-2. **The measure is permanent on the budget side but the agreement carrying it
-   is renewed each year. How does that work?**
+2. **We understand the measure is permanent on the budget side, while the
+   agreement carrying it is renewed each year with the unions. How does that
+   work in practice?**
    - What is renegotiated, and what has changed from one year to the next?
-   - What will decide the next renewal?
 
 3. **Seen from a school service centre, how does the measure work?**
    - How do they draw on it, and what do they have to report?
-   - Some centres are said to call retirees last because they cost more. Do you
-     recognise that? Who bears the premium, the ministry or the school?
+   - According to the press, some centres call retirees last because they cost
+     more. Do you recognise that? Who bears the premium, the ministry or the
+     school?
 
-4. **Who comes back, and to do what?**
-   - How long after retiring, and for supply days or contracts?
-   - Is the option not to rejoin the pension plan explained to them?
+4. **How would you describe the retirees who come back — how long after
+   retiring, and to do what?**
+   - Supply days or contracts? Is the option not to rejoin the pension plan
+     explained to them?
 
-5. **What came of the minister's letters, and what do they tell you about what
-   moves this group?**
+5. **The minister has written to retired teachers twice. What came of those
+   letters, and what do they tell you about what moves this group?**
    - What do retirees say when they decline?
 
-6. **Do the retirees who return cover the same problem that drives teachers out
-   of the profession, or a different one?**
-   - Has the measure changed how absences are covered, and the number of
-     classrooms without a qualified teacher?
-   - Does it reach the mid-career leaver at all?
+6. **We noticed the ministry's figure of more than 5,000 retirees back in
+   schools in 2024-25. How is that counted, and how has take-up moved since
+   2020?**
+   - Does it count anyone paid for one day, or people with a meaningful volume
+     of work?
 
-7. **How has take-up moved since 2020, and how is it counted?**
-   - Does the 5,000 count anyone paid for one day, or people with a meaningful
-     volume of work?
-   - Has the ministry assessed the measure? What has it solved, and what not?
+7. **Is there any record of what the measure has changed — how absences are
+   covered, the number of classrooms without a qualified teacher, an
+   assessment?**
+   - Does it reach the mid-career leaver at all, or only the retiree?
 
-8. **Is there someone who has followed this closely that we should speak to?**
+8. **Overall, what is your assessment of its impact, and what will decide the
+   next renewal?**
+
+9. **Is there someone who has followed this closely you would recommend we
+   speak to?**
 
 ---
 

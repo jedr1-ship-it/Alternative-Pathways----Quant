@@ -1,8 +1,8 @@
 # Australia — Victoria
-## Teacher Re-Engagement Initiative (TREI), Department of Education (since late 2022)
+## Teacher Re-Engagement Initiative, since 2022
 
-**Who to ask:** the re-engagement team of the Department of Education, in the
-area responsible for attracting teachers to government schools.
+**Who to ask:** the re-engagement team of the Victorian Department of
+Education.
 
 **What we know.** The initiative opened in late 2022 as a call for expressions of
 interest, answered by more than 1,100 teachers; the 2023/24 State Budget then
@@ -19,13 +19,13 @@ many led to a post, has been published.
 
 ---
 
-1. **How did this start?** The expressions of interest came before the money,
-   which is the reverse of the usual order.
+1. **In what context did this initiative come about, and with what purpose?**
+   We understand the expressions of interest came before the funding.
    - Why pay someone to try the classroom before deciding, rather than ask them
      to decide first?
-   - What else was considered?
 
-2. **From registration to the first day in a school, what happens?**
+2. **How would you describe what happens between a teacher registering and
+   their first day in a school?**
    - What does the call from the team cover?
    - How are teachers and schools matched, and what happens to someone who is
      not placed?
@@ -36,8 +36,9 @@ many led to a post, has been published.
      found?
    - Is the forty days a fixed shape, or different for each person?
 
-4. **The placement is now described as funded by the school rather than
-   centrally. Is that right, and how did it come about?**
+4. **According to the current departmental pages, the placement is now funded by
+   the school rather than centrally. Is that right, and how did that change come
+   about?**
    - Did schools' willingness to host change once they were paying?
 
 5. **Who came forward, and was it who you expected?**
@@ -46,15 +47,18 @@ many led to a post, has been published.
    - Why are returners from parental leave treated differently from retirees
      and career-break returners?
 
-6. **Are the teachers who came back the same kind of teachers who leave?** What
-   did they say about why they had left, and what worried them about returning?
+6. **We noticed that more than 1,100 teachers registered interest in the first
+   months. What did they tell you about why they had left, and what worried them
+   about coming back?**
    - Does a paid re-entry reach the teacher who left because of the job itself?
 
-7. **What happened after the placements?**
-   - Who took a post, who did not, and what became of those who decided
-     against the classroom?
-   - Has it been evaluated? What did it cost against what it produced?
+7. **Is there any record of how well the initiative has worked — placements
+   made, how many led to a post, an evaluation?**
+   - What became of those who decided against the classroom?
+   - What did it cost against what it produced?
 
-8. **Where does the initiative stand now, and what would you change?**
+8. **Overall, what is your assessment of its impact, and what would you change
+   if you were designing it again?**
 
-9. **Is there someone who has run this closely that we should speak to?**
+9. **Is there someone who has run this closely you would recommend we speak
+   to?**

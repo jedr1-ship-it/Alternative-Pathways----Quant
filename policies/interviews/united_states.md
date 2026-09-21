@@ -1,9 +1,8 @@
 # United States
 ## State laws letting retired teachers return to work
 
-**Who to ask:** in each state, the teachers' retirement system, which
-administers the return and holds the records, and the department of education or
-certification board, which controls the licence.
+**Who to ask:** in each state, the teachers' retirement system and the
+department of education or certification board.
 
 **What we know.** Almost every state lets a retired teacher return under
 conditions built from the same four levers: a waiting period, an earnings
@@ -28,18 +27,20 @@ amended in 2025 and 2026; check the current text before the conversation.
 
 ### For any state
 
-1. **How did this come about, and what problem was it meant to solve?**
+1. **In what context did this law come about, and with what purpose?** Was the
+   shortage severe at the time?
    - Who had to be persuaded: legislature, retirement system, districts,
      unions?
    - Was another state the model?
 
-2. **Of the four levers — waiting period, earnings ceiling, shortage
-   designation, duration — which were argued over, and why did they land where
-   they did?**
+2. **We understand the rules are built from a few levers — waiting period,
+   earnings ceiling, shortage designation, duration. Which were argued over, and
+   why did they land where they did?**
    - Is the waiting period a pension question, a federal-tax question or a
      political one?
 
-3. **What does a retiree have to do to come back, and who decides?**
+3. **How would you describe what a retiree has to do to come back, and who
+   decides?**
    - Where does the paperwork slow people down?
    - The licence sits with a different body from the pension. For a lapsed
      certificate, how much of an obstacle is that, and does anyone own it?
@@ -49,21 +50,20 @@ amended in 2025 and 2026; check the current text before the conversation.
    - Do they end up where the shortage is worst?
    - What do retirees say when they decline?
 
-5. **Is a returning retiree an answer to why teachers leave your schools, or an
-   answer to something else?**
-   - Do returning retirees take posts that would otherwise go to new teachers,
-     and has anyone looked?
+5. **According to the research we have seen, there is a concern that returning
+   retirees take posts that would otherwise go to new teachers. Has anyone
+   looked at that in your state?**
 
-6. **How many have returned, and how are they counted?**
+6. **Is there any record of how many have returned, and how are they counted?**
    - What has it cost the retirement system, and how is that judged?
    - Has the measure been evaluated or audited?
 
-7. **Several of these laws expire. What will decide whether yours is kept, and
-   what would you want to know first?**
+7. **Overall, what is your assessment of its impact, and what will decide
+   whether it is kept when it expires?**
    - What would you tell another state to do differently?
 
-8. **Is there someone at the retirement system or on the certification side we
-   should speak to?**
+8. **Is there someone at the retirement system or on the certification side you
+   would recommend we speak to?**
 
 ### One follow-up per state
 
