@@ -4,20 +4,20 @@
 **Who to ask:** the direction of the Ministère de l'Éducation responsible for
 teaching staff and for the budget rules of the centres de services scolaires.
 
-**What we know.** Announced on 21 September 2020 as a pandemic measure, the
-incentive sits in the Règles budgétaires de fonctionnement of the school service
-centres, now as measure 15178 in several volets. A retired teacher doing supply
-work is paid from the first day at the salary step and experience held at
-retirement, where the ordinary rules grant that step only after twenty days; the
-pension continues because the retiree may elect not to rejoin the plan. It was
-first limited to teachers retired since July 2015; a ministerial act effective in
-late January 2022 removed the condition, and the measure was declared permanent
-the same month. It rests on an agreement outside the collective agreement,
-between the employers' negotiating committee and the teaching unions, renewed
-each school year. The minister has written to retired teachers twice, in June
-2023 and August 2025. The ministry's figure for 2024-25 is more than 5,000
-retirees back in schools; the press has since reported that some school service
-centres call retirees last because they cost more.
+**What we know.** Since September 2020, a retired teacher in Quebec who does
+supply work is paid from the first day at the salary step and experience held at
+retirement, where the ordinary rules grant that step only after twenty days, and
+keeps the full pension by electing not to rejoin the plan. The incentive sits in
+the operating budget rules of the school service centres as measure 15178 and
+rests on an agreement outside the collective agreement, between the employers'
+negotiating committee and the teaching unions, renewed each school year. First
+limited to teachers retired since July 2015, it was opened to all retirees by
+ministerial act in January 2022 and declared permanent the same month; the
+minister has written to retired teachers twice, in June 2023 and August 2025.
+The ministry counts more than 5,000 retirees back in schools in 2024-25. What we
+do not know: how that figure is counted, whether the measure has been assessed,
+and whether, as the press reported in December 2025, some school service centres
+call retirees last because they cost more.
 
 ---
 

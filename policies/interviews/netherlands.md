@@ -4,17 +4,20 @@
 **Who to ask:** the primary-education directorate of the Ministry of Education,
 Culture and Science, and the agency that handled the applications (DUS-I).
 
-**What we know.** The regulation took effect on 1 November 2017 and paid a
-primary-school board up to 2,500 euros for each qualified teacher it hired who
-had not worked in primary education for at least a year, on a contract of six
-months or more. The money went to the board, for the guidance and support a
-returner needs in the first months. The first budget was 1.25 million euros,
-enough for about 500 returners; a 2019 amendment extended the scheme,
-applications closed on 1 November 2020 and the regulation expired on 1 January
-2022. In mid-2019 the ministry reported that more than a hundred returners had
-used it, against a pool of qualified teachers outside education that it put in
-the tens of thousands. A Dutch teaching qualification does not expire, so there
-is no re-licensing step on the way back.
+**What we know.** The Regeling tegemoetkoming herintreders primair onderwijs,
+in force from November 2017, paid a primary-school board up to 2,500 euros for
+each qualified teacher it hired who had not worked in primary education for at
+least a year, on a contract of six months or more; the money went to the board,
+for the guidance and support a returner needs in the first months. A Dutch
+teaching qualification does not expire, so there was no re-licensing step on the
+way back. The first budget was 1.25 million euros, enough for about 500
+returners; a 2019 amendment extended the scheme, applications closed in November
+2020 and the regulation expired in January 2022. In mid-2019 the ministry
+reported that more than a hundred returners had used it, against a pool of
+qualified teachers outside education that it put in the tens of thousands. What
+we do not know: how much of the money was finally used, whether the returners
+stayed, why the scheme was allowed to lapse, and whether it was ever
+evaluated.
 
 ---
 

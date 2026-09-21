@@ -4,24 +4,27 @@
 **Who to ask:** in each state, the teachers' retirement system and the
 department of education or certification board.
 
-**What we know.** Almost every state lets a retired teacher return under
-conditions built from the same four levers: a waiting period, an earnings
-ceiling, a shortage designation the district must establish, and a limit on the
-duration of the return. The states in our set have moved these levers
-differently. Michigan cut the wait to six months and removed the earnings
-ceiling after it, under a law expiring in October 2028. Georgia opened full-time
-return only to teachers with thirty years of service, in subjects a region had
-designated as highest-need; its 2025 audit found a few hundred returns a year and
-the one-year wait, not the pay rules, as the main deterrent, and the legislature
-has since widened eligibility and extended the measure to 2034. New Mexico lets a
-retiree draw pension and full salary with no cap on earnings or hours for a
-limited number of months, each return approved by the retirement board.
-Louisiana removed the cut-off that had confined its critical-shortage route to
-teachers retired before mid-2020. North Carolina ran the most generous version
-between 1999 and 2009, and published research finds those returners went
-disproportionately to high-need schools; the policy was allowed to lapse.
-Virginia acted on the licence rather than the pension. Several of these laws were
-amended in 2025 and 2026; check the current text before the conversation.
+**What we know.** Almost every US state lets a retired teacher return to work
+under conditions built from four levers: a waiting period, an earnings ceiling,
+a shortage designation the district must establish, and a limit on the duration
+of the return. In the states in our set, Michigan, since October 2023, cut the
+wait to six months and removed the earnings ceiling after it, under a law
+expiring in October 2028; Georgia, from 2022, opened full-time return to teachers
+with thirty years of service in subjects a region designated as highest-need,
+and has since widened eligibility and extended the measure to 2034; New Mexico,
+since 2022, lets a retiree draw pension and full salary with no cap on earnings
+or hours for a limited number of months, each return approved by the retirement
+board; Louisiana, in 2024, removed the cut-off that confined its
+critical-shortage route to teachers retired before mid-2020; North Carolina let
+retirees return full-time on full salary and pension between 1999 and 2009; and
+Virginia, in 2022, acted on the licence rather than the pension. The numbers we
+have are few: Georgia's 2025 audit found a few hundred returns a year and named
+the one-year wait, not the pay rules, as the main deterrent, and research on
+North Carolina finds its returners went disproportionately to high-need schools.
+What we do not know: how many have returned in the other states, what the
+measures have cost the retirement systems, and the exact current rules, since
+several laws were amended in 2025 and 2026; check the text before the
+conversation.
 
 ---
 

@@ -4,18 +4,20 @@
 **Who to ask:** the re-engagement team of the Victorian Department of
 Education.
 
-**What we know.** The initiative opened in late 2022 as a call for expressions of
-interest, answered by more than 1,100 teachers; the 2023/24 State Budget then
-put 12 million dollars into paid placements of up to forty days in government
-schools, to be completed by June 2025. A teacher away from a fixed-term or
-ongoing post for a year or more registers, the team calls, coaching is offered
-on applications and the current curriculum, and a placement is arranged with a
-serving teacher alongside. Returners from a career break or retirement receive an
-honorarium of up to 12,000 dollars; teachers returning from more than two years
-of parental absence resume duty temporarily on their own salary. The current
-departmental pages describe the placement as school-funded at 330 dollars a day,
-which we have not been able to confirm. No figure on placements made, or on how
-many led to a post, has been published.
+**What we know.** The Teacher Re-Engagement Initiative is a scheme of the
+Victorian Department of Education, running since late 2022, that offers teachers
+who have been away from a fixed-term or ongoing post for a year or more a paid
+placement of up to forty days in a government school before they apply for a
+job. The teacher registers, the re-engagement team calls, coaching is offered on
+applications and the current curriculum, and a placement is arranged with a
+serving teacher alongside; returners from a career break or retirement receive
+an honorarium of up to 12,000 dollars, while teachers back from more than two
+years of parental absence resume duty temporarily on their own salary. More than
+1,100 teachers registered interest in the first months, and the 2023/24 State
+Budget put 12 million dollars into placements to be completed by June 2025.
+What we do not know: how many placements were made and how many led to a post,
+since no figure has been published, and whether the placement is now funded by
+the school at 330 dollars a day, as the current departmental pages suggest.
 
 ---
 

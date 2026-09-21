@@ -4,16 +4,19 @@
 **Who to ask:** the School Workforce directorate of the NSW Department of
 Education.
 
-**What we know.** From November 2023 the Department went through its own records
-of teachers who had left in the previous five years and approached more than
-1,500 of them. By May 2024, 260 had expressed interest and 145 had joined the
-pool of casual and temporary teachers serving more than 600 schools, about six
-in ten of them retirees. Returners are helped with accreditation, approval to
-teach and the working-with-children check, and register on the casual booking
-platform schools use. A shorter re-accreditation route for retired teachers
-appeared at the standards authority the month the calls began. The press
-described the outreach as cold-calling; the Department has not said what the
-channel was. No figures have been published since May 2024.
+**What we know.** Teachers Re-Engage is an initiative of the NSW Department of
+Education, running since November 2023, under which the Department goes through
+its own records of teachers who left in the previous five years and invites them
+back. Those interested are helped with accreditation, approval to teach and the
+working-with-children check, and register on the casual booking platform schools
+use; a shorter re-accreditation route for retired teachers appeared at the
+standards authority the same month. By May 2024 more than 1,500 former teachers
+had been contacted, 260 had expressed interest and 145 had joined the pool of
+casual and temporary teachers serving more than 600 schools, about six in ten of
+them retirees. What we do not know: how the teachers were contacted (the press
+says by phone; the Department has not said), what became of the 145, and whether
+the initiative is still running, since nothing has been published since May
+2024.
 
 ---
 

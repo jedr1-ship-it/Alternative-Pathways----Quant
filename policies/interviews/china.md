@@ -4,20 +4,21 @@
 **Who to ask:** the Teacher Work Department of the Ministry of Education, and if
 possible a provincial education department that recruits for the plan.
 
-**What we know.** Since 2018 the Ministry of Education and the Ministry of
-Finance have recruited retired principals, teaching-research officers,
-special-grade and senior teachers, generally aged 65 or under, to county-town and
-rural schools in formerly poor, border and minority counties. Recruitment is run
-by provinces against named posts; the county education bureau signs an agreement
-with the teacher, for at least one school year and renewed annually, on the
-strength of a recent health certificate. The pension is untouched; the work is
-funded at 20,000 yuan per person per year, shared between central and local
-budgets, for an allowance, travel and accident insurance, and the county provides
-housing. In 2023 ten government departments extended the model to higher,
-vocational and private education, with a target of about 120,000 silver-age
-teachers within three years. The annual plan for compulsory education has been
-7,000 in 2024 and 2025, and the notices ask provinces to raise their completion
-rate.
+**What we know.** The Silver-Age Lecturing Plan, run by the Ministry of
+Education with the Ministry of Finance since 2018, posts retired principals,
+teaching-research officers, special-grade and senior teachers, generally aged 65
+or under, to county-town and rural schools in formerly poor, border and minority
+counties. Provinces recruit against named posts; the county education bureau
+signs a one-year agreement with the teacher, renewable, on the strength of a
+recent health certificate; the pension is untouched, the work is funded at
+20,000 yuan per person per year for an allowance, travel and accident insurance,
+and the county provides housing. The plan aimed at 10,000 teachers in its first
+three years and at 7,000 a year in 2024 and 2025; in 2023 ten government
+departments extended the model to higher, vocational and private education, with
+a target of about 120,000 silver-age teachers within three years. What we do not
+know: how many have actually been recruited against those plans, since the
+annual notices ask provinces to raise their completion rate, how long teachers
+stay, and whether anyone has assessed the effect on the receiving schools.
 
 ---
 
