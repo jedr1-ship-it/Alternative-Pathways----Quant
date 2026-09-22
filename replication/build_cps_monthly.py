@@ -97,8 +97,11 @@ def cache():
     for f in raw:
         b = os.path.basename(f)
         m = re.match(r"cpsb(\d{4})(\d{2})", b)
-        yyyymm = m.group(1) + m.group(2) if m else \
-            f"20{re.match(r'([a-z]{3})(\d{2})pub', b).group(2)}{MON[re.match(r'([a-z]{3})(\d{2})pub', b).group(1)]:02d}"
+        if m:
+            yyyymm = m.group(1) + m.group(2)
+        else:
+            m2 = re.match(r"([a-z]{3})(\d{2})pub", b)
+            yyyymm = f"20{m2.group(2)}{MON[m2.group(1)]:02d}"
         out = f"{INTDIR}/cps_{yyyymm}.parquet"
         if os.path.exists(out):
             kept += 1
