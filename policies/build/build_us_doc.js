@@ -6,58 +6,39 @@ const SRC = "/home/user/Alternative-Pathways----Quant/policies/interviews/united
 const FONT = "Garamond", BLACK = "000000", GREY = "555555", SZ = 24;
 
 // ---- the table, every cell checked against the retirement system or legislature named in the sources ----
-const COLS = ["State and law", "Who may return", "Waiting period", "Earnings limit", "Shortage required?", "How long / until when", "Pension while working"];
+const COLS = ["State", "The law", "Who can come back", "How long they must wait", "Limit on what they earn", "Must the district show a shortage?", "Until when"];
 const ROWS = [
-  ["Michigan\nPublic Act 147 of 2023 (signed 10 Oct 2023). Replaced PA 184 of 2022.",
-   "Any retiree of the school employees' system with a bona fide termination of employment.",
-   "Six consecutive months (nine under the 2022 law). A retiree may work before that if earnings stay under $15,100 in the calendar year.",
-   "None once six months have passed.",
-   "No.",
-   "No limit on the return. The law expires 10 Oct 2028.",
-   "Unaffected, including the insurance subsidy. Applies whether hired directly or through an agency."],
-  ["Georgia\nHouse Bill 385 (2022), 1 Jul 2022 – 30 Jun 2026; replaced by Senate Bill 150 from 1 Jul 2026.",
-   "HB 385: retirees with 30+ years of service, certified, hired full time as PreK-12 classroom teachers. SB 150: 25+ years per TRS's legislative update (its SB 150 page still shows 30 in one place; confirm).",
-   "One year retired.",
-   "None: full salary plus full pension.",
-   "HB 385: yes, one of the three highest-need subjects of the region, set by the RESA. SB 150: no.",
-   "SB 150 runs to 30 Jun 2034.",
-   "Full pension continues. The 2025 state audit counted about 350 returners a year under HB 385."],
-  ["New Mexico\nEducational Retirees Returning to Work Act, HB 73 (2022); SB 133 (signed 10 Apr 2025).",
-   "Retirees of the Educational Retirement Board; each return is applied for and approved by the Board.",
-   "90-day layout after retirement.",
-   "None under the months-limited programme. Two alternatives exist: work at 0.25 FTE or less, or earn under $25,000 a fiscal year (was $15,000 before SB 133).",
-   "No.",
-   "Up to 60 consecutive or non-consecutive months (36 before SB 133).",
-   "Full pension continues. Retiree and employer pay non-refundable contributions; no new service credit."],
-  ["Louisiana\nAct 394 of 2024 (signed May 2024).",
-   "Retired on or after 1 Jul 2020: full or part time as PreK-12 classroom teacher in specified subjects, or in a critical-shortage position. Retired before 1 Jul 2020: part time in a critical-shortage position.",
-   "Twelve months.",
-   "None in those positions.",
-   "Yes for critical-shortage positions: the employer certifies the shortage to TRSL.",
-   "No stated limit; certification is renewed with the employer.",
-   "Neither suspended nor reduced. Both sides contribute, no new credit. Hired through a staffing agency: benefits suspended."],
-  ["North Carolina\nGeneral return-to-work rule of the Teachers' and State Employees' Retirement System. Exception in force 1999–2009 (lapsed).",
-   "Any TSERS retiree, after the break.",
-   "Six months, during which no paid work for any system employer, substitute teaching included.",
-   "The greater of 50% of pre-retirement pay or $42,160 (2026). Above that, the pension is suspended. From 1999 to 2009 retired teachers could return full time on full salary with no cap.",
-   "No.",
-   "No limit within the cap.",
-   "Continues while earnings stay under the cap. Research on the 1999–2009 window finds returners went disproportionately to high-need schools."],
-  ["Virginia\nCritical-shortage provisions administered by the Virginia Retirement System, break shortened from 12 to 6 months from 1 Jul 2023; Executive Directive 3 (2022) on licensure.",
-   "VRS retirees hired full time into a certified critical-shortage position (teachers, principals, specialised student support, bus drivers). Not those retired under an early-retirement incentive or on disability, and no pre-arranged agreement before retiring.",
-   "Six consecutive months with no work, paid or volunteer, for any VRS employer.",
-   "None: full salary plus full benefit.",
-   "Yes: the school division certifies the position each year (form VRS-160).",
-   "The provisions expire 1 Jul 2028.",
-   "Full benefit continues; no new service credit."],
+  ["Michigan", "Law of 2023, in force until October 2028.",
+   "Any retired school employee who has fully left their job.",
+   "Six months. Before that, only if they earn under $15,100 in the year.",
+   "None after six months.", "No.", "October 2028."],
+  ["Georgia", "Law of 2022, replaced by a new law from July 2026.",
+   "Retired teachers with 30 years of service (25 from July 2026, to confirm), hired full time in a classroom.",
+   "One year.", "None.",
+   "Until June 2026, yes: one of the three subjects most in need in the region. From July 2026, no.",
+   "June 2034."],
+  ["New Mexico", "Law of 2022, extended in 2025.",
+   "Any retired educator, with the retirement board's approval of each return.",
+   "90 days.", "None. (Other options: part time, or under $25,000 a year.)", "No.",
+   "Up to 60 months of work in total."],
+  ["Louisiana", "Law of 2024.",
+   "Retired after mid-2020: full or part time as a classroom teacher in listed subjects, or in a shortage post. Retired before mid-2020: part time in a shortage post.",
+   "Twelve months.", "None in those posts.", "Yes, for shortage posts: the district certifies it.", "No limit stated."],
+  ["North Carolina", "Standing rule. A more generous exception ran from 1999 to 2009.",
+   "Any retired teacher.", "Six months.",
+   "Half of the former salary or $42,160, whichever is higher. Above that the pension stops.", "No.", "No limit."],
+  ["Virginia", "Shortage rule, wait shortened in 2023. A 2022 governor's directive eased licence renewal.",
+   "Retired teachers and school staff hired full time into a post the district certifies as a shortage.",
+   "Six months.", "None.", "Yes, certified by the district every year.", "July 2028."],
 ];
+const NOTE = "In all six states the pension keeps being paid in full while the retiree works under these rules (in North Carolina, as long as earnings stay under the limit). In Louisiana, a retiree hired through a staffing agency loses that protection and the pension is suspended.";
 const SOURCES = [
-  "Michigan Office of Retirement Services, Public Act 147 of 2023 FAQs, michigan.gov/orsschools/pa-147-of-2023-faqs; archive of PA 184 of 2022, michigan.gov/psru.",
-  "Teachers Retirement System of Georgia, HB 385 Employment and SB 150 Employment pages and Legislative Update, trsga.com; Georgia Department of Audits and Accounts, Retired Teachers Return to Work (2025).",
-  "New Mexico Educational Retirement Board, Returning to Work after Retirement, erb.nm.gov; Legislative Education Study Committee analysis of SB 133 (2025), nmlegis.gov.",
-  "Teachers' Retirement System of Louisiana, Regular Session News 18 and 19 (2024) and Return to Work FAQs, trsl.org.",
-  "North Carolina Retirement Systems, Return to Work Laws, myncretirement.gov; Jarrold-Grapes, Retirees return to work: how a North Carolina policy helped staff high-need schools, Education Policy Analysis Archives.",
-  "Virginia Retirement System, Critical Shortage Positions and Employer Update May 2023, varetire.org.",
+  "Michigan: Office of Retirement Services, Public Act 147 of 2023 (michigan.gov/orsschools).",
+  "Georgia: Teachers Retirement System of Georgia, House Bill 385 and Senate Bill 150 pages (trsga.com); state audit of 2025.",
+  "New Mexico: Educational Retirement Board, Returning to Work after Retirement (erb.nm.gov); legislative analysis of Senate Bill 133, 2025.",
+  "Louisiana: Teachers' Retirement System of Louisiana, Act 394 of 2024 and Return to Work FAQs (trsl.org).",
+  "North Carolina: state retirement system, Return to Work Laws (myncretirement.gov); Jarrold-Grapes on the 1999-2009 policy, Education Policy Analysis Archives.",
+  "Virginia: Virginia Retirement System, Critical Shortage Positions (varetire.org).",
 ];
 
 function runs(text, o = {}) {
@@ -85,13 +66,13 @@ function blocks(md) {
 const cell = (text, opts = {}) => new TableCell({
   width: { size: opts.w, type: WidthType.DXA },
   shading: opts.head ? { type: ShadingType.CLEAR, fill: "E8E8E8" } : undefined,
-  margins: { top: 60, bottom: 60, left: 80, right: 80 },
+  margins: { top: 40, bottom: 40, left: 60, right: 60 },
   children: text.split("\n").map((t, i) => new Paragraph({ spacing: { after: 40 },
-    children: [new TextRun({ text: t, font: FONT, size: 17, bold: opts.head || (i === 0 && opts.first), color: BLACK })] })),
+    children: [new TextRun({ text: t, font: FONT, size: 16, bold: opts.head || (i === 0 && opts.first), color: BLACK })] })),
 });
 function table() {
-  const widths = [1900, 2300, 1900, 2000, 1700, 1700, 2100]; // sum 13600 = landscape width inside 1" margins... adjusted below
-  const total = 12960; const scale = total / widths.reduce((a, b) => a + b, 0);
+  const widths = [1000, 1400, 2000, 1250, 1450, 1350, 910];
+  const total = 9360; const scale = total / widths.reduce((a, b) => a + b, 0);
   const W = widths.map(w => Math.round(w * scale));
   const border = { style: BorderStyle.SINGLE, size: 4, color: "999999" };
   return new Table({
@@ -120,8 +101,9 @@ bs.forEach(b => {
 const tableSection = [
   new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: "Return-to-work rules for retired teachers in the six states", font: FONT, size: 24, bold: true })] }),
   table(),
-  new Paragraph({ spacing: { before: 160, after: 40 }, children: [new TextRun({ text: "Checked against the following sources, September 2026:", font: FONT, size: 18, italics: true, color: GREY })] }),
-  ...SOURCES.map(s => new Paragraph({ spacing: { after: 20 }, indent: { left: convertInchesToTwip(0.2), hanging: convertInchesToTwip(0.2) }, children: [new TextRun({ text: "– " + s, font: FONT, size: 18, color: GREY })] })),
+  new Paragraph({ spacing: { before: 120, after: 80 }, children: [new TextRun({ text: NOTE, font: FONT, size: 18 })] }),
+  new Paragraph({ spacing: { before: 80, after: 40 }, children: [new TextRun({ text: "Checked against these sources in September 2026:", font: FONT, size: 17, italics: true, color: GREY })] }),
+  ...SOURCES.map(s => new Paragraph({ spacing: { after: 20 }, indent: { left: convertInchesToTwip(0.2), hanging: convertInchesToTwip(0.2) }, children: [new TextRun({ text: "– " + s, font: FONT, size: 17, color: GREY })] })),
 ];
 
 const portrait = { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, bottom: 1440, left: 1440, right: 1440 } } };
@@ -133,7 +115,7 @@ const doc = new Document({
   styles: { default: { document: { run: { font: FONT, size: SZ, color: BLACK } } } },
   sections: [
     { properties: portrait, footers: { default: footer }, children: before },
-    { properties: landscape, footers: { default: footer }, children: tableSection },
+    { properties: portrait, footers: { default: footer }, children: tableSection },
     { properties: portrait, footers: { default: footer }, children: after },
   ],
 });
