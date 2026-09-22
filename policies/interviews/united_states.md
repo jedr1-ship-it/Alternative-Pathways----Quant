@@ -2,43 +2,42 @@
 ## State laws letting retired teachers return to work
 
 **Who to ask:** in each state, the teachers' retirement system and the
-department of education or certification board.
+department of education or the certification board.
 
-**What we know.** Almost every US state lets a retired teacher return to work
-under conditions built from four levers: a waiting period, an earnings ceiling,
-a shortage designation the district must establish, and a limit on the duration
-of the return. In the states in our set, Michigan, since October 2023, cut the
-wait to six months and removed the earnings ceiling after it, under a law
-expiring in October 2028; Georgia, from 2022, opened full-time return to teachers
-with thirty years of service in subjects a region designated as highest-need,
-and has since widened eligibility and extended the measure to 2034; New Mexico,
-since 2022, lets a retiree draw pension and full salary with no cap on earnings
-or hours for a limited number of months, each return approved by the retirement
-board; Louisiana, in 2024, removed the cut-off that confined its
-critical-shortage route to teachers retired before mid-2020; North Carolina let
-retirees return full-time on full salary and pension between 1999 and 2009; and
-Virginia, in 2022, acted on the licence rather than the pension. The numbers we
-have are few: Georgia's 2025 audit found a few hundred returns a year and named
-the one-year wait, not the pay rules, as the main deterrent, and research on
-North Carolina finds its returners went disproportionately to high-need schools.
-What we do not know: how many have returned in the other states, what the
+**What we know:** Almost every state lets a retired teacher return to work under
+conditions built from four levers: how long they must wait after retiring, how
+much they may earn, whether the district must show a shortage, and how long the
+return may last. Michigan, in October 2023, cut the wait to six months and
+removed the earnings ceiling after it, under a law that expires in October 2028.
+Georgia, in 2022, opened full-time return to teachers with thirty years of
+service in subjects a region designated as highest-need; its 2025 audit found a
+few hundred returns a year and pointed to the one-year wait, not the pay rules,
+as the main deterrent, and the legislature has since widened eligibility and
+extended the measure to 2034. New Mexico, in 2022, let retirees draw pension and
+full salary with no cap on earnings or hours for a limited number of months,
+each return approved by the retirement board. Louisiana, in 2024, removed the
+cut-off that had confined its critical-shortage route to teachers retired before
+mid-2020. North Carolina let retirees return full-time on full salary and
+pension between 1999 and 2009, and research finds those returners went
+disproportionately to high-need schools; the policy was allowed to lapse.
+Virginia, in 2022, acted on the licence rather than the pension. What we do not
+know is how many teachers have returned in most of these states, what the
 measures have cost the retirement systems, and the exact current rules, since
-several laws were amended in 2025 and 2026; check the text before the
-conversation.
+several laws were amended in 2025 and 2026 (to check before each conversation).
 
 ---
 
 ### For any state
 
-1. **In what context did this law come about, and with what purpose?** Was the
-   shortage severe at the time?
+1. **In what context did this law come about, and with what purpose?** Did the
+   state face strong teacher shortages at that moment?
    - Who had to be persuaded: legislature, retirement system, districts,
      unions?
    - Was another state the model?
 
-2. **We understand the rules are built from a few levers — waiting period,
-   earnings ceiling, shortage designation, duration. Which were argued over, and
-   why did they land where they did?**
+2. **We understand the rules are built from a few levers: the waiting period,
+   the earnings ceiling, the shortage designation, the duration. Which were
+   argued over, and why did they land where they did?**
    - Is the waiting period a pension question, a federal-tax question or a
      political one?
 
@@ -46,12 +45,13 @@ conversation.
    decides?**
    - Where does the paperwork slow people down?
    - The licence sits with a different body from the pension. For a lapsed
-     certificate, how much of an obstacle is that, and does anyone own it?
+     certificate, how much of an obstacle is that?
    - Is the district's shortage test a filter or a formality?
 
-4. **Who comes back, to what posts, in which schools?**
+4. **Can you describe the profile of those who come back, the posts they take
+   and the schools they go to?**
    - Do they end up where the shortage is worst?
-   - What do retirees say when they decline?
+   - Do you know what retirees say when they decline?
 
 5. **According to the research we have seen, there is a concern that returning
    retirees take posts that would otherwise go to new teachers. Has anyone
@@ -61,19 +61,22 @@ conversation.
    - What has it cost the retirement system, and how is that judged?
    - Has the measure been evaluated or audited?
 
-7. **Overall, what is your assessment of its impact, and what will decide
+7. **Do you know about any other policy, in your state or elsewhere, that aims
+   to re-attract former teachers?**
+
+8. **Overall, what is your assessment of its impact, and what will decide
    whether it is kept when it expires?**
    - What would you tell another state to do differently?
 
-8. **Is there someone at the retirement system or on the certification side you
+9. **Is there someone at the retirement system or on the certification side you
    would recommend we speak to?**
 
 ### One follow-up per state
 
 - **Michigan.** Is the six-month wait still what holds people back, and how does
-  the requirement of a genuine separation work when it also reaches hiring
-  through an agency?
-- **Georgia.** The audit named the one-year wait as the main deterrent and the
+  the requirement of a genuine separation from the employer work when it also
+  reaches hiring through an agency?
+- **Georgia.** The audit named the one-year wait as the main deterrent, and the
   new law appears to have kept it while widening eligibility. How was that
   decided?
 - **New Mexico.** What does the retirement board's approval consist of, and what

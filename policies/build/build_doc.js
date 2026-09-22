@@ -14,8 +14,13 @@ const FILES = [
   ["netherlands.md",        "Netherlands",   null,              "Grant to schools for re-hiring former teachers, 2017–2022"],
   ["united_states.md",      "United States", null,              "State laws on retired teachers returning to work"],
 ];
+// optional: node build_doc.js --only netherlands.md,united_states.md --out Interview_scripts_NL_US.docx
+const argv = process.argv.slice(2);
+const argOf = k => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : null; };
+const ONLY = argOf("--only"); const OUT = argOf("--out") || "Interview_scripts.docx";
+const FILES_USED = ONLY ? FILES.filter(f => ONLY.split(",").includes(f[0])) : FILES;
 // heading of each section: the region where a country has more than one script, otherwise the country
-const countryCount = FILES.reduce((m, f) => (m[f[1]] = (m[f[1]] || 0) + 1, m), {});
+const countryCount = FILES_USED.reduce((m, f) => (m[f[1]] = (m[f[1]] || 0) + 1, m), {});
 const headingOf = f => (countryCount[f[1]] > 1 ? f[2] : f[1]);
 const subtitleOf = f => (countryCount[f[1]] > 1 || !f[2]) ? f[3] : f[2] + ". " + f[3];
 
@@ -64,7 +69,7 @@ children.push(
 );
 // index: the country, and under it each region when a country has more than one script
 let lastCountry = null;
-FILES.forEach((f, i) => {
+FILES_USED.forEach((f, i) => {
   const [, country, region] = f;
   const link = (text, size, indent) => new Paragraph({
     spacing: { before: indent ? 40 : 120, after: 0 },
@@ -83,7 +88,7 @@ FILES.forEach((f, i) => {
 children.push(new Paragraph({ children: [new PageBreak()] }));
 
 // ---------- the scripts ----------
-FILES.forEach((f, idx) => {
+FILES_USED.forEach((f, idx) => {
   const [file] = f; const title = headingOf(f); const sub = subtitleOf(f);
   const bs = blocks(fs.readFileSync(path.join(SRC, file), "utf8"));
   bs.forEach(b => {
@@ -120,7 +125,7 @@ FILES.forEach((f, idx) => {
     }
     children.push(new Paragraph({ spacing: { before: 100, after: 100 }, children: runs(b.text) }));
   });
-  if (idx < FILES.length - 1) children.push(new Paragraph({ children: [new PageBreak()] }));
+  if (idx < FILES_USED.length - 1) children.push(new Paragraph({ children: [new PageBreak()] }));
 });
 
 const doc = new Document({
@@ -136,7 +141,7 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  const out = path.join(__dirname, "Interview_scripts.docx");
+  const out = path.join(__dirname, OUT);
   fs.writeFileSync(out, buf);
   console.log("written", out, buf.length);
 });
