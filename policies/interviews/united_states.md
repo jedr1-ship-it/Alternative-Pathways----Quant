@@ -7,23 +7,12 @@ department of education or the certification board.
 **What we know:** Almost every state lets a retired teacher return to work under
 conditions built from four levers: how long they must wait after retiring, how
 much they may earn, whether the district must show a shortage, and how long the
-return may last. Michigan, in October 2023, cut the wait to six months and
-removed the earnings ceiling after it, under a law that expires in October 2028.
-Georgia, in 2022, opened full-time return to teachers with thirty years of
-service in subjects a region designated as highest-need; its 2025 audit found a
-few hundred returns a year and pointed to the one-year wait, not the pay rules,
-as the main deterrent, and the legislature has since widened eligibility and
-extended the measure to 2034. New Mexico, in 2022, let retirees draw pension and
-full salary with no cap on earnings or hours for a limited number of months,
-each return approved by the retirement board. Louisiana, in 2024, removed the
-cut-off that had confined its critical-shortage route to teachers retired before
-mid-2020. North Carolina let retirees return full-time on full salary and
-pension between 1999 and 2009, and research finds those returners went
-disproportionately to high-need schools; the policy was allowed to lapse.
-Virginia, in 2022, acted on the licence rather than the pension. What we do not
-know is how many teachers have returned in most of these states, what the
-measures have cost the retirement systems, and the exact current rules, since
-several laws were amended in 2025 and 2026 (to check before each conversation).
+return may last (summary in the table below). What we do not know is how many
+teachers have returned in most of these states, what the measures have cost the
+retirement systems, and whether the rules will change again, since several laws
+were amended in 2025 and 2026 (to check before each conversation).
+
+[[TABLE]]
 
 ---
 
