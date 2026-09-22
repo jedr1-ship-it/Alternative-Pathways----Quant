@@ -92,7 +92,7 @@ s.addText([
 }
 
 // ============ slides 2-6: panels ============
-for (const f of ["u2_identity", "u3_eight", "u3b_examples", "u4_twodefs", "u5_bridge", "u6_whymarch"]) {
+for (const f of ["u2_identity", "u3_eight", "u3b_examples", "u3c_pairs", "u4_twodefs", "u5_bridge", "u6_whymarch"]) {
   const s = pres.addSlide();
   s.background = { color: "FFFFFF" };
   s.addImage({ path: `${SC}/${f}.png`, x: 0, y: 0, w: 13.33, h: 7.5 });
