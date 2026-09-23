@@ -21,7 +21,7 @@ def canvas(title, subtitle):
     fig = plt.figure(figsize=(13.33, 7.5))
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
     ax.text(0.05, 0.94, title, fontsize=25, fontweight="bold", color=INK, va="top")
-    ax.text(0.05, 0.877, subtitle, fontsize=12.5, color=MUT, va="top")
+    ax.text(0.05, 0.877, subtitle, fontsize=12.5, color=MUT, va="top", style="italic")
     return fig, ax
 
 def save(fig, name):
