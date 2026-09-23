@@ -30,23 +30,23 @@ for (let i = 0; i < 3; i++) {
     fontFace: GARA, fontSize: 9, italic: true, color: MUT, align: "center" });
 }
 const LANES = [
-  ["Pre-K &\nkindergarten", GOLD, "FCF6E8",
+  ["Pre-K &\nkindergarten", INK, "F7F8FA",
    [["155", "Teachers, prekindergarten and kindergarten"],
     ["2300", "Preschool and kindergarten teachers"],
     ["2300", "Preschool and kindergarten teachers"]]],
-  ["Elementary\n& middle †", BLUE, "EBF1F7",
+  ["Elementary\n& middle †", INK, "F7F8FA",
    [["156", "Teachers, elementary school †"],
     ["2310", "Elementary and middle school teachers"],
     ["2310", "Elementary and middle school teachers"]]],
-  ["Secondary", GREEN, "ECF4F0",
+  ["Secondary", INK, "F7F8FA",
    [["157", "Teachers, secondary school †"],
     ["2320", "Secondary school teachers"],
     ["2320", "Secondary school teachers"]]],
-  ["Special\neducation", CORAL, "F8EEED",
+  ["Special\neducation", INK, "F7F8FA",
    [["158", "Teachers, special education"],
     ["2330", "Special education teachers"],
     ["2330", "Special education teachers"]]],
-  ["Other\nteachers", GRAY, "EFF0F2",
+  ["Other\nteachers", INK, "F7F8FA",
    [["159", "Teachers, n.e.c. (not elsewhere classified)"],
     ["2340", "Other teachers and instructors"],
     ["2360", "Other teachers and instructors"]]],
@@ -60,14 +60,14 @@ LANES.forEach((lane, r) => {
   cells.forEach((cell, i) => {
     const [code, title] = cell;
     s.addShape(pres.ShapeType.roundRect, { x: XCOL[i], y: y, w: WCOL, h: HR,
-      rectRadius: 0.07, fill: { color: tint }, line: { color: c, width: 1 } });
+      rectRadius: 0.07, fill: { color: tint }, line: { color: "C9CFD6", width: 0.75 } });
     s.addText(code, { x: XCOL[i] + 0.12, y: y, w: 0.75, h: HR, margin: 0,
-      fontFace: GARA, fontSize: 15, bold: true, color: c, valign: "middle" });
+      fontFace: GARA, fontSize: 15, bold: true, color: BLUE, valign: "middle" });
     s.addText(title, { x: XCOL[i] + 0.92, y: y, w: WCOL - 1.05, h: HR, margin: 0,
       fontFace: GARA, fontSize: 9.5, color: INK, valign: "middle" });
     if (i < 2)
       s.addShape(pres.ShapeType.line, { x: XCOL[i] + WCOL, y: y + HR/2,
-        w: XCOL[i+1] - XCOL[i] - WCOL, h: 0, line: { color: c, width: 1 } });
+        w: XCOL[i+1] - XCOL[i] - WCOL, h: 0, line: { color: "C9CFD6", width: 0.75 } });
   });
 });
 const YB = Y0 + 5 * (HR + GAPR) - GAPR;
@@ -83,7 +83,7 @@ s.addText([
   { text: "Traceable as a block:  ", options: { fontFace: GARA, fontSize: 10.5, bold: true, color: INK } },
   { text: "the K–12 teaching group maps one-to-one across the three classifications — every figure uses the union, never a sub-code across regimes.",
     options: { fontFace: GARA, fontSize: 10.5, color: INK, breakLine: true, paraSpaceAfter: 4 } },
-  { text: "† ", options: { fontFace: GARA, fontSize: 9.5, bold: true, color: CORAL } },
+  { text: "† ", options: { fontFace: GARA, fontSize: 9.5, bold: true, color: MUT } },
   { text: "middle-school teachers sit under elementary or secondary before 2003, with elementary (2310) after.      ",
     options: { fontFace: GARA, fontSize: 9.5, color: MUT } },
   { text: "Never included: postsecondary (2200s) · tutors (2350) · teaching assistants (2540/2545) · childcare workers (4600) · administrators (0230).",
