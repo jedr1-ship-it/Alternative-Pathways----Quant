@@ -1,4 +1,14 @@
-"""Rule R3 — one teacher, one verdict, from the CPS monthly panel.
+"""The panel definition — one teacher, one verdict, from the CPS monthly panel.
+
+Final rule (three conditions):
+  Teacher : seen teaching (employed, occ 2300-2330, BA+) in at least TWO
+            first-year interviews (MIS 1-4).
+  Stayer  : seen teaching in at least one second-year interview (MIS 5-8).
+  Leaver  : never seen teaching in the second year, judged on at least two
+            second-year interviews with at least one outside June-August.
+  Anyone else is out of the sample.
+
+The original any-sighting variant (R3) is kept below for comparison.
 
 The unit is the person-rotation: the up-to-8 interviews (4-8-4 design) of
 one person at one address, grouped by (HRHHID, HRHHID2, PULINENO) and the
@@ -74,6 +84,10 @@ P["observed_y2"] = P.index.isin(has_y2.index)
 P = P[P["observed_y2"]]
 P["stayer"] = stay.reindex(P.index).fillna(0).astype(int)
 P["leaver"] = 1 - P["stayer"]
+P["n_y1_teach"] = y1.groupby("pkey")["teaching"].sum().reindex(P.index).fillna(0)
+P["n_y2_obs"] = has_y2.reindex(P.index).fillna(0)
+P["n_y2_nonsummer"] = (y2[~y2["HRMONTH"].isin([6, 7, 8])]
+                       .groupby("pkey").size().reindex(P.index).fillna(0))
 
 w = P["PWSSWGT"].astype(float)
 rate = np.average(P["leaver"], weights=w) * 100
@@ -88,3 +102,18 @@ ann = (P.groupby("HRYEAR4")
         .reset_index().rename(columns={"HRYEAR4": "base_year"}))
 ann.to_csv("outputs/panel_person_r3.csv", index=False)
 print(ann.round(2).to_string(index=False))
+
+# ---- the final definition: conditions 1-3 ----
+Q = P[(P["n_y1_teach"] >= 2) & (P["HRYEAR4"] <= 2024)]
+Q = Q[(Q["stayer"] == 1) | ((Q["n_y2_obs"] >= 2) & (Q["n_y2_nonsummer"] >= 1))]
+wq = Q["PWSSWGT"].astype(float)
+print(f"\nFINAL definition sample     : {len(Q):,} teachers")
+print(f"FINAL leaving rate (weighted): {np.average(Q['leaver'], weights=wq)*100:.2f}%")
+annf = (Q.groupby("HRYEAR4")
+         .apply(lambda d: pd.Series({
+             "n": len(d),
+             "leaver_final": np.average(d["leaver"], weights=d["PWSSWGT"]) * 100}),
+             include_groups=False)
+         .reset_index().rename(columns={"HRYEAR4": "base_year"}))
+annf.to_csv("outputs/panel_person_final.csv", index=False)
+print(annf.round(2).to_string(index=False))
