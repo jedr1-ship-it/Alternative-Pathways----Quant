@@ -54,27 +54,29 @@ ax.plot([cx(13)-0.024, cx(16)+0.024], [0.755, 0.755], color=CORAL, lw=2)
 ax.text((cx(13)+cx(16))/2, 0.772, "YEAR 2", fontsize=9.5, color=CORAL, ha="center", fontweight="bold")
 COND = [
     ("1", GREEN, "TEACHER",
-     "seen teaching in at least two YEAR-1 interviews (BA+). Teaching was the occupation, not an episode."),
+     "seen teaching in at least two YEAR-1 interviews, holding a bachelor’s degree or higher.\nTeaching was the occupation, not an episode."),
     ("2", BLUE, "STAYER",
      "seen teaching in at least one YEAR-2 interview."),
     ("3", CORAL, "LEAVER",
      "never seen teaching in YEAR 2 — having at least two YEAR-2 interviews, at least one outside June–August."),
 ]
-Y = 0.545
+Y = 0.555
 for num, c, lab, txt in COND:
     ax.add_patch(plt.Circle((0.063, Y - 0.012), 0.016, color=c))
     ax.text(0.063, Y - 0.012, num, fontsize=12, color="white", fontweight="bold",
             ha="center", va="center")
     ax.text(0.095, Y, lab, fontsize=13.5, fontweight="bold", color=c, va="top")
     ax.text(0.23, Y, txt, fontsize=11.5, color=INK, va="top")
-    Y -= 0.085
-ax.text(0.05, 0.27, "Anyone else is out of the sample: one teaching sighting only, or too few second-year interviews to convict.",
+    Y -= 0.092
+ax.text(0.05, 0.275, "Anyone else is out of the sample: one teaching sighting only, or too few second-year interviews to convict.",
         fontsize=10.5, color=MUT, va="top")
-ax.text(0.05, 0.185, "Leaving rate under this definition:", fontsize=13,
+ax.text(0.05, 0.238, "The degree requirement (BA+) keeps this universe identical to the rest of the deck — the March sample is college-graduate teachers too.",
+        fontsize=10.5, color=MUT, va="top")
+ax.text(0.05, 0.172, "Leaving rate under this definition:", fontsize=13,
         fontweight="bold", color=INK, va="top")
-ax.text(0.375, 0.194, "13.0% per year", fontsize=19, fontweight="bold", color=CORAL, va="top")
-ax.text(0.585, 0.185, "(2005–2024, 48,842 teachers, one verdict each)", fontsize=10.5, color=MUT, va="top")
-ax.text(0.05, 0.10, "Identity across interviews: household ids + person line (HRHHID · HRHHID2 · PULINENO), kept only if sex and race match and age advances 0–2 years.",
+ax.text(0.375, 0.181, "13.0% per year", fontsize=19, fontweight="bold", color=CORAL, va="top")
+ax.text(0.585, 0.172, "(2005–2024, 48,842 teachers, one verdict each)", fontsize=10.5, color=MUT, va="top")
+ax.text(0.05, 0.09, "Identity across interviews: household ids + person line (HRHHID · HRHHID2 · PULINENO), kept only if sex and race match and age advances 0–2 years.",
         fontsize=9.5, color=MUT, va="top")
 save(fig, "u3_eight")
 
