@@ -51,16 +51,16 @@ for m in range(1, 17):
                  facecolor=c, edgecolor="none", alpha=1 if inn else 0.8))
     ax.text(x + cw/2, y0 + ch/2, str(m), fontsize=10.5, fontweight="bold",
             ha="center", va="center", color="white" if inn else MUT)
-ax.plot([cx(1)-0.024, cx(4)+0.024], [0.755, 0.755], color=INK, lw=1.6)
-ax.text((cx(1)+cx(4))/2, 0.772, "Year 1", fontsize=10, color=INK, ha="center")
-ax.plot([cx(13)-0.024, cx(16)+0.024], [0.755, 0.755], color=INK, lw=1.6)
-ax.text((cx(13)+cx(16))/2, 0.772, "Year 2", fontsize=10, color=INK, ha="center")
+ax.plot([cx(1)-0.024, cx(4)+0.024], [0.755, 0.755], color=GREEN, lw=2)
+ax.text((cx(1)+cx(4))/2, 0.772, "Year 1", fontsize=10, color=GREEN, ha="center", fontweight="bold")
+ax.plot([cx(13)-0.024, cx(16)+0.024], [0.755, 0.755], color=CORAL, lw=2)
+ax.text((cx(13)+cx(16))/2, 0.772, "Year 2", fontsize=10, color=CORAL, ha="center", fontweight="bold")
 COND = [
-    ("1", INK, "Teacher",
+    ("1", GREEN, "Teacher",
      "seen teaching in at least two YEAR-1 interviews, holding a bachelor’s degree or higher.\nTeaching was the occupation, not an episode."),
-    ("2", INK, "Stayer",
+    ("2", BLUE, "Stayer",
      "seen teaching in at least one YEAR-2 interview."),
-    ("3", INK, "Leaver",
+    ("3", CORAL, "Leaver",
      "never seen teaching in YEAR 2 — having at least two YEAR-2 interviews, at least one outside June–August."),
 ]
 Y = 0.555
@@ -68,7 +68,7 @@ for num, c, lab, txt in COND:
     ax.add_patch(plt.Circle((0.063, Y - 0.012), 0.016, color=c))
     ax.text(0.063, Y - 0.012, num, fontsize=12, color="white", fontweight="bold",
             ha="center", va="center")
-    ax.text(0.095, Y, lab, fontsize=13.5, fontweight="bold", color=BLUE, va="top")
+    ax.text(0.095, Y, lab, fontsize=13.5, fontweight="bold", color=c, va="top")
     ax.text(0.23, Y, txt, fontsize=11.5, color=INK, va="top")
     Y -= 0.092
 ax.text(0.05, 0.275, "Anyone else is out of the sample: one teaching sighting only, or too few second-year interviews to convict.",
@@ -79,7 +79,7 @@ ax.text(0.05, 0.172, "Leaving rate under this definition:", fontsize=13,
         fontweight="bold", color=INK, va="top")
 ax.text(0.375, 0.181, "13.0% per year", fontsize=19, fontweight="bold", color=BLUE, va="top")
 ax.text(0.585, 0.172, "(2005–2024, 48,842 teachers, one verdict each)", fontsize=10.5, color=MUT, va="top")
-ax.text(0.05, 0.09, "Identity across interviews: household ids + person line (HRHHID · HRHHID2 · PULINENO), kept only if sex and race match and age advances 0–2 years.",
+ax.text(0.05, 0.09, "Identity across interviews: household and dwelling identifiers plus the person’s roster line, kept only if sex and race match and age advances 0–2 years.",
         fontsize=9.5, color=MUT, va="top")
 save(fig, "u3_eight")
 
@@ -203,7 +203,7 @@ c5.set_ylabel("percent leaving per year", fontsize=9.5, color=INK)
 for s in ("top", "right"): c5.spines[s].set_visible(False)
 c5.grid(axis="y", color="#F1F2F3", lw=1); c5.set_axisbelow(True)
 c5.tick_params(labelsize=9)
-ax.text(0.05, 0.075, "Both are correct about the thing they measure: B counts working teachers who vanish from teaching for a year; A counts durable exits from the year’s main job.",
+ax.text(0.05, 0.075, "Both are correct about the thing they measure. The deck reports A — the March measure — because it is the one the published literature reports (benchmarks 6–8.4).",
         fontsize=10.5, color=MUT)
 save(fig, "u4_twodefs")
 
@@ -271,22 +271,21 @@ fig, ax = canvas("Is there a unique person ID across CPS waves?  No.",
 for xc, tt in [(0.08, "Interview, month t"), (0.57, "Re-interview, month t + 12")]:
     rbox(ax, xc, 0.40, 0.36, 0.375, BLUE, alpha=0.045)
     ax.text(xc + 0.018, 0.725, tt, fontsize=13, fontweight="bold", color=INK)
-    for dy, k, v in [(0.0, "HRHHID", "household identifier — tied to the address"),
-                     (0.062, "HRHHID2", "household id, part 2 (born May 2004)"),
-                     (0.124, "PULINENO", "person line number in the household"),
-                     (0.186, "sex·race·age", "the person’s demographics")]:
-        ax.text(xc + 0.018, 0.655 - dy, k, fontsize=10.5, fontweight="bold",
-                color=BLUE, family="monospace")
-        ax.text(xc + 0.138, 0.655 - dy, v, fontsize=8.8, color=MUT)
+    for dy, k, v in [(0.0, "Household identifier", "tied to the address, not the person"),
+                     (0.062, "Dwelling identifier", "distinguishes households at one address"),
+                     (0.124, "Person’s line number", "their slot on the household roster"),
+                     (0.186, "Sex · race · age", "the person’s demographics")]:
+        ax.text(xc + 0.018, 0.655 - dy, k, fontsize=10.5, fontweight="bold", color=BLUE)
+        ax.text(xc + 0.175, 0.655 - dy, v, fontsize=8.8, color=MUT)
 for dy, sym in [(0.0, "="), (0.062, "="), (0.124, "="), (0.186, "≈")]:
     ax.text(0.505, 0.655 - dy, sym, fontsize=15, fontweight="bold", color=INK, ha="center")
 ax.text(0.505, 0.745, "must\nagree", fontsize=9, color=MUT, ha="center",
         style="italic", linespacing=1.2)
 ax.text(0.05, 0.335, "The rule (Madrian–Lefgren):", fontsize=11.5, fontweight="bold", color=INK)
-ax.text(0.05, 0.293, "declare “same person” when all three identifiers coincide and the demographics are coherent —\nsex and race identical, age advancing 0 to 2 years. There is no true person key: this is the whole link.",
+ax.text(0.05, 0.293, "declare “same person” when household, dwelling and roster line all coincide and the demographics are coherent —\nsex and race identical, age advancing 0 to 2 years. There is no true person identifier: this is the whole link.",
         fontsize=10.5, color=INK, va="top", linespacing=1.35)
 ax.text(0.05, 0.195, "What can go wrong:", fontsize=11.5, fontweight="bold", color=INK)
-ax.text(0.05, 0.153, "a family that moves is lost — and the new occupants of the address inherit its HRHHID (the demographic\nchecks are what reject them). Matched share: teachers 78% · other graduates 74% · all employed 71%. The loss is non-random.",
+ax.text(0.05, 0.153, "a family that moves is lost — and the new occupants of the address inherit its household identifier (the\ndemographic checks are what reject them). Matched share: teachers 78% · other graduates 74% · all employed 71%. The loss is non-random.",
         fontsize=10.5, color=INK, va="top", linespacing=1.35)
 ax.text(0.05, 0.055, "The March recall design needs none of this: the teacher question and the outcome sit in the same interview.",
         fontsize=10.5, color=MUT, style="italic")

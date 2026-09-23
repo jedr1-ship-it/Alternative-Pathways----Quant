@@ -19,10 +19,10 @@ s.addText("By the Census occupation code — the code the Census Bureau assigns 
   x: 0.55, y: 0.90, w: 12.2, h: 0.35, margin: 0, fontFace: GARA,
   fontSize: 12.5, italic: true, color: MUT });
 
-const XCOL = [2.15, 5.95, 9.75], WCOL = 3.55;
-const HEADS = [["SURVEYS 1998–2002", "Census occupation classification of 1990"],
-               ["SURVEYS 2003–2019", "Census occupation classification of 2002/2010 (SOC)"],
-               ["SURVEYS 2020–2025", "Census occupation classification of 2018"]];
+const XCOL = [1.85, 5.68, 9.51], WCOL = 3.55;
+const HEADS = [["Surveys 1998–2002", "Census occupation classification of 1990"],
+               ["Surveys 2003–2019", "Census occupation classification of 2002/2010 (SOC)"],
+               ["Surveys 2020–2025", "Census occupation classification of 2018"]];
 for (let i = 0; i < 3; i++) {
   s.addText(HEADS[i][0], { x: XCOL[i], y: 1.42, w: WCOL, h: 0.3, margin: 0,
     fontFace: GARA, fontSize: 13, bold: true, color: INK, align: "center" });
@@ -30,23 +30,23 @@ for (let i = 0; i < 3; i++) {
     fontFace: GARA, fontSize: 9, italic: true, color: MUT, align: "center" });
 }
 const LANES = [
-  ["Pre-K &\nkindergarten", INK, "F7F8FA",
+  ["Pre-K &\nkindergarten", GOLD, "FBFBF8",
    [["155", "Teachers, prekindergarten and kindergarten"],
     ["2300", "Preschool and kindergarten teachers"],
     ["2300", "Preschool and kindergarten teachers"]]],
-  ["Elementary\n& middle †", INK, "F7F8FA",
+  ["Elementary\n& middle †", BLUE, "F8FAFC",
    [["156", "Teachers, elementary school †"],
     ["2310", "Elementary and middle school teachers"],
     ["2310", "Elementary and middle school teachers"]]],
-  ["Secondary", INK, "F7F8FA",
+  ["Secondary", GREEN, "F8FBF9",
    [["157", "Teachers, secondary school †"],
     ["2320", "Secondary school teachers"],
     ["2320", "Secondary school teachers"]]],
-  ["Special\neducation", INK, "F7F8FA",
+  ["Special\neducation", CORAL, "FBF8F8",
    [["158", "Teachers, special education"],
     ["2330", "Special education teachers"],
     ["2330", "Special education teachers"]]],
-  ["Other\nteachers", INK, "F7F8FA",
+  ["Other\nteachers", GRAY, "F8F9FA",
    [["159", "Teachers, n.e.c. (not elsewhere classified)"],
     ["2340", "Other teachers and instructors"],
     ["2360", "Other teachers and instructors"]]],
@@ -55,14 +55,14 @@ const Y0 = 2.10, HR = 0.72, GAPR = 0.15;
 LANES.forEach((lane, r) => {
   const [lab, c, tint, cells] = lane;
   const y = Y0 + r * (HR + GAPR);
-  s.addText(lab, { x: 0.35, y: y, w: 1.65, h: HR, margin: 0, fontFace: GARA,
+  s.addText(lab, { x: 0.25, y: y, w: 1.45, h: HR, margin: 0, fontFace: GARA,
     fontSize: 11, bold: true, color: c, align: "right", valign: "middle" });
   cells.forEach((cell, i) => {
     const [code, title] = cell;
     s.addShape(pres.ShapeType.roundRect, { x: XCOL[i], y: y, w: WCOL, h: HR,
       rectRadius: 0.07, fill: { color: tint }, line: { color: "C9CFD6", width: 0.75 } });
     s.addText(code, { x: XCOL[i] + 0.12, y: y, w: 0.75, h: HR, margin: 0,
-      fontFace: GARA, fontSize: 15, bold: true, color: BLUE, valign: "middle" });
+      fontFace: GARA, fontSize: 15, bold: true, color: c, valign: "middle" });
     s.addText(title, { x: XCOL[i] + 0.92, y: y, w: WCOL - 1.05, h: HR, margin: 0,
       fontFace: GARA, fontSize: 9.5, color: INK, valign: "middle" });
     if (i < 2)
@@ -92,7 +92,7 @@ s.addText([
 }
 
 // ============ slides 2-6: panels ============
-for (const f of ["u2_identity", "u3_eight", "u3b_examples", "u3c_pairs", "u4_twodefs", "u5_bridge", "u6_whymarch"]) {
+for (const f of ["u2_identity", "u3_eight", "u3b_examples", "u4_twodefs"]) {
   const s = pres.addSlide();
   s.background = { color: "FFFFFF" };
   s.addImage({ path: `${SC}/${f}.png`, x: 0, y: 0, w: 13.33, h: 7.5 });
