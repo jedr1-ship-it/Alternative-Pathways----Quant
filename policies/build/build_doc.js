@@ -13,6 +13,7 @@ const FILES = [
   ["china.md",              "China",         null,              "Silver-Age Lecturing Plan, since 2018"],
   ["netherlands.md",        "Netherlands",   null,              "Grant to schools for re-hiring former teachers, 2017–2022"],
   ["united_states.md",      "United States", null,              "State laws on retired teachers returning to work"],
+  ["sweden.md",             "Sweden",        null,              "Online course for returning teachers, since 2018"],
 ];
 // optional: node build_doc.js --only netherlands.md,united_states.md --out Interview_scripts_NL_US.docx
 const argv = process.argv.slice(2);
