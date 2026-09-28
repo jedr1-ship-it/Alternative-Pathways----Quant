@@ -113,40 +113,51 @@ for tag, num, title in [("d1", "1", "Data and measurement"),
 # ---------------- The Current Population Survey ----------------
 s = house_slide("The Current Population Survey")
 add_text(s, BODY_X, BODY_Y, BODY_W, 0.8, align=PP_ALIGN.JUSTIFY, parts=[
- ("The monthly household survey behind the official employment statistics: about 60,000 "
-  "households, the civilian non-institutional population.", 17, INK, False, False, 0),
+ ("The monthly household survey behind the official employment statistics: some 110,000 "
+  "persons each month. Every March, a supplement asks about the previous calendar year.",
+  16, INK, False, False, 0),
 ])
-# descriptive statistics, weighted, computed from asec_master.parquet
-DHDR = [("Teachers", 7.10, 2.00), ("Other graduates", 9.55, 2.55)]
-DROWS = [
- ("Age (years)", "43.7", "43.6"),
- ("Female (%)", "75.9", "46.5"),
- ("Master’s degree or higher (%)", "48.3", "33.8"),
- ("Public sector (%)", "72.9", "16.2"),
- ("Weeks worked", "46.1", "48.6"),
- ("Median annual wage ($)", "56,000", "75,000"),
- ("Annual leaving rate (%)", "8.6", "—"),
-]
-def drow(lab, tv, gv, y, bold=False):
-    add_text(s, 1.05, y, 5.6, 0.4, [(lab, 13, INK, bold, False, 0)])
-    add_text(s, DHDR[0][1], y, DHDR[0][2], 0.4, [(tv, 13, INK, bold, False, 0)],
+# persons and teachers in every March supplement (counts from asec_master.parquet)
+SUPP = [(1998, "131,617", "2,620"), (1999, "132,324", "2,719"),
+        (2000, "133,710", "2,743"), (2001, "128,821", "2,646"),
+        (2002, "217,219", "4,632"), (2003, "216,424", "4,201"),
+        (2004, "213,241", "4,344"), (2005, "210,648", "4,361"),
+        (2006, "208,562", "4,161"), (2007, "206,639", "4,336"),
+        (2008, "206,404", "4,357"), (2009, "207,921", "4,448"),
+        (2010, "209,802", "4,357"), (2011, "204,983", "4,301"),
+        (2012, "201,398", "4,184"), (2013, "202,634", "4,192"),
+        (2014, "139,415", "2,896"), (2015, "199,024", "4,333"),
+        (2016, "185,487", "3,972"), (2017, "185,914", "4,045"),
+        (2018, "180,084", "4,053"), (2019, "180,101", "3,986"),
+        (2020, "157,959", "3,321"), (2021, "163,543", "3,232"),
+        (2022, "152,732", "3,040"), (2023, "146,133", "3,141"),
+        (2024, "144,265", "3,006"), (2025, "142,125", "2,918")]
+BL, BR = 1.05, 7.00           # left edge of each block
+def srow(bx, yy, yr, pv, tv, bold=False, sz=11.5):
+    add_text(s, bx, yy, 0.9, 0.3, [(str(yr), sz, INK, bold, False, 0)])
+    add_text(s, bx + 0.90, yy, 1.75, 0.3, [(pv, sz, INK, bold, False, 0)],
              align=PP_ALIGN.RIGHT)
-    add_text(s, DHDR[1][1], y, DHDR[1][2], 0.4, [(gv, 13, INK, bold, False, 0)],
+    add_text(s, bx + 2.75, yy, 1.60, 0.3, [(tv, sz, INK, bold, False, 0)],
              align=PP_ALIGN.RIGHT)
-rule(s, 0.9, 2.95, 11.53, 1.6, INK)
-for h, x, w in DHDR:
-    add_text(s, x, 3.08, w, 0.4, [(h, 13, INK, True, False, 0)], align=PP_ALIGN.RIGHT)
-rule(s, 0.9, 3.50, 11.53, 0.8, INK)
-y = 3.62
-for lab, tv, gv in DROWS:
-    drow(lab, tv, gv, y)
-    y += 0.40
-rule(s, 0.9, y + 0.02, 11.53, 0.8, INK)
-drow("Observations", "85,497", "726,618", y + 0.12)
-rule(s, 0.9, y + 0.56, 11.53, 1.6, INK)
-add_text(s, 0.9, y + 0.66, 11.53, 0.35,
-         [("March supplements 1998–2025, weighted; bachelor’s degree or higher. Wages from the 2021–2025 supplements.",
-           11, MUT, False, True, 0)])
+rule(s, 0.9, 2.62, 11.53, 1.6, INK)
+for bx in (BL, BR):
+    add_text(s, bx, 2.72, 1.8, 0.3, [("Supplement", 12, INK, True, False, 0)])
+    add_text(s, bx + 0.90, 2.72, 1.75, 0.3, [("Persons", 12, INK, True, False, 0)],
+             align=PP_ALIGN.RIGHT)
+    add_text(s, bx + 2.75, 2.72, 1.60, 0.3, [("Teachers", 12, INK, True, False, 0)],
+             align=PP_ALIGN.RIGHT)
+rule(s, 0.9, 3.08, 11.53, 0.8, INK)
+y = 3.18
+for i, (yr, pv, tv) in enumerate(SUPP):
+    bx = BL if i < 14 else BR
+    yy = y + (i % 14) * 0.26
+    srow(bx, yy, yr, pv, tv)
+yend = y + 14 * 0.26
+rule(s, 0.9, yend + 0.02, 11.53, 0.8, INK)
+add_text(s, BL, yend + 0.10, 4.5, 0.3,
+         [("All supplements, 1998–2025", 12, INK, True, False, 0)])
+srow(BR, yend + 0.10, "", "5,009,129", "104,545", bold=True, sz=12)
+rule(s, 0.9, yend + 0.44, 11.53, 1.6, INK)
 made["cps"] = s
 
 # ---------------- Supplements and the March interview ----------------
@@ -207,6 +218,33 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
         r.font.color.rgb = lab_color or RGBColor(0xFF, 0xFF, 0xFF)
     return sh
 
+# ---------------- How the CPS follows a household ----------------
+s = house_slide("How the CPS follows a household")
+add_text(s, BODY_X, BODY_Y, BODY_W, 1.1, align=PP_ALIGN.JUSTIFY, parts=[
+ ("Households enter the survey on a fixed rotation: interviewed in four consecutive months, "
+  "out for eight, back for four more. Eight interviews over sixteen months.",
+  17, INK, False, False, 0),
+])
+scw = 11.53 / 16
+add_text(s, 0.9, 3.30, 3.5, 0.35, [("Year 1: interviews 1–4", 14, NAVY2, True, False, 0)])
+add_text(s, 4.9, 3.30, 3.6, 0.35, [("8 months out of the sample", 13, MUT, False, True, 0)],
+         align=PP_ALIGN.CENTER)
+add_text(s, 9.0, 3.30, 3.5, 0.35, [("Year 2: interviews 5–8", 14, BURG, True, False, 0)],
+         align=PP_ALIGN.RIGHT)
+for i in range(16):
+    x0 = 0.9 + i * scw
+    if i < 4:
+        cell(s, x0, 3.72, scw, 0.62, NAVY2, None, str(i + 1))
+    elif i >= 12:
+        cell(s, x0, 3.72, scw, 0.62, BURG, None, str(i + 1))
+    else:
+        cell(s, x0, 3.72, scw, 0.62, None, LGRAYB, str(i + 1), MUT)
+add_text(s, BODY_X, 4.90, BODY_W, 1.2, align=PP_ALIGN.JUSTIFY, parts=[
+ ("Interviews 1–4 and 5–8 fall exactly twelve months apart: whoever is observed in year 1 "
+  "can be observed again one year later.", 17, INK, False, False, 0),
+])
+made["rotation"] = s
+
 # ---------------- The panel definition + alternative measures ----------------
 # Beamer-style overlays: the slide is repeated, first with the plain strip,
 # then with each illustrative case painted over it. Advancing the deck in
@@ -243,7 +281,7 @@ def defs_slide(case=None):
         else:
             cell(s, x0, 1.92, scw, 0.50, None, LGRAYB, str(i + 1), MUT)
     # Definition 1 block
-    add_text(s, 0.9, 2.56, 4.0, 0.4, [("Definition 1  (benchmark)", 15, HEAD, True, False, 0)])
+    add_text(s, 0.9, 2.56, 5.0, 0.4, [("The panel measure  (benchmark)", 15, HEAD, True, False, 0)])
     rule(s, 0.9, 3.00, 11.53, 1.0, INK)
     D1 = [("Teacher", NAVY2, "teaching, with a bachelor’s degree, in at least two year-1 interviews"),
           ("Stayer", NAVY2, "teaching in at least one year-2 interview"),
@@ -259,7 +297,7 @@ def defs_slide(case=None):
     add_text(s, 11.0, y + 0.10, 1.4, 0.4, [("2021", 13, INK, True, False, 0)])
     rule(s, 0.9, y + 0.52, 11.53, 0.6, INK)
     ALT = [
-     ("Definition 1", "12.9"),
+     ("Panel measure", "12.9"),
      ("Annual recall", "7.1"),
      ("Occupation pair", "5.0"),
      ("Month pairs", "16.0"),
@@ -319,7 +357,7 @@ add_text(s, 0.9, y + 0.24, 11.5, 0.4,
 made["countries"] = s
 
 # ---------------- reorder (original Data slide, index 2, is dropped) ----------------
-order_tags = [0, 1, "d1", "cps", "asec", 3, "words",
+order_tags = [0, 1, "d1", "cps", "rotation", "asec", 3, "words",
               "table", "case0", "case1", "case2", "chart",
               "d2", 4, 5, 6, 7, 8, 9,
               "d3", 10, 11, 12, 13,
@@ -328,7 +366,7 @@ order_tags = [0, 1, "d1", "cps", "asec", 3, "words",
               "d6", 21, 22, 23, 24, 25, 26,
               "countries"]
 NEWTAGS = ["d1", "d2", "d3", "d4", "d5", "d6", "cps", "asec", "words",
-           "table", "case0", "case1", "case2", "chart", "countries"]
+           "rotation", "table", "case0", "case1", "case2", "chart", "countries"]
 sldIdLst = prs.slides._sldIdLst
 ids = list(sldIdLst)
 new_ids = {tag: ids[27 + i] for i, tag in enumerate(NEWTAGS)}

@@ -29,7 +29,7 @@ ax.plot(NCES_Y, NCES_V, color=INK, ls="none", marker="o",
         ms=6.5, mfc=INK, mec="white", mew=1.2)
 for txt, yv, c in [("Any sighting   18.2", R3.leaver_r3.iloc[-1], CORAL_L),
                    ("Month pairs   15.4", E.attr12_all.iloc[-1], CORAL_M),
-                   ("Definition 1   13.0", FN.leaver_final.iloc[-1], CORAL),
+                   ("Panel measure   13.0", FN.leaver_final.iloc[-1], CORAL),
                    ("Annual recall   8.6", P.leaver_ba.iloc[-1] + 0.4, NAVY),
                    ("NCES follow-up   8.0", NCES_V[-1] - 0.9, INK)]:
     ax.annotate(txt, (2024.4, yv), fontsize=12, color=c, va="center", fontweight="bold")
