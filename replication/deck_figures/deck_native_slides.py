@@ -320,12 +320,12 @@ add_text(s, 0.9, y + 0.10, 6.0, 0.4, [("Alternative measures", 15, HEAD, True, F
 add_text(s, 11.0, y + 0.10, 1.4, 0.4, [("2021", 13, INK, True, False, 0)])
 rule(s, 0.9, y + 0.52, 11.53, 0.6, INK)
 ALT = [
- ("Definition 1, as above", "12.9"),
- ("Retrospective annual measure", "7.1"),
- ("Occupation-pair measure", "5.0"),
- ("Month-pair measure", "16.0"),
- ("Any-sighting measure", "19.4"),
- ("NCES Teacher Follow-up Survey", "8.0"),
+ ("Definition 1", "12.9"),
+ ("Annual recall", "7.1"),
+ ("Occupation pair", "5.0"),
+ ("Month pairs", "16.0"),
+ ("Any sighting", "19.4"),
+ ("NCES follow-up survey", "8.0"),
 ]
 y2 = y + 0.64
 for name, rate in ALT:
