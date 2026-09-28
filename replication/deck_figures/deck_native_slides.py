@@ -1,31 +1,28 @@
-"""Rebuild the deck with fully NATIVE, editable slides in Garamond:
-six section dividers, CPS, words, stayer examples, series table, stacked
-native chart (with the full NCES series), countries. Reorders everything."""
+"""Rebuild the deck: all new slides in the deck's own house format
+(Garamond, blue title + blue rule, 16pt ink body). Drops the old Data slide
+(content merged into two non-redundant slides). Table = one example year."""
 import pandas as pd
 from pptx import Presentation
-from pptx.util import Inches, Pt
+from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.enum.shapes import MSO_SHAPE, MSO_CONNECTOR
-from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION
-from pptx.oxml.ns import qn
-from lxml import etree
 
 SC = "/tmp/claude-0/-home-user-Alternative-Pathways----Quant/37b5ad96-b2b0-50d1-9e4b-6301ff28b789/scratchpad"
 GARA = "Garamond"
-NAVY = RGBColor(0x1F, 0x4E, 0x79)
+BLUE = RGBColor(0x00, 0x54, 0x9F)          # the deck's own title blue
+INK = RGBColor(0x1A, 0x24, 0x30)           # the deck's own body color
+MUT = RGBColor(0x6B, 0x74, 0x80)
 CORAL = RGBColor(0xB5, 0x44, 0x3C)
-CORAL_L = RGBColor(0xD9, 0x9A, 0x94)
-CORAL_M = RGBColor(0xC9, 0x72, 0x6A)
-INK = RGBColor(0x1A, 0x24, 0x30)
-MUT = RGBColor(0x55, 0x60, 0x6B)
 PALE = RGBColor(0xE3, 0xE6, 0xEA)
+PALEBG = RGBColor(0xEC, 0xF0, 0xF4)
 GRAYC = RGBColor(0x8A, 0x90, 0x96)
 
-# NCES TFS public-school leaver series, base school year -> percent
-NCES = {1988: 5.6, 1991: 5.1, 1994: 6.6, 2000: 7.4, 2004: 8.4,
-        2008: 8.0, 2012: 7.7, 2021: 8.0}
+# 2021 example year (the recent year in which the measures align with the
+# NCES wave); values from outputs/*.csv, base year 2021
+Y21 = {"recall": "7.1", "pair": "5.0", "verdict": "12.9",
+       "pairs": "16.0", "sighting": "19.4", "nces": "8.0"}
+EAG = None   # filled when the Education at a Glance figure is verified
 
 prs = Presentation(f"{SC}/deck.pptx")
 W, H = prs.slide_width, prs.slide_height
@@ -37,53 +34,51 @@ def new_slide():
         ph._element.getparent().remove(ph._element)
     return s
 
-def tb(s, x, y, w, h, text, size=12, color=INK, bold=False, italic=False,
-       align=PP_ALIGN.LEFT, spacing=1.0):
+def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT):
+    """parts: list of paragraphs; each is (text, size, color, bold, italic, space_after)."""
     box = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     tf = box.text_frame
     tf.word_wrap = True
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
-    lines = text.split("\n")
-    for i, ln in enumerate(lines):
+    for i, (text, size, color, bold, italic, after) in enumerate(parts):
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         p.alignment = align
-        p.line_spacing = spacing
-        r = p.add_run()
-        r.text = ln
+        p.line_spacing = Pt(size * 1.5)
+        p.space_after = Pt(after)
+        r = p.add_run(); r.text = text
         f = r.font
         f.name = GARA; f.size = Pt(size); f.bold = bold; f.italic = italic
         f.color.rgb = color
     return box
 
-def rule(s, x, y, w, weight=1.0, color=INK):
+def rule(s, x, y, w, weight=1.2, color=BLUE):
     ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x), Inches(y),
                                 Inches(x + w), Inches(y))
     ln.line.color.rgb = color
     ln.line.width = Pt(weight)
     return ln
 
-def chip(s, x, y, w, h, fill, line_color=None, radius=0.12):
-    sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y),
-                            Inches(w), Inches(h))
-    try:
-        sh.adjustments[0] = radius
-    except Exception:
-        pass
-    if fill is None:
-        sh.fill.background()
-    else:
-        sh.fill.solid(); sh.fill.fore_color.rgb = fill
-    if line_color is None:
-        sh.line.fill.background()
-    else:
-        sh.line.color.rgb = line_color; sh.line.width = Pt(0.75)
-    sh.shadow.inherit = False
-    return sh
+def house_slide(title):
+    """Title + blue rule, exactly the geometry of the deck's own text slides."""
+    s = new_slide()
+    box = s.shapes.add_textbox(Emu(822960), Emu(457200), Emu(10515600), Emu(502920))
+    tf = box.text_frame
+    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.LEFT
+    r = p.add_run(); r.text = title
+    r.font.name = GARA; r.font.size = Pt(26); r.font.bold = True
+    r.font.color.rgb = BLUE
+    ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Emu(822960), Emu(1024128),
+                                Emu(822960 + 10543032), Emu(1024128))
+    ln.line.color.rgb = BLUE
+    ln.line.width = Pt(1.2)
+    return s
 
+BODY_X, BODY_Y, BODY_W = 0.9, 1.45, 11.53
 made = {}
 
-# ---------- dividers ----------
-PALEBG = RGBColor(0xEC, 0xF0, 0xF4)
+# ---------------- dividers ----------------
 for tag, num, title in [("d1", "1", "Data and measurement"),
                         ("d2", "2", "The leaving rate"),
                         ("d3", "3", "Where they go"),
@@ -91,141 +86,138 @@ for tag, num, title in [("d1", "1", "Data and measurement"),
                         ("d5", "5", "The business cycle"),
                         ("d6", "6", "Pay and pensions")]:
     s = new_slide()
-    tb(s, 1.9, 0.75, 9.53, 3.2, num, size=170, color=PALEBG, bold=True,
-       align=PP_ALIGN.CENTER)
-    tb(s, 1.9, 4.05, 9.53, 0.75, title, size=30, color=INK, bold=True,
-       align=PP_ALIGN.CENTER)
-    rule(s, 5.87, 5.05, 1.6, 1.6, NAVY)
+    add_text(s, 1.9, 0.75, 9.53, 3.2, [(num, 170, PALEBG, True, False, 0)],
+             align=PP_ALIGN.CENTER)
+    add_text(s, 1.9, 4.05, 9.53, 0.75, [(title, 30, INK, True, False, 0)],
+             align=PP_ALIGN.CENTER)
+    rule(s, 5.87, 5.05, 1.6, 1.6)
     made[tag] = s
 
-# ---------- CPS ----------
-s = new_slide()
-tb(s, 0.9, 0.55, 11.5, 0.6, "The Current Population Survey", size=26, bold=True)
-rule(s, 0.9, 1.35, 11.53, 1.0)
-paras = [
- "The CPS is the monthly household survey of the United States, run by the Census Bureau for the Bureau of Labor Statistics. The country’s official employment figures are computed from it.",
- "Each March, its Annual Social and Economic Supplement asks every adult about the previous calendar year: the longest job held, weeks worked, earnings, and benefits.",
- "That recall question is the measurement device of this paper. Whoever reports teaching as last year’s longest job, and no longer teaches at the March interview, has left the profession within the year.",
- "Households are interviewed on a fixed rotation, four months in, eight out, four in, so the same person can also be found one year later. That is the basis of the panel measures discussed next.",
-]
-y = 1.75
-for p in paras:
-    tb(s, 0.9, y, 11.5, 0.9, p, size=14, spacing=1.25)
-    y += 1.08
-tb(s, 0.9, y + 0.15, 11.5, 0.5,
-   "Pooled here: 28 consecutive supplements, five million records, 104,545 teachers.",
-   size=14, color=NAVY, bold=True)
+# ---------------- The Current Population Survey ----------------
+s = house_slide("The Current Population Survey")
+add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, [
+ ("The CPS is the monthly household survey of the United States, run by the Census Bureau. "
+  "The country’s official employment statistics are computed from it.", 16, INK, False, False, 14),
+ ("Each March, its Annual Social and Economic Supplement asks every adult about the previous "
+  "calendar year: the longest job held, weeks worked, earnings, and benefits.", 16, INK, False, False, 14),
+ ("Households are interviewed on a fixed rotation, four months in, eight out, four in, "
+  "so the same person can be found again exactly one year later.", 16, INK, False, False, 0),
+])
 made["cps"] = s
 
-# ---------- words ----------
-s = new_slide()
-tb(s, 0.9, 0.55, 11.5, 0.6, "Two ways to measure leaving", size=26, bold=True)
-rule(s, 0.9, 1.35, 11.53, 1.0)
-tb(s, 0.9, 2.3, 11.0, 1.0,
-   "Ask people what they did last year, and look at what they do today.",
-   size=20, spacing=1.2)
-tb(s, 0.9, 3.05, 11.0, 0.5, "One question, one record, no matching. This is the March measure.",
-   size=13, color=MUT, italic=True)
-tb(s, 0.9, 4.1, 11.0, 1.0,
-   "Or find the same person twice, a year apart, and compare.",
-   size=20, spacing=1.2)
-tb(s, 0.9, 4.85, 11.0, 0.5, "No person identifier exists, so the second look has to be constructed from household records.",
-   size=13, color=MUT, italic=True)
-tb(s, 0.9, 5.9, 11.3, 0.9,
-   "Every attrition rate in the literature is one of these two, plus a choice of who counts as a teacher and how long you keep looking.",
-   size=15, color=INK)
+# ---------------- From the CPS to a teacher dataset ----------------
+s = house_slide("From the CPS to a teacher dataset")
+add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, [
+ ("I pool every March supplement from 1998 to 2025 into a single file: five million individual "
+  "records, 104,545 of them teachers, around 3,700 per year.", 16, INK, False, False, 14),
+ ("Whoever taught as last year’s longest job, and no longer teaches at the March interview, "
+  "has left the profession within the year.", 16, INK, False, False, 14),
+ ("Each record carries age, family structure, earnings, school sector, state, and pension "
+  "coverage, so leaving can be related to what we observe about the teacher.", 16, INK, False, False, 0),
+])
+made["dataset"] = s
+
+# ---------------- Two ways to measure leaving ----------------
+s = house_slide("Two ways to measure leaving")
+add_text(s, BODY_X, 2.1, 11.0, 4.0, [
+ ("Ask people what they did last year, and look at what they do today.", 20, INK, False, False, 6),
+ ("One question, one record, no matching. This is the March measure.", 13, MUT, False, True, 30),
+ ("Or find the same person twice, a year apart, and compare.", 20, INK, False, False, 6),
+ ("No person identifier exists, so the second look is built from household records.", 13, MUT, False, True, 0),
+])
 made["words"] = s
 
-# ---------- examples (mega-minimal) ----------
-s = new_slide()
-tb(s, 0.9, 0.5, 11.5, 0.6, "Who is a stayer", size=26, bold=True)
-T, NG, NO = "T", "n", "x"   # teaching / interviewed-not-teaching / not interviewed
+# ---------------- Who is a stayer ----------------
+s = house_slide("Who is a stayer")
+T, NG = "T", "n"
 ROWS = [
- (["T","T","T","T", "T","T","T","T"], "stayer", NAVY),
- (["T","T","T","T", "n","n","n","T"], "stayer", NAVY),
+ (["T","T","T","T", "T","T","T","T"], "stayer", BLUE),
+ (["T","T","T","T", "n","n","n","T"], "stayer", BLUE),
  (["T","T","n","n", "n","n","n","n"], "leaver", CORAL),
  (["T","n","n","n", "n","n","n","n"], "not counted", GRAYC),
 ]
-cw, ch, gap = 0.62, 0.62, 0.10
-y = 1.7
+def chip(s, x, y, w, h, fill, label=None, lab_size=13):
+    sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y),
+                            Inches(w), Inches(h))
+    try:
+        sh.adjustments[0] = 0.12
+    except Exception:
+        pass
+    sh.fill.solid(); sh.fill.fore_color.rgb = fill
+    sh.line.fill.background()
+    sh.shadow.inherit = False
+    if label:
+        tf = sh.text_frame; tf.word_wrap = False
+        p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
+        r = p.add_run(); r.text = label
+        r.font.name = GARA; r.font.size = Pt(lab_size); r.font.bold = True
+        r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+    return sh
+
+cw, ch2, gap = 0.62, 0.62, 0.10
+y = 1.75
 for cells, verdict, vc in ROWS:
     x = 0.9
     for i, cell in enumerate(cells):
         if i == 4:
-            x += 0.9   # the eight-month gap
-        fill = NAVY if cell == "T" else (PALE if cell == "n" else None)
-        border = None if cell != "x" else GRAYC
-        c = chip(s, x, y, cw, ch, fill, border)
-        if cell == "T":
-            tf = c.text_frame; tf.word_wrap = False
-            p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
-            r = p.add_run(); r.text = "T"
-            r.font.name = GARA; r.font.size = Pt(13); r.font.bold = True
-            r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+            x += 0.9
+        chip(s, x, y, cw, ch2, BLUE if cell == "T" else PALE,
+             "T" if cell == "T" else None)
         x += cw + gap
-    ch2 = chip(s, x + 0.5, y + 0.06, 2.2, 0.5, vc)
-    tf = ch2.text_frame
-    p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
-    r = p.add_run(); r.text = verdict
-    r.font.name = GARA; r.font.size = Pt(13); r.font.bold = True
-    r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
-    y += 1.15
-tb(s, 0.9, y + 0.1, 5.0, 0.4, "year one", size=12, color=MUT)
-tb(s, 6.4, y + 0.1, 5.0, 0.4, "one year later", size=12, color=MUT)
-tb(s, 0.9, y + 0.62, 11.5, 0.4,
-   "Filled: seen teaching.  Light: interviewed, not teaching.  A single sighting does not make a teacher.",
-   size=11, color=MUT, italic=True)
+    chip(s, x + 0.5, y + 0.06, 2.2, 0.5, vc, verdict)
+    y += 1.12
+add_text(s, 0.9, y + 0.05, 5.0, 0.4, [("year one", 12, MUT, False, False, 0)])
+add_text(s, 6.4, y + 0.05, 5.0, 0.4, [("one year later", 12, MUT, False, False, 0)])
+add_text(s, 0.9, y + 0.5, 11.5, 0.4,
+         [("Filled: seen teaching.  Light: interviewed, not teaching.", 11, MUT, False, True, 0)])
 made["examples"] = s
 
-# ---------- series table ----------
-s = new_slide()
-tb(s, 0.9, 0.55, 11.5, 0.6, "Five ways to count, one file", size=26, bold=True)
-rule(s, 0.9, 1.42, 11.53, 1.2)
-COLS = [0.9, 4.15, 5.85, 10.9]
-tb(s, COLS[0], 1.55, 3.1, 0.4, "Measure", size=12.5, bold=True)
-tb(s, COLS[1], 1.55, 1.6, 0.4, "Years", size=12.5, bold=True)
-tb(s, COLS[2], 1.55, 4.9, 0.4, "In words", size=12.5, bold=True)
-tb(s, COLS[3], 1.55, 1.5, 0.4, "Rate", size=12.5, bold=True)
-rule(s, 0.9, 1.95, 11.53, 0.6)
+# ---------------- the table: one example year ----------------
+s = house_slide("Six measures, one year")
+add_text(s, BODY_X, 1.28, BODY_W, 0.4,
+         [("Percent of teachers leaving between 2021 and 2022", 13, MUT, False, True, 0)])
+COLS = [0.9, 4.4, 10.9]
+yh = 1.95
+add_text(s, COLS[0], yh, 3.4, 0.4, [("Measure", 13, INK, True, False, 0)])
+add_text(s, COLS[1], yh, 6.3, 0.4, [("In words", 13, INK, True, False, 0)])
+add_text(s, COLS[2], yh, 1.5, 0.4, [("2021", 13, INK, True, False, 0)])
+rule(s, 0.9, yh + 0.42, 11.53, 0.6, INK)
 TROWS = [
- ("March recall  (this paper)", "1997–2024", "the main job of last year was teaching, and it is gone by March", "8.6", NAVY),
- ("Pure occupation pair", "2021–2023", "last year’s and today’s occupation compared directly, nothing else", "5.8", NAVY),
- ("Panel, one verdict per teacher", "2005–2024", "seen teaching twice; never seen teaching again a year later", "13.0", CORAL),
- ("Panel, month pairs", "2005–2024", "every teaching month checked exactly twelve months later", "15.4", CORAL),
- ("Panel, any sighting", "2005–2024", "one teaching month is enough to enter the count", "18.2", CORAL),
- ("NCES follow-up survey", "1988–2022", "school rosters re-surveyed the following fall; eight waves", "8.0", MUT),
+ ("March recall  (this paper)", "the main job of last year was teaching, and it is gone by March", Y21["recall"]),
+ ("Pure occupation pair", "last year’s and today’s occupation compared directly, nothing else", Y21["pair"]),
+ ("Panel, one verdict per teacher", "seen teaching twice; never seen teaching again a year later", Y21["verdict"]),
+ ("Panel, month pairs", "every teaching month checked exactly twelve months later", Y21["pairs"]),
+ ("Panel, any sighting", "one teaching month is enough to enter the count", Y21["sighting"]),
+ ("NCES follow-up survey", "school rosters re-surveyed the following fall", Y21["nces"]),
 ]
-y = 2.18
-for name, yrs, words, rate, c in TROWS:
-    tb(s, COLS[0], y, 3.1, 0.7, name, size=12.5, bold=True, color=c)
-    tb(s, COLS[1], y, 1.6, 0.7, yrs, size=12.5, color=MUT)
-    tb(s, COLS[2], y, 4.9, 0.7, words, size=12.5)
-    tb(s, COLS[3], y, 1.5, 0.7, rate, size=12.5, bold=True, color=c)
-    y += 0.72
-rule(s, 0.9, y + 0.05, 11.53, 1.2)
-tb(s, 0.9, y + 0.3, 11.5, 0.5,
-   "Same records throughout; only the definition changes. Rate: annual average over the years shown; for the NCES, the latest wave (2021–22).",
-   size=11, color=MUT, italic=True)
+if EAG is not None:
+    TROWS.append(("Education at a Glance 2025", EAG[0], EAG[1]))
+y = yh + 0.58
+for name, words, rate in TROWS:
+    add_text(s, COLS[0], y, 3.4, 0.6, [(name, 13, INK, True, False, 0)])
+    add_text(s, COLS[1], y, 6.3, 0.6, [(words, 13, INK, False, False, 0)])
+    add_text(s, COLS[2], y, 1.5, 0.6, [(rate, 13, INK, True, False, 0)])
+    y += 0.58
+rule(s, 0.9, y + 0.05, 11.53, 1.2, INK)
 made["table"] = s
 
-# ---------- all-series slide (image; native charts choke this template) ----------
-s = new_slide()
-tb(s, 0.9, 0.4, 11.5, 0.6, "All the series, one axis", size=26, bold=True)
-s.shapes.add_picture(f"{SC}/v_allseries.png", Inches(0.65), Inches(1.2),
+# ---------------- all series, one axis (image) ----------------
+s = house_slide("All the series, one axis")
+s.shapes.add_picture(f"{SC}/v_allseries.png", Inches(0.65), Inches(1.35),
                      width=Inches(12.05))
 made["chart"] = s
 
-# ---------- countries ----------
-s = new_slide()
-tb(s, 0.9, 0.5, 11.5, 0.6, "Where this could be done next", size=26, bold=True)
-tb(s, 0.9, 1.12, 11.5, 0.4,
-   "Labour force surveys with the sample, the access, and a design that sees the same person twelve months apart",
-   size=12.5, color=MUT, italic=True)
+# ---------------- countries ----------------
+s = house_slide("Where this could be done next")
+add_text(s, BODY_X, 1.28, BODY_W, 0.4,
+         [("Labour force surveys with the sample, the access, and a design that sees the same person twelve months apart",
+           13, MUT, False, True, 0)])
 CC = [0.9, 2.7, 6.6, 9.4]
-rule(s, 0.9, 1.72, 11.53, 1.2)
-for x, h in zip(CC, ["", "Instrument", "Twelve-month design", "Sample and access"]):
-    tb(s, x, 1.82, 2.7, 0.35, h, size=11.5, bold=True)
-rule(s, 0.9, 2.22, 11.53, 0.6)
+yh = 1.95
+for x, h, wdt in zip(CC, ["", "Instrument", "Twelve-month design", "Sample and access"],
+                     [1.7, 3.8, 2.7, 3.0]):
+    add_text(s, x, yh, wdt, 0.35, [(h, 12, INK, True, False, 0)])
+rule(s, 0.9, yh + 0.4, 11.53, 0.6, INK)
 CROWS = [
  ("Italy", "Rilevazione sulle Forze di Lavoro (Istat)", "official 12-month longitudinal files", "research files, quarterly since 2004"),
  ("Germany", "Mikrozensus (Destatis)", "2-(2)-2 scheme since 2020", "810,000 persons a year; RDC files"),
@@ -235,41 +227,36 @@ CROWS = [
  ("Brazil", "PNAD Contínua (IBGE)", "five quarterly visits", "210,000 households a quarter; fully public"),
  ("Mexico", "ENOE (INEGI)", "five-quarter rotation", "150,000 dwellings a quarter; fully public"),
 ]
-y = 2.42
+y = yh + 0.55
 for co, inst, des, acc in CROWS:
-    tb(s, CC[0], y, 1.75, 0.5, co, size=11.5, bold=True, color=NAVY)
-    tb(s, CC[1], y, 3.8, 0.5, inst, size=11.5)
-    tb(s, CC[2], y, 2.7, 0.5, des, size=11.5)
-    tb(s, CC[3], y, 3.0, 0.5, acc, size=11.5)
+    add_text(s, CC[0], y, 1.7, 0.5, [(co, 12, INK, True, False, 0)])
+    add_text(s, CC[1], y, 3.8, 0.5, [(inst, 12, INK, False, False, 0)])
+    add_text(s, CC[2], y, 2.7, 0.5, [(des, 12, INK, False, False, 0)])
+    add_text(s, CC[3], y, 3.0, 0.5, [(acc, 12, INK, False, False, 0)])
     y += 0.52
-rule(s, 0.9, y + 0.08, 11.53, 1.2)
-tb(s, 0.9, y + 0.28, 11.5, 0.4,
-   "At two to four percent of employment, each yields at least as many teacher observations per year as the CPS does here.",
-   size=11.5)
-tb(s, 0.9, y + 0.68, 11.5, 0.4,
-   "Australia and Canada cannot: eight and six months in sample never show the same person twelve months apart.",
-   size=10.5, color=MUT, italic=True)
+rule(s, 0.9, y + 0.06, 11.53, 1.2, INK)
+add_text(s, 0.9, y + 0.24, 11.5, 0.4,
+         [("Australia and Canada cannot: eight and six months in sample never show the same person twelve months apart.",
+           11, MUT, False, True, 0)])
 made["countries"] = s
 
-# ---------- reorder ----------
-order_tags = [0, 1, "d1", "cps", 2, 3, "words", "examples", "table", "chart",
+# ---------------- reorder (original Data slide, index 2, is dropped) ----------------
+order_tags = [0, 1, "d1", "cps", "dataset", 3, "words", "examples", "table", "chart",
               "d2", 4, 5, 6, 7, 8, 9,
               "d3", 10, 11, 12, 13,
               "d4", 14, 15, 16, 17, 18,
               "d5", 19, 20,
               "d6", 21, 22, 23, 24, 25, 26,
               "countries"]
+NEWTAGS = ["d1", "d2", "d3", "d4", "d5", "d6", "cps", "dataset", "words",
+           "examples", "table", "chart", "countries"]
 sldIdLst = prs.slides._sldIdLst
 ids = list(sldIdLst)
-slide_id_of = {}
-for i, el in enumerate(ids):
-    slide_id_of[i] = el
-new_ids = {tag: ids[27 + i] for i, tag in enumerate(
-    ["d1", "d2", "d3", "d4", "d5", "d6", "cps", "words", "examples",
-     "table", "chart", "countries"])}
+new_ids = {tag: ids[27 + i] for i, tag in enumerate(NEWTAGS)}
 for el in ids:
     sldIdLst.remove(el)
+dropped = 0
 for t in order_tags:
-    sldIdLst.append(new_ids[t] if isinstance(t, str) else slide_id_of[t])
-prs.save(f"{SC}/deck_v3.pptx")
-print(f"saved deck_v3.pptx with {len(order_tags)} slides")
+    sldIdLst.append(new_ids[t] if isinstance(t, str) else ids[t])
+prs.save(f"{SC}/deck_v4.pptx")
+print(f"saved deck_v4.pptx with {len(order_tags)} slides (EAG row: {EAG is not None})")
