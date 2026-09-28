@@ -83,6 +83,7 @@ def chip(s, x, y, w, h, fill, line_color=None, radius=0.12):
 made = {}
 
 # ---------- dividers ----------
+PALEBG = RGBColor(0xEC, 0xF0, 0xF4)
 for tag, num, title in [("d1", "1", "Data and measurement"),
                         ("d2", "2", "The leaving rate"),
                         ("d3", "3", "Where they go"),
@@ -90,10 +91,11 @@ for tag, num, title in [("d1", "1", "Data and measurement"),
                         ("d5", "5", "The business cycle"),
                         ("d6", "6", "Pay and pensions")]:
     s = new_slide()
-    rule(s, 5.07, 3.05, 3.2, 0.75)
-    tb(s, 5.07, 3.25, 3.2, 0.4, num, size=14, color=MUT, align=PP_ALIGN.CENTER)
-    tb(s, 3.07, 3.62, 7.2, 0.6, title, size=26, color=INK, align=PP_ALIGN.CENTER)
-    rule(s, 5.07, 4.42, 3.2, 0.75)
+    tb(s, 1.9, 0.75, 9.53, 3.2, num, size=170, color=PALEBG, bold=True,
+       align=PP_ALIGN.CENTER)
+    tb(s, 1.9, 4.05, 9.53, 0.75, title, size=30, color=INK, bold=True,
+       align=PP_ALIGN.CENTER)
+    rule(s, 5.87, 5.05, 1.6, 1.6, NAVY)
     made[tag] = s
 
 # ---------- CPS ----------
@@ -179,91 +181,38 @@ made["examples"] = s
 s = new_slide()
 tb(s, 0.9, 0.55, 11.5, 0.6, "Five ways to count, one file", size=26, bold=True)
 rule(s, 0.9, 1.42, 11.53, 1.2)
-COLS = [0.9, 4.3, 10.9]
-tb(s, COLS[0], 1.55, 3.3, 0.4, "Measure", size=12.5, bold=True)
-tb(s, COLS[1], 1.55, 6.4, 0.4, "In words", size=12.5, bold=True)
-tb(s, COLS[2], 1.55, 1.5, 0.4, "Rate", size=12.5, bold=True)
+COLS = [0.9, 4.15, 5.85, 10.9]
+tb(s, COLS[0], 1.55, 3.1, 0.4, "Measure", size=12.5, bold=True)
+tb(s, COLS[1], 1.55, 1.6, 0.4, "Years", size=12.5, bold=True)
+tb(s, COLS[2], 1.55, 4.9, 0.4, "In words", size=12.5, bold=True)
+tb(s, COLS[3], 1.55, 1.5, 0.4, "Rate", size=12.5, bold=True)
 rule(s, 0.9, 1.95, 11.53, 0.6)
 TROWS = [
- ("March recall  (this paper)", "the main job of last year was teaching, and it is gone by March", "8.6", NAVY),
- ("Pure occupation pair", "last year’s and today’s occupation compared directly, nothing else", "5.8", NAVY),
- ("Panel, one verdict per teacher", "seen teaching twice; never seen teaching again a year later", "13.0", CORAL),
- ("Panel, month pairs", "every teaching month checked exactly twelve months later", "15.4", CORAL),
- ("Panel, any sighting", "one teaching month is enough to enter the count", "18.2", CORAL),
- ("NCES follow-up survey", "school rosters re-surveyed the following fall; every four to five years", "5.1 – 8.4", MUT),
+ ("March recall  (this paper)", "1997–2024", "the main job of last year was teaching, and it is gone by March", "8.6", NAVY),
+ ("Pure occupation pair", "2021–2023", "last year’s and today’s occupation compared directly, nothing else", "5.8", NAVY),
+ ("Panel, one verdict per teacher", "2005–2024", "seen teaching twice; never seen teaching again a year later", "13.0", CORAL),
+ ("Panel, month pairs", "2005–2024", "every teaching month checked exactly twelve months later", "15.4", CORAL),
+ ("Panel, any sighting", "2005–2024", "one teaching month is enough to enter the count", "18.2", CORAL),
+ ("NCES follow-up survey", "1988–2022", "school rosters re-surveyed the following fall; eight waves", "8.0", MUT),
 ]
 y = 2.18
-for name, words, rate, c in TROWS:
-    tb(s, COLS[0], y, 3.3, 0.7, name, size=12.5, bold=True, color=c)
-    tb(s, COLS[1], y, 6.4, 0.7, words, size=12.5)
-    tb(s, COLS[2], y, 1.5, 0.7, rate, size=12.5, bold=True, color=c)
+for name, yrs, words, rate, c in TROWS:
+    tb(s, COLS[0], y, 3.1, 0.7, name, size=12.5, bold=True, color=c)
+    tb(s, COLS[1], y, 1.6, 0.7, yrs, size=12.5, color=MUT)
+    tb(s, COLS[2], y, 4.9, 0.7, words, size=12.5)
+    tb(s, COLS[3], y, 1.5, 0.7, rate, size=12.5, bold=True, color=c)
     y += 0.72
 rule(s, 0.9, y + 0.05, 11.53, 1.2)
 tb(s, 0.9, y + 0.3, 11.5, 0.5,
-   "Same records throughout; only the definition changes. Annual average, percent of teachers.",
+   "Same records throughout; only the definition changes. Rate: annual average over the years shown; for the NCES, the latest wave (2021–22).",
    size=11, color=MUT, italic=True)
 made["table"] = s
 
-# ---------- stacked native chart ----------
-P = pd.read_csv("outputs/p_series.csv")
-E = pd.read_csv("outputs/evolution_by_year_gender.csv")
-R3 = pd.read_csv("outputs/panel_person_r3.csv"); R3 = R3[R3.base_year <= 2024]
-FN = pd.read_csv("outputs/panel_person_final.csv")
-years = list(range(1988, 2025))
-def series_map(df, ycol, vcol):
-    m = dict(zip(df[ycol].astype(int), df[vcol]))
-    return [round(float(m[y]), 2) if y in m else None for y in years]
-
-cd = CategoryChartData()
-cd.categories = [str(y) for y in years]
-cd.add_series("March recall", series_map(P, "cal_year", "leaver_ba"))
-cd.add_series("Panel, one verdict per teacher", series_map(FN, "base_year", "leaver_final"))
-cd.add_series("Panel, month pairs", series_map(E, "base_year", "attr12_all"))
-cd.add_series("Panel, any sighting", series_map(R3, "base_year", "leaver_r3"))
-cd.add_series("NCES follow-up (public schools)",
-              [NCES.get(y) for y in years])
-
+# ---------- all-series slide (image; native charts choke this template) ----------
 s = new_slide()
 tb(s, 0.9, 0.4, 11.5, 0.6, "All the series, one axis", size=26, bold=True)
-gframe = s.shapes.add_chart(XL_CHART_TYPE.LINE, Inches(0.7), Inches(1.15),
-                            Inches(12.0), Inches(5.7), cd)
-ch_ = gframe.chart
-ch_.has_title = False
-ch_.font.name = GARA
-ch_.font.size = Pt(11)
-ch_.has_legend = True
-ch_.legend.position = XL_LEGEND_POSITION.BOTTOM
-ch_.legend.include_in_layout = False
-va = ch_.value_axis
-va.has_major_gridlines = True
-va.major_gridlines.format.line.color.rgb = RGBColor(0xEF, 0xF1, 0xF3)
-va.maximum_scale = 22.0
-va.minimum_scale = 0.0
-ca = ch_.category_axis
-ca.tick_labels.font.size = Pt(10)
-styles = [(NAVY, 2.75, False), (CORAL, 2.5, False),
-          (CORAL_M, 1.5, True), (CORAL_L, 1.5, False), (INK, 1.75, True)]
-for ser, (col, wpt, dash) in zip(ch_.plots[0].series, styles):
-    ser.smooth = False
-    ln = ser.format.line
-    ln.color.rgb = col
-    ln.width = Pt(wpt)
-    if dash:
-        d = ln._get_or_add_ln()
-        pd_ = d.makeelement(qn("a:prstDash"), {"val": "dash"})
-        d.append(pd_)
-# markers on the sparse NCES series + span blanks
-nces_ser = ch_.plots[0].series[4]
-serEl = nces_ser._element
-marker = etree.SubElement(serEl, qn("c:marker"))
-etree.SubElement(marker, qn("c:symbol")).set("val", "circle")
-etree.SubElement(marker, qn("c:size")).set("val", "6")
-spPr = serEl.find(qn("c:spPr"))
-serEl.remove(marker)
-spPr.addnext(marker)
-chartEl = ch_._chartSpace.find(qn("c:chart"))
-disp = etree.SubElement(chartEl, qn("c:dispBlanksAs"))
-disp.set("val", "span")
+s.shapes.add_picture(f"{SC}/v_allseries.png", Inches(0.65), Inches(1.2),
+                     width=Inches(12.05))
 made["chart"] = s
 
 # ---------- countries ----------
