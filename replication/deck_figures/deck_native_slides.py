@@ -14,6 +14,9 @@ BLUE = RGBColor(0x00, 0x54, 0x9F)          # the deck's own title blue
 INK = RGBColor(0x1A, 0x24, 0x30)           # the deck's own body color
 MUT = RGBColor(0x6B, 0x74, 0x80)
 CORAL = RGBColor(0xB5, 0x44, 0x3C)
+NAVY2 = RGBColor(0x1F, 0x38, 0x64)
+BURG = RGBColor(0x7B, 0x25, 0x30)
+LGRAYB = RGBColor(0xC9, 0xCF, 0xD6)
 PALE = RGBColor(0xE3, 0xE6, 0xEA)
 PALEBG = RGBColor(0xEC, 0xF0, 0xF4)
 GRAYC = RGBColor(0x8A, 0x90, 0x96)
@@ -34,7 +37,7 @@ def new_slide():
         ph._element.getparent().remove(ph._element)
     return s
 
-def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT):
+def add_text(s, x, y, w, h, parts=None, align=PP_ALIGN.LEFT):
     """parts: list of paragraphs; each is (text, size, color, bold, italic, space_after)."""
     box = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     tf = box.text_frame
@@ -95,7 +98,7 @@ for tag, num, title in [("d1", "1", "Data and measurement"),
 
 # ---------------- The Current Population Survey ----------------
 s = house_slide("The Current Population Survey")
-add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, [
+add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, align=PP_ALIGN.JUSTIFY, parts=[
  ("The CPS is the monthly household survey of the United States, run by the Census Bureau. "
   "The country’s official employment statistics are computed from it.", 16, INK, False, False, 14),
  ("Each March, its Annual Social and Economic Supplement asks every adult about the previous "
@@ -107,7 +110,7 @@ made["cps"] = s
 
 # ---------------- From the CPS to a teacher dataset ----------------
 s = house_slide("From the CPS to a teacher dataset")
-add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, [
+add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, align=PP_ALIGN.JUSTIFY, parts=[
  ("I pool every March supplement from 1998 to 2025 into a single file: five million individual "
   "records, 104,545 of them teachers, around 3,700 per year.", 16, INK, False, False, 14),
  ("Whoever taught as last year’s longest job, and no longer teaches at the March interview, "
@@ -117,88 +120,131 @@ add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, [
 ])
 made["dataset"] = s
 
-# ---------------- Two ways to measure leaving ----------------
-s = house_slide("Two ways to measure leaving")
-add_text(s, BODY_X, 2.1, 11.0, 4.0, [
- ("Ask people what they did last year, and look at what they do today.", 20, INK, False, False, 6),
- ("One question, one record, no matching. This is the March measure.", 13, MUT, False, True, 30),
- ("Or find the same person twice, a year apart, and compare.", 20, INK, False, False, 6),
- ("No person identifier exists, so the second look is built from household records.", 13, MUT, False, True, 0),
-])
+# ---------------- Linking individuals across waves ----------------
+s = house_slide("Linking individuals across waves")
+add_text(s, BODY_X, BODY_Y, BODY_W, 1.6, [
+ ("The CPS carries no individual identifier across interviews: sampling follows addresses, not "
+  "persons. Records are therefore linked across waves on household-level identifiers, and each "
+  "candidate link is validated on demographic consistency, following Madrian and Lefgren (1999).",
+  16, INK, False, False, 0)], align=PP_ALIGN.JUSTIFY)
+rule(s, 0.9, 3.05, 11.53, 1.0, INK)
+add_text(s, 1.1, 3.25, 4.6, 0.4, [("Linkage keys (exact match)", 13.5, NAVY2, True, False, 0)])
+add_text(s, 6.6, 3.25, 5.4, 0.4, [("Validation (demographic consistency)", 13.5, NAVY2, True, False, 0)])
+add_text(s, 1.1, 3.78, 4.6, 1.6, [
+ ("Household identifier", 13, INK, False, False, 8),
+ ("Dwelling identifier", 13, INK, False, False, 8),
+ ("Person line number within the household", 13, INK, False, False, 0)])
+add_text(s, 6.6, 3.78, 5.4, 1.6, [
+ ("Sex, identical across interviews", 13, INK, False, False, 8),
+ ("Race, identical across interviews", 13, INK, False, False, 8),
+ ("Age, increasing by zero to two years", 13, INK, False, False, 0)])
+rule(s, 0.9, 5.5, 11.53, 1.0, INK)
+add_text(s, BODY_X, 5.85, BODY_W, 1.2, [
+ ("Validated links are obtained for 78 percent of teacher observations (74 percent of other "
+  "college graduates). The loss is concentrated among movers, whose exit propensity exceeds "
+  "that of non-movers; panel-based estimates are therefore lower bounds on mobility-related exit.",
+  13.5, INK, False, False, 0)], align=PP_ALIGN.JUSTIFY)
 made["words"] = s
 
-# ---------------- Who is a stayer ----------------
-s = house_slide("Who is a stayer")
-T, NG = "T", "n"
-ROWS = [
- (["T","T","T","T", "T","T","T","T"], "stayer", BLUE),
- (["T","T","T","T", "n","n","n","T"], "stayer", BLUE),
- (["T","T","n","n", "n","n","n","n"], "leaver", CORAL),
- (["T","n","n","n", "n","n","n","n"], "not counted", GRAYC),
-]
-def chip(s, x, y, w, h, fill, label=None, lab_size=13):
-    sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y),
+# ---------------- Definition 1: illustrative cases ----------------
+s = house_slide("Definition 1: illustrative cases")
+def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
+    sh = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y),
                             Inches(w), Inches(h))
-    try:
-        sh.adjustments[0] = 0.12
-    except Exception:
-        pass
-    sh.fill.solid(); sh.fill.fore_color.rgb = fill
-    sh.line.fill.background()
+    if fill is None:
+        sh.fill.solid(); sh.fill.fore_color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+    else:
+        sh.fill.solid(); sh.fill.fore_color.rgb = fill
+    if border is None:
+        sh.line.fill.background()
+    else:
+        sh.line.color.rgb = border; sh.line.width = Pt(0.75)
     sh.shadow.inherit = False
     if label:
         tf = sh.text_frame; tf.word_wrap = False
         p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
         r = p.add_run(); r.text = label
-        r.font.name = GARA; r.font.size = Pt(lab_size); r.font.bold = True
-        r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+        r.font.name = GARA; r.font.size = Pt(12); r.font.bold = True
+        r.font.color.rgb = lab_color or RGBColor(0xFF, 0xFF, 0xFF)
     return sh
 
-cw, ch2, gap = 0.62, 0.62, 0.10
-y = 1.75
-for cells, verdict, vc in ROWS:
-    x = 0.9
-    for i, cell in enumerate(cells):
+EROWS = [
+ (["T","T","T","T", "T","T","T","T"], "stayer", NAVY2),
+ (["T","T","T","T", "n","n","n","T"], "stayer", NAVY2),
+ (["T","T","n","n", "n","n","n","n"], "leaver", BURG),
+ (["T","n","n","n", "n","n","n","n"], "excluded: a single year-1 observation", MUT),
+]
+cw, chh, gap = 0.60, 0.60, 0.06
+y = 1.85
+for cells_, verdict, vc in EROWS:
+    x0 = 0.9
+    for i, c_ in enumerate(cells_):
         if i == 4:
-            x += 0.9
-        chip(s, x, y, cw, ch2, BLUE if cell == "T" else PALE,
-             "T" if cell == "T" else None)
-        x += cw + gap
-    chip(s, x + 0.5, y + 0.06, 2.2, 0.5, vc, verdict)
-    y += 1.12
-add_text(s, 0.9, y + 0.05, 5.0, 0.4, [("year one", 12, MUT, False, False, 0)])
-add_text(s, 6.4, y + 0.05, 5.0, 0.4, [("one year later", 12, MUT, False, False, 0)])
-add_text(s, 0.9, y + 0.5, 11.5, 0.4,
-         [("Filled: seen teaching.  Light: interviewed, not teaching.", 11, MUT, False, True, 0)])
+            x0 += 0.85
+        if c_ == "T":
+            fill = NAVY2 if i < 4 else BURG
+            cell(s, x0, y, cw, chh, fill, None, "T")
+        else:
+            cell(s, x0, y, cw, chh, None, LGRAYB)
+        x0 += cw + gap
+    add_text(s, x0 + 0.35, y + 0.12, 5.0, 0.45,
+             [(verdict, 14, vc, True, False, 0)])
+    y += 1.02
+add_text(s, 0.9, y + 0.08, 5.0, 0.35, [("Year 1", 12, MUT, False, True, 0)])
+add_text(s, 6.35, y + 0.08, 5.0, 0.35, [("Year 2", 12, MUT, False, True, 0)])
+add_text(s, 0.9, y + 0.52, 11.5, 0.4,
+         [("Filled cells denote interviews in which the individual is observed teaching; bordered cells, interviews without teaching.",
+           12, MUT, False, True, 0)])
 made["examples"] = s
 
-# ---------------- the table: one example year ----------------
-s = house_slide("Six measures, one year")
-add_text(s, BODY_X, 1.28, BODY_W, 0.4,
-         [("Percent of teachers leaving between 2021 and 2022", 13, MUT, False, True, 0)])
-COLS = [0.9, 4.4, 10.9]
-yh = 1.95
-add_text(s, COLS[0], yh, 3.4, 0.4, [("Measure", 13, INK, True, False, 0)])
-add_text(s, COLS[1], yh, 6.3, 0.4, [("In words", 13, INK, True, False, 0)])
-add_text(s, COLS[2], yh, 1.5, 0.4, [("2021", 13, INK, True, False, 0)])
-rule(s, 0.9, yh + 0.42, 11.53, 0.6, INK)
-TROWS = [
- ("March recall  (this paper)", "the main job of last year was teaching, and it is gone by March", Y21["recall"]),
- ("Pure occupation pair", "last year’s and today’s occupation compared directly, nothing else", Y21["pair"]),
- ("Panel, one verdict per teacher", "seen teaching twice; never seen teaching again a year later", Y21["verdict"]),
- ("Panel, month pairs", "every teaching month checked exactly twelve months later", Y21["pairs"]),
- ("Panel, any sighting", "one teaching month is enough to enter the count", Y21["sighting"]),
- ("NCES follow-up survey", "school rosters re-surveyed the following fall", Y21["nces"]),
+# ---------------- The panel definition + alternative measures ----------------
+s = house_slide("Measuring attrition: definitions")
+# the 4-8-4 strip, square and contiguous
+add_text(s, 0.9, 1.26, 3.5, 0.35, [("Year 1: interviews 1–4", 13, NAVY2, True, False, 0)])
+add_text(s, 4.9, 1.26, 3.6, 0.35, [("8 months out of the sample", 12.5, MUT, False, True, 0)],
+         align=PP_ALIGN.CENTER)
+add_text(s, 9.0, 1.26, 3.5, 0.35, [("Year 2: interviews 5–8", 13, BURG, True, False, 0)],
+         align=PP_ALIGN.RIGHT)
+scw = 11.53 / 16
+for i in range(16):
+    x0 = 0.9 + i * scw
+    if i < 4:
+        cell(s, x0, 1.62, scw, 0.50, NAVY2, None, str(i + 1))
+    elif i >= 12:
+        cell(s, x0, 1.62, scw, 0.50, BURG, None, str(i + 1))
+    else:
+        cell(s, x0, 1.62, scw, 0.50, None, LGRAYB, str(i + 1), MUT)
+# Definition 1 block
+add_text(s, 0.9, 2.26, 4.0, 0.4, [("Definition 1  (benchmark)", 14, INK, True, False, 0)])
+rule(s, 0.9, 2.70, 11.53, 1.0, INK)
+D1 = [("Teacher", NAVY2, "employed with a teaching occupation, holding a bachelor’s degree, in at least two year-1 interviews"),
+      ("Stayer", NAVY2, "observed teaching in at least one year-2 interview"),
+      ("Leaver", BURG, "never observed teaching in year 2, given two or more year-2 interviews, one outside June–August")]
+y = 2.84
+for term, c, desc in D1:
+    add_text(s, 1.1, y, 1.6, 0.42, [(term, 13, c, True, False, 0)])
+    add_text(s, 2.9, y, 9.3, 0.42, [(desc, 13, INK, False, False, 0)])
+    y += 0.44
+rule(s, 0.9, y + 0.05, 11.53, 1.0, INK)
+# Alternative measures block
+add_text(s, 0.9, y + 0.14, 6.0, 0.4, [("Alternative measures", 14, INK, True, False, 0)])
+add_text(s, 11.0, y + 0.14, 1.4, 0.4, [("2021", 13, INK, True, False, 0)])
+rule(s, 0.9, y + 0.58, 11.53, 0.6, INK)
+ALT = [
+ ("Definition 1, as above", "one classification per individual", "12.9"),
+ ("Retrospective annual measure", "longest job of the previous year no longer held at the March interview", "7.1"),
+ ("Occupation-pair measure", "previous-year and current occupation codes compared directly", "5.0"),
+ ("Month-pair measure", "each teaching month matched to its interview twelve months ahead", "16.0"),
+ ("Any-sighting measure", "any individual observed teaching once in year 1 enters the denominator", "19.4"),
+ ("NCES Teacher Follow-up Survey", "roster-based re-survey of a teacher sample; wave 2021–22", "8.0"),
 ]
-if EAG is not None:
-    TROWS.append(("Education at a Glance 2025", EAG[0], EAG[1]))
-y = yh + 0.58
-for name, words, rate in TROWS:
-    add_text(s, COLS[0], y, 3.4, 0.6, [(name, 13, INK, True, False, 0)])
-    add_text(s, COLS[1], y, 6.3, 0.6, [(words, 13, INK, False, False, 0)])
-    add_text(s, COLS[2], y, 1.5, 0.6, [(rate, 13, INK, True, False, 0)])
-    y += 0.58
-rule(s, 0.9, y + 0.05, 11.53, 1.2, INK)
+y2 = y + 0.72
+for name, desc, rate in ALT:
+    add_text(s, 1.1, y2, 3.1, 0.36, [(name, 11.5, INK, True, False, 0)])
+    add_text(s, 4.35, y2, 6.4, 0.36, [(desc, 11.5, INK, False, False, 0)])
+    add_text(s, 11.0, y2, 1.2, 0.36, [(rate, 11.5, INK, True, False, 0)])
+    y2 += 0.37
+rule(s, 0.9, y2 + 0.02, 11.53, 1.0, INK)
 made["table"] = s
 
 # ---------------- all series, one axis (image) ----------------
@@ -241,7 +287,7 @@ add_text(s, 0.9, y + 0.24, 11.5, 0.4,
 made["countries"] = s
 
 # ---------------- reorder (original Data slide, index 2, is dropped) ----------------
-order_tags = [0, 1, "d1", "cps", "dataset", 3, "words", "examples", "table", "chart",
+order_tags = [0, 1, "d1", "cps", "dataset", 3, "words", "table", "examples", "chart",
               "d2", 4, 5, 6, 7, 8, 9,
               "d3", 10, 11, 12, 13,
               "d4", 14, 15, 16, 17, 18,
