@@ -112,85 +112,85 @@ for tag, num, title in [("d1", "1", "Data and measurement"),
 
 # ---------------- The Current Population Survey ----------------
 s = house_slide("The Current Population Survey")
-add_text(s, BODY_X, BODY_Y, BODY_W, 1.3, align=PP_ALIGN.JUSTIFY, parts=[
- ("The CPS is the household survey from which the official employment and unemployment "
-  "statistics of the United States are computed. It has been conducted by the Census Bureau "
-  "for the Bureau of Labor Statistics since 1940.", 17, INK, False, False, 0),
+add_text(s, BODY_X, BODY_Y, BODY_W, 0.8, align=PP_ALIGN.JUSTIFY, parts=[
+ ("The monthly household survey behind the official employment statistics: about 60,000 "
+  "households, the civilian non-institutional population.", 17, INK, False, False, 0),
 ])
-rule(s, 0.9, 3.30, 11.53, 1.0, INK)
-CPSROWS = [
- ("Scope", "the civilian non-institutional population of the fifty states and the District of Columbia"),
- ("Frequency", "monthly, with a single reference week in every month"),
- ("Sample", "about 60,000 households, some 110,000 individuals, in each monthly round"),
- ("Rotation", "four monthly interviews, eight months out, four more: eight interviews over sixteen months"),
+# four actual records from the March 2025 supplement (asec_master.parquet)
+DCOLS = [(1.05, 0.70, "Age"), (1.90, 3.30, "Longest job last year"),
+         (5.35, 0.85, "Weeks"), (6.35, 1.20, "Wage"),
+         (7.70, 3.30, "Occupation this March"), (11.15, 1.25, "")]
+DROWS = [
+ ("58", "Elementary and middle school teachers", "52", "$76,375",
+  "Elementary and middle school teachers", "stayer", NAVY2),
+ ("28", "Elementary and middle school teachers", "52", "$57,000",
+  "Secretary and administrative assistant", "leaver", BURG),
+ ("24", "Elementary and middle school teachers", "40", "$81,500",
+  "Teaching assistant", "leaver", BURG),
+ ("62", "Elementary and middle school teachers", "26", "$62,000",
+  "Not employed in March", "leaver", BURG),
 ]
-y = 3.50
-for term, desc in CPSROWS:
-    add_text(s, 1.1, y, 1.7, 0.42, [(term, 14, HEAD, True, False, 0)])
-    add_text(s, 2.95, y, 9.3, 0.42, [(desc, 14, INK, False, False, 0)])
+rule(s, 0.9, 3.00, 11.53, 1.0, INK)
+for x, w, h in DCOLS:
+    if h:
+        add_text(s, x, 3.14, w, 0.4, [(h, 13, HEAD, True, False, 0)])
+rule(s, 0.9, 3.56, 11.53, 0.6, INK)
+y = 3.72
+for age, job, wk, wage, occ, verdict, vc in DROWS:
+    for (x, w, _), val in zip(DCOLS, [age, job, wk, wage, occ, None]):
+        if val is not None:
+            add_text(s, x, y, w, 0.42, [(val, 12.5, INK, False, False, 0)])
+    add_text(s, DCOLS[5][0], y, DCOLS[5][1], 0.42, [(verdict, 12.5, vc, True, False, 0)])
     y += 0.52
-rule(s, 0.9, y + 0.05, 11.53, 1.0, INK)
-add_text(s, BODY_X, y + 0.35, BODY_W, 1.0, align=PP_ALIGN.JUSTIFY, parts=[
- ("The rotation is the property this paper exploits: because a household returns to the sample "
-  "exactly one year after its first interviews, the same individual can be observed twelve "
-  "months apart.", 15, INK, False, False, 0),
-])
+rule(s, 0.9, y + 0.02, 11.53, 1.0, INK)
+add_text(s, 0.9, y + 0.24, 11.53, 0.4,
+         [("Four records from the March 2025 supplement, as they enter the dataset.",
+           12, MUT, False, True, 0)])
 made["cps"] = s
 
 # ---------------- Supplements and the March interview ----------------
 s = house_slide("Supplements, and why March")
-add_text(s, BODY_X, BODY_Y, BODY_W, 5.2, align=PP_ALIGN.JUSTIFY, parts=[
- ("The basic monthly interview measures current activity only: labor force status in the "
-  "reference week and the occupation of the current job. It asks nothing about the past.",
-  17, INK, False, False, 14),
- ("In most months a supplement is appended to the basic interview, a module on a rotating "
-  "topic: school enrollment in October, voting in November, fertility, tobacco use.",
-  17, INK, False, False, 14),
- ("The March supplement, the Annual Social and Economic Supplement, is the largest and oldest. "
-  "The sample is expanded to roughly 90,000 households, and every adult is asked about the "
-  "entire previous calendar year: the longest job held, weeks worked, earnings, income, and "
-  "benefits.", 17, INK, False, False, 14),
- ("The basic interview sees one month; only the March interview sees the whole preceding year. "
-  "An annual leaving rate can therefore be measured in March, and in no other month.",
+add_text(s, BODY_X, BODY_Y, BODY_W, 4.0, align=PP_ALIGN.JUSTIFY, parts=[
+ ("The basic monthly interview measures current activity only. Most months add a supplement "
+  "on a rotating topic.", 17, INK, False, False, 16),
+ ("The March supplement expands the sample to roughly 90,000 households and asks every adult "
+  "about the entire previous calendar year: longest job held, weeks worked, earnings.",
+  17, INK, False, False, 16),
+ ("An annual leaving rate can therefore be measured in March, and in no other month.",
   17, INK, False, False, 0),
 ])
 made["asec"] = s
 
 # ---------------- From the CPS to a teacher dataset ----------------
 s = house_slide("From the CPS to a teacher dataset")
-add_text(s, BODY_X, BODY_Y, BODY_W, 4.8, align=PP_ALIGN.JUSTIFY, parts=[
- ("I pool every March supplement from 1998 to 2025 into a single file: five million individual "
-  "records, 104,545 of them teachers, around 3,700 per year.", 17, INK, False, False, 14),
+add_text(s, BODY_X, BODY_Y, BODY_W, 3.2, align=PP_ALIGN.JUSTIFY, parts=[
+ ("I pool every March supplement from 1998 to 2025: five million records, 104,545 of them "
+  "teachers.", 17, INK, False, False, 16),
  ("Whoever taught as last year’s longest job, and no longer teaches at the March interview, "
-  "has left the profession within the year.", 17, INK, False, False, 14),
- ("Each record carries age, family structure, earnings, school sector, state, and pension "
-  "coverage, so leaving can be related to what we observe about the teacher.", 17, INK, False, False, 0),
+  "has left the profession within the year.", 17, INK, False, False, 0),
 ])
 made["dataset"] = s
 
 # ---------------- Linking individuals across waves ----------------
 s = house_slide("Linking individuals across waves")
-add_text(s, BODY_X, BODY_Y, BODY_W, 1.6, [
- ("The CPS carries no individual identifier across interviews: sampling follows addresses, not "
-  "persons. Records are therefore linked across waves on household-level identifiers, and each "
-  "candidate link is validated on demographic consistency, following Madrian and Lefgren (1999).",
+add_text(s, BODY_X, BODY_Y, BODY_W, 0.8, [
+ ("The CPS carries no individual identifier: records are linked on household identifiers and "
+  "validated on demographics (Madrian and Lefgren, 1999).",
   17, INK, False, False, 0)], align=PP_ALIGN.JUSTIFY)
-rule(s, 0.9, 3.35, 11.53, 1.0, INK)
-add_text(s, 1.1, 3.55, 4.6, 0.4, [("Linkage keys (exact match)", 14, HEAD, True, False, 0)])
-add_text(s, 6.6, 3.55, 5.4, 0.4, [("Validation (demographic consistency)", 14, HEAD, True, False, 0)])
-add_text(s, 1.1, 4.08, 4.6, 1.6, [
+rule(s, 0.9, 3.05, 11.53, 1.0, INK)
+add_text(s, 1.1, 3.25, 4.6, 0.4, [("Linkage keys (exact match)", 14, HEAD, True, False, 0)])
+add_text(s, 6.6, 3.25, 5.4, 0.4, [("Validation", 14, HEAD, True, False, 0)])
+add_text(s, 1.1, 3.78, 4.6, 1.6, [
  ("Household identifier", 13, INK, False, False, 8),
  ("Dwelling identifier", 13, INK, False, False, 8),
- ("Person line number within the household", 13, INK, False, False, 0)])
-add_text(s, 6.6, 4.08, 5.4, 1.6, [
- ("Sex, identical across interviews", 13, INK, False, False, 8),
- ("Race, identical across interviews", 13, INK, False, False, 8),
+ ("Person line number", 13, INK, False, False, 0)])
+add_text(s, 6.6, 3.78, 5.4, 1.6, [
+ ("Sex, identical", 13, INK, False, False, 8),
+ ("Race, identical", 13, INK, False, False, 8),
  ("Age, increasing by zero to two years", 13, INK, False, False, 0)])
-rule(s, 0.9, 5.8, 11.53, 1.0, INK)
-add_text(s, BODY_X, 6.1, BODY_W, 1.2, [
- ("Validated links are obtained for 78 percent of teacher observations (74 percent of other "
-  "college graduates). The loss is concentrated among movers, whose exit propensity exceeds "
-  "that of non-movers; panel-based estimates are therefore lower bounds on mobility-related exit.",
+rule(s, 0.9, 5.5, 11.53, 1.0, INK)
+add_text(s, BODY_X, 5.8, BODY_W, 0.6, [
+ ("Validated links: 78 percent of teacher observations.",
   13.5, INK, False, False, 0)], align=PP_ALIGN.JUSTIFY)
 made["words"] = s
 
@@ -217,10 +217,9 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
     return sh
 
 EROWS = [
- (["T","T","T","T", "T","T","T","T"], "stayer", NAVY2),
  (["T","T","T","T", "n","n","n","T"], "stayer", NAVY2),
  (["T","T","n","n", "n","n","n","n"], "leaver", BURG),
- (["T","n","n","n", "n","n","n","n"], "excluded: a single year-1 observation", MUT),
+ (["T","n","n","n", "n","n","n","n"], "excluded", MUT),
 ]
 cw, chh, gap = 0.60, 0.60, 0.06
 y = 2.05
@@ -241,8 +240,7 @@ for cells_, verdict, vc in EROWS:
 add_text(s, 0.9, y + 0.08, 5.0, 0.35, [("Year 1", 12, MUT, False, True, 0)])
 add_text(s, 6.35, y + 0.08, 5.0, 0.35, [("Year 2", 12, MUT, False, True, 0)])
 add_text(s, 0.9, y + 0.52, 11.5, 0.4,
-         [("Filled cells denote interviews in which the individual is observed teaching; bordered cells, interviews without teaching.",
-           12, MUT, False, True, 0)])
+         [("Filled cells: observed teaching.", 12, MUT, False, True, 0)])
 made["examples"] = s
 
 # ---------------- The panel definition + alternative measures ----------------
@@ -265,9 +263,9 @@ for i in range(16):
 # Definition 1 block
 add_text(s, 0.9, 2.56, 4.0, 0.4, [("Definition 1  (benchmark)", 15, HEAD, True, False, 0)])
 rule(s, 0.9, 3.00, 11.53, 1.0, INK)
-D1 = [("Teacher", NAVY2, "employed with a teaching occupation, holding a bachelor’s degree, in at least two year-1 interviews"),
-      ("Stayer", NAVY2, "observed teaching in at least one year-2 interview"),
-      ("Leaver", BURG, "never observed teaching in year 2, given two or more year-2 interviews, one outside June–August")]
+D1 = [("Teacher", NAVY2, "teaching, with a bachelor’s degree, in at least two year-1 interviews"),
+      ("Stayer", NAVY2, "teaching in at least one year-2 interview"),
+      ("Leaver", BURG, "never teaching in year 2, given two or more interviews, one outside the summer")]
 y = 3.14
 for term, c, desc in D1:
     add_text(s, 1.1, y, 1.6, 0.42, [(term, 13, c, True, False, 0)])
@@ -279,18 +277,17 @@ add_text(s, 0.9, y + 0.10, 6.0, 0.4, [("Alternative measures", 15, HEAD, True, F
 add_text(s, 11.0, y + 0.10, 1.4, 0.4, [("2021", 13, INK, True, False, 0)])
 rule(s, 0.9, y + 0.52, 11.53, 0.6, INK)
 ALT = [
- ("Definition 1, as above", "one classification per individual", "12.9"),
- ("Retrospective annual measure", "longest job of the previous year no longer held at the March interview", "7.1"),
- ("Occupation-pair measure", "previous-year and current occupation codes compared directly", "5.0"),
- ("Month-pair measure", "each teaching month matched to its interview twelve months ahead", "16.0"),
- ("Any-sighting measure", "any individual observed teaching once in year 1 enters the denominator", "19.4"),
- ("NCES Teacher Follow-up Survey", "roster-based re-survey of a teacher sample; wave 2021–22", "8.0"),
+ ("Definition 1, as above", "12.9"),
+ ("Retrospective annual measure", "7.1"),
+ ("Occupation-pair measure", "5.0"),
+ ("Month-pair measure", "16.0"),
+ ("Any-sighting measure", "19.4"),
+ ("NCES Teacher Follow-up Survey", "8.0"),
 ]
 y2 = y + 0.64
-for name, desc, rate in ALT:
-    add_text(s, 1.1, y2, 3.1, 0.36, [(name, 11.5, INK, True, False, 0)])
-    add_text(s, 4.35, y2, 6.4, 0.36, [(desc, 11.5, INK, False, False, 0)])
-    add_text(s, 11.0, y2, 1.2, 0.36, [(rate, 11.5, INK, True, False, 0)])
+for name, rate in ALT:
+    add_text(s, 1.1, y2, 6.0, 0.36, [(name, 12, INK, False, False, 0)])
+    add_text(s, 11.0, y2, 1.2, 0.36, [(rate, 12, INK, True, False, 0)])
     y2 += 0.36
 rule(s, 0.9, y2 + 0.02, 11.53, 1.0, INK)
 made["table"] = s
