@@ -116,35 +116,33 @@ add_text(s, BODY_X, BODY_Y, BODY_W, 0.8, align=PP_ALIGN.JUSTIFY, parts=[
  ("The monthly household survey behind the official employment statistics: about 60,000 "
   "households, the civilian non-institutional population.", 17, INK, False, False, 0),
 ])
-# four actual records from the March 2025 supplement (asec_master.parquet)
-DCOLS = [(1.05, 0.70, "Age"), (1.90, 3.30, "Longest job last year"),
-         (5.35, 0.85, "Weeks"), (6.35, 1.20, "Wage"),
-         (7.70, 3.30, "Occupation this March"), (11.15, 1.25, "")]
+# descriptive statistics, weighted, computed from asec_master.parquet
+DHDR = [("Teachers", 7.10, 2.00), ("Other graduates", 9.55, 2.55)]
 DROWS = [
- ("58", "Elementary and middle school teachers", "52", "$76,375",
-  "Elementary and middle school teachers", "stayer", NAVY2),
- ("28", "Elementary and middle school teachers", "52", "$57,000",
-  "Secretary and administrative assistant", "leaver", BURG),
- ("24", "Elementary and middle school teachers", "40", "$81,500",
-  "Teaching assistant", "leaver", BURG),
- ("62", "Elementary and middle school teachers", "26", "$62,000",
-  "Not employed in March", "leaver", BURG),
+ ("Observations, 1998–2025", "85,497", "726,618"),
+ ("Age", "43.7", "43.6"),
+ ("Female, percent", "75.9", "46.5"),
+ ("Master’s degree or higher, percent", "48.3", "33.8"),
+ ("Public sector, percent", "72.9", "16.2"),
+ ("Weeks worked in the year", "46.1", "48.6"),
+ ("Median annual wage, 2021–2025", "$56,000", "$75,000"),
+ ("Left teaching within the year, percent", "8.6", "—"),
 ]
-rule(s, 0.9, 3.00, 11.53, 1.0, INK)
-for x, w, h in DCOLS:
-    if h:
-        add_text(s, x, 3.14, w, 0.4, [(h, 13, HEAD, True, False, 0)])
-rule(s, 0.9, 3.56, 11.53, 0.6, INK)
-y = 3.72
-for age, job, wk, wage, occ, verdict, vc in DROWS:
-    for (x, w, _), val in zip(DCOLS, [age, job, wk, wage, occ, None]):
-        if val is not None:
-            add_text(s, x, y, w, 0.42, [(val, 12.5, INK, False, False, 0)])
-    add_text(s, DCOLS[5][0], y, DCOLS[5][1], 0.42, [(verdict, 12.5, vc, True, False, 0)])
-    y += 0.52
+rule(s, 0.9, 2.95, 11.53, 1.0, INK)
+for h, x, w in DHDR:
+    add_text(s, x, 3.08, w, 0.4, [(h, 13, HEAD, True, False, 0)], align=PP_ALIGN.RIGHT)
+rule(s, 0.9, 3.50, 11.53, 0.6, INK)
+y = 3.64
+for lab, tv, gv in DROWS:
+    add_text(s, 1.05, y, 5.6, 0.4, [(lab, 13, INK, False, False, 0)])
+    add_text(s, DHDR[0][1], y, DHDR[0][2], 0.4, [(tv, 13, INK, False, False, 0)],
+             align=PP_ALIGN.RIGHT)
+    add_text(s, DHDR[1][1], y, DHDR[1][2], 0.4, [(gv, 13, INK, False, False, 0)],
+             align=PP_ALIGN.RIGHT)
+    y += 0.40
 rule(s, 0.9, y + 0.02, 11.53, 1.0, INK)
-add_text(s, 0.9, y + 0.24, 11.53, 0.4,
-         [("Four records from the March 2025 supplement, as they enter the dataset.",
+add_text(s, 0.9, y + 0.20, 11.53, 0.4,
+         [("March supplements 1998–2025, weighted; individuals holding a bachelor’s degree or more.",
            12, MUT, False, True, 0)])
 made["cps"] = s
 
@@ -194,8 +192,6 @@ add_text(s, BODY_X, 5.8, BODY_W, 0.6, [
   13.5, INK, False, False, 0)], align=PP_ALIGN.JUSTIFY)
 made["words"] = s
 
-# ---------------- Definition 1: illustrative cases ----------------
-s = house_slide("Definition 1: illustrative cases")
 def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
     sh = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y),
                             Inches(w), Inches(h))
@@ -216,33 +212,6 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
         r.font.color.rgb = lab_color or RGBColor(0xFF, 0xFF, 0xFF)
     return sh
 
-EROWS = [
- (["T","T","T","T", "n","n","n","T"], "stayer", NAVY2),
- (["T","T","n","n", "n","n","n","n"], "leaver", BURG),
- (["T","n","n","n", "n","n","n","n"], "excluded", MUT),
-]
-cw, chh, gap = 0.60, 0.60, 0.06
-y = 2.05
-for cells_, verdict, vc in EROWS:
-    x0 = 0.9
-    for i, c_ in enumerate(cells_):
-        if i == 4:
-            x0 += 0.85
-        if c_ == "T":
-            fill = NAVY2 if i < 4 else BURG
-            cell(s, x0, y, cw, chh, fill, None, "T")
-        else:
-            cell(s, x0, y, cw, chh, None, LGRAYB)
-        x0 += cw + gap
-    add_text(s, x0 + 0.35, y + 0.12, 5.0, 0.45,
-             [(verdict, 14, vc, True, False, 0)])
-    y += 1.02
-add_text(s, 0.9, y + 0.08, 5.0, 0.35, [("Year 1", 12, MUT, False, True, 0)])
-add_text(s, 6.35, y + 0.08, 5.0, 0.35, [("Year 2", 12, MUT, False, True, 0)])
-add_text(s, 0.9, y + 0.52, 11.5, 0.4,
-         [("Filled cells: observed teaching.", 12, MUT, False, True, 0)])
-made["examples"] = s
-
 # ---------------- The panel definition + alternative measures ----------------
 s = house_slide("Measuring attrition: definitions")
 # the 4-8-4 strip, square and contiguous
@@ -260,6 +229,80 @@ for i in range(16):
         cell(s, x0, 1.92, scw, 0.50, BURG, None, str(i + 1))
     else:
         cell(s, x0, 1.92, scw, 0.50, None, LGRAYB, str(i + 1), MUT)
+
+# illustrative cases painted on the strip itself: on each click the previous
+# case is unpainted and the next appears (T marks + verdict in the gap)
+from pptx.enum.text import MSO_ANCHOR
+
+def tcell(i):
+    return cell(s, 0.9 + i * scw, 1.92, scw, 0.50, NAVY2 if i < 4 else BURG,
+                None, "T")
+
+def verdict_box(text, color):
+    box = add_text(s, 0.9 + 4 * scw + 0.3, 1.94, 8 * scw - 0.6, 0.46,
+                   [(text, 15, color, True, False, 0)], align=PP_ALIGN.CENTER)
+    box.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+    return box
+
+CASES = [([0, 1, 2, 3, 15], "stayer", NAVY2),
+         ([0, 1], "leaver", BURG),
+         ([0], "not a teacher", MUT)]
+groups = []
+for idxs, verdict, vc in CASES:
+    shapes = [tcell(i) for i in idxs] + [verdict_box(verdict, vc)]
+    groups.append([sh.shape_id for sh in shapes])
+
+from lxml import etree
+PNS = "http://schemas.openxmlformats.org/presentationml/2006/main"
+
+def timing_xml(groups):
+    nid = [2]
+    def nx():
+        nid[0] += 1
+        return nid[0]
+    def eff(spid, kind, node_type):
+        val = "visible" if kind == "entr" else "hidden"
+        return (f'<p:par><p:cTn id="{nx()}" presetID="1" presetClass="{kind}" '
+                f'presetSubtype="0" fill="hold" grpId="0" nodeType="{node_type}">'
+                f'<p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>'
+                f'<p:set><p:cBhvr><p:cTn id="{nx()}" dur="1" fill="hold">'
+                f'<p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>'
+                f'<p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl>'
+                f'<p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst>'
+                f'</p:cBhvr><p:to><p:strVal val="{val}"/></p:to></p:set>'
+                f'</p:childTnLst></p:cTn></p:par>')
+    clicks, prev = [], None
+    for g in groups:
+        effs, first = [], True
+        if prev:
+            for spid in prev:
+                effs.append(eff(spid, "exit", "clickEffect" if first else "withEffect"))
+                first = False
+        for spid in g:
+            effs.append(eff(spid, "entr", "clickEffect" if first else "withEffect"))
+            first = False
+        inner = "".join(effs)
+        clicks.append(f'<p:par><p:cTn id="{nx()}" fill="hold"><p:stCondLst>'
+                      f'<p:cond delay="indefinite"/></p:stCondLst><p:childTnLst>'
+                      f'<p:par><p:cTn id="{nx()}" fill="hold"><p:stCondLst>'
+                      f'<p:cond delay="0"/></p:stCondLst><p:childTnLst>{inner}'
+                      f'</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>')
+        prev = g
+    builds = "".join(f'<p:bldP spid="{spid}" grpId="0"/>'
+                     for g in groups for spid in g)
+    xml = (f'<p:timing xmlns:p="{PNS}"><p:tnLst><p:par>'
+           f'<p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot">'
+           f'<p:childTnLst><p:seq concurrent="1" nextAc="seek">'
+           f'<p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>'
+           f'{"".join(clicks)}</p:childTnLst></p:cTn>'
+           f'<p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/>'
+           f'</p:tgtEl></p:cond></p:prevCondLst>'
+           f'<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/>'
+           f'</p:tgtEl></p:cond></p:nextCondLst></p:seq></p:childTnLst></p:cTn>'
+           f'</p:par></p:tnLst><p:bldLst>{builds}</p:bldLst></p:timing>')
+    return etree.fromstring(xml.encode())
+
+s._element.append(timing_xml(groups))
 # Definition 1 block
 add_text(s, 0.9, 2.56, 4.0, 0.4, [("Definition 1  (benchmark)", 15, HEAD, True, False, 0)])
 rule(s, 0.9, 3.00, 11.53, 1.0, INK)
@@ -332,7 +375,7 @@ add_text(s, 0.9, y + 0.24, 11.5, 0.4,
 made["countries"] = s
 
 # ---------------- reorder (original Data slide, index 2, is dropped) ----------------
-order_tags = [0, 1, "d1", "cps", "asec", "dataset", 3, "words", "table", "examples", "chart",
+order_tags = [0, 1, "d1", "cps", "asec", "dataset", 3, "words", "table", "chart",
               "d2", 4, 5, 6, 7, 8, 9,
               "d3", 10, 11, 12, 13,
               "d4", 14, 15, 16, 17, 18,
@@ -340,7 +383,7 @@ order_tags = [0, 1, "d1", "cps", "asec", "dataset", 3, "words", "table", "exampl
               "d6", 21, 22, 23, 24, 25, 26,
               "countries"]
 NEWTAGS = ["d1", "d2", "d3", "d4", "d5", "d6", "cps", "asec", "dataset", "words",
-           "examples", "table", "chart", "countries"]
+           "table", "chart", "countries"]
 sldIdLst = prs.slides._sldIdLst
 ids = list(sldIdLst)
 new_ids = {tag: ids[27 + i] for i, tag in enumerate(NEWTAGS)}
