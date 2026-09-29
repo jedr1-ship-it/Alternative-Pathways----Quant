@@ -4,3 +4,4 @@ __pycache__/
 data/raw/cps/
 data/interim/
 data/raw/asec/
+policies/build/node_modules/
