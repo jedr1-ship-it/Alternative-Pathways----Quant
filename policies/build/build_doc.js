@@ -15,6 +15,7 @@ const FILES = [
   ["united_states.md",      "United States", null,              "State laws on retired teachers returning to work"],
   ["sweden.md",             "Sweden",        null,              "Online course for returning teachers, since 2018"],
   ["new_zealand.md",        "New Zealand",   null,              "Return without a refresher course, with registration fees paid, since 2024"],
+  ["germany_lower_saxony.md", "Germany",     "Lower Saxony",    "Earnings ceiling for retired teachers lifted (2022, 2024) and the minister's letter (2023)"],
 ];
 // optional: node build_doc.js --only netherlands.md,united_states.md --out Interview_scripts_NL_US.docx
 const argv = process.argv.slice(2);
