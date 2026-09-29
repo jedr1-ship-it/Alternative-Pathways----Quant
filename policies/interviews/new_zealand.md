@@ -1,46 +1,50 @@
 # New Zealand
 ## Return without a refresher course, with registration fees paid, since 2024
 
-**Who to ask:** the Ministry of Education (education workforce) and the Teaching
-Council, which issues practising certificates.
+**Who to ask:** someone in the Ministry of Education (education workforce), or
+at the Teaching Council, which issues practising certificates.
 
-**What we know:** Registered teachers who had not taught for five years or more
-used to need a refresher course before getting a practising certificate back,
-and that requirement has gone. With a job offer in hand, a returner now renews
-the certificate directly, can do substitute teaching for up to twenty half-days
-while the renewal is processed, and agrees a short teaching plan with the school
-principal in place of the course. The government also pays the registration
-fees, so coming back costs the teacher nothing. Fees have been covered since
-October 2024 and are funded until June 2028; 352 teachers had returned by April
-2025. What we do not know is how many of those would have returned anyway, and
-whether they stayed.
+**What we know:** The government removed the requirement that a registered
+teacher who had been out of the classroom for five years or more complete a
+refresher course in order to renew the practising certificate issued by the
+Teaching Council. The course is no longer compulsory: a returner with a job
+offer renews the certificate directly, agreeing a short teaching plan with the
+school principal instead, and can already work as a substitute for up to twenty
+half-days while the renewal is processed. Since October 2024 the government
+also pays the registration fees, so coming back costs nothing; the funding runs
+until June 2028. By April 2025, 352 teachers had returned. What we do not know
+is how many of them would have returned anyway and whether they stayed, whether
+the measure has been evaluated, and why the course was dropped rather than
+shortened or made free.
 
 ---
 
 1. **In what context did the government decide to remove the refresher course
-   and cover the fees, and with what purpose?** Was the teacher shortage severe
-   at that moment?
+   and cover the fees, and with what purpose?** Did New Zealand face strong
+   teacher shortages at that moment?
 
-2. **Why was the refresher course dropped rather than shortened or made free?
-   Was there a concern about teachers coming back after many years without any
-   preparation, and how was it answered?**
+2. **We understand the refresher course was dropped rather than shortened or
+   made free. Why that choice, and how was the concern about teachers returning
+   after many years without preparation answered?**
    - What does the teaching plan agreed with the principal consist of in
      practice?
 
 3. **How much of the change is the removed course and how much is the fees?**
    Which of the two do returning teachers mention?
 
-4. **Can you describe the profile of the 352 teachers who had returned by April
-   2025: how long they had been away, what they had been doing, and where they
-   went?**
+4. **Can you describe the profile of the teachers who have returned: how long
+   they had been away, what they had been doing, and where they went?**
 
 5. **Is there any record of how well the measure has worked: figures after April
-   2025, whether the returners stayed, an evaluation?**
-   - Is there any sign of what happens in the classroom to teachers who came
-     back without the course?
+   2025, whether the returners stayed, an internal evaluation?**
+   - Is there any sign of how teachers who came back without the course are
+     doing in the classroom?
 
-6. **Overall, what is your assessment of the measure, and what will decide
+6. **Do you know about any other policy, in New Zealand or elsewhere, that aims
+   to re-attract former teachers?**
+
+7. **Overall, what is your assessment of the measure, and what will decide
    whether the fees are still covered after June 2028?**
 
-7. **Is there someone at the ministry or at the Teaching Council you would
+8. **Is there someone at the ministry or at the Teaching Council you would
    recommend we speak to?**
