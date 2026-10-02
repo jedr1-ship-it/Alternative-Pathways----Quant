@@ -48,10 +48,8 @@ for s in ["top", "right", "left"]:
     ax.spines[s].set_visible(False)
 ax.spines["bottom"].set_color("#9A9A96")
 ax.tick_params(axis="both", length=0, pad=8)
-fig.text(0.07, 0.95, "Share of policies that use each instrument", fontsize=21, fontweight="bold", color=INK)
-fig.text(0.07, 0.905, f"{N} policies. A policy can use more than one instrument, so the shares add up to more than 100%.",
-         fontsize=12.5, color=MUTED)
-fig.subplots_adjust(left=0.07, right=0.98, top=0.84, bottom=0.15)
+fig.text(0.07, 0.93, "Share of policies that use each instrument", fontsize=21, fontweight="bold", color=INK)
+fig.subplots_adjust(left=0.07, right=0.98, top=0.86, bottom=0.15)
 fig.savefig(os.path.join(OUT, "instruments_share.png"), facecolor="white")
 plt.close(fig)
 
@@ -77,9 +75,8 @@ for w, s, v in zip(wedges, labels, vals):
         ax.text(x, y, f"{s}\n{p:.0f}%", ha="center", va="center", fontsize=17, fontweight="bold", color="white")
         ax.text(x, y - 0.2, f"{v} policies", ha="center", va="top", fontsize=12, color="white")
 ax.set_aspect("equal")
-fig.text(0.06, 0.94, "Policies by scale", fontsize=21, fontweight="bold", color=INK)
-fig.text(0.06, 0.895, f"{N} policies", fontsize=12.5, color=MUTED)
-fig.subplots_adjust(left=0.04, right=0.96, top=0.86, bottom=0.03)
+fig.text(0.06, 0.93, "Policies by scale", fontsize=21, fontweight="bold", color=INK)
+fig.subplots_adjust(left=0.04, right=0.96, top=0.88, bottom=0.03)
 fig.savefig(os.path.join(OUT, "policies_by_scale.png"), facecolor="white")
 plt.close(fig)
 
