@@ -25,6 +25,6 @@ if avg is not None:
 ax.set_xlabel("Primary teachers' actual earnings relative to other tertiary-educated workers", fontsize=10.5)
 ax.xaxis.grid(True, color="#E3E3E0", lw=0.8, zorder=0)
 for s in ("top", "right", "left"): ax.spines[s].set_visible(False)
-ax.tick_params(axis="y", length=0); ax.set_ylim(-0.7, len(rows) + 0.4)
+ax.tick_params(axis="y", length=0); ax.set_ylim(-0.7, len(rows) + 0.4); ax.set_xlim(0, max(1.6, max(v for _, v in rows) + 0.05))
 fig.subplots_adjust(left=0.2, right=0.98, top=0.98, bottom=0.08)
 out = "figure2_salary_ratio.png"; fig.savefig(out, facecolor="white"); print("written", out, len(rows), "countries")
