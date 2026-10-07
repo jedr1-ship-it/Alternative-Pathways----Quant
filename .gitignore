@@ -20,3 +20,4 @@ report/data_cluster/*.nav
 report/data_cluster/*.out
 report/data_cluster/*.snm
 report/data_cluster/*.toc
+report/data_cluster/*.zip
