@@ -12,3 +12,11 @@ report/*.lof
 report/*.lot
 data/processed/teachers.parquet
 data/processed/teachers_main.parquet
+
+# LaTeX build artifacts
+report/data_cluster/*.aux
+report/data_cluster/*.log
+report/data_cluster/*.nav
+report/data_cluster/*.out
+report/data_cluster/*.snm
+report/data_cluster/*.toc
