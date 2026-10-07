@@ -1,0 +1,310 @@
+% Data Cluster presentation - Directorate for Education and Skills, OECD
+% Build:  pdflatex main.tex  (run twice)
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,arrows.meta}
+
+% ---------- look ----------
+\usetheme{default}
+\usefonttheme{serif}
+\setbeamertemplate{navigation symbols}{}
+\definecolor{navy}{HTML}{1F3864}
+\definecolor{burg}{HTML}{7B2530}
+\definecolor{ink}{HTML}{1A2430}
+\definecolor{mut}{HTML}{6B7480}
+\definecolor{paleblue}{HTML}{AFC3DC}
+\setbeamercolor{frametitle}{fg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamercolor{structure}{fg=navy}
+\setbeamercolor{normal text}{fg=ink}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{title}{series=\bfseries,size=\Large}
+\setbeamertemplate{itemize item}{\textcolor{navy}{\footnotesize$\bullet$}}
+\setbeamertemplate{itemize subitem}{\textcolor{mut}{\footnotesize--}}
+\setbeamertemplate{footline}{%
+  \hfill\textcolor{mut}{\scriptsize\insertframenumber}\hspace{2ex}\vspace{1ex}}
+\setbeamersize{text margin left=0.9cm,text margin right=0.9cm}
+\newcommand{\msg}[1]{{\color{navy}\bfseries #1}}
+
+% ---------- NTPS 2020-21 comparison values (filled from NCES sources) ----------
+\newcommand{\ntpsFemale}{76.8}
+\newcommand{\ntpsMA}{61.0}
+\newcommand{\ntpsAge}{42.9}
+\newcommand{\ntpsN}{39,633}
+
+\title{Measuring Teacher Attrition\\ with Labour Force Survey Data}
+\subtitle{The Case of the United States}
+\author{Jos\'e El\'ias Dur\'an Roa}
+\institute{Data Cluster \,\textperiodcentered\, Directorate for Education and Skills}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ================= A. Origin =================
+\begin{frame}{Why this project}
+  \vspace{1.2em}
+  \begin{itemize}\setlength\itemsep{1.4em}
+    \item Which of the factors we can observe correlate most strongly
+          with the decision to leave teaching?
+    \item Re-estimate the teacher leaving rate against the published
+          figures of the official surveys.
+  \end{itemize}
+\end{frame}
+
+% ================= B. Data =================
+\begin{frame}{The CPS replicates the official picture of the teaching workforce}
+  \begin{center}
+  \begin{tabular}{lcc}
+    \toprule
+                                   & CPS            & NTPS (official)  \\
+    \midrule
+    Female (\%)                    & 75.5           & \ntpsFemale      \\
+    Master's degree or higher (\%) & 57.0           & \ntpsMA          \\
+    Average age (years)            & 44.0           & \ntpsAge         \\
+    \midrule
+    Teachers observed              & 3,855          & \ntpsN           \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.6em}
+  {\footnotesize\color{mut}
+   Public school teachers. CPS: supplements of 2021--2022 (school years
+   2020--21 and 2021--22), weighted. NTPS: National Teacher and Principal
+   Survey 2020--21 (NCES 2022-113; Digest of Education Statistics,
+   table 209.10; respondent count from NCES 2024-024).}
+  \vspace{0.8em}
+
+  {\small
+   Full sample: \textbf{5.0 million} person-year records, 1998--2025;
+   \textbf{104,545} teacher observations; \textbf{48,842} teachers followed
+   across interviews in the linked panel.}
+\end{frame}
+
+% ================= C. CPS structure =================
+\begin{frame}[plain]
+  \begin{center}
+  \begin{tikzpicture}[x=0.80cm,y=0.80cm]
+    % month cells for one household: 4 in, 8 out, 4 in
+    \foreach \i in {0,...,3}{
+      \fill[navy] (\i,0) rectangle ++(0.92,0.92);
+      \node[white,font=\small\bfseries] at (\i+0.46,0.46) {\the\numexpr\i+1};}
+    \foreach \i in {4,...,11}{
+      \draw[mut!60] (\i,0) rectangle ++(0.92,0.92);}
+    \foreach \i in {12,...,15}{
+      \fill[burg] (\i,0) rectangle ++(0.92,0.92);
+      \node[white,font=\small\bfseries] at (\i+0.46,0.46) {\the\numexpr\i-7};}
+    % month axis
+    \node[anchor=north,font=\scriptsize,color=mut] at (0.46,-0.25) {Mar};
+    \node[anchor=north,font=\scriptsize,color=mut] at (3.46,-0.25) {Jun};
+    \node[anchor=north,font=\scriptsize,color=mut] at (12.46,-0.25) {Mar};
+    \node[anchor=north,font=\scriptsize,color=mut] at (15.46,-0.25) {Jun};
+    \node[anchor=north,font=\scriptsize,color=mut] at (1.96,-0.95) {year 1};
+    \node[anchor=north,font=\scriptsize,color=mut] at (13.96,-0.95) {year 2};
+    % braces
+    \draw[decorate,decoration={brace,amplitude=5pt},navy]
+      (0,1.15) -- (3.92,1.15) node[midway,above=6pt,font=\small\color{navy}]
+      {interviewed 4 months};
+    \draw[decorate,decoration={brace,amplitude=5pt},mut]
+      (4,1.15) -- (11.92,1.15) node[midway,above=6pt,font=\small\color{mut}]
+      {8 months out of the sample};
+    \draw[decorate,decoration={brace,amplitude=5pt},burg]
+      (12,1.15) -- (15.92,1.15) node[midway,above=6pt,font=\small\color{burg}]
+      {interviewed 4 months};
+    % twelve-month arrow
+    \draw[{Circle[length=3pt]}-{Stealth[length=6pt]},thick,ink]
+      (0.46,-1.9) -- (12.46,-1.9)
+      node[midway,below=3pt,font=\small\color{ink}]
+      {the same interview, exactly twelve months later};
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{The March supplement (ASEC)}
+  \vspace{0.8em}
+  \begin{itemize}\setlength\itemsep{1.2em}
+    \item The largest supplement of the CPS: the March sample is expanded
+          to roughly 90,000 households.
+    \item Every adult reports on the \emph{previous calendar year}: longest
+          job held, weeks worked, earnings, benefits.
+    \item We use it to reconstruct the leaving rate.
+  \end{itemize}
+\end{frame}
+
+% ================= D. Two ways to measure =================
+\begin{frame}{Two ways to measure the leaving rate}
+  \vspace{0.4em}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \msg{Follow the person, year to year}\\[0.9em]
+      {\small The rotation shows the same individual twelve months apart.
+       The CPS has no person identifier, so records are linked on fields
+       common to both years:}\\[0.7em]
+      {\small
+      \begin{tabular}{@{}l@{}}
+        household identifier\\
+        dwelling identifier\\
+        person line number within the household\\[0.4em]
+        \color{mut}validated on sex, race,\\
+        \color{mut}and age advancing 0--2 years
+      \end{tabular}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \msg{Ask about last year, each March}\\[0.9em]
+      {\small The supplement's retrospective question. Whoever reports
+       teaching as last year's longest job, and no longer teaches at the
+       March interview, left within the year.}\\[0.7em]
+      {\small\color{mut} The measure used in the literature so far.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ================= E. Defining the leaver in the panel =================
+\begin{frame}{Who counts as a leaver in the linked panel?}
+  \vspace{0.4em}
+  {\small Linking the same individuals across interview months admits many
+   definitions. Each choice moves the rate.}\\[1.0em]
+  \begin{itemize}\setlength\itemsep{0.9em}
+    \item \msg{Panel measure (benchmark).} Teaching, with a bachelor's
+          degree, in at least two year-1 interviews; a leaver if never
+          observed teaching in year 2, given two or more year-2 interviews,
+          one outside the summer.
+    \item \msg{Month pairs.} Every teaching month is matched to its
+          interview twelve months ahead; one person can enter several times.
+    \item \msg{Any sighting.} A single teaching observation in year 1 puts
+          the person in the denominator, including one-month spells.
+    \item \msg{Annual recall.} The retrospective March measure, for
+          comparison.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{One dataset, one rate per definition}
+  \begin{center}
+    \includegraphics[width=0.92\textwidth]{../figures_deck/v_allseries.pdf}
+  \end{center}
+  \vspace{-0.4em}
+  {\footnotesize\color{mut} Dots: NCES Teacher Follow-up Survey, the
+   official follow-up estimate.}
+\end{frame}
+
+% ================= F. Results =================
+\begin{frame}{What is the leaving rate for?}
+  \vspace{1.2em}
+  {\large Not an end in itself: with person-level exits we can ask which
+   observed factors correlate with the decision to leave.}
+\end{frame}
+
+\begin{frame}{Why teachers leave: what the CPS can and cannot see}
+  \begin{center}
+  \begin{tabular}{ll}
+    \toprule
+    Reasons identified in the literature     & Observed in the CPS? \\
+    \midrule
+    Working conditions                       & \color{mut}no  \\
+    Organizational support (mentoring, leadership) & \color{mut}no  \\
+    Autonomy and intrinsic motives           & \color{mut}no  \\
+    Financial factors                        & \color{navy}\textbf{yes} \\
+    Personal life-cycle motives              & \color{navy}\textbf{yes} \\
+    \midrule
+    Sociodemographic characteristics         & \color{navy}\textbf{yes} \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.6em}
+  {\footnotesize\color{mut} Five broad families of reasons from our review
+   of the literature. The CPS covers the economic and life-cycle margins.}
+\end{frame}
+
+\begin{frame}{Five messages}
+  \vspace{0.4em}
+  \begin{enumerate}\setlength\itemsep{1.0em}
+    \item \msg{Economic and employment conditions correlate with leaving far
+          more than demographics.}
+    \item Weak job attachment is the strongest single correlate: part-time
+          and part-year teachers leave at several times the rate of
+          full-time, full-year teachers.
+    \item Compensation matters: pension coverage is associated with
+          2.4 points less attrition, and exits concentrate in the lowest
+          earnings deciles.
+    \item Life-cycle events matter: childbirth raises a woman's exit
+          probability by about 6 points, more than in comparable professions.
+    \item Most leavers do not move to another job: they leave employment,
+          and the differences across states are large.
+  \end{enumerate}
+\end{frame}
+
+% ----- Message 1 -----
+\begin{frame}{Message 1 \,\textperiodcentered\, Economic conditions dominate demographics}
+  \begin{center}
+    \includegraphics[height=0.82\textheight]{../figures_deck/g6_ame_v2.pdf}
+  \end{center}
+\end{frame}
+
+% ----- Message 2 -----
+\begin{frame}{Message 2 \,\textperiodcentered\, Exits concentrate at the bottom of the pay scale}
+  \begin{center}
+    \includegraphics[height=0.80\textheight]{../figures_deck/pay3_deciles_deck.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 2 \,\textperiodcentered\, Where pension coverage is higher, fewer teachers leave}
+  \begin{center}
+    \includegraphics[height=0.80\textheight]{../figures_deck/pension_scatter_deck.pdf}
+  \end{center}
+\end{frame}
+
+% ----- Message 3 -----
+\begin{frame}{Message 3 \,\textperiodcentered\, Childbirth moves teachers out more than other professionals}
+  \begin{center}
+    \includegraphics[height=0.80\textheight]{../figures_deck/g8_newbaby.pdf}
+  \end{center}
+\end{frame}
+
+% ----- Message 4 -----
+\begin{frame}{Message 4 \,\textperiodcentered\, Most leavers exit employment, not to another job}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{../figures_deck/routes_bars3.pdf}
+  \end{center}
+  \vspace{-0.2em}
+  {\footnotesize\color{mut} Destinations of leavers, percent of each period's exits.}
+\end{frame}
+
+\begin{frame}{Message 4 \,\textperiodcentered\, And exits out of employment move with the cycle}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{../figures_deck/n5_cyclicality.pdf}
+  \end{center}
+\end{frame}
+
+% ----- Message 5 -----
+\begin{frame}{Message 5 \,\textperiodcentered\, Attrition differs widely across states}
+  \begin{center}
+    \includegraphics[width=0.97\textwidth]{../figures_deck/states_level.pdf}
+  \end{center}
+  \vspace{-0.3em}
+  {\footnotesize\color{mut} State means, 1997--2024.}
+\end{frame}
+
+% ================= Conclusion =================
+\begin{frame}{Conclusion}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{1.2em}
+    \item A labour force survey can measure teacher attrition at the person
+          level, yearly, over three decades, and it replicates the official
+          picture of the workforce.
+    \item The definition of a leaver is a first-order choice: the same
+          records yield rates from 5 to 19 percent per year.
+    \item What the data say: attachment, pay and pensions, and life-cycle
+          events correlate with leaving; demographics much less.
+    \item The design travels: the same construction is feasible in the
+          labour force surveys of Italy, Germany, the UK, France, Spain,
+          Brazil and Mexico.
+  \end{itemize}
+\end{frame}
+
+\end{document}
