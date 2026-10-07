@@ -82,19 +82,19 @@
 \begin{frame}{The CPS replicates the official picture --- and does it every year}
   \begin{center}
   \small
-  \begin{tabular}{lcc}
+  \begin{tabular}{lccc}
     \toprule
-                                   & CPS              & NTPS (official)  \\
+                                   & CPS              & NTPS (official) & Difference \\
     \midrule
     Measurement                    & \msg{every year, 1997--2024}
-                                   & occasional waves \\
+                                   & occasional waves & \\
     \midrule
-    \multicolumn{3}{l}{\color{mut}\footnotesize Example wave: 2020--21, the latest NTPS}\\[0.2em]
-    Female (\%)                    & 75.5             & \ntpsFemale      \\
-    Master's degree or higher (\%) & 57.0             & \ntpsMA          \\
-    Average age (years)            & 44.0             & \ntpsAge         \\
+    \multicolumn{4}{l}{\color{mut}\footnotesize Example wave: 2020--21, the latest NTPS}\\[0.2em]
+    Female (\%)                    & 75.5             & 76.8  & $-$1.3\phantom{$^{***}$}   \\
+    Master's degree or higher (\%) & 57.0             & 61.0  & $-$4.0$^{***}$ \\
+    Average age (years)            & 44.0             & 42.9  & $+$1.1$^{***}$ \\
     \midrule
-    Teachers observed in the wave  & 3,855            & \ntpsN           \\
+    Teachers observed in the wave  & 3,855            & 39,633 & \\
     \bottomrule
   \end{tabular}
   \end{center}
@@ -103,7 +103,7 @@
    Public school teachers. CPS: supplements of 2021--2022 (school years
    2020--21 and 2021--22), weighted. NTPS: National Teacher and Principal
    Survey 2020--21 (NCES 2022-113; Digest of Education Statistics,
-   table 209.10; respondent count from NCES 2024-024).}
+   table 209.10; respondent count from NCES 2024-024). Stars test the CPS mean against the published NTPS estimate with design-adjusted standard errors: $^{***}$ $p<0.001$; the female share does not differ significantly.}
   \vspace{0.6em}
 
   {\small
@@ -162,6 +162,12 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}[plain]
+  \begin{center}
+    \includegraphics[width=0.98\textwidth]{figures/codes_slide.pdf}
+  \end{center}
+\end{frame}
+
 % ================= D. Two ways to measure =================
 \begin{frame}{Two ways to measure the leaving rate}
   \vspace{0.4em}
@@ -191,22 +197,36 @@
 \end{frame}
 
 % ================= E. Defining the leaver in the panel =================
-\begin{frame}{Who counts as a leaver in the linked panel?}
-  \vspace{0.4em}
-  {\small Linking the same individuals across interview months admits many
-   definitions. Each choice moves the rate.}\\[1.0em]
-  \begin{itemize}\setlength\itemsep{0.9em}
-    \item \msg{Panel measure (benchmark).} Teaching, with a bachelor's
-          degree, in at least two year-1 interviews; a leaver if never
-          observed teaching in year 2, given two or more year-2 interviews,
-          one outside the summer.
-    \item \msg{Month pairs.} Every teaching month is matched to its
-          interview twelve months ahead; one person can enter several times.
-    \item \msg{Any sighting.} A single teaching observation in year 1 puts
-          the person in the denominator, including one-month spells.
-    \item \msg{Annual recall.} The retrospective March measure, for
-          comparison.
-  \end{itemize}
+\begin{frame}{Measuring the leaving rate: the alternatives, side by side}
+  \begin{center}
+  \footnotesize
+  \begin{tabular}{p{2.3cm}p{3.3cm}p{4.1cm}p{3.2cm}}
+    \toprule
+    Measure & A teacher is\ldots & A leaver is\ldots & Rests on\ldots \\
+    \midrule
+    Annual recall &
+      whoever taught as last year's longest job &
+      no longer teaching at the March interview &
+      accurate recall of the previous year \\[0.9em]
+    Occupation pair &
+      a teaching occupation code one year ago &
+      a different occupation code today &
+      a current code existing; fails for the non-employed \\[0.9em]
+    \msg{Panel (benchmark)} &
+      teaching in two or more year-1 interviews &
+      never teaching in year 2, given two or more interviews, one outside
+      the summer &
+      correct linkage of persons across waves \\[0.9em]
+    Month pairs, any sighting &
+      every teaching month, or a single sighting &
+      not teaching twelve months after each month &
+      one person counting several times; admits one-month spells \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.3em}
+  {\footnotesize\color{mut} Same records throughout; only the definition
+   changes. Each row answers the same three questions.}
 \end{frame}
 
 \begin{frame}{One dataset, one rate per definition}
@@ -214,8 +234,8 @@
     \includegraphics[width=0.92\textwidth]{figures/v_allseries.pdf}
   \end{center}
   \vspace{-0.4em}
-  {\footnotesize\color{mut} Dots: NCES Teacher Follow-up Survey, the
-   official follow-up estimate.}
+  {\small \msg{Message.} The definition of a leaver moves the measured rate by a factor of nearly four.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Comparisons across studies and countries must hold the definition fixed.}
 \end{frame}
 
 % ================= F. Results =================
@@ -241,82 +261,112 @@
 \end{frame}
 
 \begin{frame}{Five messages}
-  \vspace{0.4em}
-  \begin{enumerate}\setlength\itemsep{1.0em}
-    \item \msg{Economic and employment conditions correlate with leaving far
-          more than demographics.}
-    \item Weak job attachment is the strongest single correlate: part-time
-          and part-year teachers leave at several times the rate of
-          full-time, full-year teachers.
-    \item Compensation matters: pension coverage is associated with
-          2.4 points less attrition, and exits concentrate in the lowest
-          earnings deciles.
-    \item Life-cycle events matter: childbirth raises a woman's exit
-          probability by about 6 points, more than in comparable professions.
-    \item Most leavers do not move to another job: they leave employment,
-          and the differences across states are large.
+  \vspace{0.3em}
+  \begin{enumerate}\setlength\itemsep{0.95em}
+    \item Economic and employment conditions correlate with leaving far more
+          than demographics.
+    \item Exits concentrate where attachment and annual pay are lowest:
+          part-time and part-year teachers in the bottom of the earnings
+          distribution.
+    \item Those same exits lead \emph{out of employment}, not to better-paid
+          jobs: two thirds of bottom-quintile leavers exit the labor force.
+          Low pay and non-employment destinations are one phenomenon, not two.
+    \item Life-cycle events are the largest single trigger: childbirth raises
+          a woman's exit probability by about six points, more than in
+          comparable professions.
+    \item Pension coverage retains, and attrition differs widely across
+          states: the actionable margins are contractual and institutional.
   \end{enumerate}
 \end{frame}
 
 \begin{frame}{Leaving teaching, 1997--2024}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/g2_evolution.pdf}
+    \includegraphics[height=0.66\textheight]{figures/g2_evolution.pdf}
   \end{center}
-  {\footnotesize\color{mut} Retrospective annual measure, with 95 percent confidence bands.}
+  \vspace{-0.3em}
+  {\small \msg{Message.} The rate fluctuates around 8.6 percent with no trend: a persistent outflow, not a mounting exodus.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Retention faces a steady-state cost, not an emergency spike.}
 \end{frame}
 
 \begin{frame}{Leaving teaching, by school sector}
   \begin{center}
-    \includegraphics[width=0.92\textwidth]{figures/pubpriv_series.pdf}
+    \includegraphics[height=0.66\textheight]{figures/pubpriv_series.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Private schools lose teachers at roughly twice the public rate.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Retention tracks contract structure, pay and pensions, not classroom conditions alone.}
 \end{frame}
 
 \begin{frame}{Leaving the occupation, by profession}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/leave_professions_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/leave_professions_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Teacher attrition is unexceptional next to comparable professions: above nurses and accountants, well below social workers.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Benchmarks from other professions discipline how alarming any teacher figure should be.}
 \end{frame}
 
 \begin{frame}{Labor force exit of women, by profession}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/lf_professions_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/lf_professions_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Women teachers exit the labor force at about five percent a year, well above nurses, social workers and accountants.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The family-compatibility margin is specific to teaching, not to professional work in general.}
 \end{frame}
 
 \begin{frame}{Teachers leaving per year, across countries}
   \begin{center}
-    \includegraphics[height=0.84\textheight]{figures/intl_bars_deck.pdf}
+    \includegraphics[height=0.62\textheight]{figures/intl_bars_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} The US sits in the upper range of the school systems that publish a rate.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Comparable, survey-based measurement is what makes this ranking possible.}
 \end{frame}
 
 \begin{frame}{Destinations of teachers who leave, 2024}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/g3_flow100_2024.pdf}
+    \includegraphics[height=0.66\textheight]{figures/g3_flow100_2024.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Of every hundred leavers, about a third take another job; most exit employment altogether.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Competing employers are not the main counterfactual; retirement and care are.}
 \end{frame}
 
 \begin{frame}{The routes out of teaching, 2002--2024}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/routes_bars3.pdf}
+    \includegraphics[height=0.66\textheight]{figures/routes_bars3.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} The destination mix has been essentially stable for two decades.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The composition of the outflow is structural, not cyclical noise.}
 \end{frame}
 
 \begin{frame}{Who leaves the labor force before 55}
   \begin{center}
-    \includegraphics[width=0.97\textwidth]{figures/yellow_flow2024.pdf}
+    \includegraphics[height=0.66\textheight]{figures/yellow_flow2024.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Nearly half of the pre-55 labor-force exits are mothers with a child at home.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Childcare and parental-leave policy are retention policy.}
 \end{frame}
 
 \begin{frame}{Where the employed leavers go: every occupation}
   \begin{center}
-    \includegraphics[width=0.99\textwidth]{figures/occ_all_slide.pdf}
+    \includegraphics[height=0.66\textheight]{figures/occ_all_slide.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Employed leavers scatter widely; the largest block stays in education outside the classroom.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Skills remain in the education orbit, so re-entry is a realistic margin.}
 \end{frame}
 
 \begin{frame}{Leaving teaching, by age and route}
   \begin{center}
-    \includegraphics[width=0.88\textwidth]{figures/g4_routes_age.pdf}
+    \includegraphics[height=0.66\textheight]{figures/g4_routes_age.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Leaving is U-shaped in age, and non-employment dominates both ends of the career.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Early-career and pre-retirement exits call for different instruments.}
 \end{frame}
 
 \begin{frame}{The econometric specification}
@@ -345,76 +395,110 @@
 
 \begin{frame}{Average marginal effects on the probability of leaving}
   \begin{center}
-    \includegraphics[width=0.93\textwidth]{figures/ame_seminar.pdf}
+    \includegraphics[height=0.66\textheight]{figures/ame_seminar.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Job attachment and compensation dominate; demographic differences are small.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The actionable levers are contractual: full-year contracts, pension coverage.}
 \end{frame}
 
-\begin{frame}{The age profile of leaving}
+\begin{frame}{The age profile of leaving, by route}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/u_routes_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/u_routes_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Young teachers switch to other jobs; older teachers leave the labor force.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The two peaks of the U respond to different policies.}
 \end{frame}
 
 \begin{frame}{The effect of a new baby, by profession}
   \begin{center}
-    \includegraphics[height=0.80\textheight]{figures/g8_newbaby.pdf}
+    \includegraphics[height=0.66\textheight]{figures/g8_newbaby.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} A new baby raises a woman teacher's exit probability by 5.9 points, the largest effect among comparable professions.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Parental leave and childcare support target the largest single observable trigger.}
 \end{frame}
 
 \begin{frame}{Leaving teaching and the unemployment rate}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/n5_cyclicality.pdf}
+    \includegraphics[height=0.66\textheight]{figures/n5_cyclicality.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Exits into non-employment rise with unemployment; job-to-job exits do not.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Downturns intensify the non-employment route; support should be countercyclical.}
 \end{frame}
 
 \begin{frame}{State-level cyclicality of leaving}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{figures/states_landscape.pdf}
+    \includegraphics[height=0.66\textheight]{figures/states_landscape.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} States differ in how strongly teacher exits respond to the local cycle.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} National averages hide state-level exposure to downturns.}
 \end{frame}
 
 \begin{frame}{Attrition levels across states}
   \begin{center}
-    \includegraphics[width=0.97\textwidth]{figures/states_level.pdf}
+    \includegraphics[height=0.66\textheight]{figures/states_level.pdf}
   \end{center}
-  {\footnotesize\color{mut} State means, 1997--2024.}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Mean attrition of teachers under 55 ranges from about 4 to 13 percent across jurisdictions.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} State pay scales, pensions and institutions are first-order.}
 \end{frame}
 
 \begin{frame}{Real earnings growth by profession since 1997}
   \begin{center}
-    \includegraphics[width=0.97\textwidth]{figures/msgA3.pdf}
+    \includegraphics[height=0.66\textheight]{figures/msgA3.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Teachers' real median earnings fell 4 percent since 1997 while other graduates gained.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The relative-pay gap compounds slowly; it is a stock, not a shock.}
 \end{frame}
 
 \begin{frame}{Leaving, by position in the teacher pay distribution}
   \begin{center}
-    \includegraphics[height=0.80\textheight]{figures/pay3_deciles_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/pay3_deciles_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Leaving concentrates sharply in the lowest earnings deciles, mostly part-year teachers.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Stabilizing the bottom of the distribution buys the most retention.}
 \end{frame}
 
 \begin{frame}{Pay compression: teachers and comparable professions}
   \begin{center}
-    \includegraphics[width=0.9\textwidth]{figures/pay5_compression_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/pay5_compression_deck.pdf}
   \end{center}
-  {\footnotesize\color{mut} P10--median--P90 of annual earnings, \$1{,}000 of 2024.}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Teacher pay is compressed: a 90/10 ratio of 2.6 against 5.1 for all other graduates.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Staying offers little earnings upside; career ladders would widen the right tail.}
 \end{frame}
 
 \begin{frame}{The earnings change of leaving, by destination}
   \begin{center}
-    \includegraphics[width=0.92\textwidth]{figures/pay7_destinations_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/pay7_destinations_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Leavers who move to other professional jobs gain about 12 log points; moves near education gain little.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} The outside option is real for those able to take it.}
 \end{frame}
 
 \begin{frame}{Earnings changes: stayers and leavers}
   \begin{center}
-    \includegraphics[width=0.88\textwidth]{figures/g5b_earnings_density.pdf}
+    \includegraphics[height=0.66\textheight]{figures/g5b_earnings_density.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} For employed leavers the earnings change is a gamble: a quarter lose big, nearly half win big.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Leaving buys risk, not a sure raise.}
 \end{frame}
 
 \begin{frame}{Pension coverage and leaving, across states}
   \begin{center}
-    \includegraphics[height=0.80\textheight]{figures/pension_scatter_deck.pdf}
+    \includegraphics[height=0.66\textheight]{figures/pension_scatter_deck.pdf}
   \end{center}
+  \vspace{-0.3em}
+  {\small \msg{Message.} Where pension coverage is higher, fewer teachers under 55 leave: 0.21 points per point of coverage.}\\[0.15em]
+  {\small {\color{burg}\bfseries Policy.} Pension design is a measurable retention margin.}
 \end{frame}
 
 % ================= Conclusion =================
