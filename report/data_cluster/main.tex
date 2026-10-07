@@ -58,33 +58,59 @@
   \end{itemize}
 \end{frame}
 
+% ================= Contribution =================
+\begin{frame}{Contribution}
+  \vspace{0.4em}
+  \begin{itemize}\setlength\itemsep{1.2em}
+    \item The longest \msg{continuous} series of teacher attrition to reach
+          the present: \msg{one estimate for every year, 1997--2024}.
+    \item A harmonized person-level file built from twenty-eight consecutive
+          March supplements, with a linked year-to-year panel.
+    \item A transparent menu of leaver definitions, benchmarked against the
+          official follow-up survey.
+    \item Correlates, destinations, and state heterogeneity of leaving,
+          all from a single source.
+  \end{itemize}
+\end{frame}
+
 % ================= B. Data =================
-\begin{frame}{The CPS replicates the official picture of the teaching workforce}
+\begin{frame}{The CPS replicates the official picture --- and does it every year}
   \begin{center}
+  \small
   \begin{tabular}{lcc}
     \toprule
-                                   & CPS            & NTPS (official)  \\
+                                   & CPS              & NTPS (official)  \\
     \midrule
-    Female (\%)                    & 75.5           & \ntpsFemale      \\
-    Master's degree or higher (\%) & 57.0           & \ntpsMA          \\
-    Average age (years)            & 44.0           & \ntpsAge         \\
+    Measurement                    & \msg{every year, 1997--2024}
+                                   & occasional waves \\
     \midrule
-    Teachers observed              & 3,855          & \ntpsN           \\
+    \multicolumn{3}{l}{\color{mut}\footnotesize Example wave: 2020--21, the latest NTPS}\\[0.2em]
+    Female (\%)                    & 75.5             & \ntpsFemale      \\
+    Master's degree or higher (\%) & 57.0             & \ntpsMA          \\
+    Average age (years)            & 44.0             & \ntpsAge         \\
+    \midrule
+    Teachers observed in the wave  & 3,855            & \ntpsN           \\
     \bottomrule
   \end{tabular}
   \end{center}
-  \vspace{0.6em}
+  \vspace{0.5em}
   {\footnotesize\color{mut}
    Public school teachers. CPS: supplements of 2021--2022 (school years
    2020--21 and 2021--22), weighted. NTPS: National Teacher and Principal
    Survey 2020--21 (NCES 2022-113; Digest of Education Statistics,
    table 209.10; respondent count from NCES 2024-024).}
-  \vspace{0.8em}
+  \vspace{0.6em}
 
   {\small
    Full sample: \textbf{5.0 million} person-year records, 1998--2025;
    \textbf{104,545} teacher observations; \textbf{48,842} teachers followed
    across interviews in the linked panel.}
+\end{frame}
+
+\begin{frame}{And the composition is observed year by year, not wave by wave}
+  \begin{center}
+    \includegraphics[width=0.97\textwidth]{../figures_deck/g1_workforce.pdf}
+  \end{center}
 \end{frame}
 
 % ================= C. CPS structure =================
@@ -193,6 +219,21 @@
    official follow-up estimate.}
 \end{frame}
 
+\begin{frame}{The continuous series, 1997--2024}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{../figures_deck/g2_evolution.pdf}
+  \end{center}
+  \vspace{-0.3em}
+  {\footnotesize\color{mut} Retrospective annual measure, with 95 percent
+   confidence bands.}
+\end{frame}
+
+\begin{frame}{The rate in context: comparable professions}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{../figures_deck/leave_professions_deck.pdf}
+  \end{center}
+\end{frame}
+
 % ================= F. Results =================
 \begin{frame}{What is the leaving rate for?}
   \vspace{1.2em}
@@ -239,6 +280,31 @@
   \end{enumerate}
 \end{frame}
 
+% ----- Econometric specification -----
+\begin{frame}{The econometric specification}
+  \vspace{0.2em}
+  \[
+    \Pr\bigl(\text{Leave}_{it}=1 \mid x_{it}\bigr)
+    \;=\;
+    \Phi\Bigl(
+      \underbrace{\text{attach}_{it}'\beta_1}_{\substack{\text{full year,}\\ \text{part-time}}}
+      +\underbrace{\text{comp}_{it}'\beta_2}_{\substack{\text{pension,}\\ \text{public school}}}
+      +\underbrace{\text{fam}_{it}'\beta_3}_{\substack{\text{new baby, children,}\\ \text{marital status}}}
+      +\underbrace{\text{dem}_{it}'\beta_4}_{\substack{\text{age, age}^2\text{, sex,}\\ \text{race, education}}}
+      +\;\delta_t
+    \Bigr)
+  \]
+  \vspace{0.4em}
+  \begin{itemize}\setlength\itemsep{0.5em}
+    \item {\small Probit on college-graduate teachers, pooled 2015--2024,
+          with calendar-year effects $\delta_t$; $n=28{,}900$.}
+    \item {\small Average marginal effects reported, in percentage points.}
+    \item {\small Robust to logit and weighted LPM, state and year fixed
+          effects, the full 1997--2024 window ($n=85{,}430$), and the
+          occupation-pair definition of leaving.}
+  \end{itemize}
+\end{frame}
+
 % ----- Message 1 -----
 \begin{frame}{Message 1 \,\textperiodcentered\, Economic conditions dominate demographics}
   \begin{center}
@@ -259,10 +325,37 @@
   \end{center}
 \end{frame}
 
+\begin{frame}{Message 2 \,\textperiodcentered\, Teachers' relative pay has drifted down}
+  \begin{center}
+    \includegraphics[width=0.97\textwidth]{../figures_deck/msgA3.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 2 \,\textperiodcentered\, A compressed pay scale}
+  \begin{center}
+    \includegraphics[width=0.90\textwidth]{../figures_deck/pay5_compression_deck.pdf}
+  \end{center}
+  \vspace{-0.3em}
+  {\footnotesize\color{mut} P10--median--P90 of annual earnings,
+   \$1{,}000 of 2024.}
+\end{frame}
+
+\begin{frame}{Message 2 \,\textperiodcentered\, Private schools lose teachers at twice the public rate}
+  \begin{center}
+    \includegraphics[width=0.92\textwidth]{../figures_deck/pubpriv_series.pdf}
+  \end{center}
+\end{frame}
+
 % ----- Message 3 -----
 \begin{frame}{Message 3 \,\textperiodcentered\, Childbirth moves teachers out more than other professionals}
   \begin{center}
     \includegraphics[height=0.80\textheight]{../figures_deck/g8_newbaby.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 3 \,\textperiodcentered\, Who leaves the labor force before 55}
+  \begin{center}
+    \includegraphics[width=0.97\textwidth]{../figures_deck/yellow_flow2024.pdf}
   \end{center}
 \end{frame}
 
@@ -273,6 +366,30 @@
   \end{center}
   \vspace{-0.2em}
   {\footnotesize\color{mut} Destinations of leavers, percent of each period's exits.}
+\end{frame}
+
+\begin{frame}{Message 4 \,\textperiodcentered\, Routes out, across the career}
+  \begin{center}
+    \includegraphics[width=0.88\textwidth]{../figures_deck/g4_routes_age.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 4 \,\textperiodcentered\, Leavers who stay employed gamble on earnings}
+  \begin{center}
+    \includegraphics[width=0.88\textwidth]{../figures_deck/g5b_earnings_density.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 4 \,\textperiodcentered\, Earnings changes, by destination}
+  \begin{center}
+    \includegraphics[width=0.92\textwidth]{../figures_deck/pay7_destinations_deck.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Message 4 \,\textperiodcentered\, Every destination occupation we observe}
+  \begin{center}
+    \includegraphics[width=0.99\textwidth]{../figures_deck/occ_all_slide.pdf}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Message 4 \,\textperiodcentered\, And exits out of employment move with the cycle}
@@ -288,6 +405,13 @@
   \end{center}
   \vspace{-0.3em}
   {\footnotesize\color{mut} State means, 1997--2024.}
+\end{frame}
+
+% ================= International context =================
+\begin{frame}{The US rate, next to the systems that publish one}
+  \begin{center}
+    \includegraphics[height=0.84\textheight]{../figures_deck/intl_bars_deck.pdf}
+  \end{center}
 \end{frame}
 
 % ================= Conclusion =================
