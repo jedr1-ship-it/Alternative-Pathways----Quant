@@ -33,6 +33,11 @@ for txt, yv, c in [("Any sighting   18.2", R3.leaver_r3.iloc[-1], CORAL_L),
                    ("Annual recall   8.6", P.leaver_ba.iloc[-1] + 0.4, NAVY),
                    ("NCES follow-up   8.0", NCES_V[-1] - 0.9, INK)]:
     ax.annotate(txt, (2024.4, yv), fontsize=12, color=c, va="center", fontweight="bold")
+ax.annotate("panel series start in 2005:\nthe household identifier is\nunique only from May 2004",
+            (R3.base_year.iloc[0], R3.leaver_r3.iloc[0]),
+            xytext=(1997.2, 18.6), fontsize=10.5, color=MUT, linespacing=1.4,
+            arrowprops=dict(arrowstyle="-", color="#B9C0C8", lw=0.9,
+                            connectionstyle="arc3,rad=-0.15"))
 ax.set_xlim(1996.3, 2031.5); ax.set_ylim(0, 23)
 ax.set_xticks(range(1997, 2025, 4))
 ax.set_ylabel("teachers leaving per year, percent", fontsize=12, color=INK)
@@ -40,5 +45,7 @@ for s in ("top", "right"): ax.spines[s].set_visible(False)
 ax.grid(axis="y", color="#F1F2F3", lw=1); ax.set_axisbelow(True)
 ax.tick_params(labelsize=11)
 fig.tight_layout()
-fig.savefig(f"{SC}/v_allseries.png", dpi=170)
-print("saved v_allseries")
+fig.savefig("report/figures_deck/v_allseries.pdf")
+fig.savefig("report/figures_deck/v_allseries.png", dpi=170)
+fig.savefig("report/data_cluster/figures/v_allseries.pdf")
+print("saved v_allseries (pdf + png)")

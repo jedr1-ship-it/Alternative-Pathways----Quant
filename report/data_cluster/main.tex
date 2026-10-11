@@ -50,12 +50,17 @@
 
 % ================= A. Origin =================
 \begin{frame}{Why this project}
-  \vspace{1.2em}
-  \begin{itemize}\setlength\itemsep{1.4em}
-    \item Which of the factors we can observe correlate most strongly
-          with the decision to leave teaching?
-    \item Re-estimate the teacher leaving rate against the published
-          figures of the official surveys.
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{1.3em}
+    \item Research on the decision to leave teaching needs a person-level
+          leave-or-stay outcome linked to rich covariates: family events,
+          pay, hours, pension coverage, destinations after exit.
+    \item Administrative records count leavers best, but they are often
+          inaccessible, cover one state and the public sector only, and
+          carry few covariates.
+    \item Large household surveys are the accessible alternative. Using
+          them well requires knowing the measurement choices they impose
+          --- and what each choice does to the estimate.
   \end{itemize}
 \end{frame}
 
@@ -63,22 +68,36 @@
 \begin{frame}{Contribution}
   \vspace{0.4em}
   \begin{enumerate}\setlength\itemsep{1.5em}
-    \item \msg{A new series.} The longest \msg{continuous} series of teacher
-          attrition to reach the present: one estimate for
-          \msg{every year from 1997 to 2024}, constructed from twenty-eight
-          consecutive supplements of the Current Population Survey.
-    \item \msg{A measurement discussion.} A systematic treatment of the ways
-          a longitudinal household survey identifies leaving: the linking of
-          individuals across interviews, the alternative definitions of a
-          leaver, and the assumptions each definition entails.
-    \item \msg{Substantive evidence.} A characterization of who leaves
-          teaching and of the observed factors most strongly associated with
-          leaving, together with the destinations of leavers and the
-          heterogeneity of attrition across states.
+    \item \msg{A user's guide.} A systematic account of the choices involved
+          in constructing a leaving rate from a longitudinal household
+          survey --- linking individuals, defining a leaver --- the error
+          each choice introduces, its direction, and how much it moves the
+          estimate.
+    \item \msg{An implementation.} The guide applied to twenty-eight years
+          of the Current Population Survey, benchmarked against the national
+          reference on both the composition of the workforce and the rate.
+    \item \msg{A demonstration.} What a survey-based outcome permits that
+          records rarely do: the correlates of leaving, the destinations of
+          leavers, and the heterogeneity across states.
   \end{enumerate}
 \end{frame}
 
 % ================= B. Data =================
+\begin{frame}{Where do the official statistics come from?}
+  \vspace{0.5em}
+  \begin{itemize}\setlength\itemsep{1.2em}
+    \item The national reference is the NCES Teacher Follow-up Survey:
+          itself a sample survey, run in occasional waves --- eight since
+          1988--89 --- and published with a lag.
+    \item Truly administrative data exist only state by state (longitudinal
+          data systems, pension registers): public sector only, and they
+          measure exit from the state school system, not from the
+          profession.
+    \item There is no national administrative count. Every national number
+          is survey-based; the question is how the survey is used.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{The CPS replicates the official picture --- and does it every year}
   \begin{center}
   \small
@@ -231,11 +250,37 @@
 
 \begin{frame}{One dataset, one rate per definition}
   \begin{center}
-    \includegraphics[width=0.92\textwidth]{figures/v_allseries.pdf}
+    \includegraphics[height=0.58\textheight]{figures/v_allseries.pdf}
   \end{center}
   \vspace{-0.4em}
   {\small \msg{Message.} The definition of a leaver moves the measured rate by a factor of nearly four.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Comparisons across studies and countries must hold the definition fixed.}
+  {\small {\color{burg}\bfseries Policy.} Comparisons across studies and countries must hold the definition fixed.}\\[0.15em]
+  {\footnotesize\color{mut} About 3,700 teachers observed per year in the recall series; about 2,500 classified per year in the panel measures. Dots: NCES Teacher Follow-up Survey.}
+\end{frame}
+
+\begin{frame}{Why the lines differ}
+  \vspace{0.2em}
+  \begin{itemize}\setlength\itemsep{0.95em}
+    \item[\msg{18.2}] \msg{Any sighting.} One monthly sighting admits
+          substitutes and one-month spells: teachers seen teaching once in
+          year 1 leave at 55 percent, seen four times at 11. A single month
+          of occupation coding is noisy; summer-only patterns are just
+          3 percent of these leavers.
+    \item[\msg{15.4}] \msg{Month pairs.} The unit is the pair, not the
+          person: the same teacher can count as a leaver in one pair and a
+          stayer in another.
+    \item[\msg{13.0}] \msg{Panel measure.} One verdict per person. Still a
+          point-in-time notion of the year, and one leaver in six is
+          teaching again within three months.
+    \item[\msg{8.6}] \msg{Annual recall.} The main job of the year,
+          revisited a year later --- the concept of the official survey,
+          which is why it lands next to the dots. Its own risk is recall
+          error.
+    \item[\msg{8.0}] \msg{NCES follow-up.} The reference wave.
+  \end{itemize}
+  \vspace{0.3em}
+  {\footnotesize\color{mut} Each construction answers a slightly different
+   question; the choice, not the data, drives the spread.}
 \end{frame}
 
 % ================= F. Results =================

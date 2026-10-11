@@ -137,34 +137,52 @@ prs.slides[0].shapes.add_picture(LOGO, Inches((13.333 - lw) / 2), Inches(5.6),
 
 # ================= 2. why =================
 s = new_slide(title="Why this project")
-add_text(s, 0.9, 2.2, 11.5, 3.0, [
- ("•  Which of the factors we can observe correlate most strongly with "
-  "the decision to leave teaching?", 18, INK, False, False, 22),
- ("•  Re-estimate the teacher leaving rate against the published figures "
-  "of the official surveys.", 18, INK, False, False, 0)])
+add_text(s, 0.9, 1.95, 11.5, 4.4, [
+ ("•  Research on the decision to leave teaching needs a person-level "
+  "leave-or-stay outcome linked to rich covariates: family events, pay, "
+  "hours, pension coverage, destinations after exit.", 17, INK, False, False, 20),
+ ("•  Administrative records count leavers best, but they are often "
+  "inaccessible, cover one state and the public sector only, and carry few "
+  "covariates.", 17, INK, False, False, 20),
+ ("•  Large household surveys are the accessible alternative. Using "
+  "them well requires knowing the measurement choices they impose — "
+  "and what each choice does to the estimate.", 17, INK, False, False, 0)])
 
 # ================= 3. contribution =================
 s = new_slide(title="Contribution")
-C = [("1.  A new series.  ",
-      "The longest continuous series of teacher attrition to reach the "
-      "present: one estimate for every year from 1997 to 2024, constructed "
-      "from twenty-eight consecutive supplements of the Current Population "
-      "Survey."),
-     ("2.  A measurement discussion.  ",
-      "A systematic treatment of the ways a longitudinal household survey "
-      "identifies leaving: the linking of individuals across interviews, the "
-      "alternative definitions of a leaver, and the assumptions each "
-      "definition entails."),
-     ("3.  Substantive evidence.  ",
-      "A characterization of who leaves teaching and of the observed factors "
-      "most strongly associated with leaving, together with the destinations "
-      "of leavers and the heterogeneity of attrition across states.")]
+C = [("1.  A user's guide.  ",
+      "A systematic account of the choices involved in constructing a "
+      "leaving rate from a longitudinal household survey — linking "
+      "individuals, defining a leaver — the error each choice "
+      "introduces, its direction, and how much it moves the estimate."),
+     ("2.  An implementation.  ",
+      "The guide applied to twenty-eight years of the Current Population "
+      "Survey, benchmarked against the national reference on both the "
+      "composition of the workforce and the rate."),
+     ("3.  A demonstration.  ",
+      "What a survey-based outcome permits that records rarely do: the "
+      "correlates of leaving, the destinations of leavers, and the "
+      "heterogeneity across states.")]
 y = 1.85
 for lead, body in C:
     add_text(s, 0.9, y, 11.5, 1.4, [[
         [(lead, 16, NAVY, True, False), (body, 16, INK, False, False)], 0]],
         spacing=1.4)
     y += 1.55
+
+# ================= 3b. where the official statistics come from =================
+s = new_slide(title="Where do the official statistics come from?")
+add_text(s, 0.9, 1.95, 11.5, 4.4, [
+ ("•  The national reference is the NCES Teacher Follow-up Survey: "
+  "itself a sample survey, run in occasional waves — eight since "
+  "1988–89 — and published with a lag.", 17, INK, False, False, 20),
+ ("•  Truly administrative data exist only state by state (longitudinal "
+  "data systems, pension registers): public sector only, and they measure "
+  "exit from the state school system, not from the profession.",
+  17, INK, False, False, 20),
+ ("•  There is no national administrative count. Every national number "
+  "is survey-based; the question is how the survey is used.",
+  17, INK, False, False, 0)])
 
 # ================= 4. comparison table =================
 s = new_slide(title="The CPS replicates the official picture, every year")
@@ -305,9 +323,76 @@ add_text(s, 0.9, y + 0.18, 11.6, 0.4,
            12, MUT, False, True, 0)])
 
 # ================= 10. all series =================
-chart_slide("One dataset, one rate per definition", "v_allseries.png",
+s = chart_slide("One dataset, one rate per definition", "v_allseries.png",
  "The definition of a leaver moves the measured rate by a factor of nearly four.",
- "Comparisons across studies and countries must hold the definition fixed.")
+ "Comparisons across studies and countries must hold the definition fixed.",
+ box=(0.6, 1.45, 12.1, 4.45))
+add_text(s, 0.7, 7.08, 12.0, 0.35, [
+ ("About 3,700 teachers observed per year in the recall series; about 2,500 "
+  "classified per year in the panel measures. Dots: NCES Teacher Follow-up Survey.",
+  11, MUT, False, True, 0)])
+s.notes_slide.notes_text_frame.text = (
+ "GUION. En este gráfico veis cuatro líneas y unos puntos. Cada línea es una "
+ "forma distinta de medir lo mismo, calculada sobre los mismos registros del CPS, de la "
+ "menos estricta a la más precisa. Los puntos son la referencia nacional, el Teacher "
+ "Follow-up Survey del NCES (8,0 en su última ola).\n\n"
+ "ANY SIGHTING (~18): entra cualquiera visto enseñando en una sola entrevista del "
+ "año 1. Más del doble de la referencia por tres causas: (1) dominante, a quién "
+ "deja entrar un solo avistamiento — sustitutos y spells de un mes; gradiente medido: "
+ "vistos una vez abandonan al 55%, dos al 30, tres al 17, cuatro al 11; (2) un solo mes de "
+ "código de ocupación es ruidoso; (3) la estacionalidad pesa poco: solo-verano es "
+ "~3% de estos leavers.\n\n"
+ "MONTH PAIRS (~15): la unidad es el par mes-mes+12, no la persona; la misma persona puede "
+ "contar como leaver en un par y stayer en otro. La caída de tres puntos hasta la "
+ "siguiente línea es lo que se gana imponiendo un veredicto por persona.\n\n"
+ "PANEL (~13): una persona, un veredicto (profesor si enseña en 2+ entrevistas del "
+ "año 1; leaver solo si nunca enseña en el año 2, con 2+ entrevistas, una "
+ "fuera del verano). Queda 4-5 puntos sobre el recall por dos razones: (1) concepto de "
+ "año puntual — quien enseñó casi todo el año pero no en esas "
+ "entrevistas cuenta como leaver; (2) retornos — uno de cada seis leavers del panel "
+ "vuelve a enseñar en tres meses; la medida anual los absorbe.\n\n"
+ "ANNUAL RECALL (8,6): empleo más largo del año anterior y ya no enseña en "
+ "marzo. Comparte concepto con la encuesta oficial (empleo principal del año) y por "
+ "eso aterriza junto a los puntos. Su riesgo propio: error de recuerdo.\n\n"
+ "EJE: el recall empieza en 1997 (suplementos armonizados desde 1998); las líneas de "
+ "panel empiezan en 2005 porque el identificador de hogar solo es único desde mayo de "
+ "2004.\n\n"
+ "CIERRE: ninguna línea es 'la correcta'; cada construcción responde a una "
+ "pregunta distinta. Si construyes tu variable de abandono desde una encuesta porque el "
+ "registro administrativo no es accesible, debes saber qué elección tomas y "
+ "qué le hace a tu número.")
+
+# ================= 10b. why the lines differ =================
+s = new_slide(title="Why the lines differ")
+GAPS = [
+ ("18.2", "Any sighting.  ",
+  "One monthly sighting admits substitutes and one-month spells: teachers "
+  "seen teaching once in year 1 leave at 55 percent, seen four times at 11. "
+  "One month of coding is noisy; summer-only patterns are just 3 percent of "
+  "these leavers."),
+ ("15.4", "Month pairs.  ",
+  "The unit is the pair, not the person: the same teacher can count as a "
+  "leaver in one pair and a stayer in another."),
+ ("13.0", "Panel measure.  ",
+  "One verdict per person. Still a point-in-time notion of the year, and "
+  "one leaver in six is teaching again within three months."),
+ ("8.6", "Annual recall.  ",
+  "The main job of the year, revisited a year later — the concept of "
+  "the official survey, which is why it lands next to the dots. Its own "
+  "risk is recall error."),
+ ("8.0", "NCES follow-up.  ", "The reference wave."),
+]
+y = 1.70
+for num, lead, body in GAPS:
+    add_text(s, 0.9, y, 1.0, 0.4, [(num, 15, NAVY, True, False, 0)],
+             align=PP_ALIGN.RIGHT)
+    add_text(s, 2.15, y, 10.3, 1.1, [[
+        [(lead, 14, NAVY, True, False), (body, 14, INK, False, False)], 0]],
+        spacing=1.25)
+    y += 1.06
+add_text(s, 0.9, y + 0.05, 11.6, 0.35,
+         [("Each construction answers a slightly different question; the choice, not the data, drives the spread.",
+           12, MUT, False, True, 0)])
 
 # ================= 11. framework =================
 s = new_slide(title="Why teachers leave: what the CPS can and cannot see")
