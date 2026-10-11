@@ -1,7 +1,7 @@
-"""Native, editable PPTX mirror of the Data Cluster Beamer deck.
-Writes report/data_cluster/Proyect_US_cluster.pptx. Run from the repo root.
-Figures are taken as PNG from report/figures_deck; the equation image path
-can be overridden with EQ_PNG."""
+"""Native, editable PPTX mirror of the Data Cluster Beamer deck, styled to
+look like Beamer: white background, navy serif frame titles top-left, navy
+triangle bullets, page number bottom right. Writes
+report/data_cluster/Proyect_US_cluster.pptx. Run from the repo root."""
 import os
 from PIL import Image
 from pptx import Presentation
@@ -19,8 +19,6 @@ GARA = "Garamond"
 INK = RGBColor(0x1A, 0x24, 0x30)
 MUT = RGBColor(0x6B, 0x74, 0x80)
 NAVY = RGBColor(0x1F, 0x38, 0x64)
-HEAD = RGBColor(0x26, 0x45, 0x6E)
-BAND = RGBColor(0x00, 0x54, 0x9F)
 BURG = RGBColor(0x7B, 0x25, 0x30)
 LGRAYB = RGBColor(0xC9, 0xCF, 0xD6)
 
@@ -28,23 +26,28 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 blank = prs.slide_layouts[6]
+PAGENO = [0]
 
-def new_slide(band=True, title=None):
+def new_slide(title=None, number=True):
     s = prs.slides.add_slide(blank)
-    if band:
-        sh = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(-0.03),
-                                Inches(13.34), Inches(0.65))
-        sh.fill.solid(); sh.fill.fore_color.rgb = BAND
-        sh.line.fill.background(); sh.shadow.inherit = False
+    PAGENO[0] += 1
     if title:
-        box = s.shapes.add_textbox(Inches(0.65), Inches(0.82), Inches(12.0),
-                                   Inches(0.6))
+        box = s.shapes.add_textbox(Inches(0.6), Inches(0.32), Inches(12.2),
+                                   Inches(0.62))
         tf = box.text_frame; tf.word_wrap = True; tf.auto_size = None
         tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
         p = tf.paragraphs[0]
         r = p.add_run(); r.text = title
-        r.font.name = GARA; r.font.size = Pt(25); r.font.bold = True
-        r.font.color.rgb = HEAD
+        r.font.name = GARA; r.font.size = Pt(23); r.font.bold = True
+        r.font.color.rgb = NAVY
+    if number:
+        nb = s.shapes.add_textbox(Inches(12.55), Inches(7.08), Inches(0.6),
+                                  Inches(0.3))
+        tf = nb.text_frame
+        tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+        p = tf.paragraphs[0]; p.alignment = PP_ALIGN.RIGHT
+        r = p.add_run(); r.text = str(PAGENO[0])
+        r.font.name = GARA; r.font.size = Pt(10); r.font.color.rgb = MUT
     return s
 
 def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT, spacing=1.35):
@@ -54,8 +57,6 @@ def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT, spacing=1.35):
     for i, para in enumerate(parts):
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         p.alignment = align
-        runs = para[0] if isinstance(para[0], list) else [para]
-        size = para[1] if not isinstance(para[0], list) else None
         if isinstance(para[0], list):
             p.space_after = Pt(para[1])
             for text, sz, color, bold, italic in para[0]:
@@ -74,6 +75,14 @@ def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT, spacing=1.35):
             f.italic = italic; f.color.rgb = color
     return box
 
+def bullets(s, items, y=1.6, size=17, gap=20, x=0.9, w=11.6):
+    parts = []
+    for i, it in enumerate(items):
+        after = gap if i < len(items) - 1 else 0
+        parts.append([[("▸   ", size, NAVY, True, False),
+                       (it, size, INK, False, False)], after])
+    return add_text(s, x, y, w, 5.3, parts, spacing=1.4)
+
 def rule(s, x, y, w, weight=1.0, color=INK):
     ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x), Inches(y),
                                 Inches(x + w), Inches(y))
@@ -89,13 +98,13 @@ def fit_picture(s, path, box):
     s.shapes.add_picture(path, Inches(bx + (bw - w) / 2),
                          Inches(by + (bh - h) / 2), width=Inches(w))
 
-def msg_policy(s, msg, pol, y=6.28):
-    add_text(s, 0.7, y, 12.0, 0.45, [[
-        [("Message.  ", 13, NAVY, True, False), (msg, 13, INK, False, False)], 0]])
-    add_text(s, 0.7, y + 0.42, 12.0, 0.45, [[
-        [("Policy.  ", 13, BURG, True, False), (pol, 13, INK, False, False)], 0]])
+def msg_policy(s, msg, pol, y=6.30):
+    add_text(s, 0.9, y, 11.8, 0.45, [[
+        [("Message.  ", 13.5, NAVY, True, False), (msg, 13.5, INK, False, False)], 0]])
+    add_text(s, 0.9, y + 0.44, 11.8, 0.45, [[
+        [("Policy.  ", 13.5, BURG, True, False), (pol, 13.5, INK, False, False)], 0]])
 
-def chart_slide(title, png, msg, pol, box=(0.6, 1.5, 12.1, 4.65)):
+def chart_slide(title, png, msg, pol, box=(0.6, 1.25, 12.1, 4.85)):
     s = new_slide(title=title)
     fit_picture(s, f"{FIG}/{png}", box)
     msg_policy(s, msg, pol)
@@ -120,33 +129,33 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
     return sh
 
 # ================= 1. title =================
-s = new_slide(band=True)
-add_text(s, 1.2, 2.00, 10.93, 1.6, [
- ("Measuring Teacher Attrition with Labour Force Survey Data", 30, HEAD, True, False, 6),
- ("The Case of the United States", 20, HEAD, True, False, 0)], align=PP_ALIGN.CENTER)
-add_text(s, 1.2, 4.05, 10.93, 0.5,
+s = new_slide(number=False)
+add_text(s, 1.2, 2.10, 10.93, 1.6, [
+ ("Measuring Teacher Attrition with Labour Force Survey Data", 30, NAVY, True, False, 6),
+ ("The Case of the United States", 20, NAVY, True, False, 0)], align=PP_ALIGN.CENTER)
+add_text(s, 1.2, 4.10, 10.93, 0.5,
          [("José Elías Durán Roa", 16, INK, False, False, 0)],
          align=PP_ALIGN.CENTER)
-add_text(s, 1.2, 4.60, 10.93, 0.4,
+add_text(s, 1.2, 4.65, 10.93, 0.4,
          [("Data Cluster · Directorate for Education and Skills", 12.5, MUT, False, False, 0)],
          align=PP_ALIGN.CENTER)
 with Image.open(LOGO) as im:
-    lw = 1.9; lh = lw * im.size[1] / im.size[0]
-prs.slides[0].shapes.add_picture(LOGO, Inches((13.333 - lw) / 2), Inches(5.6),
-                                 width=Inches(lw))
+    lw = 1.8; lh = lw * im.size[1] / im.size[0]
+s.shapes.add_picture(LOGO, Inches((13.333 - lw) / 2), Inches(5.55),
+                     width=Inches(lw))
 
 # ================= 2. why =================
 s = new_slide(title="Why this project")
-add_text(s, 0.9, 1.95, 11.5, 4.4, [
- ("•  Research on the decision to leave teaching needs a person-level "
-  "leave-or-stay outcome linked to rich covariates: family events, pay, "
-  "hours, pension coverage, destinations after exit.", 17, INK, False, False, 20),
- ("•  Administrative records count leavers best, but they are often "
-  "inaccessible, cover one state and the public sector only, and carry few "
-  "covariates.", 17, INK, False, False, 20),
- ("•  Large household surveys are the accessible alternative. Using "
-  "them well requires knowing the measurement choices they impose — "
-  "and what each choice does to the estimate.", 17, INK, False, False, 0)])
+bullets(s, [
+ "Research on the decision to leave teaching needs a person-level "
+ "leave-or-stay outcome linked to rich covariates: family events, pay, "
+ "hours, pension coverage, destinations after exit.",
+ "Administrative records count leavers best, but they are often "
+ "inaccessible, cover one state and the public sector only, and carry few "
+ "covariates.",
+ "Large household surveys are the accessible alternative. Using them well "
+ "requires knowing the measurement choices they impose — and what "
+ "each choice does to the estimate."], y=1.75, gap=24)
 
 # ================= 3. contribution =================
 s = new_slide(title="Contribution")
@@ -163,60 +172,58 @@ C = [("1.  A user's guide.  ",
       "What a survey-based outcome permits that records rarely do: the "
       "correlates of leaving, the destinations of leavers, and the "
       "heterogeneity across states.")]
-y = 1.85
+y = 1.75
 for lead, body in C:
-    add_text(s, 0.9, y, 11.5, 1.4, [[
+    add_text(s, 0.9, y, 11.6, 1.4, [[
         [(lead, 16, NAVY, True, False), (body, 16, INK, False, False)], 0]],
         spacing=1.4)
-    y += 1.55
+    y += 1.6
 
-# ================= 3b. where the official statistics come from =================
+# ================= 4. where the official statistics come from =================
 s = new_slide(title="Where do the official statistics come from?")
-add_text(s, 0.9, 1.95, 11.5, 4.4, [
- ("•  The national reference is the NCES Teacher Follow-up Survey: "
-  "itself a sample survey, run in occasional waves — eight since "
-  "1988–89 — and published with a lag.", 17, INK, False, False, 20),
- ("•  Truly administrative data exist only state by state (longitudinal "
-  "data systems, pension registers): public sector only, and they measure "
-  "exit from the state school system, not from the profession.",
-  17, INK, False, False, 20),
- ("•  There is no national administrative count. Every national number "
-  "is survey-based; the question is how the survey is used.",
-  17, INK, False, False, 0)])
+bullets(s, [
+ "The national reference is the NCES Teacher Follow-up Survey: itself a "
+ "sample survey, run in occasional waves — eight since 1988–89 "
+ "— and published with a lag.",
+ "Truly administrative data exist only state by state (longitudinal data "
+ "systems, pension registers): public sector only, and they measure exit "
+ "from the state school system, not from the profession.",
+ "There is no national administrative count. Every national number is "
+ "survey-based; the question is how the survey is used."], y=1.75, gap=24)
 
-# ================= 4. comparison table =================
+# ================= 5. comparison table =================
 s = new_slide(title="The CPS replicates the official picture, every year")
 TX = [0.9, 4.7, 8.1, 10.5]
 TW = [3.7, 3.1, 2.3, 2.0]
-rule(s, 0.9, 1.70, 11.53, 1.4)
-for x, w, htxt in zip(TX[1:], TW[1:], ["CPS", "NTPS (official)", "Difference"]):
-    add_text(s, x, 1.80, w, 0.35, [(htxt, 14, INK, True, False, 0)],
+rule(s, 0.9, 1.42, 11.53, 1.4)
+for x, w, htxt in zip(TX[1:], TW[1:], ["CPS", "NTPS (reference)", "Difference"]):
+    add_text(s, x, 1.52, w, 0.35, [(htxt, 14, INK, True, False, 0)],
              align=PP_ALIGN.RIGHT)
-rule(s, 0.9, 2.22, 11.53, 0.75)
+rule(s, 0.9, 1.94, 11.53, 0.75)
 def trow(y, lab, a, b, d, bold=False, color=INK):
     add_text(s, TX[0], y, TW[0], 0.35, [(lab, 13.5, INK, bold, False, 0)])
     for x, w, v, c in zip(TX[1:], TW[1:], [a, b, d], [color, INK, INK]):
         if v:
             add_text(s, x, y, w, 0.35, [(v, 13.5, c, bold, False, 0)],
                      align=PP_ALIGN.RIGHT)
-trow(2.34, "Measurement", "every year, 1997–2024", "occasional waves", "",
+trow(2.06, "Measurement", "every year, 1997–2024", "occasional waves", "",
      bold=True, color=NAVY)
-rule(s, 0.9, 2.78, 11.53, 0.75)
-add_text(s, TX[0], 2.86, 8.0, 0.3,
+rule(s, 0.9, 2.50, 11.53, 0.75)
+add_text(s, TX[0], 2.58, 8.0, 0.3,
          [("Example wave: 2020–21, the latest NTPS", 11.5, MUT, False, True, 0)])
-trow(3.24, "Female (%)", "75.5", "76.8", "−1.3")
-trow(3.66, "Master’s degree or higher (%)", "57.0", "61.0", "−4.0 ***")
-trow(4.08, "Average age (years)", "44.0", "42.9", "+1.1 ***")
-rule(s, 0.9, 4.52, 11.53, 0.75)
-trow(4.62, "Teachers observed in the wave", "3,855", "39,633", "")
-rule(s, 0.9, 5.04, 11.53, 1.4)
-add_text(s, 0.9, 5.22, 11.53, 0.9, [
+trow(2.96, "Female (%)", "75.5", "76.8", "−1.3")
+trow(3.38, "Master’s degree or higher (%)", "57.0", "61.0", "−4.0 ***")
+trow(3.80, "Average age (years)", "44.0", "42.9", "+1.1 ***")
+rule(s, 0.9, 4.24, 11.53, 0.75)
+trow(4.34, "Teachers observed in the wave", "3,855", "39,633", "")
+rule(s, 0.9, 4.76, 11.53, 1.4)
+add_text(s, 0.9, 4.96, 11.53, 0.9, [
  ("Public school teachers. CPS: supplements of 2021–2022, weighted. NTPS 2020–21 "
   "(NCES 2022-113; Digest of Education Statistics, table 209.10; respondent count from "
   "NCES 2024-024). Stars test the CPS mean against the published NTPS estimate, "
   "design-adjusted standard errors: *** p<0.001; the female share does not differ "
   "significantly.", 11, MUT, False, True, 0)], align=PP_ALIGN.JUSTIFY)
-add_text(s, 0.9, 6.35, 11.53, 0.8, [[
+add_text(s, 0.9, 6.15, 11.53, 0.8, [[
  [("Full sample:  ", 13.5, INK, False, False),
   ("5.0 million", 13.5, NAVY, True, False),
   (" person-year records, 1998–2025;  ", 13.5, INK, False, False),
@@ -225,77 +232,77 @@ add_text(s, 0.9, 6.35, 11.53, 0.8, [[
   ("48,842", 13.5, NAVY, True, False),
   (" teachers followed in the linked panel.", 13.5, INK, False, False)], 0]])
 
-# ================= 5. rotation diagram (no title) =================
-s = new_slide(band=True)
+# ================= 6. rotation diagram (no title) =================
+s = new_slide()
 scw = 11.53 / 16
-add_text(s, 0.9, 2.45, 3.5, 0.35, [("interviewed 4 months", 14, NAVY, True, False, 0)])
-add_text(s, 4.9, 2.45, 3.6, 0.35, [("8 months out of the sample", 13, MUT, False, True, 0)],
+add_text(s, 0.9, 2.35, 3.5, 0.35, [("interviewed 4 months", 14, NAVY, True, False, 0)])
+add_text(s, 4.9, 2.35, 3.6, 0.35, [("8 months out of the sample", 13, MUT, False, True, 0)],
          align=PP_ALIGN.CENTER)
-add_text(s, 9.0, 2.45, 3.5, 0.35, [("interviewed 4 months", 14, BURG, True, False, 0)],
+add_text(s, 9.0, 2.35, 3.5, 0.35, [("interviewed 4 months", 14, BURG, True, False, 0)],
          align=PP_ALIGN.RIGHT)
 for i in range(16):
     x0 = 0.9 + i * scw
     if i < 4:
-        cell(s, x0, 2.90, scw, 0.62, NAVY, None, str(i + 1))
+        cell(s, x0, 2.80, scw, 0.62, NAVY, None, str(i + 1))
     elif i >= 12:
-        cell(s, x0, 2.90, scw, 0.62, BURG, None, str(i + 5 - 12))
+        cell(s, x0, 2.80, scw, 0.62, BURG, None, str(i - 7))
     else:
-        cell(s, x0, 2.90, scw, 0.62, None, LGRAYB)
+        cell(s, x0, 2.80, scw, 0.62, None, LGRAYB)
 for xi, lab in [(0.9, "Mar"), (0.9 + 3 * scw, "Jun"),
                 (0.9 + 12 * scw, "Mar"), (0.9 + 15 * scw, "Jun")]:
-    add_text(s, xi, 3.58, scw, 0.3, [(lab, 11, MUT, False, False, 0)],
+    add_text(s, xi, 3.48, scw, 0.3, [(lab, 11, MUT, False, False, 0)],
              align=PP_ALIGN.CENTER)
-add_text(s, 0.9, 3.92, 4 * scw, 0.3, [("year 1", 12, MUT, False, True, 0)],
+add_text(s, 0.9, 3.82, 4 * scw, 0.3, [("year 1", 12, MUT, False, True, 0)],
          align=PP_ALIGN.CENTER)
-add_text(s, 0.9 + 12 * scw, 3.92, 4 * scw, 0.3, [("year 2", 12, MUT, False, True, 0)],
+add_text(s, 0.9 + 12 * scw, 3.82, 4 * scw, 0.3, [("year 2", 12, MUT, False, True, 0)],
          align=PP_ALIGN.CENTER)
 arrow = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.9 + scw / 2),
-                               Inches(4.55), Inches(0.9 + 12.5 * scw), Inches(4.55))
+                               Inches(4.45), Inches(0.9 + 12.5 * scw), Inches(4.45))
 arrow.line.color.rgb = INK; arrow.line.width = Pt(1.4)
-add_text(s, 1.5, 4.72, 10.0, 0.4,
+add_text(s, 1.5, 4.62, 10.0, 0.4,
          [("the same interview, exactly twelve months later", 14, INK, False, False, 0)],
          align=PP_ALIGN.CENTER)
 
-# ================= 6. ASEC =================
+# ================= 7. ASEC =================
 s = new_slide(title="The March supplement (ASEC)")
-add_text(s, 0.9, 2.1, 11.5, 3.5, [
- ("•  The largest supplement of the CPS: the March sample is expanded to "
-  "roughly 90,000 households.", 18, INK, False, False, 20),
- ("•  Every adult reports on the previous calendar year: longest job "
-  "held, weeks worked, earnings, benefits.", 18, INK, False, False, 20),
- ("•  We use it to reconstruct the leaving rate.", 18, INK, False, False, 0)])
+bullets(s, [
+ "The largest supplement of the CPS: the March sample is expanded to "
+ "roughly 90,000 households.",
+ "Every adult reports on the previous calendar year: longest job held, "
+ "weeks worked, earnings, benefits.",
+ "We use it to reconstruct the leaving rate."], y=1.85, gap=24)
 
-# ================= 7. codes =================
-s = new_slide(band=False)
-fit_picture(s, f"{FIG}/codes_slide.png", (0.3, 0.25, 12.73, 7.0))
+# ================= 8. codes =================
+s = new_slide()
+fit_picture(s, f"{FIG}/codes_slide.png", (0.3, 0.2, 12.73, 6.9))
 
-# ================= 8. two ways =================
+# ================= 9. two ways =================
 s = new_slide(title="Two ways to measure the leaving rate")
-add_text(s, 0.9, 1.75, 5.6, 0.4, [("Follow the person, year to year", 16, NAVY, True, False, 0)])
-add_text(s, 0.9, 2.35, 5.6, 2.2, [
+add_text(s, 0.9, 1.50, 5.6, 0.4, [("Follow the person, year to year", 16, NAVY, True, False, 0)])
+add_text(s, 0.9, 2.10, 5.6, 2.2, [
  ("The rotation shows the same individual twelve months apart. The CPS has "
   "no person identifier, so records are linked on fields common to both "
   "years:", 14, INK, False, False, 10)], align=PP_ALIGN.JUSTIFY)
-add_text(s, 0.9, 3.85, 5.6, 1.8, [
+add_text(s, 0.9, 3.60, 5.6, 1.8, [
  ("household identifier", 14, INK, False, False, 6),
  ("dwelling identifier", 14, INK, False, False, 6),
  ("person line number within the household", 14, INK, False, False, 10),
  ("validated on sex, race, and age advancing 0–2 years", 13, MUT, False, False, 0)])
-add_text(s, 7.0, 1.75, 5.5, 0.4, [("Ask about last year, each March", 16, NAVY, True, False, 0)])
-add_text(s, 7.0, 2.35, 5.5, 2.6, [
+add_text(s, 7.0, 1.50, 5.5, 0.4, [("Ask about last year, each March", 16, NAVY, True, False, 0)])
+add_text(s, 7.0, 2.10, 5.5, 2.6, [
  ("The supplement’s retrospective question. Whoever reports teaching as "
   "last year’s longest job, and no longer teaches at the March "
   "interview, left within the year.", 14, INK, False, False, 12),
  ("The measure used in the literature so far.", 13, MUT, False, False, 0)],
  align=PP_ALIGN.JUSTIFY)
 
-# ================= 9. methodologies table =================
+# ================= 10. methodologies table =================
 s = new_slide(title="Measuring the leaving rate: the alternatives, side by side")
 MC = [(0.9, 1.9), (3.0, 3.1), (6.3, 3.6), (10.1, 2.4)]
-rule(s, 0.9, 1.70, 11.6, 1.4)
+rule(s, 0.9, 1.42, 11.6, 1.4)
 for (x, w), htxt in zip(MC, ["Measure", "A teacher is…", "A leaver is…", "Rests on…"]):
-    add_text(s, x, 1.80, w, 0.35, [(htxt, 13.5, INK, True, False, 0)])
-rule(s, 0.9, 2.20, 11.6, 0.75)
+    add_text(s, x, 1.52, w, 0.35, [(htxt, 13.5, INK, True, False, 0)])
+rule(s, 0.9, 1.92, 11.6, 0.75)
 MROWS = [
  ("Annual recall", "whoever taught as last year’s longest job",
   "no longer teaching at the March interview",
@@ -305,12 +312,12 @@ MROWS = [
   "a current code existing; fails for the non-employed", INK, False),
  ("Panel (benchmark)", "teaching in two or more year-1 interviews",
   "never teaching in year 2, given two or more interviews, one outside the summer",
-  "correct linkage of persons across waves", NAVY, True),
+  "correct linkage across waves; movers cannot be linked", NAVY, True),
  ("Month pairs, any sighting", "every teaching month, or a single sighting",
   "not teaching twelve months after each month",
   "one person counting several times; admits one-month spells", INK, False),
 ]
-y = 2.36
+y = 2.08
 for m, a, b, c, mc, mb in MROWS:
     add_text(s, MC[0][0], y, MC[0][1], 0.9, [(m, 12.5, mc, mb, False, 0)])
     add_text(s, MC[1][0], y, MC[1][1], 0.9, [(a, 12.5, INK, False, False, 0)])
@@ -322,12 +329,12 @@ add_text(s, 0.9, y + 0.18, 11.6, 0.4,
          [("Same records throughout; only the definition changes. Each row answers the same three questions.",
            12, MUT, False, True, 0)])
 
-# ================= 10. all series =================
+# ================= 11. all series =================
 s = chart_slide("One dataset, one rate per definition", "v_allseries.png",
  "The definition of a leaver moves the measured rate by a factor of nearly four.",
  "Comparisons across studies and countries must hold the definition fixed.",
- box=(0.6, 1.45, 12.1, 4.45))
-add_text(s, 0.7, 7.08, 12.0, 0.35, [
+ box=(0.6, 1.20, 12.1, 4.70))
+add_text(s, 0.9, 7.08, 11.6, 0.35, [
  ("About 3,700 teachers observed per year in the recall series; about 2,500 "
   "classified per year in the panel measures. Dots: NCES Teacher Follow-up Survey.",
   11, MUT, False, True, 0)])
@@ -338,10 +345,12 @@ s.notes_slide.notes_text_frame.text = (
  "Follow-up Survey del NCES (8,0 en su última ola).\n\n"
  "ANY SIGHTING (~18): entra cualquiera visto enseñando en una sola entrevista del "
  "año 1. Más del doble de la referencia por tres causas: (1) dominante, a quién "
- "deja entrar un solo avistamiento — sustitutos y spells de un mes; gradiente medido: "
- "vistos una vez abandonan al 55%, dos al 30, tres al 17, cuatro al 11; (2) un solo mes de "
- "código de ocupación es ruidoso; (3) la estacionalidad pesa poco: solo-verano es "
- "~3% de estos leavers.\n\n"
+ "deja entrar un solo avistamiento — sustitutos y spells de un mes. Ojo con el dato: "
+ "de los vistos enseñando en UNA sola entrevista del año 1, el 55% no aparece "
+ "enseñando en NINGUNA de sus entrevistas del año 2 (no significa 'nunca más': "
+ "el CPS solo los ve 16 meses). El gradiente: una vez 55%, dos 30%, tres 17%, cuatro 11%. "
+ "(2) Un solo mes de código de ocupación es ruidoso. (3) La estacionalidad pesa "
+ "poco: solo-verano es ~3% de estos leavers.\n\n"
  "MONTH PAIRS (~15): la unidad es el par mes-mes+12, no la persona; la misma persona puede "
  "contar como leaver en un par y stayer en otro. La caída de tres puntos hasta la "
  "siguiente línea es lo que se gana imponiendo un veredicto por persona.\n\n"
@@ -362,14 +371,15 @@ s.notes_slide.notes_text_frame.text = (
  "registro administrativo no es accesible, debes saber qué elección tomas y "
  "qué le hace a tu número.")
 
-# ================= 10b. why the lines differ =================
+# ================= 12. why the lines differ =================
 s = new_slide(title="Why the lines differ")
 GAPS = [
  ("18.2", "Any sighting.  ",
-  "One monthly sighting admits substitutes and one-month spells: teachers "
-  "seen teaching once in year 1 leave at 55 percent, seen four times at 11. "
-  "One month of coding is noisy; summer-only patterns are just 3 percent of "
-  "these leavers."),
+  "One monthly sighting admits substitutes and one-month spells: of "
+  "teachers seen teaching in a single year-1 interview, 55 percent are "
+  "never seen teaching in their year-2 interviews, against 11 percent of "
+  "those seen in all four. One month of coding is noisy; summer-only "
+  "patterns are just 3 percent of these leavers."),
  ("15.4", "Month pairs.  ",
   "The unit is the pair, not the person: the same teacher can count as a "
   "leaver in one pair and a stayer in another."),
@@ -382,30 +392,44 @@ GAPS = [
   "risk is recall error."),
  ("8.0", "NCES follow-up.  ", "The reference wave."),
 ]
-y = 1.70
+y = 1.55
 for num, lead, body in GAPS:
     add_text(s, 0.9, y, 1.0, 0.4, [(num, 15, NAVY, True, False, 0)],
              align=PP_ALIGN.RIGHT)
     add_text(s, 2.15, y, 10.3, 1.1, [[
         [(lead, 14, NAVY, True, False), (body, 14, INK, False, False)], 0]],
         spacing=1.25)
-    y += 1.06
-add_text(s, 0.9, y + 0.05, 11.6, 0.35,
+    y += 1.08
+add_text(s, 0.9, y + 0.02, 11.6, 0.35,
          [("Each construction answers a slightly different question; the choice, not the data, drives the spread.",
            12, MUT, False, True, 0)])
 
-# ================= 11. framework =================
+# ================= 12b. the attachment gradient, shown =================
+s = new_slide(title="The attachment gradient, shown")
+fit_picture(s, f"{FIG}/sighting_gradient.png", (0.9, 1.15, 11.5, 4.55))
+add_text(s, 0.9, 5.95, 11.8, 0.45, [[
+ [("Message.  ", 13.5, NAVY, True, False),
+  ("Who the denominator admits drives the top lines: seen teaching once, 54 "
+   "percent are never seen teaching a year later; seen all four times, 10 "
+   "percent.", 13.5, INK, False, False)], 0]])
+add_text(s, 0.9, 6.62, 11.8, 0.45, [[
+ [("Caveat.  ", 13.5, BURG, True, False),
+  ("Linkage follows addresses, not people: movers cannot be followed, and "
+   "movers leave more, so the panel measures are lower bounds on "
+   "mobility-related exit.", 13.5, INK, False, False)], 0]])
+
+# ================= 13. framework =================
 s = new_slide(title="Why teachers leave: what the CPS can and cannot see")
-rule(s, 0.9, 1.80, 11.53, 1.4)
-add_text(s, 1.1, 1.92, 7.0, 0.35, [("Reasons identified in the literature", 14, INK, True, False, 0)])
-add_text(s, 9.3, 1.92, 3.0, 0.35, [("Observed in the CPS?", 14, INK, True, False, 0)])
-rule(s, 0.9, 2.34, 11.53, 0.75)
+rule(s, 0.9, 1.50, 11.53, 1.4)
+add_text(s, 1.1, 1.62, 7.0, 0.35, [("Reasons identified in the literature", 14, INK, True, False, 0)])
+add_text(s, 9.3, 1.62, 3.0, 0.35, [("Observed in the CPS?", 14, INK, True, False, 0)])
+rule(s, 0.9, 2.04, 11.53, 0.75)
 FROWS = [("Working conditions", "no", MUT, False),
          ("Organizational support (mentoring, leadership)", "no", MUT, False),
          ("Autonomy and intrinsic motives", "no", MUT, False),
          ("Financial factors", "yes", NAVY, True),
          ("Personal life-cycle motives", "yes", NAVY, True)]
-y = 2.48
+y = 2.18
 for lab, v, c, b in FROWS:
     add_text(s, 1.1, y, 7.6, 0.35, [(lab, 14, INK, False, False, 0)])
     add_text(s, 9.3, y, 3.0, 0.35, [(v, 14, c, b, False, 0)])
@@ -418,7 +442,7 @@ add_text(s, 0.9, y + 0.78, 11.53, 0.6,
          [("Five broad families of reasons from our review of the literature. The CPS covers the economic and life-cycle margins.",
            12, MUT, False, True, 0)])
 
-# ================= 12. five messages =================
+# ================= 14. five messages =================
 s = new_slide(title="Five messages")
 FM = [
  "Economic and employment conditions correlate with leaving far more than demographics.",
@@ -427,14 +451,14 @@ FM = [
  "Life-cycle events are the largest single trigger: childbirth raises a woman’s exit probability by about six points, more than in comparable professions.",
  "Pension coverage retains, and attrition differs widely across states: the actionable margins are contractual and institutional.",
 ]
-y = 1.75
+y = 1.55
 for i, m in enumerate(FM, 1):
     add_text(s, 0.9, y, 11.6, 1.0, [[
         [(f"{i}.  ", 15, NAVY, True, False), (m, 15, INK, False, False)], 0]],
         spacing=1.3)
     y += 1.12
 
-# ================= 13+. chart run =================
+# ================= 15+. chart run =================
 RUN = [
  ("Leaving teaching, 1997–2024", "g2_evolution.png",
   "The rate fluctuates around 8.6 percent with no trend: a persistent outflow, not a mounting exodus.",
@@ -507,31 +531,30 @@ RUN = [
 for title, png, msg, pol in RUN:
     if title == "EQUATION":
         s = new_slide(title="The econometric specification")
-        fit_picture(s, EQ_PNG, (1.2, 1.7, 10.9, 2.3))
-        add_text(s, 0.9, 4.45, 11.6, 2.2, [
-         ("•  Probit on college-graduate teachers, pooled 2015–2024, "
-          "with calendar-year effects; n = 28,900.", 14.5, INK, False, False, 12),
-         ("•  Average marginal effects reported, in percentage points.",
-          14.5, INK, False, False, 12),
-         ("•  Robust to logit and weighted LPM, state and year fixed "
-          "effects, the full 1997–2024 window (n = 85,430), and the "
-          "occupation-pair definition of leaving.", 14.5, INK, False, False, 0)])
+        fit_picture(s, EQ_PNG, (1.2, 1.5, 10.9, 2.3))
+        bullets(s, [
+         "Probit on college-graduate teachers, pooled 2015–2024, with "
+         "calendar-year effects; n = 28,900.",
+         "Average marginal effects reported, in percentage points.",
+         "Robust to logit and weighted LPM, state and year fixed effects, the "
+         "full 1997–2024 window (n = 85,430), and the occupation-pair "
+         "definition of leaving."], y=4.35, size=14.5, gap=12)
     else:
         chart_slide(title, png, msg, pol)
 
 # ================= conclusion =================
 s = new_slide(title="Conclusion")
-CO = [
- "A labour force survey can measure teacher attrition at the person level, yearly, over three decades, and it replicates the official picture of the workforce.",
- "The definition of a leaver is a first-order choice: the same records yield rates from 5 to 19 percent per year.",
- "What the data say: attachment, pay and pensions, and life-cycle events correlate with leaving; demographics much less.",
- "The design travels: the same construction is feasible in the labour force surveys of Italy, Germany, the UK, France, Spain, Brazil and Mexico.",
-]
-y = 1.9
-for m in CO:
-    add_text(s, 0.9, y, 11.6, 1.0,
-             [("•  " + m, 16, INK, False, False, 0)], spacing=1.35)
-    y += 1.15
+bullets(s, [
+ "A labour force survey can measure teacher attrition at the person level, "
+ "yearly, over three decades, and it replicates the official picture of "
+ "the workforce.",
+ "The definition of a leaver is a first-order choice: the same records "
+ "yield rates from 5 to 19 percent per year.",
+ "What the data say: attachment, pay and pensions, and life-cycle events "
+ "correlate with leaving; demographics much less.",
+ "The design travels: the same construction is feasible in the labour "
+ "force surveys of Italy, Germany, the UK, France, Spain, Brazil and "
+ "Mexico."], y=1.75, gap=22, size=16)
 
 prs.save(OUT)
 print(f"saved {OUT} with {len(prs.slides._sldIdLst)} slides")
