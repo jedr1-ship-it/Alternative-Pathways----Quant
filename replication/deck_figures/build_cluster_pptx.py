@@ -15,12 +15,15 @@ OUT = "report/data_cluster/Proyect_US_cluster.pptx"
 LOGO = "report/data_cluster/oecd_logo.png"
 EQ_PNG = os.environ.get("EQ_PNG", "report/data_cluster/equation.png")
 
-GARA = "Garamond"
-INK = RGBColor(0x1A, 0x24, 0x30)
+GARA = "Segoe UI"            # metropolis-style: clean sans
+INK = RGBColor(0x23, 0x37, 0x3B)      # slate
 MUT = RGBColor(0x6B, 0x74, 0x80)
-NAVY = RGBColor(0x1F, 0x38, 0x64)
+NAVY = RGBColor(0x1F, 0x38, 0x64)     # kept for data colors in diagrams
 BURG = RGBColor(0x7B, 0x25, 0x30)
 LGRAYB = RGBColor(0xC9, 0xCF, 0xD6)
+SLATE = RGBColor(0x23, 0x37, 0x3B)
+ACCENT = RGBColor(0xEB, 0x81, 0x1B)   # metropolis orange
+CREAM = RGBColor(0xFA, 0xFA, 0xFA)
 
 prs = Presentation()
 prs.slide_width = Inches(13.333)
@@ -28,18 +31,24 @@ prs.slide_height = Inches(7.5)
 blank = prs.slide_layouts[6]
 PAGENO = [0]
 
-def new_slide(title=None, number=True):
+def new_slide(title=None, number=True, bg=None):
     s = prs.slides.add_slide(blank)
     PAGENO[0] += 1
+    s.background.fill.solid()
+    s.background.fill.fore_color.rgb = bg if bg else CREAM
     if title:
-        box = s.shapes.add_textbox(Inches(0.6), Inches(0.32), Inches(12.2),
-                                   Inches(0.62))
+        box = s.shapes.add_textbox(Inches(0.6), Inches(0.34), Inches(12.2),
+                                   Inches(0.55))
         tf = box.text_frame; tf.word_wrap = True; tf.auto_size = None
         tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
         p = tf.paragraphs[0]
         r = p.add_run(); r.text = title
-        r.font.name = GARA; r.font.size = Pt(23); r.font.bold = True
-        r.font.color.rgb = NAVY
+        r.font.name = GARA; r.font.size = Pt(21); r.font.bold = False
+        r.font.color.rgb = SLATE
+        bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.6),
+                                 Inches(0.94), Inches(12.2), Inches(0.028))
+        bar.fill.solid(); bar.fill.fore_color.rgb = ACCENT
+        bar.line.fill.background(); bar.shadow.inherit = False
     if number:
         nb = s.shapes.add_textbox(Inches(12.55), Inches(7.08), Inches(0.6),
                                   Inches(0.3))
@@ -100,9 +109,17 @@ def fit_picture(s, path, box):
 
 def msg_policy(s, msg, pol, y=6.30):
     add_text(s, 0.9, y, 11.8, 0.45, [[
-        [("Message.  ", 13.5, NAVY, True, False), (msg, 13.5, INK, False, False)], 0]])
+        [("Message.  ", 13.5, ACCENT, True, False), (msg, 13.5, INK, False, False)], 0]])
     add_text(s, 0.9, y + 0.44, 11.8, 0.45, [[
-        [("Policy.  ", 13.5, BURG, True, False), (pol, 13.5, INK, False, False)], 0]])
+        [("Policy.  ", 13.5, SLATE, True, False), (pol, 13.5, INK, False, False)], 0]])
+
+def divider(num, title):
+    s = new_slide(number=False, bg=SLATE)
+    add_text(s, 1.0, 2.55, 11.33, 1.2, [(num, 54, ACCENT, True, False, 0)],
+             align=PP_ALIGN.CENTER)
+    add_text(s, 1.0, 4.05, 11.33, 0.6, [(title, 24, CREAM, False, False, 0)],
+             align=PP_ALIGN.CENTER)
+    return s
 
 def chart_slide(title, png, msg, pol, box=(0.6, 1.25, 12.1, 4.85)):
     s = new_slide(title=title)
@@ -130,9 +147,13 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
 
 # ================= 1. title =================
 s = new_slide(number=False)
-add_text(s, 1.2, 2.10, 10.93, 1.6, [
- ("Measuring Teacher Attrition with Labour Force Survey Data", 30, NAVY, True, False, 6),
- ("The Case of the United States", 20, NAVY, True, False, 0)], align=PP_ALIGN.CENTER)
+add_text(s, 1.2, 2.05, 10.93, 1.6, [
+ ("Measuring Teacher Attrition with Labour Force Survey Data", 30, SLATE, False, False, 6),
+ ("The Case of the United States", 19, MUT, False, False, 0)], align=PP_ALIGN.CENTER)
+bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(5.17), Inches(3.78),
+                         Inches(3.0), Inches(0.035))
+bar.fill.solid(); bar.fill.fore_color.rgb = ACCENT
+bar.line.fill.background(); bar.shadow.inherit = False
 add_text(s, 1.2, 4.10, 10.93, 0.5,
          [("José Elías Durán Roa", 16, INK, False, False, 0)],
          align=PP_ALIGN.CENTER)
@@ -175,9 +196,11 @@ C = [("1.  A user's guide.  ",
 y = 1.75
 for lead, body in C:
     add_text(s, 0.9, y, 11.6, 1.4, [[
-        [(lead, 16, NAVY, True, False), (body, 16, INK, False, False)], 0]],
+        [(lead, 16, ACCENT, True, False), (body, 16, INK, False, False)], 0]],
         spacing=1.4)
     y += 1.6
+
+divider("1", "The data")
 
 # ================= 4. where the official statistics come from =================
 s = new_slide(title="Where do the official statistics come from?")
@@ -207,7 +230,7 @@ def trow(y, lab, a, b, d, bold=False, color=INK):
             add_text(s, x, y, w, 0.35, [(v, 13.5, c, bold, False, 0)],
                      align=PP_ALIGN.RIGHT)
 trow(2.06, "Measurement", "every year, 1997–2024", "occasional waves", "",
-     bold=True, color=NAVY)
+     bold=True, color=ACCENT)
 rule(s, 0.9, 2.50, 11.53, 0.75)
 add_text(s, TX[0], 2.58, 8.0, 0.3,
          [("Example wave: 2020–21, the latest NTPS", 11.5, MUT, False, True, 0)])
@@ -225,11 +248,11 @@ add_text(s, 0.9, 4.96, 11.53, 0.9, [
   "significantly.", 11, MUT, False, True, 0)], align=PP_ALIGN.JUSTIFY)
 add_text(s, 0.9, 6.15, 11.53, 0.8, [[
  [("Full sample:  ", 13.5, INK, False, False),
-  ("5.0 million", 13.5, NAVY, True, False),
+  ("5.0 million", 13.5, SLATE, True, False),
   (" person-year records, 1998–2025;  ", 13.5, INK, False, False),
-  ("104,545", 13.5, NAVY, True, False),
+  ("104,545", 13.5, SLATE, True, False),
   (" teacher observations;  ", 13.5, INK, False, False),
-  ("48,842", 13.5, NAVY, True, False),
+  ("48,842", 13.5, SLATE, True, False),
   (" teachers followed in the linked panel.", 13.5, INK, False, False)], 0]])
 
 # ================= 6. rotation diagram (no title) =================
@@ -276,6 +299,8 @@ bullets(s, [
 s = new_slide()
 fit_picture(s, f"{FIG}/codes_slide.png", (0.3, 0.2, 12.73, 6.9))
 
+divider("2", "Measuring the leaving rate")
+
 # ================= 9. two ways =================
 s = new_slide(title="Two ways to measure the leaving rate")
 add_text(s, 0.9, 1.50, 5.6, 0.4, [("Follow the person, year to year", 16, NAVY, True, False, 0)])
@@ -296,38 +321,43 @@ add_text(s, 7.0, 2.10, 5.5, 2.6, [
  ("The measure used in the literature so far.", 13, MUT, False, False, 0)],
  align=PP_ALIGN.JUSTIFY)
 
-# ================= 10. methodologies table =================
-s = new_slide(title="Measuring the leaving rate: the alternatives, side by side")
-MC = [(0.9, 1.9), (3.0, 3.1), (6.3, 3.6), (10.1, 2.4)]
-rule(s, 0.9, 1.42, 11.6, 1.4)
-for (x, w), htxt in zip(MC, ["Measure", "A teacher is…", "A leaver is…", "Rests on…"]):
-    add_text(s, x, 1.52, w, 0.35, [(htxt, 13.5, INK, True, False, 0)])
-rule(s, 0.9, 1.92, 11.6, 0.75)
-MROWS = [
- ("Annual recall", "whoever taught as last year’s longest job",
-  "no longer teaching at the March interview",
-  "accurate recall of the previous year", INK, False),
- ("Occupation pair", "a teaching occupation code one year ago",
-  "a different occupation code today",
-  "a current code existing; fails for the non-employed", INK, False),
- ("Panel (benchmark)", "teaching in two or more year-1 interviews",
-  "never teaching in year 2, given two or more interviews, one outside the summer",
-  "correct linkage across waves; movers cannot be linked", NAVY, True),
- ("Month pairs, any sighting", "every teaching month, or a single sighting",
-  "not teaching twelve months after each month",
-  "one person counting several times; admits one-month spells", INK, False),
+# ================= 10. four definitions, one language =================
+s = new_slide(title="Four definitions, one language")
+add_text(s, 0.9, 1.30, 11.6, 0.4,
+         [("Each person is interviewed four times in year 1 and four times in year 2, twelve months later.",
+           15, INK, False, False, 0)])
+DC = [(0.9, 2.6), (3.9, 4.0), (8.3, 4.2)]
+rule(s, 0.9, 1.95, 11.6, 1.4)
+for (x, w), htxt in zip(DC, ["", "A teacher:", "A leaver:"]):
+    if htxt:
+        add_text(s, x, 2.05, w, 0.35, [(htxt, 15, INK, True, False, 0)])
+rule(s, 0.9, 2.48, 11.6, 0.75)
+DROWS = [
+ ("Any sighting", False,
+  "seen teaching in \u2265 1 of the 4 year-1 interviews",
+  "seen teaching in none of the 4 year-2 interviews"),
+ ("Month pairs", False,
+  "each teaching interview counts on its own",
+  "not seen teaching twelve months later"),
+ ("Panel (benchmark)", True,
+  "seen teaching in \u2265 2 of the 4 year-1 interviews",
+  "seen teaching in none of the 4 year-2 interviews *"),
+ ("Annual recall", False,
+  "teaching was the longest job of last year",
+  "not teaching at the March interview"),
 ]
-y = 2.08
-for m, a, b, c, mc, mb in MROWS:
-    add_text(s, MC[0][0], y, MC[0][1], 0.9, [(m, 12.5, mc, mb, False, 0)])
-    add_text(s, MC[1][0], y, MC[1][1], 0.9, [(a, 12.5, INK, False, False, 0)])
-    add_text(s, MC[2][0], y, MC[2][1], 0.9, [(b, 12.5, INK, False, False, 0)])
-    add_text(s, MC[3][0], y, MC[3][1], 0.9, [(c, 12.5, INK, False, False, 0)])
-    y += 1.02
+y = 2.64
+for m, bench, a, b in DROWS:
+    add_text(s, DC[0][0], y, DC[0][1], 0.7,
+             [(m, 15, ACCENT if bench else INK, bench, False, 0)])
+    add_text(s, DC[1][0], y, DC[1][1], 0.7, [(a, 15, INK, False, False, 0)])
+    add_text(s, DC[2][0], y, DC[2][1], 0.7, [(b, 15, INK, False, False, 0)])
+    y += 0.78
 rule(s, 0.9, y + 0.02, 11.6, 1.4)
-add_text(s, 0.9, y + 0.18, 11.6, 0.4,
-         [("Same records throughout; only the definition changes. Each row answers the same three questions.",
-           12, MUT, False, True, 0)])
+add_text(s, 0.9, y + 0.20, 11.6, 0.6,
+         [("* With at least two year-2 interviews observed, one outside the summer.  "
+           "Annual recall is the only measure not built by counting interviews.",
+           12.5, MUT, False, True, 0)])
 
 # ================= 11. all series =================
 s = chart_slide("One dataset, one rate per definition", "v_allseries.png",
@@ -397,7 +427,7 @@ for num, lead, body in GAPS:
     add_text(s, 0.9, y, 1.0, 0.4, [(num, 15, NAVY, True, False, 0)],
              align=PP_ALIGN.RIGHT)
     add_text(s, 2.15, y, 10.3, 1.1, [[
-        [(lead, 14, NAVY, True, False), (body, 14, INK, False, False)], 0]],
+        [(lead, 14, SLATE, True, False), (body, 14, INK, False, False)], 0]],
         spacing=1.25)
     y += 1.08
 add_text(s, 0.9, y + 0.02, 11.6, 0.35,
@@ -408,15 +438,17 @@ add_text(s, 0.9, y + 0.02, 11.6, 0.35,
 s = new_slide(title="The attachment gradient, shown")
 fit_picture(s, f"{FIG}/sighting_gradient.png", (0.9, 1.15, 11.5, 4.55))
 add_text(s, 0.9, 5.95, 11.8, 0.45, [[
- [("Message.  ", 13.5, NAVY, True, False),
+ [("Message.  ", 13.5, ACCENT, True, False),
   ("Who the denominator admits drives the top lines: seen teaching once, 54 "
    "percent are never seen teaching a year later; seen all four times, 10 "
    "percent.", 13.5, INK, False, False)], 0]])
 add_text(s, 0.9, 6.62, 11.8, 0.45, [[
- [("Caveat.  ", 13.5, BURG, True, False),
+ [("Caveat.  ", 13.5, SLATE, True, False),
   ("Linkage follows addresses, not people: movers cannot be followed, and "
    "movers leave more, so the panel measures are lower bounds on "
    "mobility-related exit.", 13.5, INK, False, False)], 0]])
+
+divider("3", "What the data show")
 
 # ================= 13. framework =================
 s = new_slide(title="Why teachers leave: what the CPS can and cannot see")
@@ -432,11 +464,11 @@ FROWS = [("Working conditions", "no", MUT, False),
 y = 2.18
 for lab, v, c, b in FROWS:
     add_text(s, 1.1, y, 7.6, 0.35, [(lab, 14, INK, False, False, 0)])
-    add_text(s, 9.3, y, 3.0, 0.35, [(v, 14, c, b, False, 0)])
+    add_text(s, 9.3, y, 3.0, 0.35, [(v, 14, ACCENT if v=="yes" else MUT, b, False, 0)])
     y += 0.48
 rule(s, 0.9, y + 0.02, 11.53, 0.75)
 add_text(s, 1.1, y + 0.12, 7.6, 0.35, [("Sociodemographic characteristics", 14, INK, False, False, 0)])
-add_text(s, 9.3, y + 0.12, 3.0, 0.35, [("yes", 14, NAVY, True, False, 0)])
+add_text(s, 9.3, y + 0.12, 3.0, 0.35, [("yes", 14, ACCENT, True, False, 0)])
 rule(s, 0.9, y + 0.58, 11.53, 1.4)
 add_text(s, 0.9, y + 0.78, 11.53, 0.6,
          [("Five broad families of reasons from our review of the literature. The CPS covers the economic and life-cycle margins.",
@@ -454,7 +486,7 @@ FM = [
 y = 1.55
 for i, m in enumerate(FM, 1):
     add_text(s, 0.9, y, 11.6, 1.0, [[
-        [(f"{i}.  ", 15, NAVY, True, False), (m, 15, INK, False, False)], 0]],
+        [(f"{i}.  ", 15, ACCENT, True, False), (m, 15, INK, False, False)], 0]],
         spacing=1.3)
     y += 1.12
 

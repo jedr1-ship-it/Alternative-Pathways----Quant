@@ -7,27 +7,33 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing,arrows.meta}
 
-% ---------- look ----------
+% ---------- look: metropolis-style ----------
 \usetheme{default}
-\usefonttheme{serif}
 \setbeamertemplate{navigation symbols}{}
+\definecolor{slate}{HTML}{23373B}
+\definecolor{accent}{HTML}{EB811B}
+\definecolor{cream}{HTML}{FAFAFA}
 \definecolor{navy}{HTML}{1F3864}
 \definecolor{burg}{HTML}{7B2530}
-\definecolor{ink}{HTML}{1A2430}
+\definecolor{ink}{HTML}{23373B}
 \definecolor{mut}{HTML}{6B7480}
 \definecolor{paleblue}{HTML}{AFC3DC}
-\setbeamercolor{frametitle}{fg=navy}
-\setbeamercolor{title}{fg=navy}
-\setbeamercolor{structure}{fg=navy}
-\setbeamercolor{normal text}{fg=ink}
-\setbeamerfont{frametitle}{series=\bfseries,size=\large}
-\setbeamerfont{title}{series=\bfseries,size=\Large}
-\setbeamertemplate{itemize item}{\textcolor{navy}{\footnotesize$\bullet$}}
+\setbeamercolor{background canvas}{bg=cream}
+\setbeamercolor{normal text}{fg=slate}
+\setbeamercolor{frametitle}{fg=slate}
+\setbeamercolor{title}{fg=slate}
+\setbeamercolor{structure}{fg=slate}
+\setbeamerfont{frametitle}{size=\Large,series=\mdseries}
+\setbeamerfont{title}{size=\LARGE,series=\mdseries}
+\setbeamertemplate{frametitle}{%
+  \vspace{0.9em}\insertframetitle\par\vspace{0.25em}%
+  \textcolor{accent}{\rule{\textwidth}{1.4pt}}\vspace{0.2em}}
+\setbeamertemplate{itemize item}{\textcolor{accent}{\small$\blacktriangleright$}}
 \setbeamertemplate{itemize subitem}{\textcolor{mut}{\footnotesize--}}
 \setbeamertemplate{footline}{%
   \hfill\textcolor{mut}{\scriptsize\insertframenumber}\hspace{2ex}\vspace{1ex}}
 \setbeamersize{text margin left=0.9cm,text margin right=0.9cm}
-\newcommand{\msg}[1]{{\color{navy}\bfseries #1}}
+\newcommand{\msg}[1]{{\color{accent}\bfseries #1}}
 
 % ---------- NTPS 2020-21 comparison values (filled from NCES sources) ----------
 \newcommand{\ntpsFemale}{76.8}
@@ -83,6 +89,14 @@
 \end{frame}
 
 % ================= B. Data =================
+{\setbeamercolor{background canvas}{bg=slate}
+\begin{frame}[plain]
+  \begin{center}
+    {\color{accent}\fontsize{54}{54}\selectfont\bfseries 1}\\[1.0em]
+    {\color{cream}\LARGE The data}
+  \end{center}
+\end{frame}}
+
 \begin{frame}{Where do the official statistics come from?}
   \vspace{0.5em}
   \begin{itemize}\setlength\itemsep{1.2em}
@@ -188,6 +202,14 @@
 \end{frame}
 
 % ================= D. Two ways to measure =================
+{\setbeamercolor{background canvas}{bg=slate}
+\begin{frame}[plain]
+  \begin{center}
+    {\color{accent}\fontsize{54}{54}\selectfont\bfseries 2}\\[1.0em]
+    {\color{cream}\LARGE Measuring the leaving rate}
+  \end{center}
+\end{frame}}
+
 \begin{frame}{Two ways to measure the leaving rate}
   \vspace{0.4em}
   \begin{columns}[T]
@@ -216,36 +238,27 @@
 \end{frame}
 
 % ================= E. Defining the leaver in the panel =================
-\begin{frame}{Measuring the leaving rate: the alternatives, side by side}
-  \begin{center}
-  \footnotesize
-  \begin{tabular}{p{2.3cm}p{3.3cm}p{4.1cm}p{3.2cm}}
+\begin{frame}{Four definitions, one language}
+  \vspace{0.2em}
+  Each person is interviewed four times in year 1 and four times in year 2,
+  twelve months later.\\[1.0em]
+  \begin{tabular}{p{3.0cm}p{4.3cm}p{4.3cm}}
     \toprule
-    Measure & A teacher is\ldots & A leaver is\ldots & Rests on\ldots \\
+                        & A teacher:                & A leaver:                 \\
     \midrule
-    Annual recall &
-      whoever taught as last year's longest job &
-      no longer teaching at the March interview &
-      accurate recall of the previous year \\[0.9em]
-    Occupation pair &
-      a teaching occupation code one year ago &
-      a different occupation code today &
-      a current code existing; fails for the non-employed \\[0.9em]
-    \msg{Panel (benchmark)} &
-      teaching in two or more year-1 interviews &
-      never teaching in year 2, given two or more interviews, one outside
-      the summer &
-      correct linkage across waves; movers cannot be linked \\[0.9em]
-    Month pairs, any sighting &
-      every teaching month, or a single sighting &
-      not teaching twelve months after each month &
-      one person counting several times; admits one-month spells \\
+    Any sighting        & seen teaching in $\geq$ 1 of the 4 year-1 interviews
+                        & seen teaching in none of the 4 year-2 interviews     \\[1.1em]
+    Month pairs         & each teaching interview counts on its own
+                        & not seen teaching twelve months later                \\[1.1em]
+    \msg{Panel (benchmark)} & seen teaching in $\geq$ 2 of the 4 year-1 interviews
+                        & seen teaching in none of the 4 year-2 interviews$^{*}$ \\[1.1em]
+    Annual recall       & teaching was the longest job of last year
+                        & not teaching at the March interview                  \\
     \bottomrule
-  \end{tabular}
-  \end{center}
-  \vspace{0.3em}
-  {\footnotesize\color{mut} Same records throughout; only the definition
-   changes. Each row answers the same three questions.}
+  \end{tabular}\\[0.8em]
+  {\footnotesize\color{mut} $^{*}$With at least two year-2 interviews
+   observed, one outside the summer. Annual recall is the only measure not
+   built by counting interviews.}
 \end{frame}
 
 \begin{frame}{One dataset, one rate per definition}
@@ -254,7 +267,7 @@
   \end{center}
   \vspace{-0.4em}
   {\small \msg{Message.} The definition of a leaver moves the measured rate by a factor of nearly four.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Comparisons across studies and countries must hold the definition fixed.}\\[0.15em]
+  {\small {\color{slate}\bfseries Policy.} Comparisons across studies and countries must hold the definition fixed.}\\[0.15em]
   {\footnotesize\color{mut} About 3,700 teachers observed per year in the recall series; about 2,500 classified per year in the panel measures. Dots: NCES Teacher Follow-up Survey.}
 \end{frame}
 
@@ -292,12 +305,20 @@
   {\small \msg{Message.} Who the denominator admits drives the top lines:
    seen teaching once, 54 percent are never seen teaching a year later;
    seen all four times, 10 percent.}\\[0.15em]
-  {\small {\color{burg}\bfseries Caveat.} Linkage follows addresses, not
+  {\small {\color{slate}\bfseries Caveat.} Linkage follows addresses, not
    people: movers cannot be followed, and movers leave more, so the panel
    measures are lower bounds on mobility-related exit.}
 \end{frame}
 
 % ================= F. Results =================
+{\setbeamercolor{background canvas}{bg=slate}
+\begin{frame}[plain]
+  \begin{center}
+    {\color{accent}\fontsize{54}{54}\selectfont\bfseries 3}\\[1.0em]
+    {\color{cream}\LARGE What the data show}
+  \end{center}
+\end{frame}}
+
 \begin{frame}{Why teachers leave: what the CPS can and cannot see}
   \begin{center}
   \begin{tabular}{ll}
@@ -344,7 +365,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} The rate fluctuates around 8.6 percent with no trend: a persistent outflow, not a mounting exodus.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Retention faces a steady-state cost, not an emergency spike.}
+  {\small {\color{slate}\bfseries Policy.} Retention faces a steady-state cost, not an emergency spike.}
 \end{frame}
 
 \begin{frame}{Leaving teaching, by school sector}
@@ -353,7 +374,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Private schools lose teachers at roughly twice the public rate.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Retention tracks contract structure, pay and pensions, not classroom conditions alone.}
+  {\small {\color{slate}\bfseries Policy.} Retention tracks contract structure, pay and pensions, not classroom conditions alone.}
 \end{frame}
 
 \begin{frame}{Leaving the occupation, by profession}
@@ -362,7 +383,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Teacher attrition is unexceptional next to comparable professions: above nurses and accountants, well below social workers.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Benchmarks from other professions discipline how alarming any teacher figure should be.}
+  {\small {\color{slate}\bfseries Policy.} Benchmarks from other professions discipline how alarming any teacher figure should be.}
 \end{frame}
 
 \begin{frame}{Labor force exit of women, by profession}
@@ -371,7 +392,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Women teachers exit the labor force at about five percent a year, well above nurses, social workers and accountants.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The family-compatibility margin is specific to teaching, not to professional work in general.}
+  {\small {\color{slate}\bfseries Policy.} The family-compatibility margin is specific to teaching, not to professional work in general.}
 \end{frame}
 
 \begin{frame}{Teachers leaving per year, across countries}
@@ -380,7 +401,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} The US sits in the upper range of the school systems that publish a rate.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Comparable, survey-based measurement is what makes this ranking possible.}
+  {\small {\color{slate}\bfseries Policy.} Comparable, survey-based measurement is what makes this ranking possible.}
 \end{frame}
 
 \begin{frame}{Destinations of teachers who leave, 2024}
@@ -389,7 +410,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Of every hundred leavers, about a third take another job; most exit employment altogether.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Competing employers are not the main counterfactual; retirement and care are.}
+  {\small {\color{slate}\bfseries Policy.} Competing employers are not the main counterfactual; retirement and care are.}
 \end{frame}
 
 \begin{frame}{The routes out of teaching, 2002--2024}
@@ -398,7 +419,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} The destination mix has been essentially stable for two decades.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The composition of the outflow is structural, not cyclical noise.}
+  {\small {\color{slate}\bfseries Policy.} The composition of the outflow is structural, not cyclical noise.}
 \end{frame}
 
 \begin{frame}{Who leaves the labor force before 55}
@@ -407,7 +428,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Nearly half of the pre-55 labor-force exits are mothers with a child at home.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Childcare and parental-leave policy are retention policy.}
+  {\small {\color{slate}\bfseries Policy.} Childcare and parental-leave policy are retention policy.}
 \end{frame}
 
 \begin{frame}{Where the employed leavers go: every occupation}
@@ -416,7 +437,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Employed leavers scatter widely; the largest block stays in education outside the classroom.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Skills remain in the education orbit, so re-entry is a realistic margin.}
+  {\small {\color{slate}\bfseries Policy.} Skills remain in the education orbit, so re-entry is a realistic margin.}
 \end{frame}
 
 \begin{frame}{Leaving teaching, by age and route}
@@ -425,7 +446,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Leaving is U-shaped in age, and non-employment dominates both ends of the career.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Early-career and pre-retirement exits call for different instruments.}
+  {\small {\color{slate}\bfseries Policy.} Early-career and pre-retirement exits call for different instruments.}
 \end{frame}
 
 \begin{frame}{The econometric specification}
@@ -458,7 +479,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Job attachment and compensation dominate; demographic differences are small.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The actionable levers are contractual: full-year contracts, pension coverage.}
+  {\small {\color{slate}\bfseries Policy.} The actionable levers are contractual: full-year contracts, pension coverage.}
 \end{frame}
 
 \begin{frame}{The age profile of leaving, by route}
@@ -467,7 +488,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Young teachers switch to other jobs; older teachers leave the labor force.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The two peaks of the U respond to different policies.}
+  {\small {\color{slate}\bfseries Policy.} The two peaks of the U respond to different policies.}
 \end{frame}
 
 \begin{frame}{The effect of a new baby, by profession}
@@ -476,7 +497,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} A new baby raises a woman teacher's exit probability by 5.9 points, the largest effect among comparable professions.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Parental leave and childcare support target the largest single observable trigger.}
+  {\small {\color{slate}\bfseries Policy.} Parental leave and childcare support target the largest single observable trigger.}
 \end{frame}
 
 \begin{frame}{Leaving teaching and the unemployment rate}
@@ -485,7 +506,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Exits into non-employment rise with unemployment; job-to-job exits do not.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Downturns intensify the non-employment route; support should be countercyclical.}
+  {\small {\color{slate}\bfseries Policy.} Downturns intensify the non-employment route; support should be countercyclical.}
 \end{frame}
 
 \begin{frame}{State-level cyclicality of leaving}
@@ -494,7 +515,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} States differ in how strongly teacher exits respond to the local cycle.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} National averages hide state-level exposure to downturns.}
+  {\small {\color{slate}\bfseries Policy.} National averages hide state-level exposure to downturns.}
 \end{frame}
 
 \begin{frame}{Attrition levels across states}
@@ -503,7 +524,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Mean attrition of teachers under 55 ranges from about 4 to 13 percent across jurisdictions.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} State pay scales, pensions and institutions are first-order.}
+  {\small {\color{slate}\bfseries Policy.} State pay scales, pensions and institutions are first-order.}
 \end{frame}
 
 \begin{frame}{Real earnings growth by profession since 1997}
@@ -512,7 +533,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Teachers' real median earnings fell 4 percent since 1997 while other graduates gained.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The relative-pay gap compounds slowly; it is a stock, not a shock.}
+  {\small {\color{slate}\bfseries Policy.} The relative-pay gap compounds slowly; it is a stock, not a shock.}
 \end{frame}
 
 \begin{frame}{Leaving, by position in the teacher pay distribution}
@@ -521,7 +542,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Leaving concentrates sharply in the lowest earnings deciles, mostly part-year teachers.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Stabilizing the bottom of the distribution buys the most retention.}
+  {\small {\color{slate}\bfseries Policy.} Stabilizing the bottom of the distribution buys the most retention.}
 \end{frame}
 
 \begin{frame}{Pay compression: teachers and comparable professions}
@@ -530,7 +551,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Teacher pay is compressed: a 90/10 ratio of 2.6 against 5.1 for all other graduates.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Staying offers little earnings upside; career ladders would widen the right tail.}
+  {\small {\color{slate}\bfseries Policy.} Staying offers little earnings upside; career ladders would widen the right tail.}
 \end{frame}
 
 \begin{frame}{The earnings change of leaving, by destination}
@@ -539,7 +560,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Leavers who move to other professional jobs gain about 12 log points; moves near education gain little.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} The outside option is real for those able to take it.}
+  {\small {\color{slate}\bfseries Policy.} The outside option is real for those able to take it.}
 \end{frame}
 
 \begin{frame}{Earnings changes: stayers and leavers}
@@ -548,7 +569,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} For employed leavers the earnings change is a gamble: a quarter lose big, nearly half win big.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Leaving buys risk, not a sure raise.}
+  {\small {\color{slate}\bfseries Policy.} Leaving buys risk, not a sure raise.}
 \end{frame}
 
 \begin{frame}{Pension coverage and leaving, across states}
@@ -557,7 +578,7 @@
   \end{center}
   \vspace{-0.3em}
   {\small \msg{Message.} Where pension coverage is higher, fewer teachers under 55 leave: 0.21 points per point of coverage.}\\[0.15em]
-  {\small {\color{burg}\bfseries Policy.} Pension design is a measurable retention margin.}
+  {\small {\color{slate}\bfseries Policy.} Pension design is a measurable retention margin.}
 \end{frame}
 
 % ================= Conclusion =================
