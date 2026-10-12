@@ -136,8 +136,8 @@ res.to_csv("outputs/ame_ext_probit.csv")
 print(res.round(2).to_string())
 
 GROUPS = [
- ("Job attachment", [("fullyear", "Worked full year (50+ wks)"),
-                     ("parttime", "Part-time (<35 h/wk)")]),
+ ("Job attachment", [("fullyear", "Full-year contract"),
+                     ("parttime", "Part-time contract")]),
  ("Compensation", [("pension", "Employer pension plan"),
                    ("public_ly", "Public sector"),
                    ("lowinc", "Bottom-quartile household income")]),
