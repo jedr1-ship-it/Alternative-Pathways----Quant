@@ -18,14 +18,14 @@ OUT = "report/data_cluster/Proyect_US_cluster.pptx"
 LOGO = "report/data_cluster/oecd_logo.png"
 EQ_PNG = "report/data_cluster/equation3.png"
 
-FONT = "Arial"
+FONT = "Garamond"
 INK = RGBColor(0x21, 0x25, 0x29)
 MUT = RGBColor(0x6B, 0x74, 0x80)
 NAVY = RGBColor(0x10, 0x2D, 0x5E)     # OECD-style dark blue
 ACC = RGBColor(0x2D, 0x6C, 0xB5)      # accent blue
 BURG = RGBColor(0x8F, 0x2B, 0x36)
 LGRAYB = RGBColor(0xC9, 0xCF, 0xD6)
-BTNBG = RGBColor(0xE2, 0xEA, 0xF5)
+BTNBG = RGBColor(0xD5, 0xE2, 0xF3)
 BAND = RGBColor(0xEC, 0xF2, 0xF9)     # key-message band
 
 prs = Presentation()
@@ -43,17 +43,14 @@ def new_slide(title=None, number=True, key=None):
     if key:
         REG[key] = s
     if title:
-        box = s.shapes.add_textbox(Inches(0.55), Inches(0.26), Inches(12.3),
+        box = s.shapes.add_textbox(Inches(0.55), Inches(0.24), Inches(12.3),
                                    Inches(0.62))
         tf = box.text_frame; tf.word_wrap = True; tf.auto_size = None
         tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
         p = tf.paragraphs[0]
         r = p.add_run(); r.text = title
-        r.font.name = FONT; r.font.size = Pt(25); r.font.bold = True
+        r.font.name = FONT; r.font.size = Pt(28); r.font.bold = True
         r.font.color.rgb = NAVY
-        ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.55),
-                                    Inches(1.02), Inches(12.78), Inches(1.02))
-        ln.line.color.rgb = ACC; ln.line.width = Pt(2.2)
     if number:
         nb = s.shapes.add_textbox(Inches(12.45), Inches(7.05), Inches(0.7),
                                   Inches(0.32))
@@ -89,23 +86,10 @@ def add_text(s, x, y, w, h, parts, align=PP_ALIGN.LEFT, spacing=1.28):
             f.italic = italic; f.color.rgb = color
     return box
 
-def message(s, text, y=6.14, size=15.5, lead="Key message."):
-    band = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.55),
-                              Inches(y), Inches(12.23), Inches(0.72))
-    band.fill.solid(); band.fill.fore_color.rgb = BAND
-    band.line.fill.background(); band.shadow.inherit = False
-    band.adjustments[0] = 0.12
-    tf = band.text_frame; tf.word_wrap = True
-    tf.margin_left = Inches(0.22); tf.margin_right = Inches(0.22)
-    tf.margin_top = Inches(0.06); tf.margin_bottom = Inches(0.06)
-    p = tf.paragraphs[0]
-    r = p.add_run(); r.text = lead + "  "
-    r.font.name = FONT; r.font.size = Pt(size); r.font.bold = True
-    r.font.color.rgb = NAVY
-    r = p.add_run(); r.text = text
-    r.font.name = FONT; r.font.size = Pt(size); r.font.bold = False
-    r.font.color.rgb = INK
-    return band
+def message(s, text, y=6.22, size=16, lead="Key message."):
+    return add_text(s, 0.9, y, 11.8, 0.9, [[
+        [(lead + "  ", size, NAVY, True, False),
+         (text, size, INK, False, False)], 0]])
 
 def bullets(s, items, y=1.55, size=19, gap=22, x=0.9, w=11.8, numbered=False,
             marker_color=None):
@@ -143,26 +127,27 @@ def chart(s, name, box=(0.7, 1.25, 11.9, 4.85)):
     return fit_picture(s, f"{FIG}/{name}.png", box)
 
 def button(s, x, y, label, target_key, back=False):
-    w = 0.38 + 0.093 * len(label)
+    lab = label[0].upper() + label[1:]
+    w = 0.66 + 0.107 * len(lab)
     sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y),
-                            Inches(w), Inches(0.38))
+                            Inches(w), Inches(0.40))
     sh.fill.solid(); sh.fill.fore_color.rgb = BTNBG
     sh.line.fill.background(); sh.shadow.inherit = False
     tf = sh.text_frame; tf.word_wrap = False
     tf.margin_left = tf.margin_right = Inches(0.04)
     tf.margin_top = tf.margin_bottom = 0
     p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
-    r = p.add_run(); r.text = ("◂ " if back else "") + label
-    r.font.name = FONT; r.font.size = Pt(12); r.font.color.rgb = NAVY
+    r = p.add_run(); r.text = "\u261e " + lab
+    r.font.name = FONT; r.font.size = Pt(14); r.font.color.rgb = NAVY
     BTNS.append((sh, target_key))
     return x + w + 0.16
 
-def buttons_row(s, labels_targets, y=6.96, x=0.9):
+def buttons_row(s, labels_targets, y=6.92, x=0.9):
     for lab, tgt in labels_targets:
         x = button(s, x, y, lab, tgt)
 
 def backbtn(s, target_key):
-    button(s, 11.82, 6.96, "back", target_key, back=True)
+    button(s, 11.45, 6.92, "back", target_key, back=True)
 
 def divider(num, title):
     s = prs.slides.add_slide(blank)
@@ -200,11 +185,11 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
 def table(s, cols, rows, y0, size=15, rowh=0.5):
     x0 = cols[0][0]
     x1 = cols[-1][0] + cols[-1][1]
-    rule(s, x0, y0, x1 - x0, 1.6, NAVY)
+    rule(s, x0, y0, x1 - x0, 1.3, INK)
     y = y0 + 0.12
     for row_ in rows:
         if row_ == "RULE":
-            rule(s, x0, y + 0.02, x1 - x0, 0.9, NAVY)
+            rule(s, x0, y + 0.02, x1 - x0, 0.7, INK)
             y += 0.14
             continue
         if isinstance(row_, tuple) and row_ and row_[0] == "GAP":
@@ -217,7 +202,7 @@ def table(s, cols, rows, y0, size=15, rowh=0.5):
                 add_text(s, x, y, w, rowh, [(txt, sz, color, bold, False, 0)],
                          align=al)
         y += rowh
-    rule(s, x0, y + 0.04, x1 - x0, 1.6, NAVY)
+    rule(s, x0, y + 0.04, x1 - x0, 1.3, INK)
     return y
 
 L, C, R = PP_ALIGN.LEFT, PP_ALIGN.CENTER, PP_ALIGN.RIGHT
@@ -226,38 +211,39 @@ def row(*cells_):
 def pl(t, b=False, c=INK, sz=None):
     return (t, b, c) if sz is None else (t, b, c, sz)
 
-# ================= 1. title =================
+# ================= 1. title (as edited by the author) =================
 s = prs.slides.add_slide(blank)
 PAGENO[0] += 1
-band = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, Inches(2.1),
-                          prs.slide_width, Inches(2.5))
+band = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, Inches(1.55),
+                          prs.slide_width, Inches(2.50))
 band.fill.solid(); band.fill.fore_color.rgb = NAVY
 band.line.fill.background(); band.shadow.inherit = False
-add_text(s, 1.0, 2.45, 11.33, 1.4, [
+add_text(s, 0.33, 2.30, 12.67, 1.5, [
  ("Measuring Teacher Attrition with Labour Force Survey Data",
-  30, RGBColor(0xFF, 0xFF, 0xFF), True, False, 8),
- ("The Case of the United States", 20, RGBColor(0xD7, 0xE3, 0xF2), False, False, 0)],
- align=C)
-add_text(s, 1.0, 5.00, 11.33, 0.5,
-         [("José Elías Durán Roa", 18, INK, False, False, 0)], align=C)
-add_text(s, 1.0, 5.55, 11.33, 0.4,
-         [("Data Cluster · Directorate for Education and Skills",
-           14, MUT, False, False, 0)], align=C)
-s.shapes.add_picture(LOGO, Inches((13.333 - 1.7) / 2), Inches(6.15),
-                     width=Inches(1.7))
+  32, RGBColor(0xFF, 0xFF, 0xFF), True, False, 4),
+ ("The Case of the United States", 32, RGBColor(0xD7, 0xE3, 0xF2), False,
+  False, 0)], align=C, spacing=1.12)
+add_text(s, 1.00, 4.62, 11.33, 0.8, [
+ ("Jos\u00e9 El\u00edas Dur\u00e1n Roa", 20, INK, True, False, 2),
+ ("Jos\u00e9 Manuel Torres", 20, INK, True, False, 0)], align=C,
+ spacing=1.15)
+add_text(s, 1.00, 5.58, 11.33, 0.4,
+         [("Directorate for Education and Skills", 14, MUT, False, False, 0)],
+         align=C)
+s.shapes.add_picture(LOGO, Inches(5.82), Inches(6.12), width=Inches(1.70))
 
-# ================= 2. motivation =================
-s = new_slide(title="Motivation and problem", key="mainmot")
-add_text(s, 0.9, 1.35, 11.8, 0.5, [("Motivation", 20, ACC, True, False, 0)])
+# ================= 2. why this project =================
+s = new_slide(title="Why this project?", key="mainmot")
+add_text(s, 0.9, 1.35, 11.8, 0.5, [("Motivation", 24, ACC, True, False, 0)])
 bullets(s, [
  "Understand why teachers leave the profession.",
  "Is there a real policy margin to soften teacher shortages by retaining "
- "teachers, or bringing them back?"], y=2.00, size=20, gap=20)
-add_text(s, 0.9, 4.00, 11.8, 0.5, [("Problem", 20, ACC, True, False, 0)])
+ "teachers, or bringing them back?"], y=2.00, size=24, gap=20)
+add_text(s, 0.9, 4.00, 11.8, 0.5, [("Problem", 24, ACC, True, False, 0)])
 bullets(s, [
  "Official microdata on teachers are not publicly available for many countries.",
  "We start with the United States, the country with the most information "
- "available."], y=4.60, size=20, gap=20)
+ "available."], y=4.60, size=20, gap=18)
 buttons_row(s, [("official sources", "appsources")])
 NOTES[2] = ("Motivacion y problema. Boton de fuentes oficiales y sus "
             "huecos temporales.")
@@ -350,18 +336,22 @@ add_text(s, 1.5, 4.85, 10.0, 0.45,
 
 # ================= 9. two ways =================
 s = new_slide(title="Two ways to identify a leaver")
-add_text(s, 0.9, 1.50, 5.7, 0.5, [("A. Follow the individual", 19, NAVY, True, False, 0)])
-add_text(s, 0.9, 2.20, 5.7, 0.5, [("All months. Links require matching", 16, INK, False, False, 0)])
-add_text(s, 0.9, 2.85, 5.7, 2.2, [
- ("household identifier", 16, INK, False, False, 8),
- ("dwelling identifier", 16, INK, False, False, 8),
- ("person line number", 16, INK, False, False, 12),
- ("validated on sex, race, age +0–2", 15, MUT, False, False, 0)])
-add_text(s, 7.1, 1.50, 5.5, 0.5, [("B. Ask about last year", 19, NAVY, True, False, 0)])
-add_text(s, 7.1, 2.20, 5.5, 2.4, [
- ("The March supplement, retrospectively.", 16, INK, False, False, 14),
- ("Taught as last year’s longest job and not teaching this March "
-  "⇒ left.", 16, INK, False, False, 0)])
+panel = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, Inches(0.88),
+                           Inches(6.43), Inches(6.62))
+panel.fill.solid(); panel.fill.fore_color.rgb = RGBColor(0xF2, 0xF2, 0xF2)
+panel.line.fill.background(); panel.shadow.inherit = False
+add_text(s, 1.08, 1.85, 5.7, 0.5, [("A. Follow the individual", 24, NAVY, True, False, 0)])
+add_text(s, 1.05, 2.68, 5.7, 0.5, [("All months. Links require matching", 20, INK, False, False, 0)])
+add_text(s, 1.08, 3.18, 5.7, 2.0, [
+ ("household identifier", 20, INK, False, False, 2),
+ ("dwelling identifier", 20, INK, False, False, 2),
+ ("person line number", 20, INK, False, False, 8),
+ ("validated on sex, race, age +0\u20132", 18, MUT, False, False, 0)])
+add_text(s, 6.78, 1.82, 5.5, 0.5, [("B. Ask about last year", 24, NAVY, True, False, 0)])
+add_text(s, 6.78, 2.61, 5.5, 2.4, [
+ ("The March supplement, retrospectively.", 20, INK, False, False, 12),
+ ("Leavers are the ones who taught as last year\u2019s longest job and are "
+  "not teaching this March.", 20, INK, False, False, 0)])
 
 # ================= 10. disadvantages =================
 s = new_slide(title="Disadvantages of each option", key="maindisadv")
@@ -784,16 +774,16 @@ backbtn(s, "maincodes")
 
 def aer_table(s, header3, rows7, bottom, note):
     x0, x1 = 1.1, 11.5
-    rule(s, x0, 1.42, x1 - x0, 1.6, NAVY)
+    rule(s, x0, 1.42, x1 - x0, 1.3, INK)
     add_text(s, 5.5, 1.50, 6.0, 0.3,
              [(header3[0], 12.5, INK, False, False, 0)], align=C)
-    rule(s, 5.5, 1.86, 6.0, 0.9, NAVY)
+    rule(s, 5.5, 1.86, 6.0, 0.7, INK)
     y = 1.93
     for i, h in enumerate(header3[1]):
         add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3, [(h, 12.5, INK, True, False, 0)],
                  align=R)
     y += 0.36
-    rule(s, x0, y, x1 - x0, 0.9, NAVY)
+    rule(s, x0, y, x1 - x0, 0.7, INK)
     y += 0.09
     for lab, coefs, ses in rows7:
         add_text(s, 1.1, y, 4.2, 0.3, [(lab, 12.5, INK, False, False, 0)])
@@ -805,7 +795,7 @@ def aer_table(s, header3, rows7, bottom, note):
             add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3,
                      [(se, 11, MUT, False, False, 0)], align=R)
         y += 0.29
-    rule(s, x0, y + 0.02, x1 - x0, 0.9, NAVY)
+    rule(s, x0, y + 0.02, x1 - x0, 0.7, INK)
     y += 0.11
     for lab, vals in bottom:
         add_text(s, 1.1, y, 4.2, 0.3, [(lab, 12.5, INK, False, False, 0)])
@@ -813,7 +803,7 @@ def aer_table(s, header3, rows7, bottom, note):
             add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3,
                      [(v, 12.5, INK, False, False, 0)], align=R)
         y += 0.32
-    rule(s, x0, y + 0.02, x1 - x0, 1.6, NAVY)
+    rule(s, x0, y + 0.02, x1 - x0, 1.3, INK)
     add_text(s, 1.1, y + 0.16, 10.4, 0.6, [(note, 10.5, MUT, False, True, 0)])
 
 VARS = ["Full-year contract", "Part-time contract", "Employer pension plan",
