@@ -83,12 +83,16 @@ NOTES = {
          "los 55 y 11 en paro. De los 29 empleados: 6 siguen en "
          "educacion, 2 en cuidado, 9 en otras profesiones y 11 en "
          "ventas, oficina y manual."),
-    20: ("El grupo que sale antes de los 55: mas de la mitad son madres "
-         "con un hijo en casa (13 de los 24). El 13 por ciento del grupo "
-         "estudia, casi todos sin hijos: 25 por ciento de esas mujeres y "
-         "48 por ciento de esos hombres, frente al 3 por ciento de las "
-         "madres."),
-    23: ("a: vinculacion al empleo (ano completo, tiempo parcial). c: "
+    20: ("El grupo que sale antes de los 55: la salida temprana es una "
+         "historia de familia, mas de la mitad son madres con un hijo en "
+         "casa (13 de los 24)."),
+    21: ("Y los mas jovenes se van a estudiar: entre los que salen de la "
+         "poblacion activa antes de los 55, estudia el 45 por ciento de "
+         "los menores de 30 (8 por ciento de 30-39, 3 por ciento de "
+         "40-54) y el 31 por ciento de los que no tienen hijos en casa, "
+         "frente al 3 por ciento de los que si. Ojo: n pequenos, va "
+         "indicado en cada barra."),
+    24: ("a: vinculacion al empleo (ano completo, tiempo parcial). c: "
          "compensacion (plan de pension, sector publico, renta del hogar "
          "en el cuartil inferior). f: familia (bebe, hijos, estado "
          "civil). h: salud (salud declarada, discapacidad). d: "

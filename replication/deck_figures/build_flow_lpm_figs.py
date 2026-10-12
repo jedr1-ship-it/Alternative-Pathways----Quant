@@ -153,7 +153,8 @@ GROUPS = [
                    ("black", "Black"),
                    ("ma_plus", "Master's degree or higher")]),
 ]
-fig, ax = plt.subplots(figsize=(11.6, 6.8))
+BLACK = "#000000"
+fig, ax = plt.subplots(figsize=(11.6, 7.2))
 y = 0
 yticks, ylabels, heads = [], [], []
 for gname, items in GROUPS:
@@ -163,17 +164,19 @@ for gname, items in GROUPS:
         a, s = res.loc[v, "ame"], res.loc[v, "se"]
         lo, hi = a - 1.96 * s, a + 1.96 * s
         sig = (lo > 0) or (hi < 0)
-        ax.plot([lo, hi], [y, y], color=NAVY, lw=1.4, solid_capstyle="butt")
-        ax.plot([lo, lo], [y - .14, y + .14], color=NAVY, lw=1.2)
-        ax.plot([hi, hi], [y - .14, y + .14], color=NAVY, lw=1.2)
-        ax.plot(a, y, "o", ms=7, mfc=NAVY if sig else "white", mec=NAVY, mew=1.4)
+        ax.plot([lo, hi], [y, y], color=BLACK, lw=1.0,
+                solid_capstyle="butt")
+        ax.plot([lo, lo], [y - .10, y + .10], color=BLACK, lw=1.0)
+        ax.plot([hi, hi], [y - .10, y + .10], color=BLACK, lw=1.0)
+        ax.plot(a, y, "o", ms=6.5, mfc=BLACK if sig else "white",
+                mec=BLACK, mew=1.1)
         ax.annotate(f"{a:+.1f}", (a, y), xytext=(0, 8),
                     textcoords="offset points", ha="center", fontsize=9.5,
                     color=INK)
         yticks.append(y); ylabels.append(lab)
         y -= 1
     y -= 0.4
-ax.axvline(0, color=MUT, lw=0.9, ls=(0, (4, 3)))
+ax.axvline(0, color=BLACK, lw=0.8)
 for hy, lab in heads:
     ax.text(-14.4, hy, lab, fontsize=12, fontweight="bold", color=INK,
             va="center")
@@ -181,14 +184,12 @@ ax.set_yticks(yticks); ax.set_yticklabels(ylabels, fontsize=11)
 ax.set_xlim(-14.5, 12)
 ax.set_ylim(y + 0.2, 1.0)
 ax.set_xticks(range(-12, 11, 3))
-ax.set_xlabel("average marginal effect on the probability of leaving, "
-              "percentage points", fontsize=11, color=INK)
+ax.set_xlabel("average marginal effect on the probability of leaving "
+              "(percentage points)", fontsize=11, color=INK)
 for sp in ("top", "right", "left"):
     ax.spines[sp].set_visible(False)
 ax.tick_params(axis="y", length=0)
-ax.grid(axis="x", color="#F1F2F3", lw=1); ax.set_axisbelow(True)
-ax.annotate("Probit, 2018–2024, year effects, n = 18,571. Filled: significant at 5 percent.",
-            (0.0, -0.09), xycoords="axes fraction", fontsize=9.5, color=MUT)
+ax.set_axisbelow(True)
 fig.tight_layout()
 save(fig, "ame_ext")
 
