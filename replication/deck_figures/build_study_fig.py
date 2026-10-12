@@ -53,14 +53,19 @@ def stat(m):
 age_groups = [("Under 30", U.A_AGE < 30),
               ("30–39", U.A_AGE.between(30, 39)),
               ("40–54", U.A_AGE.between(40, 54))]
-fam_groups = [("No child at home", ~U.haskid),
-              ("Child at home", U.haskid)]
+U["female"] = U.A_SEX == 2
+fam_groups = [("Mothers,\nchild at home", U.female & U.haskid),
+              ("Women, no\nown child", U.female & ~U.haskid),
+              ("Fathers", ~U.female & U.haskid),
+              ("Men, no\nown child", ~U.female & ~U.haskid)]
 
-fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.6),
-                         gridspec_kw={"width_ratios": [3, 2]})
+fig, axes = plt.subplots(1, 2, figsize=(11.6, 4.6),
+                         gridspec_kw={"width_ratios": [3, 4]})
 for ax, groups, title, colors in [
-        (axes[0], age_groups, "by age at exit", [BLUE, "#7C98C0", "#B9C8DC"]),
-        (axes[1], fam_groups, "by family situation", [CORAL, "#E2A19B"])]:
+        (axes[0], age_groups, "by age at exit",
+         [BLUE, "#7C98C0", "#B9C8DC"]),
+        (axes[1], fam_groups, "by group of the previous chart",
+         [CORAL, "#AEC3DE", "#5B7BA6", "#6E6E6E"])]:
     vals, ns, labs = [], [], []
     for lab, m in groups:
         v, n = stat(m)
@@ -77,7 +82,8 @@ for ax, groups, title, colors in [
     ax.set_ylim(0, 55)
     ax.set_title(title, fontsize=11, color=INK)
     ax.tick_params(axis="x", length=0)
-axes[0].set_ylabel("share enrolled in school, percent", fontsize=10)
+axes[0].set_ylabel("of each group, the share enrolled\nin school, percent",
+                   fontsize=10)
 axes[1].set_yticklabels([])
 fig.tight_layout(rect=(0, 0.03, 1, 1))
 fig.savefig(f"{OUT}/study_olf55.pdf")

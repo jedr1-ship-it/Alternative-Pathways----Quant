@@ -365,7 +365,7 @@
   {\small {\color{navy}\bfseries Message.} Among teachers who leave the
    labor force before 55, studying is the story of the young and the
    childless: 45\% of those under 30 are enrolled in school, against
-   3\% of those with a child at home.}
+   3\% of the mothers with a child at home.}
 \end{frame}
 
 \begin{frame}{What this says for policy: three margins, quantified}
@@ -541,16 +541,17 @@
 \begin{frame}[label=approtation]{Are interviews monthly? Who is new each month?}
   \vspace{0.3em}
   {\small Yes: every month, one eighth of the sample sits in each
-   position of the 4-8-4 rotation. Verified in the microdata:}\\[0.7em]
+   position of the 4-8-4 rotation. Verified in all 251 monthly files,
+   January 2005 to November 2025:}\\[0.7em]
   \begin{center}
   \small
   \begin{tabular}{lcccccccc}
     \toprule
-    Month in sample     & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    Month in sample          & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
     \midrule
-    March 2023 (\%)     & 12.5 & 12.9 & 12.8 & 12.5 & 12.2 & 12.4 & 12.3 & 12.3 \\
-    July 2023 (\%)      & 12.3 & 12.9 & 12.9 & 12.5 & 12.2 & 12.2 & 12.5 & 12.4 \\
-    January 2024 (\%)   & 12.4 & 12.9 & 12.9 & 13.1 & 11.9 & 12.0 & 12.1 & 12.6 \\
+    Average share (\%)       & 12.4 & 12.5 & 12.6 & 12.5 & 12.6 & 12.5 & 12.4 & 12.5 \\
+    Minimum (\%)             & 10.1 & 11.1 & 11.5 & 11.8 & 12.0 & 12.0 & 11.9 & 12.0 \\
+    Maximum (\%)             & 13.0 & 13.0 & 13.1 & 13.0 & 14.9 & 13.9 & 13.5 & 13.2 \\
     \bottomrule
   \end{tabular}
   \end{center}
@@ -633,27 +634,47 @@
 \end{frame}
 
 \begin{frame}[label=apptfs]{Our destinations vs the NCES follow-up survey}
-  \begin{center}
-  \small
-  \begin{tabular}{lcc}
-    \toprule
-    Of every 100 leavers\ldots      & CPS, 2020--2024 & TFS, 2021--22 \\
-    \midrule
-    Working in another job          & 28.8 & 57.2 \\
-    \quad of which outside education & --  & 11.8 \\
-    Retired / out of the LF, 55+    & 36.4 & 27.7 \\
-    Out of the LF, under 55         & 23.7 & 10.1$^{a}$ \\
-    Unemployed                      & 11.1 & 4.8 \\
-    \bottomrule
-  \end{tabular}
-  \end{center}
-  \vspace{0.5em}
-  {\footnotesize $^{a}$Caring for family 5.6 + student 1.8 + disabled
-   0.3 + other 2.4. TFS covers regular classroom teachers in public
-   schools and counts K--12 non-teaching jobs (39.3) as work; our
-   occupation-based measure spans public and private and all teaching
-   attachment. Sources: NCES 2024-039, table A-8 and NTPS estimate
-   tables.}
+  \vspace{0.2em}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}
+      \footnotesize
+      \begin{tabular}{lcc}
+        \toprule
+        Of every 100 leavers\ldots & CPS & TFS \\
+          & {\tiny 2020--24 avg.} & {\tiny \textbf{2021--22}} \\
+        \midrule
+        Working in another job          & 28.8 & 57.2 \\
+        \quad K--12, non-teaching       & --   & 39.3 \\
+        \quad outside education         & --   & 11.8 \\
+        Retired / out of LF, 55+        & 36.4 & 27.7 \\
+        Out of the LF, under 55         & 23.7 & 10.1 \\
+        Unemployed                      & 11.1 & 4.8 \\
+        \bottomrule
+      \end{tabular}\\[0.5em]
+      {\tiny TFS: Teacher Follow-up Survey 2021--22, the follow-up of
+       the 2020--21 NTPS. Sources: NCES 2024-039, table A-8, and NTPS
+       estimate tables.}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      {\footnotesize {\color{navy}\bfseries Why the columns differ}\\[0.4em]
+      \begin{enumerate}\setlength\itemsep{0.45em}
+        \item \textbf{Who counts as a teacher.} TFS follows regular
+              classroom teachers of public schools, sampled in schools.
+              We cover public and private, and anyone whose longest job
+              was teaching, including part-year and part-time.
+        \item \textbf{What counts as working.} 39 of the TFS's 57
+              employed leavers hold \emph{non-teaching K--12 jobs}:
+              they left the classroom, not the school system. Our
+              28.8 means leaving the teaching occupation.
+        \item \textbf{Who is reachable.} A school-based sample
+              under-represents weakly attached teachers, exactly those
+              who exit to non-participation; a household survey
+              catches them.
+        \item \textbf{The window.} Our column averages five years,
+              2020--2024; the TFS is the single year 2021--22.
+      \end{enumerate}}
+    \end{column}
+  \end{columns}
   \backbtn{mainflow}
 \end{frame}
 
@@ -670,49 +691,77 @@
 
 \begin{frame}[label=applpm]{Linear probability model, fixed-effects variants}
   \begin{center}
-  \small
+  \scriptsize
   \begin{tabular}{lccc}
     \toprule
-                           & Year FE & No FE & State + year FE \\
+      & \multicolumn{3}{c}{Dependent variable: left teaching ($\times$100)} \\
+    \cmidrule(lr){2-4}
+      & (1) & (2) & (3) \\
     \midrule
-    Worked full year       & $-$11.6 (0.7) & $-$11.5 (0.7) & $-$11.7 (0.7) \\
-    Part-time              & $+$8.7 (1.1)  & $+$8.7 (1.1)  & $+$8.6 (1.1) \\
-    Employer pension plan  & $-$2.3 (0.5)  & $-$2.4 (0.5)  & $-$2.3 (0.5) \\
-    Public sector          & $-$2.4 (0.6)  & $-$2.4 (0.6)  & $-$2.4 (0.6) \\
-    New baby               & $+$5.6 (1.6)  & $+$5.7 (1.6)  & $+$5.7 (1.6) \\
-    With a disability      & $+$8.9 (2.1)  & $+$8.9 (2.1)  & $+$8.9 (2.1) \\
-    Bottom-quartile income & $+$4.1 (1.2)  & $+$4.2 (1.2)  & $+$4.0 (1.2) \\
+    Worked full year (50+ weeks) & $-11.54$$^{***}$ & $-11.55$$^{***}$ & $-11.65$$^{***}$ \\
+      & (0.67) & (0.66) & (0.67) \\[0.25em]
+    Part-time ($<$35 h/week) & $+8.67$$^{***}$ & $+8.67$$^{***}$ & $+8.63$$^{***}$ \\
+      & (1.09) & (1.09) & (1.10) \\[0.25em]
+    Employer pension plan & $-2.35$$^{***}$ & $-2.33$$^{***}$ & $-2.33$$^{***}$ \\
+      & (0.52) & (0.52) & (0.52) \\[0.25em]
+    Public sector & $-2.35$$^{***}$ & $-2.38$$^{***}$ & $-2.39$$^{***}$ \\
+      & (0.56) & (0.56) & (0.56) \\[0.25em]
+    New baby during the year & $+5.72$$^{***}$ & $+5.63$$^{***}$ & $+5.71$$^{***}$ \\
+      & (1.56) & (1.56) & (1.56) \\[0.25em]
+    With a disability & $+8.85$$^{***}$ & $+8.94$$^{***}$ & $+8.94$$^{***}$ \\
+      & (2.14) & (2.14) & (2.14) \\[0.25em]
+    Bottom-quartile household income & $+4.17$$^{***}$ & $+4.13$$^{***}$ & $+4.01$$^{***}$ \\
+      & (1.24) & (1.24) & (1.25) \\
+    \midrule
+    Year fixed effects  & No  & Yes & Yes \\
+    State fixed effects & No  & No  & Yes \\
+    Observations        & 18,571 & 18,571 & 18,571 \\
     \bottomrule
   \end{tabular}
   \end{center}
-  \vspace{0.4em}
-  {\footnotesize Coefficients $\times$ 100, robust SE in parentheses.
-   2018--2024, $n=18{,}571$. Full set of controls as in the main
-   specification.}
+  \vspace{0.2em}
+  {\tiny Robust standard errors in parentheses.
+   $^{*}$ $p<0.10$, $^{**}$ $p<0.05$, $^{***}$ $p<0.01$. Weighted.
+   Full set of controls as in the main specification.}
   \backbtn{maineq}
 \end{frame}
 
 \begin{frame}[label=appmodels]{LPM vs logit vs probit}
   \begin{center}
-  \small
+  \scriptsize
   \begin{tabular}{lccc}
     \toprule
-                           & LPM & Logit AME & Probit AME \\
+      & \multicolumn{3}{c}{Average marginal effect on leaving ($\times$100)} \\
+    \cmidrule(lr){2-4}
+      & LPM & Logit & Probit \\
+      & (1) & (2) & (3) \\
     \midrule
-    Worked full year       & $-$11.6 & $-$11.0 & $-$10.8 \\
-    Part-time              & $+$8.7  & $+$4.4  & $+$5.0 \\
-    Employer pension plan  & $-$2.3  & $-$2.3  & $-$2.4 \\
-    Public sector          & $-$2.4  & $-$2.6  & $-$2.6 \\
-    New baby               & $+$5.6  & $+$6.1  & $+$5.6 \\
-    With a disability      & $+$8.9  & $+$5.3  & $+$5.9 \\
-    Bottom-quartile income & $+$4.1  & $+$2.4  & $+$2.6 \\
+    Worked full year (50+ weeks) & $-11.13$$^{***}$ & $-8.78$$^{***}$ & $-8.49$$^{***}$ \\
+      & (0.55) & (0.40) & (0.39) \\[0.25em]
+    Part-time ($<$35 h/week) & $+8.77$$^{***}$ & $+3.86$$^{***}$ & $+4.32$$^{***}$ \\
+      & (0.92) & (0.44) & (0.47) \\[0.25em]
+    Employer pension plan & $-2.55$$^{***}$ & $-2.38$$^{***}$ & $-2.41$$^{***}$ \\
+      & (0.44) & (0.39) & (0.38) \\[0.25em]
+    Public sector & $-2.17$$^{***}$ & $-2.24$$^{***}$ & $-2.27$$^{***}$ \\
+      & (0.47) & (0.39) & (0.39) \\[0.25em]
+    New baby during the year & $+5.65$$^{***}$ & $+4.74$$^{***}$ & $+4.59$$^{***}$ \\
+      & (1.33) & (0.90) & (0.91) \\[0.25em]
+    With a disability & $+8.31$$^{***}$ & $+3.78$$^{***}$ & $+4.19$$^{***}$ \\
+      & (1.84) & (0.80) & (0.88) \\[0.25em]
+    Bottom-quartile household income & $+4.67$$^{***}$ & $+2.24$$^{***}$ & $+2.50$$^{***}$ \\
+      & (1.10) & (0.58) & (0.62) \\
+    \midrule
+    Year fixed effects  & Yes & Yes & Yes \\
+    Observations        & 18,571 & 18,571 & 18,571 \\
     \bottomrule
   \end{tabular}
   \end{center}
-  \vspace{0.4em}
-  {\footnotesize Percentage points. Same specification and sample
-   throughout. The ranking and significance of every margin is
-   unchanged across estimators.}
+  \vspace{0.2em}
+  {\tiny Standard errors in parentheses (delta method for the logit and
+   probit marginal effects). $^{*}$ $p<0.10$, $^{**}$ $p<0.05$,
+   $^{***}$ $p<0.01$. Column (3) is the main specification of the
+   coefficient plot. The sign, size and significance of every margin is
+   stable across estimators.}
   \backbtn{maineq}
 \end{frame}
 

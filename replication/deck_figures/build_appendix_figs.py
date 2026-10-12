@@ -44,9 +44,15 @@ for r in ws.iter_rows(min_row=9, max_col=4):
         continue
     rows.append((yr, 100 * mov / tot))
 mig = pd.DataFrame(rows, columns=["year", "rate"]).drop_duplicates("year")
-mig = mig.sort_values("year")
+mig = mig.sort_values("year").set_index("year")
+# the Census did not publish 1972-75 and 1977-80: break the line there
+mig = mig.reindex(range(int(mig.index.min()), 2024))
 fig, ax = plt.subplots(figsize=(11.4, 5.2))
-ax.plot(mig.year, mig.rate, color=NAVY, lw=2.2)
+ax.plot(mig.index, mig.rate, color=NAVY, lw=1.8)
+ax.plot(mig.index, mig.rate, "o", ms=3.2, color=NAVY)
+mig = mig.dropna().reset_index()
+ax.annotate("not published\n1972–75, 1977–80", (1976, 14.6),
+            ha="center", fontsize=9.5, color=MUT)
 ax.plot(2023, mig.rate.iloc[-1], "o", ms=7, color=NAVY)
 ax.annotate(f"2023:  {mig.rate.iloc[-1]:.1f}%", (2023, mig.rate.iloc[-1]),
             xytext=(-10, 14), textcoords="offset points", ha="right",
