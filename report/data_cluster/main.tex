@@ -3,42 +3,35 @@
 \documentclass[aspectratio=169,11pt]{beamer}
 
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{booktabs}
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing,arrows.meta}
 
-% ---------- look: metropolis-style ----------
+% ---------- plain LaTeX look ----------
 \usetheme{default}
 \setbeamertemplate{navigation symbols}{}
-\definecolor{slate}{HTML}{23373B}
-\definecolor{accent}{HTML}{EB811B}
-\definecolor{cream}{HTML}{FAFAFA}
 \definecolor{navy}{HTML}{1F3864}
 \definecolor{burg}{HTML}{7B2530}
-\definecolor{ink}{HTML}{23373B}
+\definecolor{ink}{HTML}{1A1A1A}
 \definecolor{mut}{HTML}{6B7480}
-\setbeamercolor{background canvas}{bg=cream}
-\setbeamercolor{normal text}{fg=slate}
-\setbeamercolor{frametitle}{fg=slate}
-\setbeamercolor{title}{fg=slate}
-\setbeamercolor{structure}{fg=slate}
-\setbeamerfont{frametitle}{size=\Large,series=\mdseries}
-\setbeamerfont{title}{size=\LARGE,series=\mdseries}
-\setbeamertemplate{frametitle}{%
-  \vspace{0.9em}\insertframetitle\par\vspace{0.25em}%
-  \textcolor{accent}{\rule{\textwidth}{1.4pt}}\vspace{0.2em}}
-\setbeamertemplate{itemize item}{\textcolor{accent}{\small$\blacktriangleright$}}
+\setbeamercolor{frametitle}{fg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamercolor{structure}{fg=navy}
+\setbeamercolor{normal text}{fg=ink}
+\setbeamercolor{button}{bg=navy!12,fg=navy}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\setbeamertemplate{itemize item}{\textcolor{navy}{\footnotesize$\blacktriangleright$}}
 \setbeamertemplate{itemize subitem}{\textcolor{mut}{\footnotesize--}}
 \setbeamertemplate{footline}{%
   \hfill\textcolor{mut}{\scriptsize\insertframenumber}\hspace{2ex}\vspace{1ex}}
 \setbeamersize{text margin left=0.9cm,text margin right=0.9cm}
-\newcommand{\msg}[1]{{\color{accent}\bfseries #1}}
-\newcommand{\divframe}[2]{{\setbeamercolor{background canvas}{bg=slate}%
-\begin{frame}[plain]\begin{center}%
-{\color{accent}\fontsize{54}{54}\selectfont\bfseries #1}\\[1.0em]%
-{\color{cream}\LARGE #2}\end{center}\end{frame}}}
-\newcommand{\mpline}[2]{{\small \msg{Message.} #1}\\[0.12em]%
-{\small {\color{slate}\bfseries Policy.} #2}}
+\newcommand{\divframe}[2]{\begin{frame}[plain]\begin{center}%
+{\color{navy}\fontsize{44}{44}\selectfont\bfseries #1}\\[0.9em]%
+{\color{ink}\LARGE #2}\end{center}\end{frame}}
+\newcommand{\appbtn}[2]{\hyperlink{#1<1>}{\beamergotobutton{#2}}}
+\newcommand{\backbtn}[1]{\vfill\hfill\hyperlink{#1<1>}{\beamerreturnbutton{back}}}
 
 \title{Measuring Teacher Attrition\\ with Labour Force Survey Data}
 \subtitle{The Case of the United States}
@@ -53,77 +46,96 @@
   \titlepage
 \end{frame}
 
-% ================= Why =================
-\begin{frame}{Why this project}
-  \vspace{1.0em}
-  \begin{itemize}\setlength\itemsep{1.5em}
-    \item We study the decision to leave teaching. That needs each person's
-          leave-or-stay outcome, plus covariates.
-    \item Administrative records count best --- but access is hard, coverage
-          is partial, covariates are few.
-    \item So we build the outcome from a household survey. This talk is
-          about doing that carefully.
+% ================= Opening =================
+\begin{frame}{Motivation and problem}
+  \vspace{0.8em}
+  {\color{navy}\bfseries Motivation}\\[0.5em]
+  \begin{itemize}\setlength\itemsep{0.6em}
+    \item Understand why teachers leave the profession.
+    \item Is there a real policy margin to soften teacher shortages by
+          retaining teachers --- or bringing them back?
+  \end{itemize}
+  \vspace{1.2em}
+  {\color{navy}\bfseries Problem}\\[0.5em]
+  \begin{itemize}\setlength\itemsep{0.6em}
+    \item Official microdata on teachers are not publicly available for
+          many countries.
+    \item We start with the United States: the country with the most
+          information available.
   \end{itemize}
 \end{frame}
 
-% ================= Contribution =================
-\begin{frame}{Contribution}
-  \vspace{1.0em}
-  \begin{enumerate}\setlength\itemsep{1.5em}
-    \item \msg{A user's guide} to building a leaving rate from a survey:
-          each choice, each error, each effect on the number.
-    \item \msg{An implementation} on 28 years of the CPS, checked against
-          the NCES reference.
-    \item \msg{The substance:} who leaves, and what correlates with it.
+\begin{frame}{Solution}
+  \vspace{1.2em}
+  Use the Current Population Survey to
+  \vspace{0.8em}
+  \begin{enumerate}\setlength\itemsep{1.2em}
+    \item[A.] reproduce and extend the official statistics on teachers
+          leaving the profession;
+    \item[B.] having achieved A, study in detail \emph{how many} leave,
+          \emph{where} they go, and \emph{why}.
   \end{enumerate}
 \end{frame}
 
-\divframe{1}{The data}
+\divframe{0}{Methodological discussion}
 
-% ================= Official statistics =================
-\begin{frame}{Where do the official numbers come from?}
-  \vspace{1.0em}
-  \begin{itemize}\setlength\itemsep{1.5em}
-    \item National reference: the NCES Teacher Follow-up Survey. Itself a
-          survey. Eight waves since 1988.
-    \item Administrative data: state by state, public sector, and they
-          measure system exit, not profession exit.
-    \item No national administrative count exists.
+% ================= CPS =================
+\begin{frame}[label=maincps]{The Current Population Survey}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{1.0em}
+    \item The monthly household survey of the United States, run by the
+          Census Bureau for the Bureau of Labor Statistics. Nationally
+          representative of the civilian non-institutional population.
+    \item We pool 28 consecutive March supplements, 1998--2025:
+          \textbf{5.0 million} person-year records.
+    \item \textbf{104,545} of them are teachers --- about 3,700 per year.
+  \end{itemize}
+  \vfill
+  \appbtn{appunemp}{unemployment}\;
+  \appbtn{approtation}{interviews}\;
+  \appbtn{appmigration}{migration}\;
+  \appbtn{appidentity}{identity}
+\end{frame}
+
+% ================= March supplement =================
+\begin{frame}{The March supplement (ASEC)}
+  \vspace{0.8em}
+  \begin{itemize}\setlength\itemsep{1.0em}
+    \item Run by the Census Bureau each March since 1948: the source of
+          the official annual income, poverty and health-insurance
+          statistics.
+    \item About 90,000 households: the March sample plus oversamples
+          interviewed in February and April.
+    \item Every adult reports on the \emph{previous calendar year}:
+          longest job held, weeks worked, earnings, benefits.
   \end{itemize}
 \end{frame}
 
-% ================= Comparison table =================
-\begin{frame}{The CPS replicates the official picture, every year}
+% ================= Identifying a teacher =================
+\begin{frame}[label=maincodes]{Identifying a teacher: the census occupation codes}
   \begin{center}
-  \small
+  \footnotesize
   \begin{tabular}{lccc}
     \toprule
-                                   & CPS              & NTPS            & Difference \\
+                     & 1990 classification & 2002/2010 classification & 2018 classification \\
+                     & surveys 1998--2002  & surveys 2003--2019       & surveys 2020--2025  \\
     \midrule
-    Measurement                    & \msg{every year, 1997--2024}
-                                   & occasional waves & \\
-    \midrule
-    \multicolumn{4}{l}{\color{mut}\footnotesize Example wave: 2020--21, the latest NTPS}\\[0.2em]
-    Female (\%)                    & 75.5             & 76.8  & $-$1.3\phantom{$^{***}$}   \\
-    Master's degree or higher (\%) & 57.0             & 61.0  & $-$4.0$^{***}$ \\
-    Average age (years)            & 44.0             & 42.9  & $+$1.1$^{***}$ \\
-    \midrule
-    Teachers observed in the wave  & 3,855            & 39,633 & \\
+    Pre-K and kindergarten & 155 & 2300 & 2300 \\
+    Elementary (and middle) & 156 & 2310 & 2310 \\
+    Secondary        & 157 & 2320 & 2320 \\
+    Special education & 158 & 2330 & 2330 \\
+    Other teachers and instructors & 159 & 2340 & 2360 \\
     \bottomrule
   \end{tabular}
   \end{center}
-  \vspace{0.5em}
-  {\footnotesize\color{mut}
-   Public school teachers, weighted. Stars test the CPS mean against the
-   NTPS estimate: $^{***}$ $p<0.001$. Sources: NCES 2022-113, Digest 209.10,
-   NCES 2024-024.}
   \vspace{0.6em}
-
-  {\small Full sample: \textbf{5.0 million} records, \textbf{104,545}
-   teacher observations, \textbf{48,842} teachers in the linked panel.}
+  {\small The K--12 block maps one-to-one across the three regimes: the
+   \emph{group} is constant over time even where single codes are not.}
+  \vfill
+  \appbtn{appcodes}{traceability}
 \end{frame}
 
-% ================= Rotation =================
+% ================= Rotation diagram =================
 \begin{frame}[plain]
   \begin{center}
   \begin{tikzpicture}[x=0.80cm,y=0.80cm]
@@ -158,109 +170,469 @@
   \end{center}
 \end{frame}
 
-% ================= Codes =================
-\begin{frame}[plain]
-  \begin{center}
-    \includegraphics[width=0.98\textwidth]{figures/codes_slide.pdf}
-  \end{center}
-\end{frame}
-
-\divframe{2}{Measuring the leaving rate}
-
 % ================= Two ways =================
-\begin{frame}{Two ways to measure it}
-  \vspace{0.4em}
+\begin{frame}{Two ways to identify a leaver}
+  \vspace{0.6em}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \msg{Follow the person}\\[0.8em]
-      {\small No person identifier in the CPS. We link on:}\\[0.6em]
+      {\color{navy}\bfseries A. Follow the individual}\\[0.7em]
+      {\small All months. Links require matching:}\\[0.5em]
       {\small
       \begin{tabular}{@{}l@{}}
         household identifier\\
         dwelling identifier\\
-        person line number\\[0.4em]
-        \color{mut}checked: sex, race, age $+$0--2
+        person line number\\[0.35em]
+        \color{mut}validated on sex, race, age $+$0--2
       \end{tabular}}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \msg{Ask about last year}\\[0.8em]
-      {\small Each March, the supplement asks about the previous calendar
-       year: longest job, weeks, earnings.}\\[0.6em]
-      {\small Taught last year, not teaching now $\Rightarrow$ left.}\\[0.6em]
-      {\small\color{mut} The measure used in the literature.}
+      {\color{navy}\bfseries B. Ask about last year}\\[0.7em]
+      {\small The March supplement, retrospectively.}\\[0.5em]
+      {\small Taught as last year's longest job, not teaching this March
+       $\Rightarrow$ left.}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ================= Four definitions =================
-\begin{frame}{Four definitions, one language}
+% ================= Disadvantages =================
+\begin{frame}[label=maindisadv]{Disadvantages of each option}
+  \vspace{0.4em}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      {\color{navy}\bfseries A. Following individuals}\\[0.6em]
+      {\small
+      \begin{enumerate}\setlength\itemsep{0.5em}
+        \item Identity is not certain: validation can admit noisy people.
+        \item Movers are lost: $\sim$25\% of addresses are not found a
+              year later.
+        \item Normal household attrition on top.
+        \item Strong seasonality in teaching.
+        \item Many ways to define the rate (next slide).
+      \end{enumerate}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      {\color{navy}\bfseries B. Retrospective March}\\[0.6em]
+      {\small
+      \begin{enumerate}\setlength\itemsep{0.5em}
+        \item Recall bias.
+        \item Less sample: one observation per person per year
+              ($\sim$3,700 teachers) against $\sim$11,000 monthly
+              teacher observations.
+        \item Only March-to-March transitions; within-year spells are
+              smoothed away.
+      \end{enumerate}}
+    \end{column}
+  \end{columns}
+  \vfill
+  \appbtn{applink}{linkage loss}\;
+  \appbtn{appgradient}{attachment}\;
+  \appbtn{appidentity}{validation}
+\end{frame}
+
+% ================= Six definitions =================
+\begin{frame}{Six ways to define leaving, simplest to strictest}
   \vspace{0.2em}
-  Four interviews in year 1, four in year 2, twelve months apart.\\[1.0em]
-  \begin{tabular}{p{3.0cm}p{4.3cm}p{4.3cm}}
+  {\small Unit: the individual. Four interviews in year 1, four in year 2.}\\[0.8em]
+  \small
+  \begin{tabular}{p{2.4cm}p{4.6cm}p{4.6cm}}
     \toprule
-                        & A teacher:                & A leaver:                 \\
+                  & A teacher:                                & A leaver: \\
     \midrule
-    Any sighting        & seen teaching in $\geq$ 1 of the 4 year-1 interviews
-                        & seen teaching in none of the 4 year-2 interviews     \\[1.1em]
-    Month pairs         & each teaching interview counts on its own
-                        & not seen teaching twelve months later                \\[1.1em]
-    \msg{Panel (benchmark)} & seen teaching in $\geq$ 2 of the 4 year-1 interviews
-                        & seen teaching in none of the 4 year-2 interviews$^{*}$ \\[1.1em]
-    Annual recall       & teaching was the longest job of last year
-                        & not teaching at the March interview                  \\
+    Single        & seen teaching in $\geq$ 1 of the 4 year-1 interviews
+                  & seen teaching in none of the 4 year-2 interviews \\[0.7em]
+    Pair          & seen teaching in $\geq$ 2 of the 4
+                  & seen teaching in none of the 4 \\[0.7em]
+    Triple        & seen teaching in $\geq$ 3 of the 4
+                  & seen teaching in none of the 4 \\[0.7em]
+    Strict        & seen teaching in all 4
+                  & seen teaching in none of the 4 \\[0.7em]
+    Month pairs   & each teaching month, on its own
+                  & not seen teaching twelve months later \\[0.7em]
+    Annual recall & teaching was last year's longest job
+                  & not teaching at the March interview \\
     \bottomrule
-  \end{tabular}\\[0.8em]
-  {\footnotesize\color{mut} $^{*}$At least two year-2 interviews, one outside
-   the summer. Annual recall is the only one not built by counting
-   interviews.}
+  \end{tabular}
 \end{frame}
 
-% ================= All series =================
-\begin{frame}{One dataset, one rate per definition}
+\begin{frame}{The six, on one axis}
   \begin{center}
-    \includegraphics[height=0.58\textheight]{figures/v_allseries.pdf}
+    \includegraphics[height=0.80\textheight]{figures/defs6.pdf}
   \end{center}
-  \vspace{-0.3em}
-  \mpline{The definition moves the rate by a factor of four.}%
-     {Fix the definition before comparing studies.}\\[0.12em]
-  {\footnotesize\color{mut} Recall: $\approx$3,700 teachers per year.
-   Panel: $\approx$2,500. Dots: NCES follow-up.}
 \end{frame}
 
-% ================= Why lines differ =================
-\begin{frame}{Why the lines differ}
+\divframe{1}{Leaving rate: how many leave}
+
+\begin{frame}[label=mainevol]{Leaving teaching, 1997--2024}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/g2_evolution.pdf}
+  \end{center}
+  \vfill
+  \appbtn{apppubpriv}{public vs private}
+  \note{Stable, and similar to other OECD countries. EAG averages for
+    countries with data: 6.6 (2016 data, EAG 2021), 6.5 (2022/23,
+    EAG 2025), 6.4 (2024/25, EAG 2026). Countries with long national
+    series (New Zealand, Sweden, Israel, Norway) also look stable.
+    The US rate sits above most other countries that publish one.}
+\end{frame}
+
+\begin{frame}{Comparable professions: who we compare teachers with}
+  \begin{center}
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+                                & Teachers & Nurses & Social workers & Accountants \\
+    \midrule
+    Female (\%)                 & 76.0     & 88.2   & 82.9           & 57.0 \\
+    Average age (years)         & 44.4     & 43.1   & 43.4           & 44.1 \\
+    Master's or higher (\%)     & 51.9     & 25.9   & 50.8           & 31.3 \\
+    Public sector (\%)          & 70.2     & 12.3   & 43.1           & 11.0 \\
+    Weeks worked                & 46.6     & 49.3   & 49.6           & 49.5 \\
+    Median annual wage (\$)     & 56,000   & 80,000 & 57,000         & 77,000 \\
+    \midrule
+    Observations                & 28,932   & 13,107 & 3,407          & 6,897 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.5em}
+  {\footnotesize\color{mut} College graduates, pooled 2015--2024,
+   weighted; wages from 2020--2024.}
+\end{frame}
+
+\begin{frame}[label=mainprofs]{Leaving the occupation, by profession}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/leave_professions_deck.pdf}
+  \end{center}
+  \vfill
+  \appbtn{appprofs}{more professions}
+\end{frame}
+
+\divframe{2}{Composition: where they go}
+
+\begin{frame}[label=mainflow]{Of every 100 leavers (average, 2020--2024)}
+  \begin{center}
+    \includegraphics[width=0.97\textwidth]{figures/flow_unified.pdf}
+  \end{center}
+  \vspace{-0.4em}
+  {\small {\color{navy}\bfseries Message.} A third find another job; a
+   third retire; the rest split between early labor-force exit and
+   unemployment.}
+  \vfill
+  \appbtn{apptfs}{vs NCES follow-up}
+\end{frame}
+
+\begin{frame}{Where the employed leavers go}
+  \begin{center}
+    \includegraphics[width=0.99\textwidth]{figures/occ_all_slide.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{What this says for policy}
   \vspace{0.6em}
-  \begin{itemize}\setlength\itemsep{1.3em}
-    \item[\msg{18.2}] \msg{Any sighting.} Lets in substitutes and one-month
-          spells.
-    \item[\msg{15.4}] \msg{Month pairs.} Counts the same person several
-          times.
-    \item[\msg{13.0}] \msg{Panel.} One verdict per person --- but one leaver
-          in six is back within three months.
-    \item[\msg{8.6}] \msg{Annual recall.} The official concept: the year's
-          main job.
-    \item[\msg{8.0}] \msg{NCES follow-up.} The reference.
+  \begin{itemize}\setlength\itemsep{1.1em}
+    \item Of every 100 leavers, about 36 retire: a margin for
+          \emph{delaying} exit, not for return.
+    \item 29 move to another job --- half of them to destinations that
+          do not require a degree.
+    \item 11 are unemployed and 24 leave the labor force before 55;
+          about 13\% of the latter are studying.
+    \item The retrievable margin is real but bounded: policy competes
+          with retirement, family time and re-training --- not only with
+          other employers.
+  \end{itemize}
+\end{frame}
+
+\divframe{3}{Correlations: why they leave}
+
+\begin{frame}[label=maineq]{Specification}
+  \vspace{1.0em}
+  \[
+    y_{it} \;=\; \alpha
+    \;+\; \mathbf{a}_{it}'\boldsymbol\beta_1
+    \;+\; \mathbf{c}_{it}'\boldsymbol\beta_2
+    \;+\; \mathbf{f}_{it}'\boldsymbol\beta_3
+    \;+\; \mathbf{h}_{it}'\boldsymbol\beta_4
+    \;+\; \mathbf{d}_{it}'\boldsymbol\beta_5
+    \;+\; \delta_t \;+\; \varepsilon_{it}
+  \]
+  \vspace{1.2em}
+
+  {\small Probit; average marginal effects reported. 2018--2024,
+   $n = 18{,}571$.}
+  \vfill
+  \appbtn{applpm}{LPM}\;
+  \appbtn{appmodels}{logit / probit}\;
+  \appbtn{appbounded}{bounded?}\;
+  \appbtn{appframework}{what we observe}
+  \note{a: job attachment (full year, part time). c: compensation
+    (pension plan, public sector, bottom-quartile household income).
+    f: family (new baby, children, marital status). h: health
+    (self-reported health, disability). d: demographics (age, sex,
+    race, education). delta-t: year effects. The LPM fitted values are
+    not bounded - 22 percent fall below zero - so the probit is the
+    main specification; the LPM versions are in the appendix.}
+\end{frame}
+
+\begin{frame}{What correlates with leaving}
+  \begin{center}
+    \includegraphics[height=0.84\textheight]{figures/ame_ext.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Relative pay since 1997}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/msgA3.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Leaving, by position in the teacher pay distribution}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/pay3_deciles_deck.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Pension coverage and leaving, across states}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/pension_scatter_deck.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Leaving and the cycle}
+  \begin{center}
+    \includegraphics[height=0.78\textheight]{figures/cycle1.pdf}
+  \end{center}
+\end{frame}
+
+% ================= Conclusions =================
+\begin{frame}{Conclusions}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{1.0em}
+    \item A household survey can reproduce the official picture of
+          teacher attrition --- and extend it yearly, with covariates
+          records do not have.
+    \item Who leaves: the weakly attached, the low-paid, those without
+          pension coverage, new mothers, teachers with a disability.
+    \item We observe only part of the motives --- financial and
+          life-cycle, not working conditions --- so these are margins,
+          not the full story.
+    \item What could bring teachers back: flexibility, economic
+          security, pension coverage, and re-entry paths for those who
+          left to study or care.
+  \end{itemize}
+\end{frame}
+
+% =====================================================================
+\appendix
+\divframe{A}{Appendix}
+
+\begin{frame}[label=appunemp]{How the CPS measures unemployment}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{0.9em}
+    \item The \emph{basic monthly} interview measures labor force status
+          in the reference week --- that alone produces the official
+          monthly unemployment rate. Not the March supplement.
+    \item The rest of the survey: monthly labor statistics (employment,
+          hours, earnings) and topical supplements (school enrollment in
+          October, voting in November, tobacco, computer use).
+    \item The March supplement adds the annual income block: the source
+          of income, poverty and health-insurance statistics --- and of
+          our retrospective measure.
+  \end{itemize}
+  \backbtn{maincps}
+\end{frame}
+
+\begin{frame}[label=approtation]{Are interviews monthly? Who is new each month?}
+  \vspace{0.3em}
+  {\small Yes: every month, one eighth of the sample sits in each
+   position of the 4-8-4 rotation. Verified in the microdata:}\\[0.7em]
+  \begin{center}
+  \small
+  \begin{tabular}{lcccccccc}
+    \toprule
+    Month in sample     & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    \midrule
+    March 2023 (\%)     & 12.5 & 12.9 & 12.8 & 12.5 & 12.2 & 12.4 & 12.3 & 12.3 \\
+    July 2023 (\%)      & 12.3 & 12.9 & 12.9 & 12.5 & 12.2 & 12.2 & 12.5 & 12.4 \\
+    January 2024 (\%)   & 12.4 & 12.9 & 12.9 & 13.1 & 11.9 & 12.0 & 12.1 & 12.6 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.5em}
+  {\small So each month: $\sim$12.5\% new households, $\sim$37.5\% in
+   months 2--4, $\sim$50\% returning in months 5--8. Month-to-month
+   overlap 75\%; year-to-year overlap 50\%, by design.}
+  \backbtn{maincps}
+\end{frame}
+
+\begin{frame}[label=appmigration]{Internal migration in the United States}
+  \vspace{0.8em}
+  \begin{itemize}\setlength\itemsep{1.0em}
+    \item In 2023, \textbf{7.8\%} of Americans changed residence within
+          the year --- 25.6 million people, the lowest rate on record.
+    \item 3.2\% moved to a different county; 1.4\% to a different state.
+    \item This is the loss channel of any address-based panel: linkage
+          follows dwellings, not people.
   \end{itemize}
   \vspace{0.6em}
-  {\footnotesize\color{mut} The choice, not the data, drives the spread.}
+  {\footnotesize\color{mut} Census Bureau, CPS ASEC, historical table
+   A-1 (1948--2023).}
+  \backbtn{maincps}
 \end{frame}
 
-% ================= Gradient =================
-\begin{frame}{Seen once, gone}
+\begin{frame}[label=appidentity]{Is the same person validated year to year?}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{0.9em}
+    \item In the field, yes: the interviewer carries the household roster
+          forward, each member keeps a line number, and occupation uses
+          dependent interviewing between consecutive months.
+    \item The \emph{public} files carry no person identifier. We
+          reconstruct the roster: household id + dwelling id + line
+          number, validated on sex, race, and age advancing 0--2 years.
+    \item Validation is not watertight: a mover replaced by someone of
+          the same sex and similar age can slip through.
+  \end{itemize}
+  \backbtn{maindisadv}
+\end{frame}
+
+\begin{frame}[label=applink]{How much is lost in linking, and who}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{0.9em}
+    \item Of the addresses due to return twelve months later,
+          \textbf{74.5\%} are found again (March 2023 $\to$ March 2024);
+          the missing quarter is moves plus household non-response.
+    \item Teachers link \emph{more} than others, not less: $\sim$80\% of
+          teacher observations vs $\sim$76\% of other college graduates.
+    \item The loss is still selective: movers leave teaching more, so
+          panel measures are lower bounds on mobility-related exit.
+  \end{itemize}
+  \backbtn{maindisadv}
+\end{frame}
+
+\begin{frame}[label=appgradient]{Attachment: seen once, gone}
   \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/sighting_gradient.pdf}
+    \includegraphics[height=0.72\textheight]{figures/sighting_gradient.pdf}
   \end{center}
-  \vspace{-0.3em}
-  \mpline{Seen teaching once: 54 percent not seen teaching a year later. Seen
-      four times: 10.}%
-     {Linkage follows addresses: movers drop out, and movers leave more.}
+  {\footnotesize Of teachers seen teaching in a single year-1 interview,
+   54\% are never seen teaching in their year-2 interviews; 10\% of
+   those seen in all four. Summer-only patterns are just 3\% of these
+   leavers.}
+  \backbtn{maindisadv}
 \end{frame}
 
-\divframe{3}{What the data show}
-
-% ================= Framework =================
-\begin{frame}{Why teachers leave: what the CPS sees}
+\begin{frame}[label=apppubpriv]{Public vs private schools}
   \begin{center}
+    \includegraphics[height=0.80\textheight]{figures/pubpriv_series.pdf}
+  \end{center}
+  \backbtn{mainevol}
+\end{frame}
+
+\begin{frame}[label=appprofs]{More professions, and their average}
+  \begin{center}
+    \includegraphics[height=0.80\textheight]{figures/profs_ext.pdf}
+  \end{center}
+  \backbtn{mainprofs}
+\end{frame}
+
+\begin{frame}[label=apptfs]{Our destinations vs the NCES follow-up survey}
+  \begin{center}
+  \small
+  \begin{tabular}{lcc}
+    \toprule
+    Of every 100 leavers\ldots      & CPS, 2020--2024 & TFS, 2021--22 \\
+    \midrule
+    Working in another job          & 28.8 & 57.2 \\
+    \quad of which outside education & ---  & 11.8 \\
+    Retired / out of the LF, 55+    & 36.4 & 27.7 \\
+    Out of the LF, under 55         & 23.7 & 10.1$^{a}$ \\
+    Unemployed                      & 11.1 & 4.8 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.5em}
+  {\footnotesize $^{a}$Caring for family 5.6 + student 1.8 + disabled
+   0.3 + other 2.4. TFS covers regular classroom teachers in public
+   schools and counts K--12 non-teaching jobs (39.3) as work; our
+   occupation-based measure spans public and private and all teaching
+   attachment. Sources: NCES 2024-039, table A-8 and NTPS estimate
+   tables.}
+  \backbtn{mainflow}
+\end{frame}
+
+\begin{frame}[label=appcodes]{Is the teacher group constant across code changes?}
+  \vspace{0.6em}
+  \begin{itemize}\setlength\itemsep{1.0em}
+    \item The five-code K--12 block maps one-to-one across the 1990,
+          2002/2010 and 2018 classifications; we always use the block,
+          never a single code across regimes.
+    \item Evidence: re-computing the whole series on the narrow core
+          (dropping special education and other teachers) moves the
+          pooled rate from 8.67 to 8.57 --- a 0.1 point change.
+    \item The 2003 and 2020 reclassifications leave no visible break in
+          the series.
+  \end{itemize}
+  \backbtn{maincodes}
+\end{frame}
+
+\begin{frame}[label=applpm]{Linear probability model, fixed-effects variants}
+  \begin{center}
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+                           & Year FE & No FE & State + year FE \\
+    \midrule
+    Worked full year       & $-$11.6 (0.7) & $-$11.5 (0.7) & $-$11.7 (0.7) \\
+    Part-time              & $+$8.7 (1.1)  & $+$8.7 (1.1)  & $+$8.6 (1.1) \\
+    Employer pension plan  & $-$2.3 (0.5)  & $-$2.4 (0.5)  & $-$2.3 (0.5) \\
+    Public sector          & $-$2.4 (0.6)  & $-$2.4 (0.6)  & $-$2.4 (0.6) \\
+    New baby               & $+$5.6 (1.6)  & $+$5.7 (1.6)  & $+$5.7 (1.6) \\
+    With a disability      & $+$8.9 (2.1)  & $+$8.9 (2.1)  & $+$8.9 (2.1) \\
+    Bottom-quartile income & $+$4.1 (1.2)  & $+$4.2 (1.2)  & $+$4.0 (1.2) \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.4em}
+  {\footnotesize Coefficients $\times$ 100, robust SE in parentheses.
+   2018--2024, $n=18{,}571$. Full set of controls as in the main
+   specification.}
+  \backbtn{maineq}
+\end{frame}
+
+\begin{frame}[label=appmodels]{LPM vs logit vs probit}
+  \begin{center}
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+                           & LPM & Logit AME & Probit AME \\
+    \midrule
+    Worked full year       & $-$11.6 & $-$11.0 & $-$10.8 \\
+    Part-time              & $+$8.7  & $+$4.4  & $+$5.0 \\
+    Employer pension plan  & $-$2.3  & $-$2.3  & $-$2.4 \\
+    Public sector          & $-$2.4  & $-$2.6  & $-$2.6 \\
+    New baby               & $+$5.6  & $+$6.1  & $+$5.6 \\
+    With a disability      & $+$8.9  & $+$5.3  & $+$5.9 \\
+    Bottom-quartile income & $+$4.1  & $+$2.4  & $+$2.6 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.4em}
+  {\footnotesize Percentage points. Same specification and sample
+   throughout. The ranking and significance of every margin is
+   unchanged across estimators.}
+  \backbtn{maineq}
+\end{frame}
+
+\begin{frame}[label=appbounded]{Is the LPM bounded between 0 and 1?}
+  \begin{center}
+    \includegraphics[height=0.72\textheight]{figures/lpm_check.pdf}
+  \end{center}
+  {\footnotesize No: 22\% of fitted values fall below zero. By that
+   check, the probit is the main specification and the LPM a
+   robustness variant.}
+  \backbtn{maineq}
+\end{frame}
+
+\begin{frame}[label=appframework]{What the CPS observes, of why teachers leave}
+  \begin{center}
+  \small
   \begin{tabular}{ll}
     \toprule
     Reasons in the literature                & In the CPS? \\
@@ -268,156 +640,14 @@
     Working conditions                       & \color{mut}no  \\
     Organizational support                   & \color{mut}no  \\
     Autonomy and intrinsic motives           & \color{mut}no  \\
-    Financial factors                        & \msg{yes} \\
-    Personal life-cycle motives              & \msg{yes} \\
+    Financial factors                        & {\color{navy}\bfseries yes} \\
+    Personal life-cycle motives              & {\color{navy}\bfseries yes} \\
     \midrule
-    Sociodemographics                        & \msg{yes} \\
+    Sociodemographics                        & {\color{navy}\bfseries yes} \\
     \bottomrule
   \end{tabular}
   \end{center}
-\end{frame}
-
-% ================= Five messages =================
-\begin{frame}{Five messages}
-  \vspace{0.6em}
-  \begin{enumerate}\setlength\itemsep{1.4em}
-    \item Economics beats demographics.
-    \item Exits concentrate among part-time, part-year, low-paid teachers.
-    \item Those exits leave employment --- not for better jobs.
-    \item A birth is the largest single trigger.
-    \item Pensions retain, and states differ widely.
-  \end{enumerate}
-\end{frame}
-
-% ================= Charts =================
-\begin{frame}{Leaving teaching, 1997--2024}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/g2_evolution.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Flat around 8.6 since 1997.}{A steady cost, not an emergency.}
-\end{frame}
-
-\begin{frame}{Teachers next to comparable professions}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/leave_professions_deck.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Teachers are no outlier.}{Benchmarks temper alarm.}
-\end{frame}
-
-\begin{frame}{Destinations, 2024}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/g3_flow100_2024.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{A third find another job; most leave employment.}%
-     {The rival is retirement and care, not other employers.}
-\end{frame}
-
-\begin{frame}{Who leaves the labor force before 55}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/yellow_flow2024.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Half of the early exits are mothers.}%
-     {Childcare policy is retention policy.}
-\end{frame}
-
-\begin{frame}{By age and route}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/g4_routes_age.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{U-shaped in age; non-employment at both ends.}%
-     {Different exits, different instruments.}
-\end{frame}
-
-% ================= Equation =================
-\begin{frame}{The econometric specification}
-  \vspace{0.2em}
-  \[
-    \Pr\bigl(\text{Leave}_{it}=1 \mid x_{it}\bigr)
-    \;=\;
-    \Phi\Bigl(
-      \underbrace{\text{attach}_{it}'\beta_1}_{\substack{\text{full year,}\\ \text{part-time}}}
-      +\underbrace{\text{comp}_{it}'\beta_2}_{\substack{\text{pension,}\\ \text{public school}}}
-      +\underbrace{\text{fam}_{it}'\beta_3}_{\substack{\text{new baby, children,}\\ \text{marital status}}}
-      +\underbrace{\text{dem}_{it}'\beta_4}_{\substack{\text{age, age}^2\text{, sex,}\\ \text{race, education}}}
-      +\;\delta_t
-    \Bigr)
-  \]
-  \vspace{0.5em}
-  \begin{itemize}\setlength\itemsep{0.5em}
-    \item {\small Probit, 2015--2024, year effects, $n=28{,}900$. AMEs in
-          points.}
-    \item {\small Robust: logit, LPM, state and year FE, full window,
-          occupation-pair definition.}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{What correlates with leaving}
-  \begin{center}
-    \includegraphics[height=0.72\textheight]{figures/ame_seminar.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Attachment and compensation dominate.}{The levers are contractual.}
-\end{frame}
-
-\begin{frame}{A new baby, by profession}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/g8_newbaby.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{A birth adds 5.9 points --- the most of any profession.}%
-     {Parental leave targets the largest trigger.}
-\end{frame}
-
-\begin{frame}{Across states}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/states_level.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{From 4 to 13 percent across states.}{State institutions are
-      first-order.}
-\end{frame}
-
-\begin{frame}{Relative pay since 1997}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/msgA3.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Teacher pay fell 4 percent; other graduates gained.}%
-     {A stock, not a shock.}
-\end{frame}
-
-\begin{frame}{By position in the pay distribution}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/pay3_deciles_deck.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{Exits pile up in the lowest deciles.}{Stabilize the bottom.}
-\end{frame}
-
-\begin{frame}{Pension coverage, across states}
-  \begin{center}
-    \includegraphics[height=0.62\textheight]{figures/pension_scatter_deck.pdf}
-  \end{center}
-  \vspace{-0.3em}
-  \mpline{More coverage, fewer leavers.}{Pension design retains.}
-\end{frame}
-
-% ================= Conclusion =================
-\begin{frame}{Conclusion}
-  \vspace{1.0em}
-  \begin{itemize}\setlength\itemsep{1.6em}
-    \item A labour force survey measures attrition yearly --- and matches
-          the official picture.
-    \item The definition is first-order: 5 to 19 percent from the same
-          records.
-    \item Attachment, pay, pensions and births drive exits. And the design
-          travels to any LFS.
-  \end{itemize}
+  \backbtn{maineq}
 \end{frame}
 
 \end{document}
