@@ -22,3 +22,4 @@ report/data_cluster/*.snm
 report/data_cluster/*.toc
 report/data_cluster/*.zip
 data/raw/aseccsv/
+report/data_cluster/_pages/

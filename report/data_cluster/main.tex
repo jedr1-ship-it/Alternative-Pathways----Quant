@@ -47,7 +47,7 @@
 \end{frame}
 
 % ================= Opening =================
-\begin{frame}{Motivation and problem}
+\begin{frame}[label=mainmot]{Motivation and problem}
   \vspace{0.8em}
   {\color{navy}\bfseries Motivation}\\[0.5em]
   \begin{itemize}\setlength\itemsep{0.6em}
@@ -63,9 +63,11 @@
     \item We start with the United States: the country with the most
           information available.
   \end{itemize}
+  \vfill
+  \appbtn{appsources}{official sources}
 \end{frame}
 
-\begin{frame}{Solution}
+\begin{frame}{Contribution}
   \vspace{1.2em}
   Use the Current Population Survey to
   \vspace{0.8em}
@@ -225,7 +227,7 @@
   \end{columns}
   \vfill
   \appbtn{applink}{linkage loss}\;
-  \appbtn{appgradient}{attachment}\;
+  \appbtn{appgradient}{definition sensitivity}\;
   \appbtn{appidentity}{validation}
 \end{frame}
 
@@ -256,8 +258,11 @@
 
 \begin{frame}{The six, on one axis}
   \begin{center}
-    \includegraphics[height=0.80\textheight]{figures/defs6.pdf}
+    \includegraphics[height=0.84\textheight]{figures/defs6.pdf}
   \end{center}
+  \vspace{-0.4em}
+  {\scriptsize\color{mut} NCES: the National Center for Education
+   Statistics; its Teacher Follow-up Survey is the official benchmark.}
 \end{frame}
 
 \divframe{1}{Leaving rate: how many leave}
@@ -310,7 +315,7 @@
 
 \begin{frame}[label=mainflow]{Of every 100 leavers (average, 2020--2024)}
   \begin{center}
-    \includegraphics[width=0.97\textwidth]{figures/flow_unified.pdf}
+    \includegraphics[width=0.92\textwidth]{figures/flow_employed_5yr.pdf}
   \end{center}
   \vspace{-0.4em}
   {\small {\color{navy}\bfseries Message.} A third find another job; a
@@ -324,6 +329,17 @@
   \begin{center}
     \includegraphics[width=0.99\textwidth]{figures/occ_all_slide.pdf}
   \end{center}
+\end{frame}
+
+\begin{frame}{Who leaves the labor force before 55 (average, 2020--2024)}
+  \begin{center}
+    \includegraphics[width=0.92\textwidth]{figures/flow_olf55_5yr.pdf}
+  \end{center}
+  \vspace{-0.4em}
+  {\small {\color{navy}\bfseries Message.} 13\% of this group is
+   studying --- almost all of them leavers without children at home:
+   25\% of those women and 48\% of those men, against 3\% of the
+   mothers.}
 \end{frame}
 
 \begin{frame}{What this says for policy}
@@ -424,19 +440,43 @@
 \appendix
 \divframe{A}{Appendix}
 
-\begin{frame}[label=appunemp]{How the CPS measures unemployment}
+\begin{frame}[label=appsources]{Where official numbers exist, and when}
+  \begin{center}
+    \includegraphics[height=0.64\textheight]{figures/tfs_waves.pdf}
+  \end{center}
+  \vspace{-0.2em}
+  {\small The NCES (National Center for Education Statistics) follows up
+   a sample of teachers one year later --- the Teacher Follow-up Survey:
+   eight waves since 1988--89, published with a 2--3 year lag, and
+   \textbf{nine years} between the last two. The OECD's
+   \emph{Education at a Glance} collects national rates only in its
+   2021, 2025 and 2026 editions --- with no current figure for the
+   United States.}
+  \backbtn{mainmot}
+\end{frame}
+
+\begin{frame}[label=appunemp]{One survey, three instruments}
   \vspace{0.6em}
-  \begin{itemize}\setlength\itemsep{0.9em}
-    \item The \emph{basic monthly} interview measures labor force status
-          in the reference week --- that alone produces the official
-          monthly unemployment rate. Not the March supplement.
-    \item The rest of the survey: monthly labor statistics (employment,
-          hours, earnings) and topical supplements (school enrollment in
-          October, voting in November, tobacco, computer use).
-    \item The March supplement adds the annual income block: the source
-          of income, poverty and health-insurance statistics --- and of
-          our retrospective measure.
-  \end{itemize}
+  \begin{center}
+  \small
+  \begin{tabular}{p{3.4cm}p{4.9cm}p{4.9cm}}
+    \toprule
+    Instrument & What it asks & What it produces \\
+    \midrule
+    Basic monthly interview & Labor force status in the reference week,
+      occupation, hours
+      & The official \textbf{monthly unemployment rate};
+        employment and earnings statistics \\[0.9em]
+    Topical supplements & School enrollment (Oct.), voting (Nov.),
+      tobacco, computer use
+      & Topic-specific official statistics \\[0.9em]
+    March supplement (ASEC) & The \emph{previous calendar year}: longest
+      job, weeks, income, benefits
+      & Official \textbf{income, poverty and health-insurance}
+        statistics --- and our retrospective measure \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
   \backbtn{maincps}
 \end{frame}
 
@@ -464,57 +504,59 @@
 \end{frame}
 
 \begin{frame}[label=appmigration]{Internal migration in the United States}
-  \vspace{0.8em}
-  \begin{itemize}\setlength\itemsep{1.0em}
-    \item In 2023, \textbf{7.8\%} of Americans changed residence within
-          the year --- 25.6 million people, the lowest rate on record.
-    \item 3.2\% moved to a different county; 1.4\% to a different state.
-    \item This is the loss channel of any address-based panel: linkage
-          follows dwellings, not people.
-  \end{itemize}
-  \vspace{0.6em}
-  {\footnotesize\color{mut} Census Bureau, CPS ASEC, historical table
-   A-1 (1948--2023).}
+  \begin{center}
+    \includegraphics[height=0.72\textheight]{figures/migration_rate.pdf}
+  \end{center}
+  \vspace{-0.2em}
+  {\small In 2023, 7.8\% of Americans moved --- the loss channel of any
+   address-based panel.\hspace{0.8em}{\footnotesize\color{mut}Census
+   Bureau, CPS ASEC, historical table A-1.}}
   \backbtn{maincps}
 \end{frame}
 
 \begin{frame}[label=appidentity]{Is the same person validated year to year?}
   \vspace{0.6em}
-  \begin{itemize}\setlength\itemsep{0.9em}
-    \item In the field, yes: the interviewer carries the household roster
-          forward, each member keeps a line number, and occupation uses
-          dependent interviewing between consecutive months.
-    \item The \emph{public} files carry no person identifier. We
-          reconstruct the roster: household id + dwelling id + line
-          number, validated on sex, race, and age advancing 0--2 years.
-    \item Validation is not watertight: a mover replaced by someone of
-          the same sex and similar age can slip through.
-  \end{itemize}
+  \begin{center}
+  \small
+  \begin{tabular}{p{6.2cm}p{6.2cm}}
+    \toprule
+    In the field & In the public files \\
+    \midrule
+    Roster carried forward by the interviewer
+      & No person identifier at all \\[0.6em]
+    Each member keeps a line number
+      & Household id $+$ dwelling id $+$ line number reconstruct it \\[0.6em]
+    Occupation asked by dependent interviewing month to month
+      & Validated on sex, race, age advancing 0--2 years \\[0.6em]
+    {\color{navy}\bfseries Identity is known}
+      & {\color{burg}\bfseries Identity is inferred} --- a mover replaced
+        by someone of the same sex and similar age can slip through \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
   \backbtn{maindisadv}
 \end{frame}
 
 \begin{frame}[label=applink]{How much is lost in linking, and who}
-  \vspace{0.6em}
-  \begin{itemize}\setlength\itemsep{0.9em}
-    \item Of the addresses due to return twelve months later,
-          \textbf{74.5\%} are found again (March 2023 $\to$ March 2024);
-          the missing quarter is moves plus household non-response.
-    \item Teachers link \emph{more} than others, not less: $\sim$80\% of
-          teacher observations vs $\sim$76\% of other college graduates.
-    \item The loss is still selective: movers leave teaching more, so
-          panel measures are lower bounds on mobility-related exit.
-  \end{itemize}
+  \begin{center}
+    \includegraphics[height=0.72\textheight]{figures/linkage_series.pdf}
+  \end{center}
+  \vspace{-0.2em}
+  {\small Teachers link \emph{more} than other graduates, not less ---
+   but movers leave teaching more, so panel measures are lower bounds on
+   mobility-related exit.}
   \backbtn{maindisadv}
 \end{frame}
 
-\begin{frame}[label=appgradient]{Attachment: seen once, gone}
+\begin{frame}[label=appgradient]{Why the rate falls as the definition tightens}
   \begin{center}
-    \includegraphics[height=0.72\textheight]{figures/sighting_gradient.pdf}
+    \includegraphics[height=0.64\textheight]{figures/sighting_gradient.pdf}
   \end{center}
-  {\footnotesize Of teachers seen teaching in a single year-1 interview,
-   54\% are never seen teaching in their year-2 interviews; 10\% of
-   those seen in all four. Summer-only patterns are just 3\% of these
-   leavers.}
+  {\footnotesize How many times must we see someone teaching in year 1
+   before calling them a teacher? Seen once: 54\% are never seen
+   teaching in their year-2 interviews. Seen in all four: 10\%. The
+   stricter the definition, the lower the measured leaving rate ---
+   that is the whole ladder of the six definitions.}
   \backbtn{maindisadv}
 \end{frame}
 
@@ -558,17 +600,13 @@
 \end{frame}
 
 \begin{frame}[label=appcodes]{Is the teacher group constant across code changes?}
-  \vspace{0.6em}
-  \begin{itemize}\setlength\itemsep{1.0em}
-    \item The five-code K--12 block maps one-to-one across the 1990,
-          2002/2010 and 2018 classifications; we always use the block,
-          never a single code across regimes.
-    \item Evidence: re-computing the whole series on the narrow core
-          (dropping special education and other teachers) moves the
-          pooled rate from 8.67 to 8.57 --- a 0.1 point change.
-    \item The 2003 and 2020 reclassifications leave no visible break in
-          the series.
-  \end{itemize}
+  \begin{center}
+    \includegraphics[height=0.72\textheight]{figures/codes_narrow.pdf}
+  \end{center}
+  \vspace{-0.2em}
+  {\small Recomputing the whole series on the narrow core moves the
+   pooled rate by 0.1 points; the 2003 and 2020 reclassifications leave
+   no visible break.}
   \backbtn{maincodes}
 \end{frame}
 
