@@ -33,7 +33,7 @@ top = [("Another job", F.another_job, NAVY, "white"),
        ("Out of the labor force, under 55", F.olf_u55, GOLD, INK),
        ("Unemployed", F.unemployed, GRAY, "white")]
 x = 0
-ytop, h = 7.6, 1.7
+ytop, h = 6.9, 1.7
 for lab, v, c, tc in top:
     ax.add_patch(plt.Rectangle((x, ytop), v, h, color=c))
     ax.text(x + v / 2, ytop + h / 2, f"{v:.0f}", ha="center", va="center",
@@ -51,19 +51,24 @@ bot = [("Baby born\nthat year", F.u55_mother_baby, "#B03A2E", "white"),
        ("Women,\nno own child", F.u55_woman_nokid, PALE, INK),
        ("Fathers", F.u55_father, "#7C93B8", "white"),
        ("Men,\nno own child", F.u55_man_nokid, GRAY, "white")]
-ybot, hb = 2.6, 1.7
+ybot, hb = 3.0, 1.7
 x = u0
+lvl = 0
 for lab, v, c, tc in bot:
     ax.add_patch(plt.Rectangle((x, ybot), v, hb, color=c))
     ax.text(x + v / 2, ybot + hb / 2, f"{v:.0f}" if v >= 1.5 else "",
             ha="center", va="center", fontsize=13, fontweight="bold", color=tc)
-    ax.text(x + v / 2, ybot - 0.35, lab, ha="center", va="top",
+    yl = ybot - 0.35 - (0 if lvl % 2 == 0 else 1.05)
+    ax.plot([x + v / 2, x + v / 2], [ybot - 0.12, yl + 0.18],
+            color=MUT, lw=0.6)
+    ax.text(x + v / 2, yl, lab, ha="center", va="top",
             fontsize=9.0, color=INK)
+    lvl += 1
     x += v
 for xx in (u0, u0 + F.olf_u55):
     ax.plot([xx, xx], [ybot + hb, ytop],
             color=MUT, lw=0.8, ls=(0, (3, 3)))
-ax.text(u0 + F.olf_u55 / 2, ybot + hb + 0.45,
+ax.text(u0 + F.olf_u55 / 2, ybot + hb + 0.55,
         f"about {F.u55_inschool_share:.0f} percent of this group is enrolled in school",
         ha="center", va="bottom", fontsize=10, color=INK, style="italic")
 fig.tight_layout()
