@@ -12,7 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paperstyle  # noqa: F401
-mpl.rcParams.update({"font.serif": ["STIXGeneral", "DejaVu Serif"],
+mpl.rcParams.update({"font.serif": ["EB Garamond", "STIXGeneral", "DejaVu Serif"],
                      "mathtext.fontset": "stix"})
 
 OUT = "report/figures_deck"
@@ -45,11 +45,10 @@ for r in ws.iter_rows(min_row=9, max_col=4):
     rows.append((yr, 100 * mov / tot))
 mig = pd.DataFrame(rows, columns=["year", "rate"]).drop_duplicates("year")
 mig = mig.sort_values("year").reset_index(drop=True)
+mig = mig[mig.year >= 1981].reset_index(drop=True)
 fig, ax = plt.subplots(figsize=(11.4, 5.2))
 ax.bar(mig.year, mig.rate, width=0.82, color=NAVY)
 ax.bar(mig.year.iloc[-1], mig.rate.iloc[-1], width=0.82, color=BURG)
-ax.annotate("not published\n1972–75, 1977–80", (1976, 10.0),
-            ha="center", fontsize=9.5, color=MUT)
 ax.annotate(f"2023\n{mig.rate.iloc[-1]:.1f}%", (2023, mig.rate.iloc[-1] + 0.4),
             ha="center", va="bottom", fontsize=12, fontweight="bold",
             color=BURG)
@@ -57,7 +56,7 @@ hi = mig.loc[mig.rate.idxmax()]
 ax.annotate(f"{hi.rate:.0f}% in {int(hi.year)}", (hi.year + 1.5, hi.rate + 0.4),
             ha="left", fontsize=11, color=MUT)
 ax.set_ylim(0, 24)
-ax.set_xlim(1947, 2026)
+ax.set_xlim(1979.8, 2025.2)
 ax.set_ylabel("share who changed residence in the year, percent",
               fontsize=11.5, color=INK)
 for sp in ("top", "right"):

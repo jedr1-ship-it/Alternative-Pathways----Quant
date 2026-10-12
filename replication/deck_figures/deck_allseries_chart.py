@@ -7,7 +7,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paperstyle  # noqa: F401
-mpl.rcParams.update({"font.serif": ["STIXGeneral", "DejaVu Serif"],
+mpl.rcParams.update({"font.serif": ["EB Garamond", "STIXGeneral", "DejaVu Serif"],
                      "mathtext.fontset": "stix"})
 SC = "/tmp/claude-0/-home-user-Alternative-Pathways----Quant/37b5ad96-b2b0-50d1-9e4b-6301ff28b789/scratchpad"
 NAVY, CORAL, CORAL_M, CORAL_L, INK, MUT = "#1F3864", "#7B2530", "#A2606A", "#C79AA0", "#1A2430", "#55606B"

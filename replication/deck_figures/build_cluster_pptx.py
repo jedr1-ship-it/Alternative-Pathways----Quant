@@ -25,7 +25,7 @@ NAVY = RGBColor(0x10, 0x2D, 0x5E)     # OECD-style dark blue
 ACC = RGBColor(0x2D, 0x6C, 0xB5)      # accent blue
 BURG = RGBColor(0x8F, 0x2B, 0x36)
 LGRAYB = RGBColor(0xC9, 0xCF, 0xD6)
-BTNBG = RGBColor(0xD5, 0xE2, 0xF3)
+BTNBG = RGBColor(0xBE, 0xD3, 0xEE)
 BAND = RGBColor(0xEC, 0xF2, 0xF9)     # key-message band
 
 prs = Presentation()
@@ -112,6 +112,7 @@ def rule(s, x, y, w, weight=1.0, color=INK):
     ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x), Inches(y),
                                 Inches(x + w), Inches(y))
     ln.line.color.rgb = color; ln.line.width = Pt(weight)
+    ln.shadow.inherit = False
     return ln
 
 def fit_picture(s, path, box):
@@ -137,7 +138,10 @@ def button(s, x, y, label, target_key, back=False):
     tf.margin_left = tf.margin_right = Inches(0.04)
     tf.margin_top = tf.margin_bottom = 0
     p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
-    r = p.add_run(); r.text = "\u261e " + lab
+    r = p.add_run(); r.text = "\u261e "
+    r.font.name = FONT; r.font.size = Pt(18); r.font.bold = True
+    r.font.color.rgb = NAVY
+    r = p.add_run(); r.text = lab
     r.font.name = FONT; r.font.size = Pt(14); r.font.color.rgb = NAVY
     BTNS.append((sh, target_key))
     return x + w + 0.16
@@ -182,7 +186,7 @@ def cell(s, x, y, w, h, fill, border=None, label=None, lab_color=None):
         r.font.color.rgb = lab_color or RGBColor(0xFF, 0xFF, 0xFF)
     return sh
 
-def table(s, cols, rows, y0, size=15, rowh=0.5):
+def table(s, cols, rows, y0, size=15, rowh=0.38):
     x0 = cols[0][0]
     x1 = cols[-1][0] + cols[-1][1]
     rule(s, x0, y0, x1 - x0, 1.3, INK)
@@ -264,11 +268,11 @@ divider("0", "Methodological discussion")
 s = new_slide(title="The Current Population Survey", key="maincps")
 bullets(s, [
  "The monthly household survey of the United States, run by the Census "
- "Bureau for the Bureau of Labor Statistics. Nationally representative of "
- "the civilian non-institutional population.",
+ "Bureau for the Bureau of Labor Statistics, and nationally representative "
+ "of the civilian non-institutional population.",
  "We pool 28 consecutive March supplements, 1998–2025, which give us "
  "5.0 million person-year records.",
- "104,545 of them are teachers, about 3,700 per year."],
+ "Among them, 104,545 are teachers, about 3,700 per year."],
  y=1.95, size=20, gap=46)
 buttons_row(s, [("unemployment", "appunemp"), ("interviews", "approtation"),
                 ("migration", "appmigration"), ("identity", "appidentity")])
@@ -280,31 +284,34 @@ bullets(s, [
  "official annual income, poverty and health-insurance statistics.",
  "About 90,000 households, counting the March sample plus oversamples "
  "interviewed in February and April.",
- "Every adult reports on the previous calendar year, including the longest "
- "job held, weeks worked, earnings and benefits."], y=2.05, size=20, gap=48)
+ "Every adult reports on the previous year their longest job held, weeks "
+ "worked, earnings and benefits."], y=2.05, size=20, gap=48)
 
 # ================= 7. codes =================
-s = new_slide(title="Identifying a teacher: the census occupation codes",
-              key="maincodes")
-cols = [(0.9, 4.0, L), (5.1, 2.4, C), (7.6, 2.6, C), (10.3, 2.4, C)]
-rows = [
- row(pl(""), pl("1990 codes", True), pl("2002/2010 codes", True),
-     pl("2018 codes", True)),
- row(pl(""), pl("surveys 1998–2002", False, MUT, 12),
-     pl("surveys 2003–2019", False, MUT, 12),
-     pl("surveys 2020–2025", False, MUT, 12)),
- "RULE",
- row(pl("Pre-K and kindergarten"), pl("155"), pl("2300"), pl("2300")),
- row(pl("Elementary (and middle)"), pl("156"), pl("2310"), pl("2310")),
- row(pl("Secondary"), pl("157"), pl("2320"), pl("2320")),
- row(pl("Special education"), pl("158"), pl("2330"), pl("2330")),
- row(pl("Other teachers and instructors"), pl("159"), pl("2340"), pl("2360")),
-]
-yend = table(s, cols, rows, 1.45, size=16, rowh=0.52)
-add_text(s, 0.9, yend + 0.28, 11.8, 0.8, [
- ("The K–12 block maps one-to-one across the three regimes. The group "
-  "is constant over time even where single codes are not.",
-  15.5, INK, False, False, 0)])
+s = new_slide(title="One teacher group, three coding regimes", key="maincodes")
+for lab, x in [("1998–2002", 5.1), ("2003–2019", 7.9),
+               ("2020–2025", 10.7)]:
+    add_text(s, x, 1.55, 1.9, 0.4, [(lab, 16, MUT, False, False, 0)], align=C)
+CATS = [("Pre-K and kindergarten", "155", "2300", "2300", False),
+        ("Elementary (and middle)", "156", "2310", "2310", False),
+        ("Secondary", "157", "2320", "2320", False),
+        ("Special education", "158", "2330", "2330", False),
+        ("Other teachers and instructors", "159", "2340", "2360", True)]
+y = 2.15
+for name, c1, c2, c3, chg in CATS:
+    add_text(s, 0.9, y, 4.0, 0.45, [(name, 18, INK, False, False, 0)])
+    add_text(s, 5.1, y, 1.9, 0.45, [(c1, 18, NAVY, True, False, 0)], align=C)
+    add_text(s, 6.9, y, 1.1, 0.45, [("→", 18, MUT, False, False, 0)], align=C)
+    add_text(s, 7.9, y, 1.9, 0.45, [(c2, 18, NAVY, True, False, 0)], align=C)
+    add_text(s, 9.7, y, 1.1, 0.45, [("→" if chg else "=", 18,
+             BURG if chg else MUT, chg, False, 0)], align=C)
+    add_text(s, 10.7, y, 1.9, 0.45, [(c3, 18, BURG if chg else NAVY, True,
+             False, 0)], align=C)
+    y += 0.62
+add_text(s, 0.9, y + 0.35, 11.8, 1.0, [
+ ("In 2003 every code changed but the five categories did not. In 2020 a "
+  "single code changed. We always use the block, never a single code "
+  "across regimes.", 18, INK, False, False, 0)])
 buttons_row(s, [("traceability", "appcodes")])
 
 # ================= 8. rotation =================
@@ -355,21 +362,25 @@ add_text(s, 6.78, 2.61, 5.5, 2.4, [
 
 # ================= 10. disadvantages =================
 s = new_slide(title="Disadvantages of each option", key="maindisadv")
-add_text(s, 0.9, 1.40, 5.7, 0.5, [("A. Following individuals", 18, NAVY, True, False, 0)])
+panel = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, Inches(0.88),
+                           Inches(6.43), Inches(6.62))
+panel.fill.solid(); panel.fill.fore_color.rgb = RGBColor(0xF2, 0xF2, 0xF2)
+panel.line.fill.background(); panel.shadow.inherit = False
+add_text(s, 1.08, 1.60, 5.3, 0.5, [("A. Following individuals", 24, NAVY, True, False, 0)])
 bullets(s, [
  "Identity is not certain, validation can admit noisy people.",
  "Movers are lost. About 25% of addresses are not found a year later.",
  "Normal household attrition on top.",
  "Strong seasonality in teaching.",
  "Many ways to define the rate (next slide)."],
- y=2.00, size=15, gap=13, x=0.9, w=5.7, numbered=True)
-add_text(s, 7.1, 1.40, 5.6, 0.5, [("B. Retrospective March", 18, NAVY, True, False, 0)])
+ y=2.45, size=16, gap=15, x=1.08, w=5.2, numbered=True)
+add_text(s, 6.95, 1.60, 5.6, 0.5, [("B. Retrospective March", 24, NAVY, True, False, 0)])
 bullets(s, [
  "Recall bias.",
  "Less sample. One observation per person per year (~3,700 teachers) "
  "against ~11,000 monthly teacher observations.",
  "Only March-to-March transitions. Within-year spells are smoothed away."],
- y=2.00, size=15, gap=13, x=7.1, w=5.6, numbered=True)
+ y=2.45, size=16, gap=15, x=6.95, w=5.6, numbered=True)
 buttons_row(s, [("linkage loss", "applink"),
                 ("definition sensitivity", "appgradient"),
                 ("validation", "appidentity")])
@@ -396,10 +407,10 @@ rows = [
  row(pl("Annual recall", True, NAVY), pl("teaching was last year’s longest job"),
      pl("not teaching at the March interview")),
 ]
-table(s, cols, rows, 1.90, size=14.5, rowh=0.70)
+table(s, cols, rows, 1.95, size=14.5, rowh=0.58)
 
 # ================= 12. defs6 =================
-s = new_slide(title="The six, on one axis")
+s = new_slide(title="Leaving rates under alternative definitions")
 chart(s, "defs6", (0.7, 1.2, 11.9, 5.4))
 add_text(s, 0.9, 6.78, 11.8, 0.4,
          [("NCES is the National Center for Education Statistics. Its Teacher "
@@ -437,20 +448,20 @@ rows = [
  "RULE",
  row(pl("Observations"), pl("28,932"), pl("13,107"), pl("3,407"), pl("6,897")),
 ]
-yend = table(s, cols, rows, 1.40, size=15, rowh=0.47)
+yend = table(s, cols, rows, 1.55, size=15, rowh=0.40)
 add_text(s, 0.9, yend + 0.16, 11.8, 0.4,
          [("College graduates, pooled 2015–2024, weighted; wages from 2020–2024.",
            12.5, MUT, False, True, 0)])
-message(s, "Teaching shares its age and gender profile with nursing and "
-        "social work. What sets it apart is pay and the public sector.",
-        y=6.55, size=14.5)
+message(s, "Teaching is similar to nursing and social work in age and "
+        "gender, and to social work in education. It differs in pay, weeks "
+        "worked and the public sector.", y=6.55, size=14.5)
 
 # ================= 16. professions =================
 s = new_slide(title="Leaving the occupation, by profession", key="mainprofs")
 chart(s, "leave_professions_deck", (0.7, 1.2, 11.9, 4.85))
-message(s, "Teachers leave at about the same rate as comparable professions. "
-        "What makes teaching special is not how many leave, but who leaves "
-        "and where they go.")
+message(s, "Teachers leave at about the same rate as comparable "
+        "professions. The distinctive part of teaching is who leaves and "
+        "where they go, not how many.")
 buttons_row(s, [("more professions", "appprofs")])
 
 divider("2", "Composition: where they go")
@@ -468,8 +479,9 @@ NOTES[18] = ("De cada 100 que dejan la docencia: 29 otro empleo, 36 retiro "
 # ================= 19. occupations =================
 s = new_slide(title="Where the employed leavers go", key="mainocc")
 chart(s, "occ_all_slide", (0.4, 1.12, 12.5, 5.1))
-message(s, "36% of the employed leavers move to occupations where fewer "
-        "than half of US workers hold a college degree (in red).",
+message(s, "More than a third of the employed leavers move to occupations "
+        "where most workers hold no college degree (in red). Leaving "
+        "teaching usually means leaving the profession, not moving up.",
         y=6.30, size=14.5)
 buttons_row(s, [("proportions", "appoccprop")])
 
@@ -484,48 +496,56 @@ NOTES[20] = ("Salida temprana, historia de familia. Mas de la mitad madres "
 # ================= 21. study =================
 s = new_slide(title="And the youngest of them leave to study")
 chart(s, "study_olf55", (0.8, 1.15, 11.7, 4.95))
-message(s, "Studying is concentrated among the young and the childless. 45% "
-        "of those under 30 are enrolled in school, against 3% of the mothers "
-        "with a child at home.")
+message(s, "Studying is the exit of the young and the childless, not of "
+        "the mothers. Among leavers under 30, almost half are enrolled in "
+        "school.")
 NOTES[21] = ("Estudia el 45% de los menores de 30 y el 25-48% de los que "
              "no tienen hijos, frente al 3% de las madres. n pequenos, "
              "indicados en el grafico.")
 
 # ================= 22. policy =================
 s = new_slide(title="What this says for policy: three margins, quantified")
-bullets(s, [
- ("Retirees.", "About 3% of teachers retire each year, a third of all "
-  "exits. Delaying retirement is a short-term margin that extends careers "
-  "but does not reintegrate anyone."),
- ("Switchers.", "About 2% of teachers move to another job each year, more "
-  "than a third of them to jobs that do not require a degree. The margin is "
-  "real but moderate, so shortages cannot be closed through retention "
-  "alone."),
- ("Early exits.", "About 2% of teachers leave the labor force before 55 "
-  "each year. Most are mothers at home, for whom flexibility may be the "
-  "missing piece. The young and childless leave to study and need re-entry "
-  "paths.")], y=1.85, size=19, gap=44)
+add_text(s, 0.9, 1.35, 11.8, 0.5, [("Retirees", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 1.90, 11.8, 1.0, [
+ ("About 3% of teachers retire each year, a third of all exits. Delaying "
+  "retirement extends careers but does not reintegrate anyone.",
+  19, INK, False, False, 0)])
+add_text(s, 0.9, 3.10, 11.8, 0.5, [("Switchers", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 3.65, 11.8, 1.0, [
+ ("About 2% move to another job each year, often to jobs that do not "
+  "require a degree. A real margin, but shortages cannot be closed through "
+  "retention alone.", 19, INK, False, False, 0)])
+add_text(s, 0.9, 4.95, 11.8, 0.5, [("Early exits", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 5.50, 11.8, 1.2, [
+ ("About 2% leave the labor force before 55 each year. Most are mothers at "
+  "home, for whom flexibility may be the missing piece. The young and "
+  "childless leave to study and need re-entry paths.",
+  19, INK, False, False, 0)])
+
+s = new_slide(title="Leaving, over the life cycle")
+
+chart(s, "u_routes_deck", (0.7, 1.25, 11.9, 4.75))
+message(s, "The risk of leaving is highest at the two ends of the career. "
+        "The young leave for other jobs; the old leave the labor force.")
 
 divider("3", "Correlations: why they leave")
 
 # ================= 24. specification =================
 s = new_slide(title="Specification", key="maineq")
-fit_picture(s, EQ_PNG, (2.1, 1.30, 9.1, 1.30))
-cols = [(1.4, 1.0, L), (2.5, 10.0, L)]
-rows = [
- row(pl("y", True, NAVY), pl("teacher i left teaching in year t")),
- row(pl("a", True, NAVY), pl("job attachment – full-year contract, part-time contract")),
- row(pl("c", True, NAVY), pl("pay and security – pension plan, public sector, "
-                             "bottom-quartile household income")),
- row(pl("f", True, NAVY), pl("family – new baby, children, marital status")),
- row(pl("h", True, NAVY), pl("health – self-reported health, disability")),
- row(pl("d", True, NAVY), pl("demographics – age, sex, race, education")),
- row(pl("δt", True, NAVY), pl("year fixed effects (state FE variant in the appendix)")),
-]
-yend = table(s, cols, rows, 2.85, size=14, rowh=0.43)
-add_text(s, 1.4, yend + 0.18, 10.8, 0.45,
+fit_picture(s, EQ_PNG, (2.1, 1.25, 9.1, 1.25))
+add_text(s, 1.6, 2.80, 10.6, 3.2, [
+ ("y:  teacher i left teaching in year t", 15, INK, False, False, 5),
+ ("a:  job attachment (full-year contract, part-time contract)", 15, INK, False, False, 5),
+ ("c:  pay and security (pension plan, public sector, bottom-quartile "
+  "household income)", 15, INK, False, False, 5),
+ ("f:  family (new baby, children, marital status)", 15, INK, False, False, 5),
+ ("h:  health (self-reported health, disability)", 15, INK, False, False, 5),
+ ("d:  demographics (age, sex, race, education)", 15, INK, False, False, 5),
+ ("δt:  year fixed effects (state FE variant in "
+  "the appendix)", 15, INK, False, False, 0)])
+add_text(s, 1.6, 6.15, 10.6, 0.45,
          [("Probit, average marginal effects, robust standard errors. "
-           "2018–2024, n = 18,571.", 14, INK, False, False, 0)])
+           "2018–2024, n = 18,571.", 15, INK, False, False, 0)])
 buttons_row(s, [("LPM", "applpm"), ("logit / probit", "appmodels"),
                 ("bounded?", "appbounded"), ("what we observe", "appframework")])
 NOTES[24] = ("a: vinculacion al empleo. c: pago y seguridad. f: familia. "
@@ -540,9 +560,9 @@ chart(s, "ame_ext", (0.6, 1.12, 12.1, 6.1))
 # ================= 26-29 =================
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
-message(s, "Real teacher pay is 4% below its 1997 level while every "
-        "comparison group gained ground. The gap to other graduates is now "
-        "$29,000 a year.")
+message(s, "Teacher pay has not grown in 25 years. Teachers sit 4% below "
+        "their 1997 level, while comparable professions grew by about 12% "
+        "on average.")
 
 s = new_slide(title="Leaving, by position in the teacher pay distribution")
 chart(s, "pay3_deciles_deck", (0.9, 1.2, 11.5, 4.85))
@@ -557,9 +577,9 @@ message(s, "States where more teachers have a pension plan lose fewer "
 
 s = new_slide(title="Leaving and the cycle")
 chart(s, "cycle1", (0.7, 1.2, 11.9, 4.85))
-message(s, "Leaving rises when unemployment rises (correlation +0.32). "
-        "Teachers are pushed out in bad times more than pulled away in good "
-        "ones.")
+message(s, "Leaving moves with the cycle. It rises when unemployment "
+        "rises, so teachers are pushed out in bad times more than pulled "
+        "away in good ones.")
 
 # ================= 30-31. conclusions =================
 s = new_slide(title="Conclusions: what we learn")
@@ -574,25 +594,30 @@ bullets(s, [
  "at the bottom of the pay scale. The financial lever still has room as a "
  "retention incentive.",
  "A quarter of exits are neither another job nor retirement but care at "
- "home or further study. For that group flexibility is the incentive that "
- "can bring them back, and additional qualifications should pay when they "
- "return."], y=1.45, size=16.5, gap=20)
+ "home or further study. Flexibility can bring that group back, and "
+ "additional qualifications should pay when they return."],
+ y=1.55, size=19, gap=26)
 
 s = new_slide(title="Conclusions: where the policy margins are")
-bullets(s, [
- ("Short term.", "Retirees, about 3% of teachers each year, are a pool "
-  "that can cover local shortages. They bring experience and positive "
-  "spillovers to the schools that re-engage them."),
- ("Medium term.", "The young. The probability of leaving is highest at "
-  "the start of the career, so mentoring and accompaniment belong where "
-  "the risk is."),
- ("Across the board.", "Economic security (full-year contracts, pension "
-  "coverage) and flexibility, so that teachers who want to stay or to "
-  "return can do so. Insecurity should not be the reason a position is "
-  "left."),
- ("Caveat.", "We observe financial and life-cycle motives, not conditions "
-  "inside schools. These are margins, not the full story.")],
- y=1.45, size=16.5, gap=20)
+add_text(s, 0.9, 1.30, 11.8, 0.5, [("Short term", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 1.84, 11.8, 0.9, [
+ ("Retirees, about 3% of teachers each year, are a pool that can cover "
+  "local shortages. They bring experience and positive spillovers.",
+  18, INK, False, False, 0)])
+add_text(s, 0.9, 2.85, 11.8, 0.5, [("Medium term", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 3.39, 11.8, 0.9, [
+ ("The young. The probability of leaving is highest at the start of the "
+  "career, so mentoring and accompaniment belong where the risk is.",
+  18, INK, False, False, 0)])
+add_text(s, 0.9, 4.40, 11.8, 0.5, [("Across the board", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 4.94, 11.8, 0.9, [
+ ("Economic security and flexibility, so that teachers who want to stay or "
+  "to return can do so. Insecurity should not be why a position is left.",
+  18, INK, False, False, 0)])
+add_text(s, 0.9, 5.95, 11.8, 0.5, [("Caveat", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 6.49, 11.8, 0.8, [
+ ("We observe financial and life-cycle motives, not conditions inside "
+  "schools. These are margins, not the full story.", 18, INK, False, False, 0)])
 
 # ================= appendix =================
 divider("A", "Appendix")
@@ -616,18 +641,18 @@ rows = [
  row(pl("Basic monthly interview"), pl("Labor force status in the reference "
      "week, occupation, hours"), pl("The official monthly unemployment "
      "rate, employment and earnings statistics")),
- ("GAP", 0.85),
+ ("GAP", 0.55),
  row(pl("Topical supplements"), pl("School enrollment (Oct.), voting "
      "(Nov.), tobacco, computer use"), pl("Topic-specific official "
      "statistics")),
- ("GAP", 0.55),
+ ("GAP", 0.40),
  row(pl("March supplement (ASEC)"), pl("The previous calendar year, from "
      "the longest job to weeks, income and benefits"), pl("Official income, "
      "poverty and health-insurance statistics, and our retrospective "
      "measure")),
- ("GAP", 0.85),
+ ("GAP", 0.45),
 ]
-table(s, cols, rows, 1.70, size=15, rowh=0.5)
+table(s, cols, rows, 1.80, size=14.5, rowh=0.42)
 backbtn(s, "maincps")
 
 s = new_slide(title="Are interviews monthly? Who is new each month?", key="approtation")
@@ -646,7 +671,7 @@ rows = [
  row(pl("Maximum (%)"), pl("13.0"), pl("13.0"), pl("13.1"), pl("13.0"),
      pl("14.9"), pl("13.9"), pl("13.5"), pl("13.2")),
 ]
-yend = table(s, cols, rows, 2.50, size=15, rowh=0.52)
+yend = table(s, cols, rows, 2.55, size=15, rowh=0.42)
 add_text(s, 0.9, yend + 0.30, 11.8, 0.9, [
  ("So each month, about 12.5% of households are new, 37.5% sit in months "
   "2–4, and 50% are returning in months 5–8. Month-to-month "
@@ -668,19 +693,19 @@ rows = [
  "RULE",
  row(pl("Roster carried forward by the interviewer"),
      pl("No person identifier at all")),
- ("GAP", 0.30),
+ ("GAP", 0.22),
  row(pl("Each member keeps a line number"),
      pl("Household id + dwelling id + line number reconstruct it")),
- ("GAP", 0.65),
+ ("GAP", 0.42),
  row(pl("Occupation asked by dependent interviewing month to month"),
      pl("Validated on sex, race, age advancing 0–2 years")),
- ("GAP", 0.65),
+ ("GAP", 0.42),
  row(pl("Identity is known", True, NAVY),
      pl("Identity is inferred. A mover replaced by someone of the same sex "
         "and similar age can slip through", True, BURG)),
- ("GAP", 0.95),
+ ("GAP", 0.60),
 ]
-table(s, cols, rows, 1.60, size=15, rowh=0.5)
+table(s, cols, rows, 1.75, size=14.5, rowh=0.42)
 backbtn(s, "maindisadv")
 
 s = new_slide(title="How much is lost in linking, and who", key="applink")
@@ -721,7 +746,7 @@ rows = [
  row(pl("Out of the LF, under 55"), pl("23.7"), pl("10.1")),
  row(pl("Unemployed"), pl("11.1"), pl("4.8")),
 ]
-yend = table(s, cols, rows, 1.50, size=13, rowh=0.42)
+yend = table(s, cols, rows, 1.55, size=13, rowh=0.35)
 add_text(s, 0.6, yend + 0.20, 6.0, 1.2,
          [("TFS is the Teacher Follow-up Survey 2021–22, the follow-up "
            "of the 2020–21 NTPS. Sources: NCES 2024-039, table A-8, and "
@@ -755,7 +780,7 @@ rows = [
  row(pl("Memo: occupations where fewer than half of US workers "
         "hold a college degree (in red)", False, BURG), pl("36.3", True, BURG)),
 ]
-yend = table(s, cols, rows, 1.60, size=15.5, rowh=0.52)
+yend = table(s, cols, rows, 1.70, size=15, rowh=0.42)
 add_text(s, 0.9, yend + 0.30, 11.8, 1.2,
          [("Calendar 2020\u20132024; 344 employed leavers. The college-degree "
            "share of each destination occupation is computed among all "
@@ -790,11 +815,11 @@ def aer_table(s, header3, rows7, bottom, note):
         for i, cfe in enumerate(coefs):
             add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3,
                      [(cfe, 12.5, INK, False, False, 0)], align=R)
-        y += 0.28
+        y += 0.245
         for i, se in enumerate(ses):
             add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3,
                      [(se, 11, MUT, False, False, 0)], align=R)
-        y += 0.29
+        y += 0.255
     rule(s, x0, y + 0.02, x1 - x0, 0.7, INK)
     y += 0.11
     for lab, vals in bottom:
@@ -802,7 +827,7 @@ def aer_table(s, header3, rows7, bottom, note):
         for i, v in enumerate(vals):
             add_text(s, 5.5 + i * 2.05, y, 1.85, 0.3,
                      [(v, 12.5, INK, False, False, 0)], align=R)
-        y += 0.32
+        y += 0.28
     rule(s, x0, y + 0.02, x1 - x0, 1.3, INK)
     add_text(s, 1.1, y + 0.16, 10.4, 0.6, [(note, 10.5, MUT, False, True, 0)])
 
@@ -863,7 +888,7 @@ rows = [
  "RULE",
  row(pl("Sociodemographics"), pl("yes", True, NAVY)),
 ]
-table(s, cols, rows, 1.70, size=16.5, rowh=0.56)
+table(s, cols, rows, 1.80, size=16, rowh=0.46)
 backbtn(s, "maineq")
 
 # ---- wire the buttons, attach notes ----

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 import paperstyle  # noqa: F401
 import matplotlib as mpl
-mpl.rcParams.update({"font.serif": ["STIXGeneral", "DejaVu Serif"],
+mpl.rcParams.update({"font.serif": ["EB Garamond", "STIXGeneral", "DejaVu Serif"],
                      "mathtext.fontset": "stix"})
 
 SC = "report/figures_deck"

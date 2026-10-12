@@ -18,7 +18,7 @@ NAVY = "#000000"      # panel titles in black
 
 mpl.rcParams.update({
     "font.family": "serif",
-    "font.serif": ["DejaVu Serif", "Times New Roman", "Times"],
+    "font.serif": ["EB Garamond", "DejaVu Serif", "Times New Roman", "Times"],
     "mathtext.fontset": "dejavuserif",
     "text.color": INK,
     "axes.edgecolor": INK, "axes.linewidth": 0.8,

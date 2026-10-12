@@ -6,7 +6,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paperstyle  # noqa: F401
-mpl.rcParams.update({"font.serif": ["STIXGeneral", "DejaVu Serif"],
+mpl.rcParams.update({"font.serif": ["EB Garamond", "STIXGeneral", "DejaVu Serif"],
                      "mathtext.fontset": "stix"})
 SC = "report/figures_deck"
 NAVY, INK, MUT = "#1F4E79", "#1A2430", "#55606B"
