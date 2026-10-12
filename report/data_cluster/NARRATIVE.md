@@ -49,8 +49,34 @@ clickable equivalents in the PPTX.
    single 17.5, month pairs 15.4, pair 13.4, triple 11.7, strict 10.5,
    annual recall 8.6.
 
-## Block 1 - Leaving rate: how many leave
-(user to continue narration here)
+## Block structure after Block 0
+- Block 1: Leaving rate - how many leave
+- Block 2: Composition - where they go
+- Block 3: Correlations - why they leave
+
+## Block 1 - Leaving rate: how many leave  (THREE things only)
+1. Slide: US leaving-rate evolution alone (g2_evolution).
+   SPEAKER NOTES (not on slide): stable and similar to other OECD
+   countries; EAG averages for countries with data: 6.6 (2016 data,
+   EAG 2021) -> 6.5 (2022/23, EAG 2025) -> 6.4 (2024/25, EAG 2026)
+   [corrected from dictated "6.9 in 2015"]. Countries with long series
+   (New Zealand, Sweden, Israel, Norway) also look stable [verify for
+   notes]. The US rate is higher than most other countries.
+   APPENDIX (button): private vs public chart (pubpriv_series); private
+   is where mobility is highest.
+2. NEW slide: why the comparison professions are comparable. Academic
+   paper-style table, no subtitles: variables (gender, salary, whatever
+   works), means and differences, teachers vs nurses / social workers /
+   accountants. Must actually support "they are similar".
+3. Slide: existing comparison chart (teachers vs nurses, social workers,
+   accountants = leave_professions_deck).
+   APPENDIX (button): same chart with ~5 additional professions
+   (candidates: lawyers, pharmacists, physical therapists, physicians,
+   +1) AND a line for the average of all other professions.
+   [Series exist for lawyers; others need computing from the master.]
+
+## Blocks 2-3 narration
+(user to continue here)
 
 ## Appendix questions captured so far
 - How is unemployment computed from the CPS? Only the March supplement or
