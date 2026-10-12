@@ -75,8 +75,59 @@ clickable equivalents in the PPTX.
    +1) AND a line for the average of all other professions.
    [Series exist for lawyers; others need computing from the master.]
 
-## Blocks 2-3 narration
-(user to continue here)
+## Block 2 - Composition: where they go
+Problem now: charts are inconsistent. Fix:
+- ONE master chart: of every 100 leavers, AVERAGE OF THE LAST 5 YEARS:
+  another job (~1/3) / out of LF 55+ (trivial, do not open) /
+  out of LF under 55 / unemployed. Every later opening must branch from
+  THESE SAME NUMBERS.
+- Opening 1 (the employed): destination professions list (keep, with the
+  red-circle nuance below).
+- Opening 2 (OLF under 55): mothers / non-mothers / men, AND ALSO fathers
+  (paternity, not just maternity), AND whether they are STUDYING
+  (leaving to study is not leaving to not work).
+- On the master chart: short text with the general message and the policy
+  margin: how many of the leavers are plausibly retrievable (mothers
+  probably not - do not write that explicitly). If policy text sits ugly
+  on charts, give the messages their own slide.
+- APPENDIX: comparison of our openings/proportions with the NCES Teacher
+  Follow-up Survey destinations - how our numbers square with theirs.
+- On the all-professions destinations slide: RED CIRCLES around
+  destinations that likely require no prior degree (sales, commercial...)
+  - where teachers tend to go.
+
+## Block 3 - Correlations: why they leave
+- Equation slide: clean, no title clutter; the equation only; variables
+  as vectors (x'beta), NOT described in text; explained verbally
+  component by component. Nothing else on the slide.
+- Main specification: LINEAR PROBABILITY MODEL (was probit).
+  - Check fitted probabilities bounded in [0,1]; show the check chart in
+    appendix. If not bounded, keep probit as main.
+  - More sociodemographic variables: health/disability, years of
+    education, high/low household income dummy, and similar.
+  - Redo the coefficient plot with LPM coefficients.
+- APPENDIX tables: (a) LPM without time FE, plus a column with state FE;
+  (b) main LPM vs logit vs probit (AMEs).
+- Pay sequence in the main deck: teachers vs rest pay evolution; exits
+  concentrated in the lowest deciles; then pensions with ONLY the state
+  scatter. ALL other pay/pension charts to the appendix.
+- Cyclicality: ONE clear chart only, overall (not by state) - e.g. the
+  unemployment series vs the leaving rate; drop the two-panel version
+  (slopes unreadable; the grey slope does not matter).
+- The what-the-CPS-sees framework table moves to the APPENDIX; the
+  conclusions still acknowledge unobserved motives.
+- Close: conclusions - what we learn and what it says for policy:
+  flexibility matters, economic security matters, pension coverage
+  matters, it is precisely [the low-attached/low-paid] teachers who
+  leave; we only observe some motives (financial, life-cycle,
+  demographics; others unobserved); given what we learn, what could
+  bring teachers back.
+
+## Window notes
+- Flow master chart: last 5 calendar years available (2020-2024).
+- Extended LPM runs on ASEC CSV years 2019-2025 (cal 2018-2024), the
+  years with state, health, disability, household income and enrollment
+  available in the public CSVs.
 
 ## Appendix questions captured so far
 - How is unemployment computed from the CPS? Only the March supplement or
