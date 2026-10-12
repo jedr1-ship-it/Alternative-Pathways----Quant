@@ -58,6 +58,9 @@ for b in ["edu","care","prof","rest"]:
         items.append(("row", f"{r.share:.1f}", short(r.label), col))
 
 NCOL, NROW = 6, 25
+from matplotlib.patches import FancyBboxPatch
+REST = META["rest"][1]
+rest_rows = 0
 fig, ax = plt.subplots(figsize=(12.4, 5.45))
 ax.set_xlim(0, NCOL); ax.set_ylim(0, NROW+1); ax.axis("off")
 col = row = 0
@@ -70,6 +73,10 @@ for it in items:
         x, y = col+0.02, NROW - row
         ax.text(x, y, it[1], fontsize=6.1, color=it[2], fontweight="bold",
                 ha="left", va="top", family="sans-serif")
+        if it[2] == REST:
+            ax.add_patch(FancyBboxPatch((x-0.03, y-0.62), 0.78, 0.8,
+                boxstyle="round,pad=0.06", fill=False, edgecolor="#C0392B",
+                lw=1.1, zorder=5))
         row += 2
     else:
         _, sh, nmm, c = it
@@ -78,9 +85,16 @@ for it in items:
                 fontweight="bold", family="sans-serif")
         ax.text(x+0.145, y, nmm, fontsize=6.2, color=INK, ha="left", va="top",
                 family="sans-serif")
+        if c == REST and rest_rows < 4:
+            ax.add_patch(FancyBboxPatch((x-0.02, y-0.72), 0.95, 0.82,
+                boxstyle="round,pad=0.04", fill=False, edgecolor="#C0392B",
+                lw=0.9, zorder=5))
+            rest_rows += 1
         row += 1
         if row >= NROW:
             col, row = col+1, 0
+ax.text(NCOL-0.02, NROW+0.75, "circled in red: destinations that typically do not require a college degree",
+        fontsize=6.4, color="#C0392B", ha="right", va="top", family="sans-serif")
 fig.subplots_adjust(left=0.005, right=0.995, top=0.99, bottom=0.01)
 fig.savefig(f"{OUT}/occ_all_slide.pdf")
 fig.savefig(f"{OUT}/occ_all_slide.png", dpi=220)
