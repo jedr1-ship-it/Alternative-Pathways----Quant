@@ -44,22 +44,18 @@ for r in ws.iter_rows(min_row=9, max_col=4):
         continue
     rows.append((yr, 100 * mov / tot))
 mig = pd.DataFrame(rows, columns=["year", "rate"]).drop_duplicates("year")
-mig = mig.sort_values("year").set_index("year")
-# the Census did not publish 1972-75 and 1977-80: break the line there
-mig = mig.reindex(range(int(mig.index.min()), 2024))
+mig = mig.sort_values("year").reset_index(drop=True)
 fig, ax = plt.subplots(figsize=(11.4, 5.2))
-ax.plot(mig.index, mig.rate, color=NAVY, lw=1.8)
-ax.plot(mig.index, mig.rate, "o", ms=3.2, color=NAVY)
-mig = mig.dropna().reset_index()
-ax.annotate("not published\n1972–75, 1977–80", (1976, 14.6),
+ax.bar(mig.year, mig.rate, width=0.82, color=NAVY)
+ax.bar(mig.year.iloc[-1], mig.rate.iloc[-1], width=0.82, color=BURG)
+ax.annotate("not published\n1972–75, 1977–80", (1976, 10.0),
             ha="center", fontsize=9.5, color=MUT)
-ax.plot(2023, mig.rate.iloc[-1], "o", ms=7, color=NAVY)
-ax.annotate(f"2023:  {mig.rate.iloc[-1]:.1f}%", (2023, mig.rate.iloc[-1]),
-            xytext=(-10, 14), textcoords="offset points", ha="right",
-            fontsize=13, fontweight="bold", color=NAVY)
+ax.annotate(f"2023\n{mig.rate.iloc[-1]:.1f}%", (2023, mig.rate.iloc[-1] + 0.4),
+            ha="center", va="bottom", fontsize=12, fontweight="bold",
+            color=BURG)
 hi = mig.loc[mig.rate.idxmax()]
-ax.annotate(f"{hi.rate:.0f}% in {int(hi.year)}", (hi.year, hi.rate),
-            xytext=(6, 6), textcoords="offset points", fontsize=11, color=MUT)
+ax.annotate(f"{hi.rate:.0f}% in {int(hi.year)}", (hi.year + 1.5, hi.rate + 0.4),
+            ha="left", fontsize=11, color=MUT)
 ax.set_ylim(0, 24)
 ax.set_xlim(1947, 2026)
 ax.set_ylabel("share who changed residence in the year, percent",

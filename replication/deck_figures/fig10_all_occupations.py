@@ -28,6 +28,15 @@ agg = t.groupby("PEIOOCC").agg(w=("WGT","sum"), n=("WGT","size"))
 agg["share"] = agg.w/agg.w.sum()*100
 agg["bucket"] = [bucket(c) for c in agg.index]
 agg["label"] = [lab.get(int(c), f"code {int(c)}") for c in agg.index]
+# empirical credential requirement: share of all employed US workers 25-64
+# holding a BA+, by destination occupation (ASEC 2021-2025)
+bash = pd.read_csv("outputs/occ_ba_share.csv").set_index("PEIOOCC")["ba_share"]
+agg["ba_share"] = [bash.get(int(c), float("nan")) for c in agg.index]
+agg["nodegree"] = (agg.ba_share < 0.5) & (~agg.bucket.isin(["edu", "care"]))
+red_sh = agg.loc[agg.nodegree, "share"].sum()
+org_sh = agg.loc[agg.bucket.isin(["edu", "care"]), "share"].sum()
+print(f"red (BA share<50%, outside edu/care): {red_sh:.1f}% of employed leavers")
+print(f"orange (education and care): {org_sh:.1f}%")
 
 FIX = {"Secretaries and administrative assistants, except legal, medical, and executive":
        "Secretaries and admin. assistants",
@@ -55,14 +64,21 @@ for b in ["edu","care","prof","rest"]:
     nm, col = META[b]
     items.append(("hdr", f"{nm} — {d.share.sum():.0f}%", col))
     for _, r in d.iterrows():
-        items.append(("row", f"{r.share:.1f}", short(r.label), col))
+        items.append(("row", f"{r.share:.1f}", short(r.label), col,
+                      bool(r.nodegree)))
 
 NCOL, NROW = 6, 25
 from matplotlib.patches import FancyBboxPatch
 REST = META["rest"][1]
-rest_rows = 0
+EDU, CARE = META["edu"][1], META["care"][1]
+RED, ORG = "#C0392B", "#E67E22"
 fig, ax = plt.subplots(figsize=(12.4, 5.45))
-ax.set_xlim(0, NCOL); ax.set_ylim(0, NROW+1); ax.axis("off")
+ax.set_xlim(0, NCOL); ax.set_ylim(0, NROW+2.6); ax.axis("off")
+
+def band(x, y, color, alpha, h=0.86):
+    ax.add_patch(plt.Rectangle((x-0.02, y-0.76), 0.96, h, color=color,
+                               alpha=alpha, lw=0, zorder=1))
+
 col = row = 0
 for it in items:
     if it[0] == "hdr":
@@ -72,29 +88,24 @@ for it in items:
             row += 1          # blank slot above a mid-column header
         x, y = col+0.02, NROW - row
         ax.text(x, y, it[1], fontsize=6.1, color=it[2], fontweight="bold",
-                ha="left", va="top", family="sans-serif")
-        if it[2] == REST:
-            ax.add_patch(FancyBboxPatch((x-0.03, y-0.62), 0.78, 0.8,
-                boxstyle="round,pad=0.06", fill=False, edgecolor="#C0392B",
-                lw=1.1, zorder=5))
+                ha="left", va="top", family="sans-serif", zorder=5)
         row += 2
     else:
-        _, sh, nmm, c = it
+        _, sh, nmm, c, nodeg = it
         x, y = col+0.02, NROW - row
         ax.text(x, y, sh, fontsize=6.2, color=c, ha="left", va="top",
-                fontweight="bold", family="sans-serif")
+                fontweight="bold", family="sans-serif", zorder=5)
         ax.text(x+0.145, y, nmm, fontsize=6.2, color=INK, ha="left", va="top",
-                family="sans-serif")
-        if c == REST and rest_rows < 4:
-            ax.add_patch(FancyBboxPatch((x-0.02, y-0.72), 0.95, 0.82,
-                boxstyle="round,pad=0.04", fill=False, edgecolor="#C0392B",
-                lw=0.9, zorder=5))
-            rest_rows += 1
+                family="sans-serif", zorder=5)
+        if nodeg:
+            band(x, y, RED, 0.12)
         row += 1
         if row >= NROW:
             col, row = col+1, 0
-ax.text(NCOL-0.02, NROW+0.75, "circled in red: destinations that typically do not require a college degree",
-        fontsize=6.4, color="#C0392B", ha="right", va="top", family="sans-serif")
+ax.text(NCOL-0.02, NROW+2.35,
+        "red: fewer than half of US workers in the occupation hold a college degree (ASEC 2021\u20132025)",
+        fontsize=8.0, color=RED, ha="right", va="top", fontweight="bold",
+        family="sans-serif")
 fig.subplots_adjust(left=0.005, right=0.995, top=0.99, bottom=0.01)
 fig.savefig(f"{OUT}/occ_all_slide.pdf")
 fig.savefig(f"{OUT}/occ_all_slide.png", dpi=220)
