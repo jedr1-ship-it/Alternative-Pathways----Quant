@@ -64,7 +64,7 @@ for prof in ["Teachers", "Registered nurses", "Social workers", "Counselors"]:
     for y in years:
         win = dp[dp["cal_year"] == y]
         winw = dpw[dpw["cal_year"] == y]
-        if len(win) < 120:
+        if len(win) < 90:
             continue
         p, se = pooled(win, "leave")
         pw, sew = pooled(winw, "outlf")
@@ -124,6 +124,6 @@ T1 = "Rates of Leaving the Occupation, Teachers vs. Comparable Professions, 1997
 T2 = "Labor Force Exit of Women, Teachers vs. Comparable Professions, 1997-2024"
 draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 22)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_full", 9, smooth=True)
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 21.5, smooth=True, deck=True)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 22.5, smooth=True, deck=True)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_deck", 9, smooth=True, deck=True)
 print(P[P.prof == "Teachers"][["cal_year", "leave", "se"]].tail(3).round(2).to_string(index=False))
