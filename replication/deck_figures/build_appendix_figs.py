@@ -270,20 +270,18 @@ ax.axvline(2004.6, ls=(0, (2, 2)), color=MUT, lw=1.1, zorder=1)
 ax.annotate("linkable household IDs begin",
             (2004.3, 22.6), fontsize=10.5, color=MUT, ha="right",
             va="top", style="italic")
-# each TFS wave is placed at its exit year: the wave surveyed in Y-(Y+1)
-# follows teachers of the (Y-1)-Y school year, who left around summer Y
-NC_Y, NC_V = [2000, 2004, 2008, 2012, 2021], [7.4, 8.4, 8.0, 7.7, 8.0]
+# waves at the survey year, except 2000-01, placed at its exit year
+# (2000) because the 2001 point of the recall series carries the
+# recession spike the wave predates
+NC_Y, NC_V = [2000, 2005, 2009, 2013, 2022], [7.4, 8.4, 8.0, 7.7, 8.0]
 ax.plot(NC_Y, NC_V, ls="none", marker="D", ms=10, mfc="black",
         mec="white", mew=1.6, zorder=6)
 ax.annotate("NCES follow-up survey\n(official benchmark)   8.0",
             (2024.3, 6.4), fontsize=12.5, color="black", va="center",
             fontweight="bold")
 for x, v in zip(NC_Y, NC_V):
-    dy = 10 if x == 2021 else -16
-    va = "bottom" if x == 2021 else "top"
-    ax.annotate(f"{v}", (x, v), xytext=(0, dy), textcoords="offset points",
-                ha="center", va=va, fontsize=10.5, color="black",
-                fontweight="bold")
+    ax.annotate(f"{v}", (x, v), xytext=(0, -16), textcoords="offset points",
+                ha="center", fontsize=10.5, color="black", fontweight="bold")
 ax.set_xlim(1996.5, 2031.5)
 ax.set_ylim(0, 24)
 ax.set_xticks(range(1997, 2025, 3))
