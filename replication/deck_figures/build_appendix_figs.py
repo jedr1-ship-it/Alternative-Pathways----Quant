@@ -252,13 +252,21 @@ series = [("single", REDS[0], "-", 1.7, "Single   17.5"),
           ("month_pairs", MUT, (0, (4, 2)), 1.7, "Month pairs   15.4"),
           ("pair", REDS[1], "-", 1.7, "Pair   13.4"),
           ("triple", REDS[2], "-", 1.7, "Triple   11.7"),
-          ("strict", REDS[3], "-", 2.5, "Strict   10.5"),
-          ("annual_recall", NAVY, "-", 2.7, "Annual recall   8.6")]
+          ("strict", REDS[3], "-", 2.5, "Strict   10.5")]
 for col, c, ls, lw, lab in series:
     ax.plot(L.base_year, L[col], color=c, ls=ls, lw=lw)
     ax.annotate(lab, (2024.3, L[col].iloc[-1]), fontsize=12.5, color=c,
                 va="center", fontweight="bold")
-NC_Y, NC_V = [2009, 2013, 2022], [8.0, 7.7, 8.0]
+# annual recall runs from 1997 (the March supplement needs no panel) with
+# its 95 percent confidence band
+P = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
+P = P[P.cal_year <= 2024]
+ax.fill_between(P.cal_year, P.leaver_ba - 1.96 * P.se_ba,
+                P.leaver_ba + 1.96 * P.se_ba, color=NAVY, alpha=0.10, lw=0)
+ax.plot(P.cal_year, P.leaver_ba, color=NAVY, lw=2.7)
+ax.annotate("Annual recall   8.6", (2024.3, P.leaver_ba.iloc[-1]),
+            fontsize=12.5, color=NAVY, va="center", fontweight="bold")
+NC_Y, NC_V = [2001, 2005, 2009, 2013, 2022], [7.4, 8.4, 8.0, 7.7, 8.0]
 ax.plot(NC_Y, NC_V, ls="none", marker="D", ms=10, mfc="black",
         mec="white", mew=1.6, zorder=6)
 ax.annotate("NCES follow-up survey\n(official benchmark)   8.0",
@@ -267,9 +275,9 @@ ax.annotate("NCES follow-up survey\n(official benchmark)   8.0",
 for x, v in zip(NC_Y, NC_V):
     ax.annotate(f"{v}", (x, v), xytext=(0, -16), textcoords="offset points",
                 ha="center", fontsize=10.5, color="black", fontweight="bold")
-ax.set_xlim(2004.5, 2031.5)
+ax.set_xlim(1996.5, 2031.5)
 ax.set_ylim(0, 24)
-ax.set_xticks(range(2005, 2025, 3))
+ax.set_xticks(range(1997, 2025, 3))
 ax.set_ylabel("teachers leaving per year, percent", fontsize=12.5, color=INK)
 for sp in ("top", "right"):
     ax.spines[sp].set_visible(False)
