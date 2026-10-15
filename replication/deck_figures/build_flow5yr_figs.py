@@ -170,8 +170,8 @@ C1, C2, C3 = CORAL, "#D3766F", "#E2A19B"
 bot2 = [("Baby born\nthat year", baby, C1, "white"),
         ("Youngest\nunder 6", u6, C2, "white"),
         ("Youngest\n6–17", k617, C3, INK),
-        ("Fathers", father, "#5B7BA6", "white"),
         ("Women, no own\nchild at home", nok, LIGHT, INK),
+        ("Fathers", father, "#5B7BA6", "white"),
         ("Men, no own\nchild at home", mennok, GRAYD, "white")]
 sc = 100.0 / olfu
 x = 0
@@ -181,10 +181,9 @@ for lab, v, c, tc in bot2:
     ax.barh([Y0], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
             color=tc, fontsize=10, fontweight="bold")
-    if lab != "Fathers":
-        yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.42)
-        ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=8.4,
-                color=INK)
+    yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.42)
+    ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=8.4,
+            color=INK)
     lvl += 1
     x += w
 ax.plot([x_yl0, 0], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=1.0)
@@ -194,19 +193,14 @@ ax.text(-1.2, Y1, "Of every 100\nleavers", ha="right", va="center",
 ax.text(-1.2, Y0, "Who leaves the labor\nforce before 55", ha="right",
         va="center", fontsize=9.6, color=INK)
 mb = baby + u6 + k617
-pb = mb + father
-xm = mb * sc
-xp = pb * sc
-ax.text(xm / 2, Y0 + H / 2 + 0.10, "Mothers, child at home", ha="center",
+xb = mb * sc
+ax.text(xb / 2, Y0 + H / 2 + 0.10, "Mothers, child at home", ha="center",
         va="bottom", fontsize=8.8, color=CORAL, fontweight="bold")
-ax.text(xm + (xp - xm) / 2, Y0 + H / 2 + 0.10, "Fathers", ha="center",
-        va="bottom", fontsize=8.8, color="#5B7BA6", fontweight="bold")
 yb = Y0 - H / 2 - 0.80
-ax.plot([0, 0, xp, xp], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
-ax.text(xp / 2, yb - 0.07,
-        f"{pb * sc:.0f}% of them are parents with a child at home "
-        f"({mb:.0f} mothers and {father:.0f} fathers, of the {olfu:.0f} "
-        f"of every 100 leavers)",
+ax.plot([0, 0, xb, xb], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
+ax.text(xb / 2, yb - 0.07,
+        f"{mb * sc:.0f}% of them are mothers with a child at home "
+        f"({mb:.0f} of the {olfu:.0f} of every 100 leavers)",
         ha="center", va="top", fontsize=9.4, color=INK, fontweight="bold")
 ax.set_xlim(-14, 101)
 ax.set_ylim(-0.80, 2.35)

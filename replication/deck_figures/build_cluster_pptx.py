@@ -489,8 +489,10 @@ buttons_row(s, [("proportions", "appoccprop")])
 # ================= 20. flow olf55 =================
 s = new_slide(title="Who leaves the labor force before 55 (average, 2020–2024)")
 chart(s, "flow_olf55_5yr", (0.8, 1.15, 11.7, 4.95))
-message(s, "Early labor-force exit is mostly a parenting story. 64% of "
-        "this group are parents with a child at home, most of them mothers.")
+message(s, "Early labor-force exit is mostly a family story. More than "
+        "half of this group are mothers with a child at home.")
+REG["mainolf"] = s
+buttons_row(s, [("pooled 1997–24", "appolfpooled")])
 NOTES[20] = ("Salida temprana, historia de familia. Mas de la mitad madres "
              "con hijo en casa (13 de los 24).")
 
@@ -771,6 +773,15 @@ bullets(s, [
   "is the single year 2021–22.")],
  y=1.95, size=12, gap=10, x=7.1, w=5.7, numbered=True)
 backbtn(s, "mainflow")
+
+s = new_slide(title="The same cascade, pooled 1997–2024", key="appolfpooled")
+chart(s, "flow_olf55_pooled", (0.8, 1.15, 11.7, 4.95))
+add_text(s, 0.9, 6.25, 11.8, 1.0, [
+ ("Over the whole period (6,931 leavers) the picture is the same: 29 of "
+  "every 100 leavers exit the labor force before 55, and 53% of them are "
+  "mothers with a child at home (15 of the 29). The five-year window is "
+  "not driving the composition.", 13.5, INK, False, False, 0)])
+backbtn(s, "mainolf")
 
 s = new_slide(title="The same flow, pooled 1997–2024", key="appflowpooled")
 chart(s, "flow_employed_pooled", (0.8, 1.15, 11.7, 4.95))
