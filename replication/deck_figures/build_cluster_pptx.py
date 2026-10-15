@@ -587,10 +587,10 @@ bullets(s, [
  "Job security is fundamental to retain a teacher, our analysis shows "
  "that a full-year contract and pension coverage are strongly correlated "
  "with a lower teacher leaving rate.",
- "Most leavers concentrate in the bottom deciles of income and the ones "
- "that switch jobs do not necessarily earn more, suggesting that on top "
- "of better working conditions the financial margin still has room as a "
- "retention incentive in the US.",
+ "Leaving is concentrated at the bottom of the income distribution, and "
+ "those who switch jobs do not necessarily earn more afterwards. Pay, "
+ "alongside working conditions, still has room as a retention lever in "
+ "the US.",
  "The probability of leaving is highest at the start of the career, "
  "making mentoring and accompaniment a priority for retention policies."],
  y=1.55, size=19, gap=30)
