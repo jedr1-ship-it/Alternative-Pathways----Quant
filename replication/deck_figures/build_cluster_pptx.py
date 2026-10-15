@@ -437,29 +437,29 @@ s = new_slide(title="Comparable professions: who we compare teachers with")
 cols = [(0.9, 4.0, L), (5.1, 1.8, R), (7.0, 1.8, R), (8.9, 1.9, R), (10.9, 1.7, R)]
 rows = [
  row(pl(""), pl("Teachers", True), pl("Nurses", True),
-     pl("Social workers", True), pl("Accountants", True)),
+     pl("Social workers", True), pl("Counselors", True)),
  "RULE",
- row(pl("Female (%)"), pl("76.0"), pl("88.2"), pl("82.9"), pl("57.0")),
- row(pl("Average age (years)"), pl("44.4"), pl("43.1"), pl("43.4"), pl("44.1")),
- row(pl("Master’s or higher (%)"), pl("51.9"), pl("25.9"), pl("50.8"), pl("31.3")),
- row(pl("Public sector (%)"), pl("70.2"), pl("12.3"), pl("43.1"), pl("11.0")),
- row(pl("Weeks worked"), pl("46.6"), pl("49.3"), pl("49.6"), pl("49.5")),
- row(pl("Median annual wage ($)"), pl("56,000"), pl("80,000"), pl("57,000"), pl("77,000")),
+ row(pl("Female (%)"), pl("76.0"), pl("88.2"), pl("82.9"), pl("76.2")),
+ row(pl("Average age (years)"), pl("44.4"), pl("43.1"), pl("43.4"), pl("43.2")),
+ row(pl("Master’s or higher (%)"), pl("51.9"), pl("25.9"), pl("50.8"), pl("67.8")),
+ row(pl("Public sector (%)"), pl("70.2"), pl("12.3"), pl("43.1"), pl("36.7")),
+ row(pl("Weeks worked"), pl("46.6"), pl("49.3"), pl("49.6"), pl("48.5")),
+ row(pl("Median annual wage ($)"), pl("56,000"), pl("80,000"), pl("57,000"), pl("55,000")),
  "RULE",
- row(pl("Observations"), pl("28,932"), pl("13,107"), pl("3,407"), pl("6,897")),
+ row(pl("Observations"), pl("28,932"), pl("13,107"), pl("3,407"), pl("3,962")),
 ]
 yend = table(s, cols, rows, 1.55, size=15, rowh=0.40)
 add_text(s, 0.9, yend + 0.16, 11.8, 0.4,
          [("College graduates, pooled 2015–2024, weighted; wages from 2020–2024.",
            12.5, MUT, False, True, 0)])
-message(s, "Teaching is similar to nursing and social work in age and "
-        "gender, and to social work in education. It differs in pay, weeks "
-        "worked and the public sector.", y=6.55, size=14.5)
+message(s, "Teaching is similar to counseling in gender and pay, and to "
+        "social work in age and education. What sets teaching apart is the "
+        "public sector and the shorter work year.", y=6.55, size=14.5)
 
 # ================= 16. professions =================
 s = new_slide(title="Leaving the occupation, by profession", key="mainprofs")
 chart(s, "leave_professions_deck", (0.7, 1.2, 11.9, 4.85))
-message(s, "Teachers leave at about the same rate as comparable "
+message(s, "Teachers leave at rates similar to or below the comparable "
         "professions. The distinctive part of teaching is who leaves and "
         "where they go, not how many.")
 buttons_row(s, [("more professions", "appprofs")])
@@ -560,9 +560,9 @@ chart(s, "ame_ext", (0.6, 1.12, 12.1, 6.1))
 # ================= 26-29 =================
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
-message(s, "Teacher pay has not grown in 25 years. Teachers sit 4% below "
-        "their 1997 level, while comparable professions grew by about 12% "
-        "on average.")
+message(s, "Teacher pay has not grown in 25 years, and neither has it in "
+        "the closest helping professions. The typical graduate now "
+        "out-earns a teacher by $30,000 a year.")
 
 s = new_slide(title="Leaving, by position in the teacher pay distribution")
 chart(s, "pay3_deciles_deck", (0.9, 1.2, 11.5, 4.85))

@@ -57,7 +57,7 @@ ax = axes[1]
 STYLE = {"Teachers": (BLUE, 2.6, "solid"),
          "Registered nurses": ("#6E7680", 1.6, (0, (5, 2))),
          "Social workers": ("#8A9096", 1.6, (0, (1, 1.6))),
-         "Accountants": ("#4A4F55", 1.6, (0, (6, 2, 1, 2)))}
+         "Counselors": ("#4A4F55", 1.6, (0, (6, 2, 1, 2)))}
 ends = {p: idx[p].iloc[-1] for p in STYLE}
 for p_, (c, lw, ls) in STYLE.items():
     ax.plot(idx.index, idx[p_], color=c, lw=lw, ls=ls, solid_capstyle="round")
@@ -75,7 +75,7 @@ ax.set_title("Teachers vs. the comparable professions", fontsize=11,
              color=DARK, pad=10)
 base(ax)
 ax.set_xlim(1996.5, 2036)
-axes[0].set_ylim(90, 128)
+axes[0].set_ylim(82, 126)
 fig.tight_layout(w_pad=2.2)
 fig.savefig(f"{OUT}/msgA3.png", dpi=200)
 fig.savefig(f"{OUT}/msgA3.pdf")

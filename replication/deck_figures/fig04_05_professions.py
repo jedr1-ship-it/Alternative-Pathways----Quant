@@ -13,13 +13,14 @@ def prof_codes(ay):
         return {"Teachers": {155, 156, 157, 158, 159},
                 "Registered nurses": {95},
                 "Social workers": {174},
-                "Accountants": {23}}
+                "Counselors": {163}}
     rn = {3130} if ay <= 2010 else {3255, 3256, 3257, 3258}
     sw = {2010} if ay <= 2019 else {2011, 2012, 2013, 2014}
+    co = {2000} if ay <= 2019 else {2001, 2002, 2003, 2004, 2005, 2006}
     return {"Teachers": {2300, 2310, 2320, 2330} | ({2340} if ay <= 2019 else {2360}),
             "Registered nurses": rn,
             "Social workers": sw,
-            "Accountants": {800}}
+            "Counselors": co}
 
 M = pd.read_parquet("data/processed/asec_master.parquet",
                     columns=["asec_year", "OCCUP", "PEIOOCC", "A_LFSR",
@@ -57,7 +58,7 @@ rows = []
 years = range(1997, 2025)
 # raw annual rates: the teacher series must match g2_evolution exactly,
 # so no pooling across years (comparators carry their honest wider CIs)
-for prof in ["Teachers", "Registered nurses", "Social workers", "Accountants"]:
+for prof in ["Teachers", "Registered nurses", "Social workers", "Counselors"]:
     dp = L[L["prof"] == prof]
     dpw = dp[dp["female"] == 1]
     for y in years:
@@ -72,7 +73,7 @@ for prof in ["Teachers", "Registered nurses", "Social workers", "Accountants"]:
 P = pd.DataFrame(rows)
 
 STYLE = {"Teachers": (BLUE, 2.6), "Registered nurses": (GREEN, 1.8),
-         "Social workers": (CORAL, 1.8), "Accountants": (GRAY, 1.8)}
+         "Social workers": (CORAL, 1.8), "Counselors": (GRAY, 1.8)}
 
 def draw(col, secol, ylab, title, fname, ymax, smooth=False, deck=False):
     fig, ax = plt.subplots(figsize=(9.4, 4.7))
@@ -117,8 +118,8 @@ def draw(col, secol, ylab, title, fname, ymax, smooth=False, deck=False):
 
 T1 = "Rates of Leaving the Occupation, Teachers vs. Comparable Professions, 1997-2024"
 T2 = "Labor Force Exit of Women, Teachers vs. Comparable Professions, 1997-2024"
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 20)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 22)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_full", 9, smooth=True)
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 20, deck=True)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 22, deck=True)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_deck", 9, smooth=True, deck=True)
 print(P[P.prof == "Teachers"][["cal_year", "leave", "se"]].tail(3).round(2).to_string(index=False))
