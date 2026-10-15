@@ -110,6 +110,10 @@ def draw(col, secol, ylab, title, fname, ymax, smooth=False, deck=False):
     for s in ("top", "right", "left"):
         ax.spines[s].set_visible(False)
     ax.spines["bottom"].set_color("#D8DBDE")
+    if smooth:
+        ax.annotate("3-year moving averages", (0.01, 0.02),
+                    xycoords="axes fraction", fontsize=9.5, color="#8A9096",
+                    style="italic")
     if not deck:
         ax.set_title(title, fontsize=12.5, color=DARK, pad=12)
     fig.tight_layout()
@@ -120,6 +124,6 @@ T1 = "Rates of Leaving the Occupation, Teachers vs. Comparable Professions, 1997
 T2 = "Labor Force Exit of Women, Teachers vs. Comparable Professions, 1997-2024"
 draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 22)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_full", 9, smooth=True)
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 22, deck=True)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 21.5, smooth=True, deck=True)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_deck", 9, smooth=True, deck=True)
 print(P[P.prof == "Teachers"][["cal_year", "leave", "se"]].tail(3).round(2).to_string(index=False))
