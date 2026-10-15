@@ -266,9 +266,9 @@ ax.fill_between(P.cal_year, P.leaver_ba - 1.96 * P.se_ba,
 ax.plot(P.cal_year, P.leaver_ba, color=NAVY, lw=2.7)
 ax.annotate("Annual recall   8.6", (2024.3, P.leaver_ba.iloc[-1]),
             fontsize=12.5, color=NAVY, va="center", fontweight="bold")
-ax.axvline(2004.6, ls=(0, (2, 2)), color=MUT, lw=1.1, zorder=1)
+ax.axvline(2004.9, ls=(0, (2, 2)), color=MUT, lw=1.1, zorder=1)
 ax.annotate("linkable household IDs begin",
-            (2004.3, 22.6), fontsize=10.5, color=MUT, ha="right",
+            (2004.6, 22.6), fontsize=10.5, color=MUT, ha="right",
             va="top", style="italic")
 # waves at the survey year, except 2000-01, placed at its exit year
 # (2000) because the 2001 point of the recall series carries the
