@@ -594,6 +594,8 @@ bullets(s, [
  "The probability of leaving is highest at the start of the career, "
  "making mentoring and accompaniment a priority for retention policies."],
  y=1.55, size=19, gap=30)
+REG["mainconcl"] = s
+buttons_row(s, [("do switchers earn more?", "appswitchpay")])
 
 s = new_slide(title="Conclusions: where the policy margins are")
 add_text(s, 0.9, 1.30, 11.8, 0.5, [("Short term", 22, ACC, True, False, 0)])
@@ -767,6 +769,16 @@ bullets(s, [
   "is the single year 2021–22.")],
  y=1.95, size=12, gap=10, x=7.1, w=5.7, numbered=True)
 backbtn(s, "mainflow")
+
+s = new_slide(title="Do switchers earn more?", key="appswitchpay")
+chart(s, "pay7_destinations_deck", (0.9, 1.15, 11.5, 4.9))
+add_text(s, 0.9, 6.25, 11.8, 1.0, [
+ ("Same person observed in two consecutive March supplements. Moves into "
+  "education jobs or care pay no more than staying; only the minority "
+  "moving to other professional occupations clearly gains. Half of all "
+  "switchers land in occupations whose median pay is below the teacher "
+  "median.", 13.5, INK, False, False, 0)])
+backbtn(s, "mainconcl")
 
 s = new_slide(title="The proportions behind the destinations chart", key="appoccprop")
 cols = [(0.9, 7.6, L), (8.7, 2.2, R)]
