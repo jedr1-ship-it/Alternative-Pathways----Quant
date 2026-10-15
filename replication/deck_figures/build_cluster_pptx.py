@@ -471,7 +471,8 @@ s = new_slide(title="Of every 100 leavers (average, 2020–2024)", key="mainflow
 chart(s, "flow_employed_5yr", (0.8, 1.15, 11.7, 4.95))
 message(s, "A third find another job, a third retire, and the rest split "
         "between early labor-force exit and unemployment.")
-buttons_row(s, [("vs NCES follow-up", "apptfs")])
+buttons_row(s, [("vs NCES follow-up", "apptfs"),
+                ("pooled 2002–24", "appflowpooled")])
 NOTES[18] = ("De cada 100 que dejan la docencia: 29 otro empleo, 36 retiro "
              "(55+), 24 salida antes de 55, 11 paro. De los 29 empleados: "
              "6 educacion, 2 cuidado, 9 otras profesiones, 11 resto.")
@@ -769,6 +770,16 @@ bullets(s, [
  ("The window.", "Our column averages five years, 2020–2024. The TFS "
   "is the single year 2021–22.")],
  y=1.95, size=12, gap=10, x=7.1, w=5.7, numbered=True)
+backbtn(s, "mainflow")
+
+s = new_slide(title="The same flow, pooled 2002–2024", key="appflowpooled")
+chart(s, "flow_employed_pooled", (0.8, 1.15, 11.7, 4.95))
+add_text(s, 0.9, 6.25, 11.8, 1.0, [
+ ("Over the whole comparable-codes period (5,791 leavers) the composition "
+  "barely moves: 26 to another job, 35 retired, 27 out of the labor force "
+  "before 55 and 12 unemployed; the employed split is 22 / 9 / 30 / 39 "
+  "percent. The five-year window is not driving the picture.",
+  13.5, INK, False, False, 0)])
 backbtn(s, "mainflow")
 
 s = new_slide(title="Do switchers earn more?", key="appswitchpay")
