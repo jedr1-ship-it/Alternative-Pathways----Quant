@@ -489,8 +489,8 @@ buttons_row(s, [("proportions", "appoccprop")])
 # ================= 20. flow olf55 =================
 s = new_slide(title="Who leaves the labor force before 55 (average, 2020–2024)")
 chart(s, "flow_olf55_5yr", (0.8, 1.15, 11.7, 4.95))
-message(s, "Early labor-force exit is mostly a family story. More than half "
-        "of this group are mothers with a child at home.")
+message(s, "Early labor-force exit is mostly a parenting story. 64% of "
+        "this group are parents with a child at home, most of them mothers.")
 NOTES[20] = ("Salida temprana, historia de familia. Mas de la mitad madres "
              "con hijo en casa (13 de los 24).")
 
