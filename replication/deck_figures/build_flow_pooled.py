@@ -1,6 +1,6 @@
-"""The employed-leavers flow chart pooled over calendar 2002-2024
-(destination occupation codes are comparable from the 2002 classification
-on). Same geometry as flow_employed_5yr. Writes flow_employed_pooled."""
+"""The employed-leavers flow chart pooled over the whole period, calendar
+1997-2024. Destination groups are mapped across the 1990 and
+2002/2010/2018 occupation classifications. Writes flow_employed_pooled."""
 import sys
 sys.path.insert(0, "replication")
 import numpy as np
@@ -19,11 +19,14 @@ M = pd.read_parquet("data/processed/asec_master.parquet",
              "A_AGE"])
 for c in M.columns:
     M[c] = pd.to_numeric(M[c], errors="coerce")
-M = M[M.asec_year.between(2003, 2025)]
+M = M[M.asec_year.between(1998, 2025)]
 def tset(ay):
+    if ay <= 2002:
+        return {155, 156, 157, 158, 159}
     return {2300, 2310, 2320, 2330} | ({2340} if ay <= 2019 else {2360})
 M["teach_ly"] = False
 M["teach_now"] = False
+M["old_codes"] = M.asec_year <= 2002
 for ay, g in M.groupby("asec_year"):
     s = tset(int(ay))
     M.loc[g.index, "teach_ly"] = g.OCCUP.isin(s)
@@ -43,13 +46,24 @@ un = share(L.unemp)
 cs = {2300, 2310, 2320, 2330, 2340, 2360}
 o = L.PEIOOCC
 sw = L.switch
-edu_m = (o.between(2200, 2555) & ~o.isin(cs)) | (o == 230)
-care_m = o.between(2000, 2025) | (o == 4600)
-prof_m = ((o.between(10, 960) & (o != 230)) | o.between(1000, 1965)
-          | o.between(2600, 2960) | o.between(3000, 3550))
+oldc = L.old_codes
+# 2002/2010/2018 classifications
+edu_new = (o.between(2200, 2555) & ~o.isin(cs)) | (o == 230)
+care_new = o.between(2000, 2025) | (o == 4600)
+prof_new = ((o.between(10, 960) & (o != 230)) | o.between(1000, 1965)
+            | o.between(2600, 2960) | o.between(3000, 3550))
+# 1990 classification (surveys 1998-2002): the same groups
+edu_old = (o == 14) | o.between(113, 154) | o.isin({164, 165, 387})
+care_old = o.isin({163, 174, 406, 468})
+prof_old = ((o.between(3, 37) & (o != 14)) | o.between(43, 112)
+            | o.between(166, 173) | o.between(178, 199)
+            | o.between(203, 235))
+edu_m = np.where(oldc, edu_old, edu_new)
+care_m = np.where(oldc, care_old, care_new)
+prof_m = np.where(oldc, prof_old, prof_new)
 edu_job = share(sw & edu_m); care = share(sw & care_m)
 otherprof = share(sw & prof_m); salesetc = emp - edu_job - care - otherprof
-print(f"pooled 2002-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
+print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
       f"{olfu:.1f}/{un:.1f} | split {edu_job:.1f}/{care:.1f}/{otherprof:.1f}/"
       f"{salesetc:.1f}")
 

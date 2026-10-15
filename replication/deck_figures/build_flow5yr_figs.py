@@ -179,8 +179,8 @@ lvl = 0
 for lab, v, c, tc in bot2:
     w = v * sc
     ax.barh([Y0], [w], left=x, color=c, height=H)
-    ax.text(x + w / 2, Y0, f"{v:.0f}", ha="center", va="center", color=tc,
-            fontsize=10.5, fontweight="bold")
+    ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
+            color=tc, fontsize=10, fontweight="bold")
     yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.42)
     ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=8.4,
             color=INK)
@@ -199,11 +199,10 @@ ax.text(mid + 7, Y0 + H / 2 + 0.10, "Mothers, child at home", ha="center",
         va="bottom", fontsize=8.8, color=CORAL, fontweight="bold")
 yb = Y0 - H / 2 - 0.80
 ax.plot([0, 0, xb, xb], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
-word = "More than half" if mb / olfu > 0.5 else "Nearly half"
 ax.text(xb / 2, yb - 0.07,
-        f"{word} of them are mothers with a child at home "
-        f"({mb:.0f} of the {olfu:.0f})", ha="center", va="top", fontsize=9.4,
-        color=INK, fontweight="bold")
+        f"{mb * sc:.0f}% of them are mothers with a child at home "
+        f"({mb:.0f} of the {olfu:.0f} of every 100 leavers)",
+        ha="center", va="top", fontsize=9.4, color=INK, fontweight="bold")
 ax.set_xlim(-14, 101)
 ax.set_ylim(-0.80, 2.35)
 ax.axis("off")

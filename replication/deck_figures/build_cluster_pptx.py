@@ -472,7 +472,7 @@ chart(s, "flow_employed_5yr", (0.8, 1.15, 11.7, 4.95))
 message(s, "A third find another job, a third retire, and the rest split "
         "between early labor-force exit and unemployment.")
 buttons_row(s, [("vs NCES follow-up", "apptfs"),
-                ("pooled 2002–24", "appflowpooled")])
+                ("pooled 1997–24", "appflowpooled")])
 NOTES[18] = ("De cada 100 que dejan la docencia: 29 otro empleo, 36 retiro "
              "(55+), 24 salida antes de 55, 11 paro. De los 29 empleados: "
              "6 educacion, 2 cuidado, 9 otras profesiones, 11 resto.")
@@ -772,14 +772,15 @@ bullets(s, [
  y=1.95, size=12, gap=10, x=7.1, w=5.7, numbered=True)
 backbtn(s, "mainflow")
 
-s = new_slide(title="The same flow, pooled 2002–2024", key="appflowpooled")
+s = new_slide(title="The same flow, pooled 1997–2024", key="appflowpooled")
 chart(s, "flow_employed_pooled", (0.8, 1.15, 11.7, 4.95))
 add_text(s, 0.9, 6.25, 11.8, 1.0, [
- ("Over the whole comparable-codes period (5,791 leavers) the composition "
-  "barely moves: 26 to another job, 35 retired, 27 out of the labor force "
-  "before 55 and 12 unemployed; the employed split is 22 / 9 / 30 / 39 "
-  "percent. The five-year window is not driving the picture.",
-  13.5, INK, False, False, 0)])
+ ("Over the whole period 1997–2024 (6,866 leavers, destination groups "
+  "mapped across the 1990 and 2002/2010/2018 classifications) the "
+  "composition barely moves: 27 to another job, 33 retired, 28 out of the "
+  "labor force before 55 and 12 unemployed; the employed split is "
+  "22 / 8 / 30 / 40 percent. The five-year window is not driving the "
+  "picture.", 13.5, INK, False, False, 0)])
 backbtn(s, "mainflow")
 
 s = new_slide(title="Do switchers earn more?", key="appswitchpay")
