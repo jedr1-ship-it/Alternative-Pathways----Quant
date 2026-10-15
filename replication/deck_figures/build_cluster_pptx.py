@@ -587,17 +587,13 @@ bullets(s, [
  "Job security is fundamental to retain a teacher, our analysis shows "
  "that a full-year contract and pension coverage are strongly correlated "
  "with a lower teacher leaving rate.",
- "The financial margin still has room as a retention incentive in the US "
- "as most leavers concentrate in the bottom deciles of income.",
- "The most important group of teachers that leave without moving to "
- "another job are mothers with a child at home, followed by the young who "
- "go back to study. Flexibility can ease the return of that group, and "
- "additional qualifications should pay when they come back.",
- "Age matters beyond working conditions, the risk of leaving follows the "
- "life cycle and peaks at the two ends of a career. Therefore, "
- "early-career retention efforts are key (e.g. mentorship, balanced "
- "working conditions, secure placements)."],
- y=1.45, size=19, gap=24)
+ "Most leavers concentrate in the bottom deciles of income and the ones "
+ "that switch jobs do not necessarily earn more, suggesting that on top "
+ "of better working conditions the financial margin still has room as a "
+ "retention incentive in the US.",
+ "The probability of leaving is highest at the start of the career, "
+ "making mentoring and accompaniment a priority for retention policies."],
+ y=1.55, size=19, gap=30)
 
 s = new_slide(title="Conclusions: where the policy margins are")
 add_text(s, 0.9, 1.30, 11.8, 0.5, [("Short term", 22, ACC, True, False, 0)])
