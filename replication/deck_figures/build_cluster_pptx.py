@@ -584,19 +584,19 @@ message(s, "Leaving moves with the cycle. It rises when unemployment "
 # ================= 30-31. conclusions =================
 s = new_slide(title="Conclusions: what we learn")
 bullets(s, [
- "Teacher attrition is not bad in itself. Much of it reflects an active "
- "labor market, and it moves with the general cycle. The question for "
- "policy is who leaves, and why.",
- "Working conditions weigh heavily. A full-year contract is the single "
- "strongest protection against leaving, so job security is fundamental to "
- "retain a teacher.",
- "Not everyone who leaves earns more afterwards, and leaving concentrates "
- "at the bottom of the pay scale. The financial lever still has room as a "
- "retention incentive.",
+ "Job security is fundamental to retain a teacher. Our analysis shows "
+ "that a full-year contract and pension coverage are strongly correlated "
+ "with a lower leaving rate.",
+ "The financial margin still has room as a retention incentive in the US. "
+ "Most leavers concentrate in the bottom deciles of income.",
  "A quarter of exits are neither another job nor retirement but care at "
- "home or further study. Flexibility can bring that group back, and "
- "additional qualifications should pay when they return."],
- y=1.55, size=19, gap=26)
+ "home or further study. Flexibility can ease the return of part of that "
+ "group, and additional qualifications should pay when they return.",
+ "Age matters beyond working conditions. The risk of leaving follows the "
+ "life cycle and is highest at the two ends of a career: the young leave "
+ "for other jobs or further study, the old retire. Early-career mentoring "
+ "is where prevention pays the most."],
+ y=1.45, size=19, gap=24)
 
 s = new_slide(title="Conclusions: where the policy margins are")
 add_text(s, 0.9, 1.30, 11.8, 0.5, [("Short term", 22, ACC, True, False, 0)])
@@ -730,7 +730,11 @@ chart(s, "pubpriv_series", (0.8, 1.2, 11.7, 5.4))
 backbtn(s, "mainevol")
 
 s = new_slide(title="More professions, and their average", key="appprofs")
-chart(s, "profs_ext", (0.8, 1.2, 11.7, 5.4))
+chart(s, "profs_ext", (0.8, 1.2, 11.7, 5.1))
+add_text(s, 0.9, 6.45, 11.8, 0.4,
+         [("Three-year moving averages, for readability with nine "
+           "professions. The main charts use the raw annual series.",
+           12.5, MUT, False, True, 0)])
 backbtn(s, "mainprofs")
 
 s = new_slide(title="Our destinations vs the NCES follow-up survey", key="apptfs")

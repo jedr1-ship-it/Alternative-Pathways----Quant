@@ -55,13 +55,15 @@ def pooled(d, col):
 
 rows = []
 years = range(1997, 2025)
+# raw annual rates: the teacher series must match g2_evolution exactly,
+# so no pooling across years (comparators carry their honest wider CIs)
 for prof in ["Teachers", "Registered nurses", "Social workers", "Accountants"]:
     dp = L[L["prof"] == prof]
     dpw = dp[dp["female"] == 1]
     for y in years:
-        win = dp[dp["cal_year"].between(y - 1, y + 1)]
-        winw = dpw[dpw["cal_year"].between(y - 1, y + 1)]
-        if len(win) < 200:
+        win = dp[dp["cal_year"] == y]
+        winw = dpw[dpw["cal_year"] == y]
+        if len(win) < 120:
             continue
         p, se = pooled(win, "leave")
         pw, sew = pooled(winw, "outlf")
@@ -115,8 +117,8 @@ def draw(col, secol, ylab, title, fname, ymax, smooth=False, deck=False):
 
 T1 = "Rates of Leaving the Occupation, Teachers vs. Comparable Professions, 1997-2024"
 T2 = "Labor Force Exit of Women, Teachers vs. Comparable Professions, 1997-2024"
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 18)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_full", 20)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_full", 9, smooth=True)
-draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 18, deck=True)
+draw("leave", "se", "Percent leaving the occupation", T1, "leave_professions_deck", 20, deck=True)
 draw("lf", "se_lf", "Percent of women leaving the labor force", T2, "lf_professions_deck", 9, smooth=True, deck=True)
 print(P[P.prof == "Teachers"][["cal_year", "leave", "se"]].tail(3).round(2).to_string(index=False))
