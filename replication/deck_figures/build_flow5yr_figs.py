@@ -110,7 +110,7 @@ x = 0
 for lab, v, c in bot:
     w = v * sc
     ax.barh([Y0], [w], left=x, color=c, height=H)
-    ax.text(x + w / 2, Y0, f"{v:.0f}", ha="center", va="center",
+    ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
             color="white", fontsize=10.5, fontweight="bold")
     ax.text(x + w / 2, Y0 - H / 2 - 0.10, lab, ha="center", va="top",
             fontsize=8.8, color=INK)
@@ -126,7 +126,8 @@ xb = ec * sc
 yb = Y0 - H / 2 - 0.52
 ax.plot([0, 0, xb, xb], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
 ax.text(xb / 2, yb - 0.07,
-        f"{ec:.0f} of every 100 leavers keep working in education or care",
+        f"{ec * sc:.0f}% of the employed stay in education or care "
+        f"({ec:.0f} of every 100 leavers)",
         ha="center", va="top", fontsize=9.6, color=INK, fontweight="bold")
 ax.set_xlim(-14, 101)
 ax.set_ylim(-0.35, 2.35)
