@@ -584,18 +584,19 @@ message(s, "Leaving moves with the cycle. It rises when unemployment "
 # ================= 30-31. conclusions =================
 s = new_slide(title="Conclusions: what we learn")
 bullets(s, [
- "Job security is fundamental to retain a teacher. Our analysis shows "
+ "Job security is fundamental to retain a teacher, our analysis shows "
  "that a full-year contract and pension coverage are strongly correlated "
- "with a lower leaving rate.",
- "The financial margin still has room as a retention incentive in the US. "
- "Most leavers concentrate in the bottom deciles of income.",
- "A quarter of exits are neither another job nor retirement but care at "
- "home or further study. Flexibility can ease the return of part of that "
- "group, and additional qualifications should pay when they return.",
- "Age matters beyond working conditions. The risk of leaving follows the "
- "life cycle and is highest at the two ends of a career: the young leave "
- "for other jobs or further study, the old retire. Early-career mentoring "
- "is where prevention pays the most."],
+ "with a lower teacher leaving rate.",
+ "The financial margin still has room as a retention incentive in the US "
+ "as most leavers concentrate in the bottom deciles of income.",
+ "The most important group of teachers that leave without moving to "
+ "another job are mothers with a child at home, followed by the young who "
+ "go back to study. Flexibility can ease the return of that group, and "
+ "additional qualifications should pay when they come back.",
+ "Age matters beyond working conditions, the risk of leaving follows the "
+ "life cycle and peaks at the two ends of a career. Therefore, "
+ "early-career retention efforts are key (e.g. mentorship, balanced "
+ "working conditions, secure placements)."],
  y=1.45, size=19, gap=24)
 
 s = new_slide(title="Conclusions: where the policy margins are")
