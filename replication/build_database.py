@@ -57,6 +57,7 @@ if len(nc):
 
 
 RAW = "data/raw/asec"
+os.makedirs(RAW, exist_ok=True)
 BASE = "https://www2.census.gov/programs-surveys/cps/datasets/{y}/march/"
 FW = {2004: "asec2004.zip",
       2006: "asec2006_pubuse.zip", 2007: "asec2007_pubuse_tax2.dat.gz",
