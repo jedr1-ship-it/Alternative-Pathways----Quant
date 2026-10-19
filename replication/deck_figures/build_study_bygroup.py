@@ -102,8 +102,8 @@ for lab, v, c, tc in segs:
     ax.barh([Y1], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y1, f"{v:.0f}", ha="center", va="center", color=tc,
             fontsize=10.5, fontweight="bold")
-    yl = Y1 + H / 2 + (0.10 if lvl % 2 == 0 else 0.46)
-    ax.text(x + w / 2, yl, lab, ha="center", va="bottom", fontsize=9.2,
+    yl = Y1 + H / 2 + 0.12
+    ax.text(x + w / 2, yl, lab, ha="center", va="bottom", fontsize=9.0,
             color=INK, fontweight="bold")
     lvl += 1
     x += w
@@ -120,7 +120,7 @@ lvl = 0
 for x0, x1, sh, c in regions:
     ax.barh([Y0], [(x1 - x0) * sh / 100], left=x0, color=c, height=H,
             zorder=3)
-    yl = Y0 - H / 2 - (0.14 if lvl % 2 == 0 else 0.46)
+    yl = Y0 - H / 2 - 0.16
     ax.text((x0 + x1) / 2, yl, f"{sh:.0f}% study", ha="center", va="top",
             fontsize=9.2, color=INK, fontweight="bold")
     ax.plot([x1, x1], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE,

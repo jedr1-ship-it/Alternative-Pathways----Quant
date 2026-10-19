@@ -79,8 +79,8 @@ for lab, v, c, tc in bot2:
     ax.barh([Y0], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
             color=tc, fontsize=10, fontweight="bold")
-    yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.46)
-    ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=9.2,
+    yl = Y0 - H / 2 - 0.14
+    ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=9.0,
             color=INK, fontweight="bold")
     lvl += 1
     x += w
