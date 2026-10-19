@@ -12,7 +12,7 @@ import paperstyle  # noqa: F401
 from paperstyle import BLUE, CORAL, GOLD, GREEN, GRAY, INK, SUBTLE
 
 OUT = "report/figures_deck"
-LIGHT = "#AEC3DE"
+LIGHT, GRAYD = "#BCCDE2", "#999EA3"
 
 M = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["asec_year", "OCCUP", "PEIOOCC", "A_LFSR", "WGT", "ba_plus",
@@ -69,32 +69,37 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.55, 0.34
-top = [("Employed", emp, BLUE),
-       ("Out of the labor force, <55", olfu, GOLD),
+# softened palette for the flow charts, easier on the eye
+SBLUE, SGOLD, SCORAL, SGREEN, SGRAY = ("#5B84B4", "#E0BA62", "#C57A70",
+                                       "#6FA287", "#A6A9AD")
+top = [("Employed", emp, SBLUE),
+       ("Out of the labor force, <55", olfu, SGOLD),
        ("Out of the labor force, 55+", olf55, LIGHT),
-       ("Unemployed", un, "#6E6E6E")]
+       ("Unemployed", un, GRAYD)]
 x = 0
 for lab, v, c in top:
     ax.barh([Y1], [v], left=x, color=c, height=H)
-    txtc = "white" if c in (BLUE, "#6E6E6E") else INK
+    txtc = "white" if c in (SBLUE, GRAYD) else INK
     ax.text(x + v / 2, Y1, f"{v:.0f}", ha="center", va="center", color=txtc,
             fontsize=11, fontweight="bold")
     yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
-    ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=8.8,
-            color=INK)
+    ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=9.3,
+            color=INK, fontweight="bold")
     x += v
-bot = [("Education job", edu_job, BLUE), ("Care and\nchildren", care, CORAL),
-       ("Other\nprofessional", otherprof, GREEN),
-       ("Sales, office\nand manual", salesetc, GRAY)]
+bot = [("Education job", edu_job, SBLUE),
+       ("Care and\nchildren", care, SCORAL),
+       ("Other\nprofessional", otherprof, SGREEN),
+       ("Sales, office\nand manual", salesetc, SGRAY)]
 sc = 100.0 / emp
 x = 0
 for lab, v, c in bot:
     w = v * sc
     ax.barh([Y0], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
-            color="white", fontsize=10.5, fontweight="bold")
+            color="white" if c != SGRAY else INK, fontsize=10.5,
+            fontweight="bold")
     ax.text(x + w / 2, Y0 - H / 2 - 0.10, lab, ha="center", va="top",
-            fontsize=8.8, color=INK)
+            fontsize=9.3, color=INK, fontweight="bold")
     x += w
 ax.plot([0, 0], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=1.0)
 ax.plot([emp, 100], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=1.0)

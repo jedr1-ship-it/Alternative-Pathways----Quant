@@ -83,12 +83,12 @@ print("study:", [round(v, 1) for v in (s_moth, s_wnok, s_fath, s_mnok,
                                        s_all, s_u30)])
 
 # pinks for the women's groups, blues for the men's
-C1, C2, C3, C4 = CORAL, "#D3766F", "#E2A19B", "#F1CDC9"
-M1, M2 = "#5B7BA6", "#A6BDD9"
+C1, C2, C3, C4 = "#C57A70", "#D49991", "#E3B8B1", "#F1D6D1"
+M1, M2 = "#7D95B5", "#B9C8DB"
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.55, 0.34
 segs = [("Baby born\nthat year", baby, C1, "white"),
-        ("Youngest\nunder 6", u6, C2, "white"),
+        ("Youngest\nunder 6", u6, C2, INK),
         ("Youngest\n6–17", k617, C3, INK),
         ("Women, no own\nchild at home", nok, C4, INK),
         ("Fathers", father, M1, "white"),
@@ -102,9 +102,9 @@ for lab, v, c, tc in segs:
     ax.barh([Y1], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y1, f"{v:.0f}", ha="center", va="center", color=tc,
             fontsize=10.5, fontweight="bold")
-    yl = Y1 + H / 2 + (0.10 if lvl % 2 == 0 else 0.42)
-    ax.text(x + w / 2, yl, lab, ha="center", va="bottom", fontsize=8.4,
-            color=INK)
+    yl = Y1 + H / 2 + (0.10 if lvl % 2 == 0 else 0.46)
+    ax.text(x + w / 2, yl, lab, ha="center", va="bottom", fontsize=9.2,
+            color=INK, fontweight="bold")
     lvl += 1
     x += w
     edges.append(x)

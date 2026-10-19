@@ -12,7 +12,9 @@ import paperstyle  # noqa: F401
 from paperstyle import BLUE, CORAL, GOLD, INK, SUBTLE
 
 OUT = "report/figures_deck"
-LIGHT, GRAYD = "#AEC3DE", "#6E6E6E"
+LIGHT, GRAYD = "#BCCDE2", "#999EA3"
+# softened palette for the flow charts, easier on the eye
+SBLUE, SGOLD = "#5B84B4", "#E0BA62"
 
 M = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["asec_year", "teacher", "ba_plus", "A_AGE", "WGT", "leaver",
@@ -44,8 +46,8 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.80, 0.34
-top2 = [("Employed", emp, BLUE, "white"),
-        ("Out of the labor force, <55", olfu, GOLD, INK),
+top2 = [("Employed", emp, SBLUE, "white"),
+        ("Out of the labor force, <55", olfu, SGOLD, INK),
         ("Out of the labor force, 55+", olf55, LIGHT, INK),
         ("Unemployed", un, GRAYD, "white")]
 x = 0
@@ -55,16 +57,16 @@ for lab, v, c, tc in top2:
     ax.text(x + v / 2, Y1, f"{v:.0f}", ha="center", va="center", color=tc,
             fontsize=11, fontweight="bold")
     yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
-    ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=8.8,
-            color=INK)
+    ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=9.3,
+            color=INK, fontweight="bold")
     if "<55" in lab:
         x_yl0, x_yl1 = x, x + v
     x += v
 # pinks for the women's groups, blues for the men's
-C1, C2, C3, C4 = CORAL, "#D3766F", "#E2A19B", "#F1CDC9"
-M1, M2 = "#5B7BA6", "#A6BDD9"
+C1, C2, C3, C4 = "#C57A70", "#D49991", "#E3B8B1", "#F1D6D1"
+M1, M2 = "#7D95B5", "#B9C8DB"
 bot2 = [("Baby born\nthat year", baby, C1, "white"),
-        ("Youngest\nunder 6", u6, C2, "white"),
+        ("Youngest\nunder 6", u6, C2, INK),
         ("Youngest\n6\u201317", k617, C3, INK),
         ("Women, no own\nchild at home", nok, C4, INK),
         ("Fathers", father, M1, "white"),
@@ -77,9 +79,9 @@ for lab, v, c, tc in bot2:
     ax.barh([Y0], [w], left=x, color=c, height=H)
     ax.text(x + w / 2, Y0, f"{v * sc:.0f}%", ha="center", va="center",
             color=tc, fontsize=10, fontweight="bold")
-    yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.42)
-    ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=8.4,
-            color=INK)
+    yl = Y0 - H / 2 - (0.10 if lvl % 2 == 0 else 0.46)
+    ax.text(x + w / 2, yl, lab, ha="center", va="top", fontsize=9.2,
+            color=INK, fontweight="bold")
     lvl += 1
     x += w
 ax.plot([x_yl0, 0], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=0.8)
@@ -91,7 +93,7 @@ ax.text(-1.2, Y0, "Who leaves the labor\nforce before 55", ha="right",
 mb = baby + u6 + k617
 xb = mb * sc
 ax.text(xb / 2, Y0 + H / 2 + 0.10, "Mothers, child at home", ha="center",
-        va="bottom", fontsize=8.8, color=CORAL, fontweight="bold")
+        va="bottom", fontsize=9.3, color=C1, fontweight="bold")
 yb = Y0 - H / 2 - 0.80
 ax.plot([0, 0, xb, xb], [yb + 0.05, yb, yb, yb + 0.05], color=INK, lw=1.1)
 ax.text(xb / 2, yb - 0.07,
