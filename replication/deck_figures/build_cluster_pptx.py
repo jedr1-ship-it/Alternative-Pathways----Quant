@@ -365,12 +365,15 @@ panel.fill.solid(); panel.fill.fore_color.rgb = RGBColor(0xF2, 0xF2, 0xF2)
 panel.line.fill.background(); panel.shadow.inherit = False
 add_text(s, 1.08, 1.60, 5.3, 0.5, [("A. Following individuals", 24, NAVY, True, False, 0)])
 bullets(s, [
- "Identity is not certain, validation can admit noisy people.",
- "Movers are lost. About 25% of addresses are not found a year later.",
- "Normal household attrition on top.",
+ "Individual matching errors: the sex–race–age check discards ~5% of "
+ "links; a same-profile replacement slipping through is not measurable.",
+ "Internal migration: ~8% of people move home each year, and a move "
+ "breaks the address link.",
+ "Normal survey attrition: 6–9% of due re-interviews are missed each "
+ "month; ~17% of teachers never reappear in year 2.",
  "Strong seasonality in teaching.",
  "Many ways to define the rate (next slide)."],
- y=2.45, size=16, gap=15, x=1.08, w=5.2, numbered=True)
+ y=2.45, size=15, gap=13, x=1.08, w=5.2, numbered=True)
 add_text(s, 6.95, 1.60, 5.6, 0.5, [("B. Retrospective March", 24, NAVY, True, False, 0)])
 bullets(s, [
  "Recall bias.",
