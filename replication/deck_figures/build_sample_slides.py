@@ -24,13 +24,17 @@ NAVY = RGBColor(0x10, 0x2D, 0x5E)
 BTNBG = RGBColor(0xBE, 0xD3, 0xEE)
 
 # ---------------- counts ----------------
-monthly = {}
+monthly, pers = {}, {}
 for f in sorted(glob.glob("data/interim/cps_*.parquet")):
     y, m = (int(g) for g in re.search(r"cps_(\d{4})(\d{2})", f).groups())
     monthly.setdefault(y, {})[m] = len(pd.read_parquet(f, columns=["HRMIS"]))
-allm = {y: sum(ms.values()) for y, ms in monthly.items() if len(ms) == 12}
-allm_partial = {y: (sum(ms.values()), len(ms))
-                for y, ms in monthly.items() if len(ms) < 12}
+    pers.setdefault(y, []).append(pd.read_parquet(
+        f, columns=["HRHHID", "HRHHID2", "PULINENO"]).drop_duplicates())
+# distinct adults seen across the year's monthly files (each is
+# interviewed about three times within a calendar year)
+upers = {y: len(pd.concat(ps).drop_duplicates()) for y, ps in pers.items()}
+interviews = {y: sum(ms.values()) for y, ms in monthly.items()}
+nmonths = {y: len(ms) for y, ms in monthly.items()}
 
 mast = pd.read_parquet("data/processed/asec_master.parquet",
                        columns=["asec_year", "A_AGE", "teacher"])
@@ -39,9 +43,8 @@ allpersons = len(mast)
 A = mast[mast.A_AGE >= 18].groupby("asec_year").agg(
     adults=("A_AGE", "size"), teachers=("teacher", "sum"))
 tot_ad, tot_te = int(A.adults.sum()), int(A.teachers.sum())
-tot_allm = sum(allm.values())
-print("adults", tot_ad, "teachers", tot_te, "all-months(full years)",
-      tot_allm, "partial:", allm_partial)
+print("adults", tot_ad, "teachers", tot_te)
+print("distinct persons by year:", {y: upers[y] for y in sorted(upers)})
 
 # ---------------- pptx helpers ----------------
 prs = Presentation()
@@ -124,10 +127,8 @@ for bi, block in enumerate([years[:half], years[half:]]):
     y += 0.33
     for yr in block:
         ad, te = int(A.loc[yr, "adults"]), int(A.loc[yr, "teachers"])
-        if yr in allm:
-            am = f"{allm[yr]:,}"
-        elif yr in allm_partial:
-            am = f"{allm_partial[yr][0]:,}*"
+        if yr in upers:
+            am = f"{upers[yr]:,}" + ("" if nmonths[yr] == 12 else "*")
         else:
             am = "–"
         cell(s1, bx, y, 0, str(yr))
@@ -138,14 +139,15 @@ for bi, block in enumerate([years[:half], years[half:]]):
     rule(s1, bx, y + 0.02, BW)
 ytot = 1.42 + 0.33 + half * RH + 0.10
 text(s1, 0.75 + 6.45, ytot, 6.0,
-     f"Total   {tot_ad:,} adults, {tot_te:,} teachers "
-     f"(ASEC);  {tot_allm:,} monthly interviews (2005–24)",
+     f"Total (ASEC)   {tot_ad:,} adults, {tot_te:,} teachers",
      size=12.5, bold=True, color=NAVY)
 text(s1, 0.75, ytot, 5.9,
-     "Adults (18+), the analysis universe; with children the ASEC files "
-     f"hold {allpersons / 1e6:.1f} million records. All 12 months: adult "
-     "interviews in that year's basic monthly files (cached from 2005; "
-     "* 2025: eleven months).", size=10.5, color=MUT)
+     "Distinct adults (18+) in both columns. The supplement interviews "
+     "each person once; the basic survey interviews each adult about "
+     "three times a year (0.9–1.2 million interviews), so we keep "
+     "about one person in three and one interview in eight (monthly "
+     "files cached from 2005; * 2025: eleven months).",
+     size=10.5, color=MUT)
 # entry button to copy into the main deck, plus navigation
 button(s1, 10.35, 0.30, "sample sizes", 0)
 text(s1, 10.35, 0.74, 2.6, "(copy this button to the main deck)",
