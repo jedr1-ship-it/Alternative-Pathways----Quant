@@ -12,9 +12,9 @@ import paperstyle  # noqa: F401
 from paperstyle import BLUE, CORAL, GOLD, INK, SUBTLE
 
 OUT = "report/figures_deck"
-LIGHT, GRAYD = "#BCCDE2", "#999EA3"
+LIGHT, GRAYD = "#C3D4E9", "#9AA3AE"
 # softened palette for the flow charts, easier on the eye
-SBLUE, SGOLD = "#5B84B4", "#E0BA62"
+SBLUE, SGOLD = "#5E8DC9", "#E8BE55"
 
 M = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["asec_year", "teacher", "ba_plus", "A_AGE", "WGT", "leaver",
@@ -63,8 +63,8 @@ for lab, v, c, tc in top2:
         x_yl0, x_yl1 = x, x + v
     x += v
 # pinks for the women's groups, blues for the men's
-C1, C2, C3, C4 = "#C57A70", "#D49991", "#E3B8B1", "#F1D6D1"
-M1, M2 = "#7D95B5", "#B9C8DB"
+C1, C2, C3, C4 = "#CC6F63", "#DC948A", "#EBB9B0", "#F7DAD4"
+M1, M2 = "#7095C2", "#B9CDE8"
 bot2 = [("Baby born\nthat year", baby, C1, "white"),
         ("Youngest\nunder 6", u6, C2, INK),
         ("Youngest\n6\u201317", k617, C3, INK),

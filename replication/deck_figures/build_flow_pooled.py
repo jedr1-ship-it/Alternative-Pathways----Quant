@@ -12,7 +12,7 @@ import paperstyle  # noqa: F401
 from paperstyle import BLUE, CORAL, GOLD, GREEN, GRAY, INK, SUBTLE
 
 OUT = "report/figures_deck"
-LIGHT, GRAYD = "#BCCDE2", "#999EA3"
+LIGHT, GRAYD = "#C3D4E9", "#9AA3AE"
 
 M = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["asec_year", "OCCUP", "PEIOOCC", "A_LFSR", "WGT", "ba_plus",
@@ -70,8 +70,8 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.55, 0.34
 # softened palette for the flow charts, easier on the eye
-SBLUE, SGOLD, SCORAL, SGREEN, SGRAY = ("#5B84B4", "#E0BA62", "#C57A70",
-                                       "#6FA287", "#A6A9AD")
+SBLUE, SGOLD, SCORAL, SGREEN, SGRAY = ("#5E8DC9", "#E8BE55", "#CC6F63",
+                                       "#63A388", "#AEB4BB")
 top = [("Employed", emp, SBLUE),
        ("Out of the labor force, <55", olfu, SGOLD),
        ("Out of the labor force, 55+", olf55, LIGHT),

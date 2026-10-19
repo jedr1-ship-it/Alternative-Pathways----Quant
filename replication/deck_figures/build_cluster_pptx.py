@@ -471,8 +471,9 @@ divider("2", "Composition: where they go")
 # ================= 18. flow employed =================
 s = new_slide(title="Of every 100 leavers (average, 2020–2024)", key="mainflow")
 chart(s, "flow_employed_5yr", (0.8, 1.15, 11.7, 4.95))
-message(s, "A third find another job, a third retire, and the rest split "
-        "between early labor-force exit and unemployment.")
+message(s, "Teachers are not being poached: 7 of every 10 leavers exit "
+        "employment altogether — to retirement, home or unemployment. Only "
+        "3 in 10 trade teaching for another job.")
 buttons_row(s, [("vs NCES follow-up", "apptfs"),
                 ("pooled 1997–24", "appflowpooled")])
 NOTES[18] = ("De cada 100 que dejan la docencia: 29 otro empleo, 36 retiro "
