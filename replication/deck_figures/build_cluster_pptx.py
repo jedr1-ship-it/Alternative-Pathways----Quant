@@ -282,8 +282,9 @@ s = new_slide(title="The March supplement (ASEC)")
 bullets(s, [
  "Run by the Census Bureau each March since 1948. It is the source of the "
  "official annual income, poverty and health-insurance statistics.",
- "About 90,000 households, counting the March sample plus oversamples "
- "interviewed in February and April.",
+ "About 70,000 interviewed households a year (78,000 in 2002, 56,000 in "
+ "2024): the March sample plus oversamples interviewed in February and "
+ "April.",
  "Every adult reports on the previous year their longest job held, weeks "
  "worked, earnings and benefits."], y=2.05, size=20, gap=48)
 
@@ -373,10 +374,10 @@ bullets(s, [
 add_text(s, 6.95, 1.60, 5.6, 0.5, [("B. Retrospective March", 24, NAVY, True, False, 0)])
 bullets(s, [
  "Recall bias.",
- "Less sample. The ASEC sees each teacher once a year, ~4,000 in all. "
- "The twelve monthly files see ~11,000 distinct teachers, about three "
- "times each. We give up two of every three teachers in exchange for the "
- "retrospective questions, which only March asks.",
+ "Less sample. Using only March, we observe ~4,000 teachers a year, once "
+ "each. Using all twelve months we would observe ~11,000 teachers, three "
+ "times each — but the retrospective questions that define the leaving "
+ "rate are only asked in March.",
  "Only March-to-March transitions. Within-year spells are smoothed away."],
  y=2.45, size=16, gap=15, x=6.95, w=5.6, numbered=True)
 buttons_row(s, [("linkage loss", "applink"),
