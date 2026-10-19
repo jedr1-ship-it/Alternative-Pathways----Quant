@@ -307,7 +307,7 @@ add_text(s, 0.9, 5.35, 11.8, 1.3, [[
     [("▪  ", 20, ACC, True, False),
      ("Our results are robust to this boundary: dropping special education "
       "teachers (d) and the residual category (e) moves the pooled leaving "
-      "rate by 0.1 points (8.7 to 8.6).", 20, INK, False, False)], 0]])
+      "rate by 0.1 points (8.6 to 8.7).", 20, INK, False, False)], 0]])
 buttons_row(s, [("traceability", "appcodes")])
 
 # ================= 8. rotation =================
