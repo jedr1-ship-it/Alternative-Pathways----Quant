@@ -367,10 +367,10 @@ add_text(s, 1.08, 1.60, 5.3, 0.5, [("A. Following individuals", 24, NAVY, True, 
 bullets(s, [
  "Individual matching errors: the sex–race–age check discards ~5% of "
  "links; a same-profile replacement slipping through is not measurable.",
- "Internal migration: ~8% of people move home each year, and a move "
- "breaks the address link.",
- "Normal survey attrition: 6–9% of due re-interviews are missed each "
- "month; ~17% of teachers never reappear in year 2.",
+ "Internal migration: ~8% a year — the address responds but the person "
+ "has moved (the Census mover rate is 8%).",
+ "Normal survey attrition: ~10% a year — the address is due for "
+ "re-interview but never responds again (7% in 2015, 12% in 2023).",
  "Strong seasonality in teaching.",
  "Many ways to define the rate (next slide)."],
  y=2.45, size=15, gap=13, x=1.08, w=5.2, numbered=True)
