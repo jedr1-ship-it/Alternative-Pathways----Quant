@@ -306,8 +306,8 @@ add_text(s, 1.55, 2.78, 11.0, 2.2,
 add_text(s, 0.9, 5.35, 11.8, 1.3, [[
     [("▪  ", 20, ACC, True, False),
      ("Our results are robust to this boundary: dropping special education "
-      "teachers (d) and the residual category (e) moves the pooled leaving "
-      "rate by 0.1 points (8.6 to 8.7).", 20, INK, False, False)], 0]])
+      "teachers (d) and the residual category (e) moves the 1997–2024 "
+      "average leaving rate from 8.6 to 8.7.", 20, INK, False, False)], 0]])
 buttons_row(s, [("traceability", "appcodes")])
 
 # ================= 8. rotation =================
@@ -825,9 +825,9 @@ backbtn(s, "mainocc")
 
 s = new_slide(title="Is the teacher group constant across code changes?", key="appcodes")
 chart(s, "codes_narrow", (0.9, 1.15, 11.5, 4.95))
-message(s, "Recomputing the whole series on the narrow core moves the "
-        "pooled rate by 0.1 points. The 2003 and 2020 reclassifications "
-        "leave no visible break.", y=6.35, size=14.5)
+message(s, "Recomputing the whole series on the three core codes moves "
+        "the 1997–2024 average from 8.6 to 8.7. The 2003 and 2020 "
+        "reclassifications leave no visible break.", y=6.35, size=14.5)
 backbtn(s, "maincodes")
 
 def aer_table(s, header3, rows7, bottom, note):

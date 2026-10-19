@@ -150,17 +150,16 @@ for narrow in (False, True):
     ser = (M[M.t].groupby("cal_year")
            .apply(lambda g: 100 * np.average(g.lv, weights=g.WGT)))
     out["narrow" if narrow else "full"] = ser
-    pool = M[M.t]
-    out[("pool_narrow" if narrow else "pool_full")] = \
-        100 * np.average(pool.lv, weights=pool.WGT)
+    # same statistic as the headline series: mean of the annual rates
+    out[("avg_narrow" if narrow else "avg_full")] = ser.mean()
 fig, ax = plt.subplots(figsize=(11.4, 5.2))
 f = out["full"]; nrw = out["narrow"]
 ax.plot(f.index, f.values, color=NAVY, lw=2.4)
 ax.plot(nrw.index, nrw.values, color=BURG, lw=1.6, ls=(0, (4, 2)))
-ax.annotate(f"All five codes    pooled {out['pool_full']:.2f}",
+ax.annotate(f"All five codes    1997–2024 average {out['avg_full']:.1f}",
             (f.index[-1] + 0.4, f.iloc[-1] + 0.3), fontsize=12, color=NAVY,
             fontweight="bold", va="center")
-ax.annotate(f"Core three codes    pooled {out['pool_narrow']:.2f}",
+ax.annotate(f"Core three codes    1997–2024 average {out['avg_narrow']:.1f}",
             (nrw.index[-1] + 0.4, nrw.iloc[-1] - 0.5), fontsize=12,
             color=BURG, fontweight="bold", va="center")
 for yr in (2002.5, 2019.5):
