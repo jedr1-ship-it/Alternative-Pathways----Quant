@@ -184,12 +184,12 @@ s2 = new_slide("The sample, month by month")
 MON = ["January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"]
 x0, wlab = 0.50, 1.00
-CWS = [0.76, 0.92, 0.86, 0.86]          # new, earlier this yr, last yr, total
+CWS = [0.66, 1.00, 1.00, 0.80]          # new, seen this yr, seen last yr, total
 BW2 = sum(CWS)
 gap = 0.24
 y = 1.26
 TW = wlab + 3 * (BW2 + gap) - gap
-HD = ["New", "Earlier\nthis year", "Last\nyear", "Total"]
+HD = ["New", "Seen this yr", "Seen last yr", "Total"]
 rule(s2, x0, y - 0.05, TW)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
@@ -199,8 +199,8 @@ for i, yr in enumerate(SHOW):
         text(s2, cx, y + 0.27, w, h, size=9, bold=True,
              align=PP_ALIGN.RIGHT, color=MUT)
         cx += w
-rule(s2, x0, y + 0.74, TW)
-y += 0.82
+rule(s2, x0, y + 0.56, TW)
+y += 0.64
 for mi, mname in enumerate(MON):
     bold = (mname == "March")
     c = NAVY if bold else INK
@@ -229,7 +229,7 @@ for i, yr in enumerate(SHOW):
              align=PP_ALIGN.RIGHT)
         cx += w
 y += 0.25
-text(s2, x0, y, wlab + 2.6, "Distinct persons (New + Last year)",
+text(s2, x0, y, wlab + 2.6, "Distinct persons (New + Seen last yr)",
      size=9.5, bold=True)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
@@ -245,9 +245,9 @@ for i, yr in enumerate(SHOW):
 rule(s2, x0, y + 0.25, TW)
 text(s2, x0, y + 0.38, 12.3,
      "Adults (18+); every cell counts persons. Within a month: New + "
-     "Earlier this year + Last year = Total, the month\u2019s interviews "
+     "Seen this yr + Seen last yr = Total, the month\u2019s interviews "
      "(\u2248100k in the 2000s). Down a column: the Totals sum to the "
-     "year\u2019s interviews (2006: 1,221,832), while New + Last year "
+     "year\u2019s interviews (2006: 1,221,832), while New + Seen last yr "
      "counts each person exactly once \u2192 distinct persons (2006: "
      "203,820 + 178,187 = 382,007). The ASEC = the March respondents + "
      "the February\u2013April oversamples: 38% of the distinct persons, "
