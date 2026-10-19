@@ -62,6 +62,11 @@ for prof in ["Teachers", "Registered nurses", "Social workers", "Counselors"]:
     dp = L[L["prof"] == prof]
     dpw = dp[dp["female"] == 1]
     for y in years:
+        # before 2003 the counselor code covered only educational and
+        # vocational counselors (a narrower group, ~130 obs a year), so
+        # the comparable series starts with the 2002 census codes
+        if prof == "Counselors" and y < 2002:
+            continue
         win = dp[dp["cal_year"] == y]
         winw = dpw[dpw["cal_year"] == y]
         if len(win) < 90:
