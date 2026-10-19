@@ -164,82 +164,88 @@ def ids_of(y, m):
 
 newrep = {}
 for yr in SHOW:
-    seen = set()
+    last = set()
     for m in range(1, 13):          # previous year: the panel's memory
-        seen |= ids_of(yr - 1, m)
+        last |= ids_of(yr - 1, m)
+    this = set()
     rows = []
     for m in range(1, 13):
         ids = ids_of(yr, m)
-        new = len(ids - seen)
-        rows.append((new, len(ids) - new))
-        seen |= ids
+        rep = len(ids & this)                 # seen earlier this year
+        back = len((ids - this) & last)       # first time this year,
+        new = len(ids) - rep - back           # interviewed last year
+        rows.append((new, back, rep))
+        this |= ids
     newrep[yr] = rows
-    print(yr, "new in year:", sum(r[0] for r in rows),
-          "| distinct in year:", upers[yr])
+    print(yr, "new:", sum(r[0] for r in rows), "+ back:",
+          sum(r[1] for r in rows), "= distinct:", upers[yr])
 
 s2 = new_slide("The sample, month by month")
 MON = ["January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"]
-x0, wlab = 0.8, 1.55
-wn, wr, gap = 1.00, 1.22, 0.42
-BW2 = wn + wr
+x0, wlab = 0.55, 1.30
+wn, wb, wr, gap = 0.80, 0.95, 0.95, 0.34
+BW2 = wn + wb + wr
 y = 1.30
 TW = wlab + 3 * (BW2 + gap) - gap
 rule(s2, x0, y - 0.05, TW)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
-    text(s2, bx, y, BW2, str(yr), size=13, bold=True,
+    text(s2, bx, y, BW2, str(yr), size=12.5, bold=True,
          align=PP_ALIGN.CENTER)
-    text(s2, bx, y + 0.30, wn, "New", size=11.5, bold=True,
+    text(s2, bx, y + 0.28, wn, "New", size=10, bold=True,
          align=PP_ALIGN.RIGHT, color=MUT)
-    text(s2, bx + wn, y + 0.30, wr, "Seen before", size=11.5, bold=True,
-         align=PP_ALIGN.RIGHT, color=MUT)
-rule(s2, x0, y + 0.58, TW)
-y += 0.66
+    text(s2, bx + wn, y + 0.28, wb, "From last\nyear", size=10,
+         bold=True, align=PP_ALIGN.RIGHT, color=MUT)
+    text(s2, bx + wn + wb, y + 0.28, wr, "From this\nyear", size=10,
+         bold=True, align=PP_ALIGN.RIGHT, color=MUT)
+rule(s2, x0, y + 0.78, TW)
+y += 0.86
 for mi, mname in enumerate(MON):
     bold = (mname == "March")
     c = NAVY if bold else INK
-    text(s2, x0, y, wlab, mname, size=11.5, bold=bold, color=c)
+    text(s2, x0, y, wlab, mname, size=10.5, bold=bold, color=c)
     for i, yr in enumerate(SHOW):
         bx = x0 + wlab + i * (BW2 + gap)
-        nw, rp = newrep[yr][mi]
-        text(s2, bx, y, wn, f"{nw:,}", size=11.5, bold=bold, color=c,
-             align=PP_ALIGN.RIGHT)
-        text(s2, bx + wn, y, wr, f"{rp:,}", size=11.5, bold=bold,
-             color=c, align=PP_ALIGN.RIGHT)
-    y += 0.252
+        for j, v in enumerate(newrep[yr][mi]):
+            text(s2, bx + [0, wn, wn + wb][j], y, [wn, wb, wr][j],
+                 f"{v:,}", size=10.5, bold=bold, color=c,
+                 align=PP_ALIGN.RIGHT)
+    y += 0.238
 rule(s2, x0, y + 0.02, TW)
-y += 0.09
-text(s2, x0, y, wlab, "Sum", size=11.5, bold=True)
+y += 0.08
+text(s2, x0, y, wlab, "Sum", size=10.5, bold=True)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
-    text(s2, bx, y, wn, f"{sum(r[0] for r in newrep[yr]):,}", size=11.5,
-         bold=True, align=PP_ALIGN.RIGHT)
-    text(s2, bx + wn, y, wr, f"{sum(r[1] for r in newrep[yr]):,}",
-         size=11.5, bold=True, align=PP_ALIGN.RIGHT)
-y += 0.27
-text(s2, x0, y, wlab + 1.0, "Distinct persons", size=11.5, bold=True)
+    for j in range(3):
+        text(s2, bx + [0, wn, wn + wb][j], y, [wn, wb, wr][j],
+             f"{sum(r[j] for r in newrep[yr]):,}", size=10.5, bold=True,
+             align=PP_ALIGN.RIGHT)
+y += 0.26
+text(s2, x0, y, wlab + 2.2, "Distinct persons (new + from last year)",
+     size=10.5, bold=True)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
-    text(s2, bx, y, BW2, f"{upers[yr]:,}", size=11.5, bold=True,
+    text(s2, bx, y, BW2, f"{upers[yr]:,}", size=10.5, bold=True,
          align=PP_ALIGN.RIGHT)
-y += 0.27
-text(s2, x0, y, wlab + 1.6, "March supplement (ASEC)", size=11.5,
+y += 0.26
+text(s2, x0, y, wlab + 2.2, "March supplement (ASEC)", size=10.5,
      bold=True, color=NAVY)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
-    text(s2, bx, y, BW2, f"{int(A.loc[yr, 'adults']):,}", size=11.5,
+    text(s2, bx, y, BW2, f"{int(A.loc[yr, 'adults']):,}", size=10.5,
          bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-rule(s2, x0, y + 0.27, TW)
-text(s2, x0, y + 0.42, 11.6,
-     "Adults (18+). New: first interview ever; seen before: interviewed "
-     "in an earlier month or in the previous year (each household is "
-     "interviewed in eight months over two years). New + seen before = "
-     "that month's interviews; the year's new entrants plus those "
-     "carried over from the previous year give the distinct persons. "
-     "The ASEC interviews each person once: the March respondents plus "
-     "the February–April oversamples, 1.45× a single March.",
-     size=10, color=MUT)
+rule(s2, x0, y + 0.26, TW)
+text(s2, x0, y + 0.40, 12.0,
+     "Adults (18+). New: first interview ever. From last year: back "
+     "after being interviewed the previous year (first time this year). "
+     "From this year: already interviewed in an earlier month of the "
+     "year. Each distinct person is counted once in New or From last "
+     "year, so those two sums give the year's distinct persons; adding "
+     "the From-this-year repeats gives the interviews. The ASEC "
+     "interviews each person once: the March respondents plus the "
+     "February–April oversamples, 1.45× a single March.",
+     size=9.5, color=MUT)
 button(s2, 11.45, 6.92, "back", 0)
 
 slides = list(prs.slides)
