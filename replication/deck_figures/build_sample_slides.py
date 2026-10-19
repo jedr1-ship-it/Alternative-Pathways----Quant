@@ -118,12 +118,12 @@ def cell(s, bx, y, col, t, bold=False, color=INK, size=12):
 for bi, block in enumerate([years[:half], years[half:]]):
     bx = 0.75 + bi * 6.45
     y = 1.42
-    rule(s1, bx, y - 0.05, BW)
+    rule(s1, bx, y - 0.07, BW, weight=1.4)
     cell(s1, bx, y, 0, "Survey", True)
     cell(s1, bx, y, 1, "March suppl.", True)
     cell(s1, bx, y, 2, "Teachers", True)
     cell(s1, bx, y, 3, "All 12 months", True)
-    rule(s1, bx, y + 0.26, BW)
+    rule(s1, bx, y + 0.27, BW, weight=0.6)
     y += 0.33
     for yr in block:
         ad, te = int(A.loc[yr, "adults"]), int(A.loc[yr, "teachers"])
@@ -136,7 +136,7 @@ for bi, block in enumerate([years[:half], years[half:]]):
         cell(s1, bx, y, 2, f"{te:,}")
         cell(s1, bx, y, 3, am)
         y += RH
-    rule(s1, bx, y + 0.02, BW)
+    rule(s1, bx, y + 0.03, BW, weight=1.4)
 ytot = 1.42 + 0.33 + half * RH + 0.10
 text(s1, 0.75 + 6.45, ytot, 6.0,
      f"Total (ASEC)   {tot_ad:,} adults, {tot_te:,} teachers",
@@ -190,7 +190,7 @@ gap = 0.24
 y = 1.26
 TW = wlab + 3 * (BW2 + gap) - gap
 HD = ["New", "Seen this yr", "Seen last yr", "Total"]
-rule(s2, x0, y - 0.05, TW)
+rule(s2, x0, y - 0.07, TW, weight=1.4)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
     text(s2, bx, y, BW2, str(yr), size=12, bold=True, align=PP_ALIGN.CENTER)
@@ -199,7 +199,7 @@ for i, yr in enumerate(SHOW):
         text(s2, cx, y + 0.27, w, h, size=9, bold=True,
              align=PP_ALIGN.RIGHT, color=MUT)
         cx += w
-rule(s2, x0, y + 0.56, TW)
+rule(s2, x0, y + 0.56, TW, weight=0.6)
 y += 0.64
 for mi, mname in enumerate(MON):
     bold = (mname == "March")
@@ -215,7 +215,7 @@ for mi, mname in enumerate(MON):
                  align=PP_ALIGN.RIGHT)
             cx += w
     y += 0.232
-rule(s2, x0, y + 0.02, TW)
+rule(s2, x0, y + 0.02, TW, weight=0.6)
 y += 0.08
 text(s2, x0, y, wlab, "Sum", size=9.5, bold=True)
 for i, yr in enumerate(SHOW):
@@ -242,7 +242,7 @@ for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
     text(s2, bx, y, BW2, f"{int(A.loc[yr, 'adults']):,}", size=9.5,
          bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-rule(s2, x0, y + 0.25, TW)
+rule(s2, x0, y + 0.25, TW, weight=1.4)
 text(s2, x0, y + 0.38, 12.3,
      "Adults (18+); every cell counts persons. Within a month: New + "
      "Seen this yr + Seen last yr = Total, the month\u2019s interviews "
