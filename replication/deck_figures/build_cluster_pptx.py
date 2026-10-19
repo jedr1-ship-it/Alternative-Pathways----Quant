@@ -282,9 +282,9 @@ s = new_slide(title="The March supplement (ASEC)")
 bullets(s, [
  "Run by the Census Bureau each March since 1948. It is the source of the "
  "official annual income, poverty and health-insurance statistics.",
- "About 70,000 interviewed households a year (78,000 in 2002, 56,000 in "
- "2024): the March sample plus oversamples interviewed in February and "
- "April.",
+ "In a normal month the CPS interviews about 50,000 households; in March "
+ "the supplement adds some 20,000 more, interviewed in February and "
+ "April — about 70,000 households in all.",
  "Every adult reports on the previous year their longest job held, weeks "
  "worked, earnings and benefits."], y=2.05, size=20, gap=48)
 
