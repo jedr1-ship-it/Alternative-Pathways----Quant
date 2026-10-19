@@ -69,8 +69,9 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.55, 0.34
-top = [("Employed", emp, BLUE), ("Out of the labor force, 55+", olf55, LIGHT),
+top = [("Employed", emp, BLUE),
        ("Out of the labor force, <55", olfu, GOLD),
+       ("Out of the labor force, 55+", olf55, LIGHT),
        ("Unemployed", un, "#6E6E6E")]
 x = 0
 for lab, v, c in top:

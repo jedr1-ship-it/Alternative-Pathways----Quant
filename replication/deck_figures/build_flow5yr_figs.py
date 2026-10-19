@@ -88,8 +88,8 @@ print("bot07:", round(edu_job, 1), round(care, 1), round(otherprof, 1),
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 Y1, Y0, H = 1.72, 0.55, 0.34
 top = [("Employed", emp, BLUE),
-       ("Out of the labor force, 55+", olf55, LIGHT),
        ("Out of the labor force, <55", olfu, GOLD),
+       ("Out of the labor force, 55+", olf55, LIGHT),
        ("Unemployed", un, "#6E6E6E")]
 x = 0
 for lab, v, c in top:
@@ -151,8 +151,8 @@ print("split09:", round(baby, 1), round(u6, 1), round(k617, 1),
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
 top2 = [("Employed", emp, BLUE, "white"),
-        ("Out of the labor force, 55+", olf55, LIGHT, INK),
         ("Out of the labor force, <55", olfu, GOLD, INK),
+        ("Out of the labor force, 55+", olf55, LIGHT, INK),
         ("Unemployed", un, GRAYD, "white")]
 x = 0
 x_yl0 = x_yl1 = None
@@ -166,13 +166,15 @@ for lab, v, c, tc in top2:
     if "<55" in lab:
         x_yl0, x_yl1 = x, x + v
     x += v
-C1, C2, C3 = CORAL, "#D3766F", "#E2A19B"
+# pinks for the women's groups, blues for the men's
+C1, C2, C3, C4 = CORAL, "#D3766F", "#E2A19B", "#F1CDC9"
+M1, M2 = "#5B7BA6", "#A6BDD9"
 bot2 = [("Baby born\nthat year", baby, C1, "white"),
         ("Youngest\nunder 6", u6, C2, "white"),
         ("Youngest\n6–17", k617, C3, INK),
-        ("Women, no own\nchild at home", nok, LIGHT, INK),
-        ("Fathers", father, "#5B7BA6", "white"),
-        ("Men, no own\nchild at home", mennok, GRAYD, "white")]
+        ("Women, no own\nchild at home", nok, C4, INK),
+        ("Fathers", father, M1, "white"),
+        ("Men, no own\nchild at home", mennok, M2, INK)]
 sc = 100.0 / olfu
 x = 0
 lvl = 0

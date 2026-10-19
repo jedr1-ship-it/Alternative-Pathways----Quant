@@ -494,28 +494,33 @@ NOTES[20] = ("Salida temprana, historia de familia. Mas de la mitad madres "
 
 # ================= 21. study =================
 s = new_slide(title="And the youngest of them leave to study")
-chart(s, "study_olf55", (0.8, 1.15, 11.7, 4.95))
-message(s, "Leaving to study follows age, and teacher leavers mirror the "
-        "typical graduate out of the labor force: 45% of those under 30 are "
-        "enrolled in school, next to 60% among all graduates. After 40, "
-        "almost none study.")
+chart(s, "study_bygroup", (0.8, 1.15, 11.7, 4.95))
+message(s, "Studying is the exit of the young and the childless, not of "
+        "the mothers. Among leavers under 30, almost half are enrolled "
+        "in school.")
 NOTES[21] = ("Estudia el 45% de los menores de 30 y el 25-48% de los que "
              "no tienen hijos, frente al 3% de las madres. n pequenos, "
              "indicados en el grafico.")
 
 # ================= 22. policy =================
 s = new_slide(title="What this says for policy: three margins, quantified")
-add_text(s, 0.9, 1.35, 11.8, 0.5, [("Retirees", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 1.35, 11.8, 0.5, [[
+    [("Retirees ", 22, ACC, True, False),
+     ("(out of the labor force, over 55)", 18, MUT, False, False)], 0]])
 add_text(s, 0.9, 1.90, 11.8, 1.0, [
  ("About 3% of teachers retire each year, a third of all exits. Delaying "
   "retirement extends careers but does not reintegrate anyone.",
   19, INK, False, False, 0)])
-add_text(s, 0.9, 3.10, 11.8, 0.5, [("Switchers", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 3.10, 11.8, 0.5, [[
+    [("Switchers ", 22, ACC, True, False),
+     ("(employed in another job)", 18, MUT, False, False)], 0]])
 add_text(s, 0.9, 3.65, 11.8, 1.0, [
  ("About 2% move to another job each year, often to jobs that do not "
   "require a degree. A real margin, but shortages cannot be closed through "
   "retention alone.", 19, INK, False, False, 0)])
-add_text(s, 0.9, 4.95, 11.8, 0.5, [("Early exits", 22, ACC, True, False, 0)])
+add_text(s, 0.9, 4.95, 11.8, 0.5, [[
+    [("Early exits ", 22, ACC, True, False),
+     ("(out of the labor force, under 55)", 18, MUT, False, False)], 0]])
 add_text(s, 0.9, 5.50, 11.8, 1.2, [
  ("About 2% leave the labor force before 55 each year. Most are mothers at "
   "home, for whom flexibility may be the missing piece. The young and "
