@@ -114,23 +114,24 @@
 \end{frame}
 
 % ================= Identifying a teacher =================
-\begin{frame}[label=maincodes]{One teacher group, three coding regimes}
+\begin{frame}[label=maincodes]{Who counts as a teacher?}
   \vspace{0.6em}
-  \begin{center}
-  \large
-  \begin{tabular}{lccccc}
-          & {\normalsize\color{mut} 1998--2002} & & {\normalsize\color{mut} 2003--2019} & & {\normalsize\color{mut} 2020--2025} \\[0.5em]
-    {\normalsize Pre-K and kindergarten}         & \textbf{\color{navy}155} & {\color{mut}$\rightarrow$} & \textbf{\color{navy}2300} & {\color{mut}=} & \textbf{\color{navy}2300} \\[0.4em]
-    {\normalsize Elementary (and middle)}        & \textbf{\color{navy}156} & {\color{mut}$\rightarrow$} & \textbf{\color{navy}2310} & {\color{mut}=} & \textbf{\color{navy}2310} \\[0.4em]
-    {\normalsize Secondary}                      & \textbf{\color{navy}157} & {\color{mut}$\rightarrow$} & \textbf{\color{navy}2320} & {\color{mut}=} & \textbf{\color{navy}2320} \\[0.4em]
-    {\normalsize Special education}              & \textbf{\color{navy}158} & {\color{mut}$\rightarrow$} & \textbf{\color{navy}2330} & {\color{mut}=} & \textbf{\color{navy}2330} \\[0.4em]
-    {\normalsize Other teachers and instructors} & \textbf{\color{navy}159} & {\color{mut}$\rightarrow$} & \textbf{\color{navy}2340} & {\color{burg}$\rightarrow$} & \textbf{\color{burg}2360} \\
-  \end{tabular}
-  \end{center}
-  \vspace{0.9em}
-  {\small In 2003 every code changed but the five categories did not. In
-   2020 a single code changed. We always use the block, never a single
-   code across regimes.}
+  \begin{itemize}
+    \item The census assigns every worker a detailed occupation code for
+      the job held longest last year. We count as a teacher anyone
+      classified in one of the five school-teaching categories:
+      \begin{itemize}
+        \item[\textbf{\color{navy}(a)}] Preschool and kindergarten teachers
+        \item[\textbf{\color{navy}(b)}] Elementary and middle school teachers
+        \item[\textbf{\color{navy}(c)}] Secondary school teachers
+        \item[\textbf{\color{navy}(d)}] Special education teachers
+        \item[\textbf{\color{navy}(e)}] Other teachers and instructors
+      \end{itemize}
+    \item[]
+    \item Our results are robust to this boundary: dropping special
+      education teachers (d) and the residual category (e) moves the
+      pooled leaving rate by 0.1 points (8.7 to 8.6).
+  \end{itemize}
   \vfill
   \appbtn{appcodes}{traceability}
 \end{frame}

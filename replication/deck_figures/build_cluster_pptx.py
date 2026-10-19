@@ -288,30 +288,26 @@ bullets(s, [
  "worked, earnings and benefits."], y=2.05, size=20, gap=48)
 
 # ================= 7. codes =================
-s = new_slide(title="One teacher group, three coding regimes", key="maincodes")
-for lab, x in [("1998–2002", 5.1), ("2003–2019", 7.9),
-               ("2020–2025", 10.7)]:
-    add_text(s, x, 1.55, 1.9, 0.4, [(lab, 16, MUT, False, False, 0)], align=C)
-CATS = [("Pre-K and kindergarten", "155", "2300", "2300", False),
-        ("Elementary (and middle)", "156", "2310", "2310", False),
-        ("Secondary", "157", "2320", "2320", False),
-        ("Special education", "158", "2330", "2330", False),
-        ("Other teachers and instructors", "159", "2340", "2360", True)]
-y = 2.15
-for name, c1, c2, c3, chg in CATS:
-    add_text(s, 0.9, y, 4.0, 0.45, [(name, 18, INK, False, False, 0)])
-    add_text(s, 5.1, y, 1.9, 0.45, [(c1, 18, NAVY, True, False, 0)], align=C)
-    add_text(s, 6.9, y, 1.1, 0.45, [("→", 18, MUT, False, False, 0)], align=C)
-    add_text(s, 7.9, y, 1.9, 0.45, [(c2, 18, NAVY, True, False, 0)], align=C)
-    add_text(s, 9.7, y, 1.1, 0.45, [("→" if chg else "=", 18,
-             BURG if chg else MUT, chg, False, 0)], align=C)
-    add_text(s, 10.7, y, 1.9, 0.45, [(c3, 18, BURG if chg else NAVY, True,
-             False, 0)], align=C)
-    y += 0.62
-add_text(s, 0.9, y + 0.35, 11.8, 1.0, [
- ("In 2003 every code changed but the five categories did not. In 2020 a "
-  "single code changed. We always use the block, never a single code "
-  "across regimes.", 18, INK, False, False, 0)])
+s = new_slide(title="Who counts as a teacher?", key="maincodes")
+add_text(s, 0.9, 1.55, 11.8, 2.0, [[
+    [("▪  ", 20, ACC, True, False),
+     ("The census assigns every worker a detailed occupation code for the "
+      "job held longest last year. We count as a teacher anyone classified "
+      "in one of the five school-teaching categories:", 20, INK, False,
+      False)], 10]])
+CATS = [("(a)", "Preschool and kindergarten teachers"),
+        ("(b)", "Elementary and middle school teachers"),
+        ("(c)", "Secondary school teachers"),
+        ("(d)", "Special education teachers"),
+        ("(e)", "Other teachers and instructors")]
+add_text(s, 1.55, 2.78, 11.0, 2.2,
+         [[[(f"{tag}  ", 19, NAVY, True, False),
+            (name, 19, INK, False, False)], 6] for tag, name in CATS])
+add_text(s, 0.9, 5.35, 11.8, 1.3, [[
+    [("▪  ", 20, ACC, True, False),
+     ("Our results are robust to this boundary: dropping special education "
+      "teachers (d) and the residual category (e) moves the pooled leaving "
+      "rate by 0.1 points (8.7 to 8.6).", 20, INK, False, False)], 0]])
 buttons_row(s, [("traceability", "appcodes")])
 
 # ================= 8. rotation =================
