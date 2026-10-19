@@ -373,9 +373,10 @@ bullets(s, [
 add_text(s, 6.95, 1.60, 5.6, 0.5, [("B. Retrospective March", 24, NAVY, True, False, 0)])
 bullets(s, [
  "Recall bias.",
- "Less sample. We keep one month per year: ~110–150k adults in the ASEC "
- "against about one million basic interviews over the twelve months "
- "(~3,700 vs ~11,000 teacher observations a year).",
+ "Less sample. The ASEC sees each teacher once a year, ~4,000 in all. "
+ "The twelve monthly files see ~11,000 distinct teachers, about three "
+ "times each. We give up two of every three teachers in exchange for the "
+ "retrospective questions, which only March asks.",
  "Only March-to-March transitions. Within-year spells are smoothed away."],
  y=2.45, size=16, gap=15, x=6.95, w=5.6, numbered=True)
 buttons_row(s, [("linkage loss", "applink"),
