@@ -106,8 +106,10 @@ for lab, v, c in top:
     x += v
 bot = [("Education job", edu_job, SBLUE),
        ("Care and\nchildren", care, SCORAL),
-       ("Other\nprofessional", otherprof, SGREEN),
-       ("Sales, office\nand manual", salesetc, SGRAY)]
+       ("Other professional\n(2 in 3 workers hold a degree)", otherprof,
+        SGREEN),
+       ("Sales, office and manual\n(1 in 5 holds a degree)", salesetc,
+        SGRAY)]
 sc = 100.0 / emp
 x = 0
 for lab, v, c in bot:
