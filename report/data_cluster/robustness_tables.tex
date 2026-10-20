@@ -1,0 +1,104 @@
+% Paper-style robustness tables (full specification, 2019-2025).
+% Build: pdflatex robustness_tables.tex
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[paperwidth=18cm,paperheight=24cm,margin=0.6cm]{geometry}
+\usepackage{booktabs,threeparttable}
+\setlength{\tabcolsep}{12pt}
+\pagestyle{empty}
+\newcommand{\sym}[1]{\rlap{$^{#1}$}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries Table A1 --- Leaving teaching: linear probability
+model, fixed-effects variants}\\[1.0em]
+\begin{threeparttable}
+\begin{tabular}{lccc}
+\toprule
+ & \multicolumn{3}{c}{Dependent variable: left teaching ($\times$100)} \\
+\cmidrule(lr){2-4}
+ & (1) & (2) & (3) \\
+\midrule
+Full-year contract & $-11.54$\sym{***} & $-11.55$\sym{***} & $-11.65$\sym{***} \\
+ & (0.67) & (0.66) & (0.67) \\[0.2em]
+Part-time contract & $+8.67$\sym{***} & $+8.67$\sym{***} & $+8.63$\sym{***} \\
+ & (1.09) & (1.09) & (1.10) \\[0.2em]
+Employer pension plan & $-2.35$\sym{***} & $-2.33$\sym{***} & $-2.33$\sym{***} \\
+ & (0.52) & (0.52) & (0.52) \\[0.2em]
+Public sector & $-2.35$\sym{***} & $-2.38$\sym{***} & $-2.39$\sym{***} \\
+ & (0.56) & (0.56) & (0.56) \\[0.2em]
+New baby during the year & $+5.72$\sym{***} & $+5.63$\sym{***} & $+5.71$\sym{***} \\
+ & (1.56) & (1.56) & (1.56) \\[0.2em]
+With a disability & $+8.85$\sym{***} & $+8.94$\sym{***} & $+8.94$\sym{***} \\
+ & (2.14) & (2.14) & (2.14) \\[0.2em]
+Bottom-quartile household income & $+4.17$\sym{***} & $+4.13$\sym{***} & $+4.01$\sym{***} \\
+ & (1.24) & (1.24) & (1.25) \\
+\midrule
+Year fixed effects  & No  & Yes & Yes \\
+State fixed effects & No  & No  & Yes \\
+Observations        & 18,571 & 18,571 & 18,571 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \emph{Notes:} Linear probability models of leaving teaching
+($\times$100). The sample pools the March supplements of 2019--2025
+(outcomes over calendar years 2018--2024, the window with every control
+available): teachers with a bachelor's degree or higher, aged 18--70,
+one observation per person and year, $N$ = 18,571. All columns include
+the full controls of the main specification (age, age$^2$, sex, race,
+education, family structure, health). Estimates weighted by the ASEC
+person weight. Robust standard errors in parentheses.
+$^{*}$ $p<0.10$, $^{**}$ $p<0.05$, $^{***}$ $p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+\clearpage
+
+\begin{center}
+{\large\bfseries Table A2 --- The margins are stable across
+estimators}\\[1.0em]
+\begin{threeparttable}
+\begin{tabular}{lccc}
+\toprule
+ & \multicolumn{3}{c}{Average marginal effect on leaving ($\times$100)} \\
+\cmidrule(lr){2-4}
+ & LPM & Logit & Probit \\
+ & (1) & (2) & (3) \\
+\midrule
+Full-year contract & $-11.13$\sym{***} & $-8.78$\sym{***} & $-8.49$\sym{***} \\
+ & (0.55) & (0.40) & (0.39) \\[0.2em]
+Part-time contract & $+8.77$\sym{***} & $+3.86$\sym{***} & $+4.32$\sym{***} \\
+ & (0.92) & (0.44) & (0.47) \\[0.2em]
+Employer pension plan & $-2.55$\sym{***} & $-2.38$\sym{***} & $-2.41$\sym{***} \\
+ & (0.44) & (0.39) & (0.38) \\[0.2em]
+Public sector & $-2.17$\sym{***} & $-2.24$\sym{***} & $-2.27$\sym{***} \\
+ & (0.47) & (0.39) & (0.39) \\[0.2em]
+New baby during the year & $+5.65$\sym{***} & $+4.74$\sym{***} & $+4.59$\sym{***} \\
+ & (1.33) & (0.90) & (0.91) \\[0.2em]
+With a disability & $+8.31$\sym{***} & $+3.78$\sym{***} & $+4.19$\sym{***} \\
+ & (1.84) & (0.80) & (0.88) \\[0.2em]
+Bottom-quartile household income & $+4.67$\sym{***} & $+2.24$\sym{***} & $+2.50$\sym{***} \\
+ & (1.10) & (0.58) & (0.62) \\
+\midrule
+Year fixed effects & Yes & Yes & Yes \\
+Observations       & 18,571 & 18,571 & 18,571 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \emph{Notes:} Average marginal effects on the probability of
+leaving teaching ($\times$100). Same sample as Table A1: teachers with
+a bachelor's degree or higher, aged 18--70, in the pooled March
+supplements of 2019--2025 (calendar years 2018--2024), $N$ = 18,571;
+full controls and year fixed effects in every column. Standard errors
+in parentheses (delta method for the logit and probit marginal
+effects). Column (3) is the specification of the coefficient plot in
+the main deck. $^{*}$ $p<0.10$, $^{**}$ $p<0.05$, $^{***}$ $p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+\end{document}

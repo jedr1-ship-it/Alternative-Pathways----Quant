@@ -1,11 +1,10 @@
-"""Two appendix slides on sample sizes, in a consistent universe
-(adults 18+, the analysis universe).
-Slide 1: survey by survey — March supplement (ASEC) adults, teachers,
-and the combined adult interviews of that year's twelve basic monthly
-files (cached from 2005).
-Slide 2: month by month for 2006 / 2015 / 2024, March and the ASEC row
-in bold. The ASEC contains the March basic respondents plus the
-February-April oversample households, about 1.45x a single March.
+"""Two appendix slides on sample sizes, in one consistent unit:
+distinct people (adults 18+).
+Slide 1: survey by survey, all years - the March supplement (persons
+and teachers, each person once) next to the distinct persons and
+teachers seen across that year's twelve monthly files (from 2005).
+Slide 2: month by month for 2006/2015/2024 - every interview split into
+new, back from last year, and repeats from earlier months of the year.
 Run from the repo root. Writes report/data_cluster/sample_sizes_slides.pptx."""
 import glob
 import re
@@ -24,27 +23,33 @@ NAVY = RGBColor(0x10, 0x2D, 0x5E)
 BTNBG = RGBColor(0xBE, 0xD3, 0xEE)
 
 # ---------------- counts ----------------
-monthly, pers = {}, {}
+def tset(y):
+    return {2300, 2310, 2320, 2330} | ({2340} if y <= 2019 else {2360})
+
+monthly, pids, tids = {}, {}, {}
 for f in sorted(glob.glob("data/interim/cps_*.parquet")):
     y, m = (int(g) for g in re.search(r"cps_(\d{4})(\d{2})", f).groups())
-    monthly.setdefault(y, {})[m] = len(pd.read_parquet(f, columns=["HRMIS"]))
-    pers.setdefault(y, []).append(pd.read_parquet(
-        f, columns=["HRHHID", "HRHHID2", "PULINENO"]).drop_duplicates())
-# distinct adults seen across the year's monthly files (each is
-# interviewed about three times within a calendar year)
-upers = {y: len(pd.concat(ps).drop_duplicates()) for y, ps in pers.items()}
+    d = pd.read_parquet(f, columns=["HRHHID", "HRHHID2", "PULINENO",
+                                    "PEMLR", "PTIO1OCD"])
+    monthly.setdefault(y, {})[m] = len(d)
+    pids.setdefault(y, []).append(
+        d[["HRHHID", "HRHHID2", "PULINENO"]].drop_duplicates())
+    t = d[d.PEMLR.isin([1, 2]) & d.PTIO1OCD.isin(tset(y))]
+    tids.setdefault(y, []).append(
+        t[["HRHHID", "HRHHID2", "PULINENO"]].drop_duplicates())
+upers = {y: len(pd.concat(ps).drop_duplicates()) for y, ps in pids.items()}
+uteach = {y: len(pd.concat(ts).drop_duplicates()) for y, ts in tids.items()}
 interviews = {y: sum(ms.values()) for y, ms in monthly.items()}
 nmonths = {y: len(ms) for y, ms in monthly.items()}
 
 mast = pd.read_parquet("data/processed/asec_master.parquet",
                        columns=["asec_year", "A_AGE", "teacher"])
 mast["teacher"] = pd.to_numeric(mast.teacher, errors="coerce")
-allpersons = len(mast)
 A = mast[mast.A_AGE >= 18].groupby("asec_year").agg(
     adults=("A_AGE", "size"), teachers=("teacher", "sum"))
 tot_ad, tot_te = int(A.adults.sum()), int(A.teachers.sum())
-print("adults", tot_ad, "teachers", tot_te)
-print("distinct persons by year:", {y: upers[y] for y in sorted(upers)})
+print("ASEC totals:", tot_ad, tot_te)
+print("monthly distinct, e.g. 2006:", upers.get(2006), uteach.get(2006))
 
 # ---------------- pptx helpers ----------------
 prs = Presentation()
@@ -101,58 +106,65 @@ def button(s, x, y, label, target_idx):
     r.font.name = FONT; r.font.size = Pt(14); r.font.color.rgb = NAVY
     BTNS.append((sh, target_idx))
 
-# ---------------- slide 1: survey by survey ----------------
+# ---------------- slide 1: survey by survey, all years ----------------
 s1 = new_slide("The sample, survey by survey")
 years = list(A.index)
 half = (len(years) + 1) // 2
-RH = 0.272
-# per block: survey, ASEC adults, teachers, all 12 months
-CW = [(0.00, 0.78), (0.78, 1.28), (2.06, 1.00), (3.06, 1.44)]
-BW = 4.60
+RH = 0.268
+# per block: survey | ASEC persons | ASEC teachers | 12m persons | 12m teachers
+CW = [(0.00, 0.52), (0.52, 1.04), (1.56, 0.82), (2.38, 1.10), (3.48, 0.84)]
+BW = 4.32
 
-def cell(s, bx, y, col, t, bold=False, color=INK, size=12):
+def cell(s, bx, y, col, t, bold=False, color=INK, size=11.5):
     x0, w = CW[col]
     text(s, bx + x0, y, w, t, size=size, bold=bold, color=color,
          align=PP_ALIGN.LEFT if col == 0 else PP_ALIGN.RIGHT)
 
 for bi, block in enumerate([years[:half], years[half:]]):
-    bx = 0.75 + bi * 6.45
-    y = 1.42
+    bx = 0.70 + bi * 6.50
+    y = 1.32
     rule(s1, bx, y - 0.07, BW, weight=1.4)
+    # grouped header
+    text(s1, bx + CW[1][0], y, CW[1][1] + CW[2][1], "March suppl.",
+         size=11.5, bold=True, align=PP_ALIGN.CENTER)
+    text(s1, bx + CW[3][0], y, CW[3][1] + CW[4][1], "All 12 months*",
+         size=11.5, bold=True, align=PP_ALIGN.CENTER)
+    y += 0.26
     cell(s1, bx, y, 0, "Survey", True)
-    cell(s1, bx, y, 1, "March suppl.", True)
-    cell(s1, bx, y, 2, "Teachers", True)
-    cell(s1, bx, y, 3, "All 12 months", True)
-    rule(s1, bx, y + 0.27, BW, weight=0.6)
-    y += 0.33
+    cell(s1, bx, y, 1, "Persons", True, MUT, 10.5)
+    cell(s1, bx, y, 2, "Teachers", True, MUT, 10.5)
+    cell(s1, bx, y, 3, "Persons", True, MUT, 10.5)
+    cell(s1, bx, y, 4, "Teachers", True, MUT, 10.5)
+    rule(s1, bx, y + 0.24, BW, weight=0.6)
+    y += 0.32
     for yr in block:
         ad, te = int(A.loc[yr, "adults"]), int(A.loc[yr, "teachers"])
-        if yr in upers:
-            am = f"{upers[yr]:,}" + ("" if nmonths[yr] == 12 else "*")
-        else:
-            am = "–"
+        star = "" if nmonths.get(yr, 12) == 12 else "*"
+        mp = f"{upers[yr]:,}{star}" if yr in upers else "–"
+        mt = f"{uteach[yr]:,}{star}" if yr in uteach else "–"
         cell(s1, bx, y, 0, str(yr))
         cell(s1, bx, y, 1, f"{ad:,}")
         cell(s1, bx, y, 2, f"{te:,}")
-        cell(s1, bx, y, 3, am)
+        cell(s1, bx, y, 3, mp)
+        cell(s1, bx, y, 4, mt)
         y += RH
     rule(s1, bx, y + 0.03, BW, weight=1.4)
-ytot = 1.42 + 0.33 + half * RH + 0.10
-text(s1, 0.75 + 6.45, ytot, 6.0,
-     f"Total (ASEC)   {tot_ad:,} adults, {tot_te:,} teachers",
-     size=12.5, bold=True, color=NAVY)
-text(s1, 0.75, ytot, 5.9,
-     "Distinct adults (18+) in both columns. The supplement interviews "
-     "each person once; the basic survey interviews each adult about "
-     "three times a year (0.9–1.2 million interviews), so we keep "
-     "about one person in three and one interview in eight (monthly "
-     "files cached from 2005; * 2025: eleven months).",
-     size=10.5, color=MUT)
-# entry button to copy into the main deck, plus navigation
+ytot = 1.32 + 0.26 + 0.32 + half * RH + 0.12
+text(s1, 0.70 + 6.50, ytot, 6.0,
+     f"Total (ASEC)   {tot_ad:,} persons, {tot_te:,} teachers",
+     size=12, bold=True, color=NAVY)
+text(s1, 0.70, ytot, 6.1,
+     "Distinct adults (18+), each counted once per year. March suppl.: "
+     "the March respondents plus the February–April oversamples. "
+     "* All 12 months: people seen across the year's twelve monthly "
+     "files, interviewed about three times each (files from 2005; 2025: "
+     "eleven months). Teachers: longest job last year (ASEC); employed "
+     "in a teaching occupation at any interview (monthly).",
+     size=9.5, color=MUT)
 button(s1, 10.35, 0.30, "sample sizes", 0)
 text(s1, 10.35, 0.74, 2.6, "(copy this button to the main deck)",
      size=9.5, color=MUT)
-button(s1, 0.75, 6.92, "monthly samples", 1)
+button(s1, 0.70, 6.92, "monthly samples", 1)
 button(s1, 11.45, 6.92, "back", 0)
 
 # ---------------- slide 2: month by month, new vs seen before ----------
@@ -184,7 +196,7 @@ s2 = new_slide("The sample, month by month")
 MON = ["January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"]
 x0, wlab = 0.50, 1.00
-CWS = [0.66, 1.00, 1.00, 0.80]          # new, seen this yr, seen last yr, total
+CWS = [0.66, 1.00, 1.00, 0.80]      # new, seen this yr, seen last yr, total
 BW2 = sum(CWS)
 gap = 0.24
 y = 1.26
@@ -228,31 +240,30 @@ for i, yr in enumerate(SHOW):
         text(s2, cx, y, w, f"{v:,}", size=9.5, bold=True,
              align=PP_ALIGN.RIGHT)
         cx += w
-y += 0.25
+y += 0.26
 text(s2, x0, y, wlab + 2.6, "Distinct persons (New + Seen last yr)",
      size=9.5, bold=True)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
     text(s2, bx, y, BW2, f"{upers[yr]:,}", size=9.5, bold=True,
          align=PP_ALIGN.RIGHT)
-y += 0.25
+y += 0.26
 text(s2, x0, y, wlab + 2.6, "March supplement (ASEC), each person once",
      size=9.5, bold=True, color=NAVY)
 for i, yr in enumerate(SHOW):
     bx = x0 + wlab + i * (BW2 + gap)
     text(s2, bx, y, BW2, f"{int(A.loc[yr, 'adults']):,}", size=9.5,
          bold=True, color=NAVY, align=PP_ALIGN.RIGHT)
-rule(s2, x0, y + 0.25, TW, weight=1.4)
-text(s2, x0, y + 0.38, 12.3,
-     "Adults (18+); every cell counts persons. Within a month: New + "
-     "Seen this yr + Seen last yr = Total, the month\u2019s interviews "
-     "(\u2248100k in the 2000s). Down a column: the Totals sum to the "
-     "year\u2019s interviews (2006: 1,221,832), while New + Seen last yr "
-     "counts each person exactly once \u2192 distinct persons (2006: "
-     "203,820 + 178,187 = 382,007). The ASEC = the March respondents + "
-     "the February\u2013April oversamples: 38% of the distinct persons, "
-     "12% of the interviews, 1.45\u00d7 a single March.",
-     size=9.5, color=MUT)
+rule(s2, x0, y + 0.26, TW, weight=1.4)
+text(s2, x0, y + 0.40, 12.3,
+     "Adults (18+). New: first interview ever. Seen last yr: back after "
+     "being interviewed the previous year (first time this year). Seen "
+     "this yr: already interviewed in an earlier month of the year. "
+     "Within a month the three sum to the Total; down the year, New + "
+     "Seen last yr counts each person exactly once → the distinct "
+     "persons. The ASEC interviews each person once: the March "
+     "respondents plus the February–April oversamples, 1.45× a "
+     "single March.", size=9.5, color=MUT)
 button(s2, 11.45, 6.92, "back", 0)
 
 slides = list(prs.slides)
