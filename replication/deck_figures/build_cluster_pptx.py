@@ -537,11 +537,8 @@ add_text(s, 0.9, 5.50, 11.8, 1.2, [
 s = new_slide(title="Leaving, over the life cycle")
 
 chart(s, "u_routes_deck", (0.7, 1.25, 11.9, 4.75))
-message(s, "The two peaks call for different levers: the young trade "
-        "teaching for other jobs — a retention problem (mentorship, secure "
-        "placements, early-career conditions); the old leave the labor "
-        "force — a timing problem (extending careers). Re-attraction can "
-        "only work on the first.", size=14.5)
+message(s, "Each peak needs its own lever: retention for the young, who "
+        "leave for other jobs; career extension for the old, who retire.")
 
 divider("3", "Correlations: why they leave")
 
