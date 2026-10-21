@@ -28,8 +28,6 @@ def despine(ax):
 # Figure 2. Leaving Teaching, 1997-2024
 S = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 fig, ax = plt.subplots(figsize=(8.4, 4.2))
-ax.axvspan(2018.6, 2020.4, color="#F4F4F4", zorder=0)
-ax.text(2019.5, 12.3, "Covid", ha="center", fontsize=8.5, color=SUBTLE)
 
 ok = S["leaver_ba"].notna()
 main = S[ok]
