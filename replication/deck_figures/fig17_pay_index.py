@@ -11,6 +11,10 @@ piv = pd.read_csv("outputs/pay_prof_medians.csv").set_index("cal_year")
 sm = piv.rolling(3, center=True, min_periods=2).mean()
 LVL = (sm.iloc[-1]/1000).to_dict()
 idx = sm/sm.iloc[0]*100
+# counselors only from 2002 (the pre-2003 code 163 is too narrow),
+# rebased to 2002 = 100, as in the leaving-rate chart
+idx["Counselors"] = sm["Counselors"]/sm["Counselors"].loc[2002]*100
+idx.loc[:2001, "Counselors"] = np.nan
 
 fig, axes = plt.subplots(1, 2, figsize=(11.4, 4.7), sharey=True)
 
@@ -65,7 +69,8 @@ order = sorted(ends, key=ends.get); ys = sorted(ends.values())
 for i in range(1, len(ys)):
     if ys[i]-ys[i-1] < 4.6: ys[i] = ys[i-1]+4.6
 for p_, y in zip(order, ys):
-    ax.text(2025.0, y, f"{p_}  {ends[p_]-100:+.0f}%", fontsize=9.4,
+    tag = " since 2002" if p_ == "Counselors" else ""
+    ax.text(2025.0, y, f"{p_}  {ends[p_]-100:+.0f}%{tag}", fontsize=9.4,
             color=STYLE[p_][0] if p_ == "Teachers" else "#3B4046",
             va="center",
             fontweight="bold" if p_ == "Teachers" else "normal")

@@ -926,20 +926,30 @@ message(s, "No. 22% of fitted values fall below zero, so the probit is the "
         y=6.30, size=14.5)
 backbtn(s, "maineq")
 
-s = new_slide(title="What the CPS observes, of why teachers leave", key="appframework")
-cols = [(0.9, 7.6, L), (8.7, 3.4, L)]
-rows = [
- row(pl("Reasons in the literature", True), pl("In the CPS?", True)),
- "RULE",
- row(pl("Working conditions"), pl("no", False, MUT)),
- row(pl("Organizational support"), pl("no", False, MUT)),
- row(pl("Autonomy and intrinsic motives"), pl("no", False, MUT)),
- row(pl("Financial factors"), pl("yes", True, NAVY)),
- row(pl("Personal life-cycle motives"), pl("yes", True, NAVY)),
- "RULE",
- row(pl("Sociodemographics"), pl("yes", True, NAVY)),
-]
-table(s, cols, rows, 1.80, size=16, rowh=0.46)
+s = new_slide(title="Determinants of leaving the teaching profession",
+              key="appframework")
+add_text(s, 0.9, 1.22, 11.8, 0.4,
+         [[[("From the initial literature review of our policy paper", 15,
+             MUT, False, True)], 0]])
+add_text(s, 0.9, 2.02, 11.8, 0.4,
+         [[[("In the literature, but not in the CPS", 19, MUT, True,
+             False)], 0]])
+bullets(s, [
+ ("Working conditions.", "Workload, class size, and student behavior."),
+ ("Organizational support.", "Leadership, mentoring, and school climate."),
+ ("Autonomy and intrinsic motives.",
+  "Control over one's own work and the sense of vocation."),
+], y=2.58, size=17, gap=12, marker_color=MUT)
+add_text(s, 0.9, 4.42, 11.8, 0.4,
+         [[[("What the CPS observes", 19, NAVY, True, False)], 0]])
+bullets(s, [
+ ("Financial factors.",
+  "Own earnings, household income, and the pay of the outside options."),
+ ("Personal life-cycle motives.",
+  "Marriage, children, health, and retirement timing."),
+ ("Sociodemographics.",
+  "Sex, age, education, race and ethnicity, and state."),
+], y=4.98, size=17, gap=12)
 backbtn(s, "maineq")
 
 # ---- wire the buttons, attach notes ----
