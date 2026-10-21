@@ -243,53 +243,59 @@ fig.tight_layout()
 save(fig, "flow_unified")
 
 # ================= 6. defs6 with a visible benchmark ==================
+# journal-style: grayscale ladder distinguished by line pattern, the
+# headline recall series in navy, all annotations in black roman
 L = pd.read_csv("outputs/definitions_ladder.csv")
 L = L[L.base_year <= 2024]
-REDS = ["#C79AA0", "#A2606A", "#8A4450", "#7B2530"]
+BLACK = "#000000"
 fig, ax = plt.subplots(figsize=(12.4, 6.4))
-series = [("single", REDS[0], "-", 1.7, "Single   17.5"),
-          ("month_pairs", MUT, (0, (4, 2)), 1.7, "Month pairs   15.4"),
-          ("pair", REDS[1], "-", 1.7, "Pair   13.4"),
-          ("triple", REDS[2], "-", 1.7, "Triple   11.7"),
-          ("strict", REDS[3], "-", 2.5, "Strict   10.5")]
+series = [("single", "#9A9A9A", (0, (1, 1.6)), 1.5, "Single   17.5"),
+          ("month_pairs", "#9A9A9A", (0, (4, 2)), 1.5,
+           "Month pairs   15.4"),
+          ("pair", "#6E6E6E", (0, (6, 2, 1, 2)), 1.5, "Pair   13.4"),
+          ("triple", "#4D4D4D", (0, (2.5, 1.5)), 1.6, "Triple   11.7"),
+          ("strict", "#1A1A1A", "-", 1.9, "Strict   10.5")]
 for col, c, ls, lw, lab in series:
     ax.plot(L.base_year, L[col], color=c, ls=ls, lw=lw)
-    ax.annotate(lab, (2024.3, L[col].iloc[-1]), fontsize=12.5, color=c,
-                va="center", fontweight="bold")
+    ax.annotate(lab, (2024.3, L[col].iloc[-1]), fontsize=12, color=BLACK,
+                va="center")
 # annual recall runs from 1997 (the March supplement needs no panel) with
 # its 95 percent confidence band
 P = pd.read_csv("outputs/p_series.csv").sort_values("cal_year")
 P = P[P.cal_year <= 2024]
 ax.fill_between(P.cal_year, P.leaver_ba - 1.96 * P.se_ba,
-                P.leaver_ba + 1.96 * P.se_ba, color=NAVY, alpha=0.10, lw=0)
-ax.plot(P.cal_year, P.leaver_ba, color=NAVY, lw=2.7)
+                P.leaver_ba + 1.96 * P.se_ba, color="#6E7680",
+                alpha=0.14, lw=0)
+ax.plot(P.cal_year, P.leaver_ba, color=NAVY, lw=2.6)
 ax.annotate("Annual recall   8.6", (2024.3, P.leaver_ba.iloc[-1]),
-            fontsize=12.5, color=NAVY, va="center", fontweight="bold")
-ax.axvline(2004.9, color="#C9CFD6", lw=1.0, zorder=1)
+            fontsize=12, color=NAVY, va="center", fontweight="bold")
+ax.axvline(2004.9, color="#B9BEC4", lw=0.9, zorder=1)
 ax.annotate("linkable household identifiers from 2005",
-            (2004.6, 23.0), fontsize=10.5, color=MUT, ha="right",
+            (2004.6, 23.0), fontsize=10.5, color=BLACK, ha="right",
             va="top", fontweight="bold")
 # waves at the survey year, except 2000-01, placed at its exit year
 # (2000) because the 2001 point of the recall series carries the
 # recession spike the wave predates
 NC_Y, NC_V = [2000, 2005, 2009, 2013, 2022], [7.4, 8.4, 8.0, 7.7, 8.0]
-ax.plot(NC_Y, NC_V, ls="none", marker="D", ms=10, mfc="black",
-        mec="white", mew=1.6, zorder=6)
+ax.plot(NC_Y, NC_V, ls="none", marker="D", ms=9, mfc=BLACK,
+        mec="white", mew=1.4, zorder=6)
 ax.annotate("NCES follow-up survey\n(official benchmark)   8.0",
-            (2024.3, 6.4), fontsize=12.5, color="black", va="center",
+            (2024.3, 6.4), fontsize=12, color=BLACK, va="center",
             fontweight="bold")
 for x, v in zip(NC_Y, NC_V):
-    ax.annotate(f"{v}", (x, v), xytext=(0, -16), textcoords="offset points",
-                ha="center", fontsize=10.5, color="black", fontweight="bold")
+    ax.annotate(f"{v}", (x, v), xytext=(0, -16),
+                textcoords="offset points", ha="center", fontsize=10.5,
+                color=BLACK)
 ax.set_xlim(1996.5, 2031.5)
 ax.set_ylim(0, 24)
 ax.set_xticks(range(1997, 2025, 3))
-ax.set_ylabel("teachers leaving per year, percent", fontsize=12.5, color=INK)
+ax.set_ylabel("Teachers leaving per year (percent)", fontsize=12.5,
+              color=BLACK)
 for sp in ("top", "right"):
     ax.spines[sp].set_visible(False)
 ax.grid(axis="y", color="#F1F2F3", lw=1)
 ax.set_axisbelow(True)
-ax.tick_params(labelsize=11.5)
+ax.tick_params(labelsize=11.5, colors=BLACK)
 fig.tight_layout()
 save(fig, "defs6")
 print("done")
