@@ -104,7 +104,7 @@ for yr in SHOW:
     sr = sum(r[2] for r in newrep[yr])
     sums += [f"{sn:,}", f"{sr:,}", f"{sb:,}", f"{sn+sb+sr:,}"]
 b2sum = "Sum & " + " & ".join(sums) + r" \\"
-b2dis = (r"Distinct persons (new $+$ last year) & " + " & ".join(
+b2dis = (r"Distinct persons (New $+$ Last yr) & " + " & ".join(
     rf"\multicolumn{{4}}{{r}}{{{upers[yr]:,}}}" if False else ""
     for yr in []) )
 dis_cells = " & ".join(
@@ -118,7 +118,7 @@ NS_AD, NS_TE = f"{tot_ad:,}", f"{tot_te:,}"
 tex = (r"""\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[paperwidth=21.5cm,paperheight=24cm,margin=0.6cm]{geometry}
+\usepackage[paperwidth=26cm,paperheight=24cm,margin=0.6cm]{geometry}
 \usepackage{booktabs,threeparttable}
 \setlength{\tabcolsep}{4.5pt}
 \pagestyle{empty}
@@ -165,6 +165,7 @@ a school-teaching occupation at a monthly interview (monthly files).
 {\large\bfseries Table B2 --- Monthly interviews by panel status:
 new, returning and repeated respondents}\\[1.0em]
 \begin{threeparttable}
+\setlength{\tabcolsep}{3.6pt}
 \begin{tabular}{l rrrr rrrr rrrr}
 \toprule
  & \multicolumn{4}{c}{2006} & \multicolumn{4}{c}{2015}
