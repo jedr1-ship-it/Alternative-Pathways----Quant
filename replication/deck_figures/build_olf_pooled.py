@@ -45,6 +45,9 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
       f"{father:.1f}/{mennok:.1f}")
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
+TAGS = {"Employed": ("Switchers", "#3A6BA8"),
+        "Out of the labor force, <55": ("Early exits", "#B8922F"),
+        "Out of the labor force, 55+": ("Retirees", "#7E99BD")}
 Y1, Y0, H = 1.72, 0.80, 0.34
 top2 = [("Employed", emp, SBLUE, "white"),
         ("Out of the labor force, <55", olfu, SGOLD, INK),
@@ -59,6 +62,11 @@ for lab, v, c, tc in top2:
     yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
     ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=9.3,
             color=INK, fontweight="bold")
+    if lab in TAGS:
+        tg, tc = TAGS[lab]
+        ax.text(x + v / 2, Y1 + H / 2 + 0.42, tg, ha="center",
+                va="bottom", fontsize=10, color=tc, fontweight="bold",
+                style="italic")
     if "<55" in lab:
         x_yl0, x_yl1 = x, x + v
     x += v
@@ -101,7 +109,7 @@ ax.text(xb / 2, yb - 0.07,
         f"({mb:.0f} of the {olfu:.0f} of every 100 leavers)",
         ha="center", va="top", fontsize=9.4, color=INK, fontweight="bold")
 ax.set_xlim(-14, 101)
-ax.set_ylim(-0.75, 2.75)
+ax.set_ylim(-0.75, 2.95)
 ax.axis("off")
 fig.tight_layout()
 fig.savefig(f"{OUT}/flow_olf55_pooled.pdf")

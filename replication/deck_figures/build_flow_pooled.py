@@ -68,6 +68,9 @@ print(f"pooled 1997-2024: n_leavers={len(L)} | top {emp:.1f}/{olf55:.1f}/"
       f"{salesetc:.1f}")
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
+TAGS = {"Employed": ("Switchers", "#3A6BA8"),
+        "Out of the labor force, <55": ("Early exits", "#B8922F"),
+        "Out of the labor force, 55+": ("Retirees", "#7E99BD")}
 Y1, Y0, H = 1.72, 0.55, 0.34
 # softened palette for the flow charts, easier on the eye
 SBLUE, SGOLD, SCORAL, SGREEN, SGRAY = ("#5E8DC9", "#E8BE55", "#CC6F63",
@@ -85,6 +88,11 @@ for lab, v, c in top:
     yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
     ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=9.3,
             color=INK, fontweight="bold")
+    if lab in TAGS:
+        tg, tc = TAGS[lab]
+        ax.text(x + v / 2, Y1 + H / 2 + 0.42, tg, ha="center",
+                va="bottom", fontsize=10, color=tc, fontweight="bold",
+                style="italic")
     x += v
 bot = [("Education job", edu_job, SBLUE),
        ("Care and\nchildren", care, SCORAL),
@@ -118,7 +126,7 @@ ax.text(xb / 2, yb - 0.07,
         f"({ec:.0f} of every 100 leavers)",
         ha="center", va="top", fontsize=9.6, color=INK, fontweight="bold")
 ax.set_xlim(-14, 101)
-ax.set_ylim(-0.35, 2.35)
+ax.set_ylim(-0.35, 2.75)
 ax.axis("off")
 fig.tight_layout()
 fig.savefig(f"{OUT}/flow_employed_pooled.pdf")
