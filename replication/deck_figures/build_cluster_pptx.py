@@ -254,13 +254,19 @@ NOTES[2] = ("Motivacion y problema. Boton de fuentes oficiales y sus "
 
 # ================= 3. contribution =================
 s = new_slide(title="Contribution")
-add_text(s, 0.9, 1.75, 11.8, 0.6,
-         [("We use the Current Population Survey to", 20, INK, False, False, 0)])
+add_text(s, 0.9, 1.55, 11.8, 0.9,
+         [("We build one of the longest continuous measures of teacher "
+           "attrition in the United States: twenty-eight consecutive "
+           "years, 1998–2025.", 20, INK, False, False, 0)])
 bullets(s, [
- "reproduce and extend the official statistics on teachers leaving the "
- "profession;",
- "having achieved A, study in detail how many leave, where they go, and why."],
- y=3.05, size=22, gap=44, numbered=True)
+ ("One source.", "Every number comes from the same instrument — the CPS "
+  "March supplement — under a single definition, with no splicing of "
+  "surveys."),
+ ("No gaps.", "Twenty-eight consecutive annual observations; the "
+  "official benchmark measures once every four or more years."),
+ ("Beyond the rate.", "The same files show who leaves, where they go, "
+  "what leaving pays, who returns, and what moves the rate.")],
+ y=3.00, size=20, gap=30)
 
 divider("0", "Methodological discussion")
 
