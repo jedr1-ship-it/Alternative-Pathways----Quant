@@ -159,7 +159,7 @@ tex = (r"""\documentclass[11pt]{article}
 \begin{threeparttable}
 \begin{tabular}{lccc}
 \toprule
- & \multicolumn{3}{c}{Average marginal effect on leaving ($\times$100)} \\
+ & \multicolumn{3}{c}{Average marginal effect on leaving, percentage points} \\
 \cmidrule(lr){2-4}
  & LPM & Logit & Probit \\
  & (1) & (2) & (3) \\
@@ -172,7 +172,9 @@ Observations       & """ + NS + " & " + NS + " & " + NS + r""" \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item \emph{Notes:} Teachers with a bachelor's degree or higher, aged
+\item \emph{Notes:} Entries are percentage points: $-9.93$ means a
+9.9-point lower annual probability of leaving teaching. Sample: all
+teachers with a bachelor's degree or higher, aged
 18--70, in the pooled March supplements of 1998--2025 (outcomes over
 calendar years 1997--2024); one observation per person and year,
 $N$ = """ + NS + r""". Controls beyond those shown: number of
