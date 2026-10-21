@@ -100,8 +100,6 @@ edges = [0]
 for lab, v, c, tc in segs:
     w = v * sc
     ax.barh([Y1], [w], left=x, color=c, height=H)
-    ax.text(x + w / 2, Y1, f"{v:.0f}", ha="center", va="center", color=tc,
-            fontsize=10.5, fontweight="bold")
     yl = Y1 + H / 2 + 0.12
     ax.text(x + w / 2, yl, lab, ha="center", va="bottom", fontsize=9.0,
             color=INK, fontweight="bold")
@@ -128,9 +126,8 @@ for x0, x1, sh, c in regions:
     lvl += 1
 ax.plot([0, 0], [Y1 - H / 2, Y0 + H / 2], ls=":", color=SUBTLE, lw=0.9,
         zorder=1)
-ax.text(-1.2, Y1, "Who leaves the labor\nforce before 55\n"
-        f"(the {olfu:.0f} of the previous chart)", ha="right", va="center",
-        fontsize=9.2, color=INK)
+ax.text(-1.2, Y1, "Who leaves the labor\nforce before 55",
+        ha="right", va="center", fontsize=9.2, color=INK)
 ax.text(-1.2, Y0, "Of each group,\nthe share enrolled\nin school",
         ha="right", va="center", fontsize=9.2, color=INK)
 ax.text(50, Y0 - H / 2 - 0.80,
