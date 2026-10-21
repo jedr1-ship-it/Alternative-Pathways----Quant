@@ -57,8 +57,6 @@ x = 0
 x_yl0 = x_yl1 = None
 for lab, v, c, tc in top2:
     ax.barh([Y1], [v], left=x, color=c, height=H)
-    ax.text(x + v / 2, Y1, f"{v:.0f}", ha="center", va="center", color=tc,
-            fontsize=11, fontweight="bold")
     yl = Y1 + H / 2 + (0.10 if lab != "Unemployed" else 0.24)
     ax.text(x + v / 2, yl, lab, ha="center", va="bottom", fontsize=9.3,
             color=INK, fontweight="bold")
