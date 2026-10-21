@@ -268,7 +268,7 @@ ax.annotate("Annual recall   8.6", (2024.3, P.leaver_ba.iloc[-1]),
 ax.axvline(2004.9, color="#C9CFD6", lw=1.0, zorder=1)
 ax.annotate("linkable household identifiers from 2005",
             (2004.6, 23.0), fontsize=10.5, color=MUT, ha="right",
-            va="top")
+            va="top", fontweight="bold")
 # waves at the survey year, except 2000-01, placed at its exit year
 # (2000) because the 2001 point of the recall series carries the
 # recession spike the wave predates
