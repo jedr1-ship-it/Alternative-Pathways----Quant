@@ -118,9 +118,9 @@ NS_AD, NS_TE = f"{tot_ad:,}", f"{tot_te:,}"
 tex = (r"""\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[paperwidth=26cm,paperheight=24cm,margin=0.6cm]{geometry}
+\usepackage[paperwidth=21.5cm,paperheight=24cm,margin=0.6cm]{geometry}
 \usepackage{booktabs,threeparttable}
-\setlength{\tabcolsep}{7pt}
+\setlength{\tabcolsep}{4.5pt}
 \pagestyle{empty}
 \begin{document}
 
@@ -128,10 +128,10 @@ tex = (r"""\documentclass[11pt]{article}
 {\large\bfseries Table B1 --- Sample sizes by survey year:
 March supplement and basic monthly files}\\[1.0em]
 \begin{threeparttable}
-\begin{tabular}{l rr rr @{\hskip 2.6em} l rr rr}
+\begin{tabular}{l rr rr @{\hskip 1.3em} l rr rr}
 \toprule
- & \multicolumn{2}{c}{March suppl.} & \multicolumn{2}{c}{All 12 months}
- & & \multicolumn{2}{c}{March suppl.} & \multicolumn{2}{c}{All 12 months} \\
+ & \multicolumn{2}{c}{ASEC} & \multicolumn{2}{c}{12 months}
+ & & \multicolumn{2}{c}{ASEC} & \multicolumn{2}{c}{12 months} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
 Survey & Persons & Teachers & Persons & Teachers
  & Survey & Persons & Teachers & Persons & Teachers \\
@@ -146,9 +146,9 @@ teachers} \\
 \begin{tablenotes}[flushleft]
 \footnotesize
 \item \emph{Notes:} Distinct adults (18+), each counted once per survey
-year. \emph{March suppl.}: respondents of the ASEC file --- the March
+year. \emph{ASEC}: respondents of the March supplement --- the March
 sample plus the February--April oversamples --- who answer the
-retrospective questions once each. \emph{All 12 months}: distinct
+retrospective questions once each. \emph{12 months}: distinct
 people appearing in that year's twelve basic monthly files; the CPS
 interviews each household in four consecutive months twice over two
 years, so a person is interviewed about three times per calendar year.
