@@ -265,10 +265,10 @@ ax.fill_between(P.cal_year, P.leaver_ba - 1.96 * P.se_ba,
 ax.plot(P.cal_year, P.leaver_ba, color=NAVY, lw=2.7)
 ax.annotate("Annual recall   8.6", (2024.3, P.leaver_ba.iloc[-1]),
             fontsize=12.5, color=NAVY, va="center", fontweight="bold")
-ax.axvline(2004.9, ls=(0, (2, 2)), color=MUT, lw=1.1, zorder=1)
-ax.annotate("linkable household\nidentifiers begin (2005)",
-            (2004.5, 22.8), fontsize=13.5, color=NAVY, ha="right",
-            va="top", fontweight="bold")
+ax.axvline(2004.9, color="#C9CFD6", lw=1.0, zorder=1)
+ax.annotate("linkable household identifiers from 2005",
+            (2004.6, 23.0), fontsize=10.5, color=MUT, ha="right",
+            va="top")
 # waves at the survey year, except 2000-01, placed at its exit year
 # (2000) because the 2001 point of the recall series carries the
 # recession spike the wave predates
