@@ -45,6 +45,9 @@ for _, r in D3.iterrows():
     ax.annotate(f"{r['rate']:.0f}", (r["d"], r["rate"]), xytext=(0,5),
                 textcoords="offset points", ha="center", fontsize=9.5,
                 color=DARK, fontweight="bold")
+ax.axvline(5.5, color=DARK, lw=1.0, ls=(0, (4, 2)), zorder=2)
+ax.text(5.65, 28.2, f"median teacher earnings  ${cut[5]:.0f}k",
+        fontsize=9.5, color=DARK, fontweight="bold")
 ax.set_xticks(range(1,11))
 ax.set_xticklabels(labels, fontsize=8.6, rotation=45, ha="right")
 ax.set_xlabel("Within-year earnings decile among teachers ($1,000 of 2024)",
