@@ -103,7 +103,7 @@ def prof_codes(ay):
         "Teachers": {2300, 2310, 2320, 2330} | ({2340} if ay <= 2019 else {2360}),
         "Registered nurses": rn,
         "Social workers": sw,
-        "Accountants": {800},
+        "Counselors": {2000} if ay <= 2019 else {2001, 2002, 2003, 2004, 2005, 2006},
         "Lawyers": {2100},
         "Pharmacists": {3050},
         "Physicians": md,
@@ -131,7 +131,7 @@ M["left_own"] = np.where(pro, ((emp & (M.PEIOOCC != M.OCCUP)) | ~emp), np.nan)
 
 # --- comparability table (pooled cal 2015-2024; wages cal 2020-2024)
 rows = []
-for name in ["Teachers", "Registered nurses", "Social workers", "Accountants"]:
+for name in ["Teachers", "Registered nurses", "Social workers", "Counselors"]:
     g = M[(M.in_prof == name) & M.cal_year.between(2015, 2024)]
     w = g.WGT
     def wm(s, cond=None):
@@ -153,7 +153,7 @@ print(C.round(1).to_string())
 # --- extended chart: 9 professions + professional average, 3-yr MA
 fig, ax = plt.subplots(figsize=(12.4, 6.4))
 hl = {"Teachers": (NAVY, 2.8), "Registered nurses": ("#3E7C59", 1.5),
-      "Social workers": ("#C4534B", 1.5), "Accountants": ("#9AA1A8", 1.5)}
+      "Social workers": ("#C4534B", 1.5), "Counselors": ("#9AA1A8", 1.5)}
 ends = []
 for name in prof_codes(2024):
     s = (M[M.in_prof == name].groupby("cal_year")
