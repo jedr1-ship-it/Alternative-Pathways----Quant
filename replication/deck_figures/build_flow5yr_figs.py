@@ -89,9 +89,9 @@ print("bot07:", round(edu_job, 1), round(care, 1), round(otherprof, 1),
       round(salesetc, 1))
 
 fig, ax = plt.subplots(figsize=(9.6, 4.6))
-TAGS = {"Employed": ("Switchers", "#3A6BA8"),
-        "Out of the labor force, <55": ("Early exits", "#B8922F"),
-        "Out of the labor force, 55+": ("Retirees", "#7E99BD")}
+TAGS = {"Employed": ("Switchers", "#2F5D99"),
+        "Out of the labor force, <55": ("Early exits", "#A67F1E"),
+        "Out of the labor force, 55+": ("Retirees", "#5F7FA8")}
 Y1, Y0, H = 1.72, 0.55, 0.34
 top = [("Employed", emp, SBLUE),
        ("Out of the labor force, <55", olfu, SGOLD),
@@ -108,8 +108,8 @@ for lab, v, c in top:
             color=INK, fontweight="bold")
     if lab in TAGS:
         tg, tc = TAGS[lab]
-        ax.text(x + v / 2, Y1 + H / 2 + 0.42, tg, ha="center",
-                va="bottom", fontsize=10, color=tc, fontweight="bold",
+        ax.text(x + v / 2, Y1 + H / 2 + 0.30, tg, ha="center",
+                va="bottom", fontsize=10.8, color=tc, fontweight="bold",
                 style="italic")
     x += v
 bot = [("Education job", edu_job, SBLUE),
@@ -179,8 +179,8 @@ for lab, v, c, tc in top2:
             color=INK, fontweight="bold")
     if lab in TAGS:
         tg, tc = TAGS[lab]
-        ax.text(x + v / 2, Y1 + H / 2 + 0.42, tg, ha="center",
-                va="bottom", fontsize=10, color=tc, fontweight="bold",
+        ax.text(x + v / 2, Y1 + H / 2 + 0.30, tg, ha="center",
+                va="bottom", fontsize=10.8, color=tc, fontweight="bold",
                 style="italic")
     if "<55" in lab:
         x_yl0, x_yl1 = x, x + v
