@@ -1,0 +1,76 @@
+% Selection into panel non-observation (Table A4).
+% Build: pdflatex attrition_selection_table.tex
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[paperwidth=18cm,paperheight=26cm,margin=0.6cm]{geometry}
+\usepackage{booktabs,threeparttable}
+\setlength{\tabcolsep}{12pt}
+\pagestyle{empty}
+\newcommand{\sym}[1]{\rlap{$^{#1}$}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries Table A4 --- Is the linkage loss selective?}\\[1.0em]
+\begin{threeparttable}
+\begin{tabular}{lcc}
+\toprule
+ & \multicolumn{2}{c}{Dependent variable: not observed next March (0--100)} \\
+\cmidrule(lr){2-3}
+ & LPM & Probit AME \\
+\midrule
+Full-year contract & $+2.40$\sym{**} & $+2.37$ \\
+ & (1.07) & \\[0.2em]
+Part-time contract & $-0.85$\sym{} & $-0.87$ \\
+ & (1.50) & \\[0.2em]
+Employer pension plan & $+0.41$\sym{} & $+0.40$ \\
+ & (0.98) & \\[0.2em]
+Public sector & $-0.96$\sym{} & $-0.96$ \\
+ & (1.02) & \\[0.2em]
+New baby during the year & $+0.33$\sym{} & $+0.28$ \\
+ & (2.44) & \\[0.2em]
+Number of children & $+1.71$\sym{***} & $+1.71$ \\
+ & (0.45) & \\[0.2em]
+Youngest child under 6 & $-0.01$\sym{} & $-0.03$ \\
+ & (1.29) & \\[0.2em]
+Married & $-4.03$\sym{***} & $-4.05$ \\
+ & (1.37) & \\[0.2em]
+Separated or divorced & $-1.98$\sym{} & $-2.10$ \\
+ & (1.85) & \\[0.2em]
+Female & $+0.77$\sym{} & $+0.78$ \\
+ & (1.04) & \\[0.2em]
+Black & $+7.34$\sym{***} & $+7.38$ \\
+ & (1.44) & \\[0.2em]
+Master's degree or higher & $+0.01$\sym{} & $+0.01$ \\
+ & (0.89) & \\[0.2em]
+Fair or poor health & $-1.44$\sym{} & $-1.44$ \\
+ & (2.15) & \\[0.2em]
+With a disability & $-0.20$\sym{} & $-0.10$ \\
+ & (2.89) & \\[0.2em]
+Bottom-quartile household income & $+1.60$\sym{} & $+1.65$ \\
+ & (1.89) & \\[0.2em]
+\midrule
+Year fixed effects & Yes & Yes \\
+Observations       & 16,208 & 16,208 \\
+Weighted share not observed & \multicolumn{2}{c}{67.5\%} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \emph{Notes:} College-graduate teachers aged at most 70 in the
+2019--2024 ASEC. The dependent variable equals 100 when the person is
+not found in the following March's ASEC by the validated match
+(identifier, sex, race, age advancing at most two years). Coefficients
+are percentage points. Roughly half of the non-observations are
+mechanical: the 4-8-4 rotation retires about half of each March sample
+before the next March, independently of characteristics. Weighted
+least squares with ASEC supplement weights and heteroskedasticity-robust
+(HC1) standard errors in parentheses; a quadratic in age is included.
+Non-observation follows the residential-stability profile (unmarried,
+Black, more children) and is uncorrelated with the health, income and
+job variables that drive leaving.
+$^{*}$ $p<0.10$, $^{**}$ $p<0.05$, $^{***}$ $p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{document}

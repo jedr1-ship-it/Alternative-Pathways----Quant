@@ -72,8 +72,8 @@ GROUPS = [
              ("n_children", "Number of children"),
              ("married", "Married"),
              ("sepdiv", "Separated or divorced")]),
- ("Demographics", [("age", "Age (per year)"),
-                   ("female", "Female"),
+ # age enters as a quadratic, so its single AME is not interpretable
+ ("Demographics", [("female", "Female"),
                    ("black", "Black"),
                    ("ma_plus", "Master's degree or higher")]),
 ]

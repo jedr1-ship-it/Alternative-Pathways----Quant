@@ -390,7 +390,8 @@ bullets(s, [
  y=2.45, size=16, gap=15, x=6.95, w=5.6, numbered=True)
 buttons_row(s, [("linkage loss", "applink"),
                 ("definition sensitivity", "appgradient"),
-                ("validation", "appidentity")])
+                ("validation", "appidentity"),
+                ("selection", "appselection")])
 
 # ================= 11. six definitions =================
 s = new_slide(title="Six ways to define leaving, simplest to strictest")
@@ -415,6 +416,7 @@ rows = [
      pl("not teaching at the March interview")),
 ]
 table(s, cols, rows, 1.95, size=14.5, rowh=0.58)
+buttons_row(s, [("all combinations", "appdefgrid")])
 
 # ================= 12. defs6 =================
 s = new_slide(title="Leaving rates under alternative definitions")
@@ -730,6 +732,17 @@ chart(s, "linkage_series", (0.9, 1.15, 11.5, 4.95))
 message(s, "Teachers link more than other graduates, not less. But movers "
         "leave teaching more, so panel measures are lower bounds on "
         "mobility-related exit.", y=6.35, size=14.5)
+backbtn(s, "maindisadv")
+
+s = new_slide(title="Every combination of the two definitions", key="appdefgrid")
+chart(s, "definition_grid", (1.1, 1.10, 11.1, 5.3))
+add_text(s, 0.9, 6.60, 11.8, 0.4,
+         [("Pooled 2005–2024, weighted. A leaver is always a person never "
+           "seen teaching in year 2.", 13, MUT, False, False, 0)])
+backbtn(s, "maindisadv")
+
+s = new_slide(title="Is the linkage loss selective?", key="appselection")
+chart(s, "seltab-1", (3.0, 1.05, 7.3, 6.2))
 backbtn(s, "maindisadv")
 
 s = new_slide(title="Why the rate falls as the definition tightens", key="appgradient")
