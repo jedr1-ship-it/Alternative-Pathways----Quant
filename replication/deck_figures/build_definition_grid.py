@@ -109,11 +109,11 @@ for j, lab in enumerate(["teaching in at least 1\nof 4 interviews",
                          "teaching in all 4"]):
     ax.text(-0.12, -j + 0.485, lab, ha="right", va="center", fontsize=10.5,
             color=INK)
-for k, lab in enumerate(["observed in at least 1\nyear-2 interview",
-                         "observed in at least 2",
-                         "observed in at least 3",
-                         "observed in all 4"]):
-    ax.text(k + 0.485, 1.12, lab, ha="center", va="bottom", fontsize=10.5,
+for k, lab in enumerate(["observed in at\nleast 1 interview",
+                         "observed in\nat least 2",
+                         "observed in\nat least 3",
+                         "observed in\nall 4"]):
+    ax.text(k + 0.485, 1.12, lab, ha="center", va="bottom", fontsize=9.8,
             color=INK)
 ax.text(-2.55, 0.485, "Who is a teacher\n(year-1 requirement)",
         ha="left", va="center", fontsize=11, color=INK, fontweight="bold")
