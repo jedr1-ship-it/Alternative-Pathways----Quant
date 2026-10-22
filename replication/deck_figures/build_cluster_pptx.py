@@ -736,9 +736,12 @@ backbtn(s, "maindisadv")
 
 s = new_slide(title="Every combination of the two definitions", key="appdefgrid")
 chart(s, "definition_grid", (1.1, 1.10, 11.1, 5.3))
-add_text(s, 0.9, 6.60, 11.8, 0.4,
-         [("Pooled 2005–2024, weighted. A leaver is always a person never "
-           "seen teaching in year 2.", 13, MUT, False, False, 0)])
+add_text(s, 0.9, 6.52, 11.8, 0.8,
+         [("Pooled 2005–2024, weighted; a leaver is always a person never "
+           "seen teaching in year 2. The rate falls steeply with the year-1 "
+           "teaching requirement and barely moves with the year-2 evidence "
+           "requirement. Single, Pair, Triple and Strict are the second "
+           "column.", 13, MUT, False, False, 0)])
 backbtn(s, "maindisadv")
 
 s = new_slide(title="Is the linkage loss selective?", key="appselection")

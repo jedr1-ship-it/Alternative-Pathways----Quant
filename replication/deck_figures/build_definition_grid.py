@@ -103,15 +103,15 @@ for j in range(4):
         ax.text(k + 0.485, -j + 0.24, f"n = {ns[j, k]:,}", ha="center",
                 va="center", fontsize=8.2,
                 color="#D6DEEA" if dark else "#6B7480")
-for j, lab in enumerate(["teaching in ≥1\nof 4 interviews",
-                         "teaching in ≥2",
-                         "teaching in ≥3",
+for j, lab in enumerate(["teaching in at least 1\nof 4 interviews",
+                         "teaching in at least 2",
+                         "teaching in at least 3",
                          "teaching in all 4"]):
     ax.text(-0.12, -j + 0.485, lab, ha="right", va="center", fontsize=10.5,
             color=INK)
-for k, lab in enumerate(["observed in ≥1\nyear-2 interview",
-                         "observed in ≥2",
-                         "observed in ≥3",
+for k, lab in enumerate(["observed in at least 1\nyear-2 interview",
+                         "observed in at least 2",
+                         "observed in at least 3",
                          "observed in all 4"]):
     ax.text(k + 0.485, 1.12, lab, ha="center", va="bottom", fontsize=10.5,
             color=INK)
