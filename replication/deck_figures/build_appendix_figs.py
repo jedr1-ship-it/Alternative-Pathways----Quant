@@ -250,8 +250,6 @@ L = L[L.base_year <= 2024]
 BLACK = "#000000"
 fig, ax = plt.subplots(figsize=(12.4, 6.4))
 series = [("single", "#9A9A9A", (0, (1, 1.6)), 1.5, "Single   17.5"),
-          ("month_pairs", "#9A9A9A", (0, (4, 2)), 1.5,
-           "Month pairs   15.4"),
           ("pair", "#6E6E6E", (0, (6, 2, 1, 2)), 1.5, "Pair   13.4"),
           ("triple", "#4D4D4D", (0, (2.5, 1.5)), 1.6, "Triple   11.7"),
           ("strict", "#1A1A1A", "-", 1.9, "Strict   10.5")]
