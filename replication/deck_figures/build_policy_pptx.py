@@ -84,9 +84,13 @@ def message(s, text, y=6.22, size=16, lead="Key message."):
                               prs.slide_width, Inches(1.05))
     band.fill.solid(); band.fill.fore_color.rgb = BAND
     band.line.fill.background(); band.shadow.inherit = False
+    bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.55),
+                             Inches(y - 0.02), Inches(0.08), Inches(0.78))
+    bar.fill.solid(); bar.fill.fore_color.rgb = NAVY
+    bar.line.fill.background(); bar.shadow.inherit = False
     add_text(s, 0.9, y, 11.8, 0.9, [[
-        [(lead + "  ", size, NAVY, True, False),
-         (text, size, INK, False, False)], 0]])
+        [(lead + "  ", size + 1, NAVY, True, False),
+         (text, size + 1, NAVY, False, False)], 0]])
 
 def bullets(s, items, y=1.55, size=19, gap=22, x=0.9, w=11.8):
     parts = []
@@ -112,7 +116,7 @@ def chart(s, name, box=(0.7, 1.25, 11.9, 4.85)):
                          Inches(y + (h - ph) / 2),
                          width=Inches(pw), height=Inches(ph))
 
-def divider(num, title):
+def divider(num, title, question=None):
     s = prs.slides.add_slide(blank)
     PAGENO[0] += 1
     bg = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width,
@@ -124,6 +128,10 @@ def divider(num, title):
     add_text(s, 1.0, 4.05, 11.33, 0.8,
              [(title, 28, RGBColor(0xD7, 0xE3, 0xF2), False, False, 0)],
              align=C)
+    if question:
+        add_text(s, 1.5, 5.35, 10.33, 0.8,
+                 [(question, 18, RGBColor(0xBE, 0xD3, 0xEE), False, True,
+                   0)], align=C)
     return s
 
 def arrow_to(s, x_tip, y_tip, x_tail, y_tail, color, w=1.6):
@@ -172,37 +180,28 @@ bullets(s, [
 
 # ================= 3. methodology I: the CPS in numbers =================
 s = new_slide(title="The Current Population Survey")
-TILES = [("28", "consecutive years\n(1998\u20132025)"),
-         ("5 million", "people interviewed\nin the March surveys"),
-         ("103,820", "teachers observed\nover the period"),
-         ("51", "states, including the\nDistrict of Columbia")]
-tw, th, gap_, x0, ty = 2.92, 2.35, 0.14, 0.73, 1.70
+TILES = [("28", "Years (1998\u20132025)"),
+         ("5 million", "Individual observations"),
+         ("103,820", "Teachers in our database"),
+         ("51", "States, including the District of Columbia")]
+def hrule(s, x, y, w, pt):
+    ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x), Inches(y),
+                                Inches(x + w), Inches(y))
+    ln.line.color.rgb = INK; ln.line.width = Pt(pt)
+x0, tw, ty = 0.9, 11.53 / 4, 1.75
+hrule(s, x0, ty, 11.53, 1.6)
 for i, (big, lab) in enumerate(TILES):
-    x = x0 + i * (tw + gap_)
-    tile = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x),
-                              Inches(ty), Inches(tw), Inches(th))
-    tile.fill.solid(); tile.fill.fore_color.rgb = BAND
-    tile.line.fill.background(); tile.shadow.inherit = False
-    top = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(ty),
-                             Inches(tw), Inches(0.07))
-    top.fill.solid(); top.fill.fore_color.rgb = NAVY
-    top.line.fill.background(); top.shadow.inherit = False
-    tf = tile.text_frame; tf.word_wrap = True
-    tf.margin_left = tf.margin_right = Inches(0.08)
-    tf.margin_top = Inches(0.30 if len(big) <= 2 else 0.42)
-    tf.margin_bottom = 0
-    p = tf.paragraphs[0]; p.alignment = C
-    r = p.add_run(); r.text = big
-    r.font.name = FONT
-    r.font.size = Pt(44 if len(big) <= 2 else 30)
-    r.font.bold = True
-    r.font.color.rgb = NAVY
-    for j, line in enumerate(lab.split("\n")):
-        p = tf.add_paragraph(); p.alignment = C
-        p.space_before = Pt(10 if j == 0 else 0)
-        r = p.add_run(); r.text = line
-        r.font.name = FONT; r.font.size = Pt(14.5)
-        r.font.color.rgb = INK
+    x = x0 + i * tw
+    add_text(s, x, ty + 0.42, tw, 1.0,
+             [(big, 36, NAVY, True, False, 0)], align=C, spacing=1.0)
+    add_text(s, x + 0.15, ty + 1.50, tw - 0.30, 0.7,
+             [(lab, 15, MUT, False, True, 0)], align=C, spacing=1.15)
+    if i:
+        v = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x),
+                                   Inches(ty + 0.40), Inches(x),
+                                   Inches(ty + 2.05))
+        v.line.color.rgb = RGBColor(0xC9, 0xCF, 0xD6); v.line.width = Pt(0.75)
+hrule(s, x0, ty + 2.45, 11.53, 0.6)
 add_text(s, 0.9, 4.75, 11.8, 1.2, [[
     [("The monthly household survey of the United States, run by the "
       "Census Bureau.", 20, INK, False, False)], 10],
@@ -252,7 +251,8 @@ add_text(s, 0.9, 5.35, 11.8, 0.8,
            0)], align=C)
 
 # ================= part 1 =================
-divider("1", "Leaving rate: how many leave?")
+divider("1", "Leaving rate: how many leave?",
+        "For discussion: how often does your system measure who leaves?")
 
 s = new_slide(title="Leaving teaching, 1997–2024")
 chart(s, "g2_evolution", (0.7, 1.2, 11.9, 4.85))
@@ -273,7 +273,8 @@ message(s, "Teachers leave at about the same or at a lower rate than "
         "comparable professions.")
 
 # ================= part 2 =================
-divider("2", "Composition: where they go?")
+divider("2", "Composition: where they go?",
+        "For discussion: where do teachers go when they leave in your country?")
 
 s = new_slide(title="Who leaves teaching (average, 2020–2025)")
 chart(s, "flow_employed_5yr", (0.8, 1.15, 11.7, 4.95))
@@ -287,7 +288,31 @@ message(s, "Among early exits, more than half (57%) are mothers with a "
         "child at home.")
 
 # ================= part 3 =================
-divider("3", "Correlations: why they leave?")
+divider("3", "Correlations: why they leave?",
+        "For discussion: which of these levers can your system move?")
+
+s = new_slide(title="Why do teachers leave?")
+add_text(s, 0.9, 1.30, 11.8, 0.5,
+         [("Reasons identified in the literature", 16, MUT, False, True,
+           0)])
+COLS = [("Beyond household data", MUT, RGBColor(0xF2, 0xF2, 0xF2), INK,
+         ["Working conditions", "Organizational support",
+          "Autonomy and intrinsic motives"]),
+        ("What we explore", WHITE, NAVY, WHITE,
+         ["Financial factors", "Personal life-cycle motives",
+          "Sociodemographics"])]
+for ci, (head, hc, fill, tc, items) in enumerate(COLS):
+    x = 0.9 + ci * 6.0
+    box = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(1.95),
+                             Inches(5.53), Inches(3.35))
+    box.fill.solid(); box.fill.fore_color.rgb = fill
+    box.line.fill.background(); box.shadow.inherit = False
+    add_text(s, x + 0.35, 2.15, 4.9, 0.5,
+             [(head, 20, hc if ci else NAVY, True, False, 0)])
+    add_text(s, x + 0.35, 2.85, 4.9, 2.3,
+             [(it, 22, tc, False, False, 14) for it in items])
+message(s, "Are there more? Which ones matter most in your country?",
+        y=5.95, lead="For discussion.")
 
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
@@ -303,7 +328,8 @@ message(s, "States where more teachers have a pension plan have fewer "
         "early exits.")
 
 # ================= 4. what it means for policy =================
-divider("4", "What it means for policy")
+divider("4", "What it means for policy",
+        "For discussion: what would bring teachers back in your country?")
 
 s = new_slide(title="Policy options for re-attraction")
 BLOCKS = [
