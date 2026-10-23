@@ -1,8 +1,8 @@
 """The policy version of the deck, built to match the author's clean
 deck (titles and key messages taken from it verbatim). Two methodology
 slides (the CPS in numbers; who counts as a leaver), the results block
-with section dividers, the author's Data recap and Policy options
-slides, and a closing open-questions slide. Reuses the figures in
+with section dividers, the author's Policy options
+slides, and a closing open-questions slide. Fifteen content slides. Reuses the figures in
 report/data_cluster/_pngx. Writes report/data_cluster/Proyect_US_policy.pptx.
 Run from the repo root."""
 from PIL import Image
@@ -143,8 +143,9 @@ band = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, Inches(1.55),
 band.fill.solid(); band.fill.fore_color.rgb = NAVY
 band.line.fill.background(); band.shadow.inherit = False
 add_text(s, 0.33, 2.30, 12.67, 1.5, [
- ("Measuring Teacher Attrition", 32, WHITE, True, False, 4),
- ("Beyond Administrative Data", 32, RGBColor(0xD7, 0xE3, 0xF2), False,
+ ("Measuring Teacher Attrition Beyond Administrative Data", 32, WHITE,
+  True, False, 4),
+ ("The case of the United States", 32, RGBColor(0xD7, 0xE3, 0xF2), False,
   False, 0)], align=C, spacing=1.12)
 add_text(s, 1.00, 4.62, 11.33, 0.8, [
  ("José Elías Durán Roa", 20, INK, True, False, 2),
@@ -171,17 +172,21 @@ bullets(s, [
 
 # ================= 3. methodology I: the CPS in numbers =================
 s = new_slide(title="The Current Population Survey")
-TILES = [("28", "consecutive years\n(1998–2025)"),
-         ("100,000+", "adults interviewed\nevery March"),
-         ("104,545", "teachers observed\nover the period"),
+TILES = [("28", "consecutive years\n(1998\u20132025)"),
+         ("5 million", "people interviewed\nin the March surveys"),
+         ("103,820", "teachers observed\nover the period"),
          ("51", "states, including the\nDistrict of Columbia")]
 tw, th, gap_, x0, ty = 2.92, 2.35, 0.14, 0.73, 1.70
 for i, (big, lab) in enumerate(TILES):
     x = x0 + i * (tw + gap_)
-    tile = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x),
+    tile = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x),
                               Inches(ty), Inches(tw), Inches(th))
     tile.fill.solid(); tile.fill.fore_color.rgb = BAND
     tile.line.fill.background(); tile.shadow.inherit = False
+    top = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(ty),
+                             Inches(tw), Inches(0.07))
+    top.fill.solid(); top.fill.fore_color.rgb = NAVY
+    top.line.fill.background(); top.shadow.inherit = False
     tf = tile.text_frame; tf.word_wrap = True
     tf.margin_left = tf.margin_right = Inches(0.08)
     tf.margin_top = Inches(0.30 if len(big) <= 2 else 0.42)
@@ -267,11 +272,6 @@ chart(s, "leave_professions_deck", (0.7, 1.2, 11.9, 4.85))
 message(s, "Teachers leave at about the same or at a lower rate than "
         "comparable professions.")
 
-s = new_slide(title="Leaving and the economic cycle")
-chart(s, "cycle1", (0.7, 1.2, 11.9, 4.85))
-message(s, "Attrition slightly moves with the business cycle; recessions "
-        "don’t solve shortages and booms not necessarily cause them.")
-
 # ================= part 2 =================
 divider("2", "Composition: where they go?")
 
@@ -286,32 +286,6 @@ chart(s, "flow_olf55_5yr", (0.8, 1.15, 11.7, 4.95))
 message(s, "Among early exits, more than half (57%) are mothers with a "
         "child at home.")
 
-s = new_slide(title="Who leaves the labor force before 55 (average, 2020–2025)")
-chart(s, "study_bygroup", (0.8, 1.15, 11.7, 4.95))
-message(s, "Among early exits, 13% are enrolled in school. Among early "
-        "exits under 30, almost half (47%) are enrolled in school.")
-
-s = new_slide(title="Three types of leavers")
-add_text(s, 0.9, 1.40, 11.8, 0.5, [[
-    [("Switchers ", 22, ACC, True, False),
-     ("(employed in another job)", 18, MUT, False, False)], 0]])
-add_text(s, 0.9, 1.95, 11.8, 1.1, [
- ("Two groups, two approaches. Some stay close to education: how can we "
-  "bring their skills back to schools? Others move to jobs that do not "
-  "need a degree: why do they go there?", 19, INK, False, False, 0)])
-add_text(s, 0.9, 3.25, 11.8, 0.5, [[
-    [("Early exits ", 22, ACC, True, False),
-     ("(out of the labor force, under 55)", 18, MUT, False, False)], 0]])
-add_text(s, 0.9, 3.80, 11.8, 1.1, [
- ("Two groups, two approaches. Mostly mothers at home. Also young people "
-  "without children who return to study.", 19, INK, False, False, 0)])
-add_text(s, 0.9, 5.10, 11.8, 0.5, [[
-    [("Retirees ", 22, ACC, True, False),
-     ("(out of the labor force, over 55)", 18, MUT, False, False)], 0]])
-add_text(s, 0.9, 5.65, 11.8, 0.8, [
- ("Experienced teachers at the end of their careers.",
-  19, INK, False, False, 0)])
-
 # ================= part 3 =================
 divider("3", "Correlations: why they leave?")
 
@@ -324,11 +298,6 @@ message(s, "For teachers under 35, a public-school job retains three times "
         "more strongly than for the rest (−4.5 vs −1.6 points), and "
         "a pension plan also retains more. Security keeps the young in the "
         "classroom.", y=6.45, size=14.5)
-
-s = new_slide(title="Leaving, over the life cycle")
-chart(s, "u_routes_deck", (0.7, 1.25, 11.9, 4.75))
-message(s, "The risk of leaving is highest at the two ends of the career. "
-        "Early exits go to other jobs; late exits leave the labor force.")
 
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
@@ -345,19 +314,6 @@ message(s, "States where more teachers have a pension plan have fewer "
 
 # ================= 4. what it means for policy =================
 divider("4", "What it means for policy")
-
-s = new_slide(title="Data recap")
-bullets(s, [
- ("Contract.", "A full-year contract goes with far fewer exits, a "
-  "part-time contract with more."),
- ("Age.", "Highest at both ends of the career. Young teachers leave for "
-  "other jobs, older teachers leave the labor force."),
- ("Pay.", "Exits are concentrated at the bottom of the pay distribution."),
- ("Security.", "A pension plan and a public-sector job go with fewer "
-  "exits."),
- ("Life events.", "A new baby during the year, or a disability, go with "
-  "more exits."),
-], y=1.80, size=21, gap=28)
 
 s = new_slide(title="Policy options for re-attraction")
 BLOCKS = [
@@ -376,25 +332,14 @@ BLOCKS = [
   "Working conditions inside schools. Do these patterns hold in other "
   "countries?"),
 ]
-bw, bh2, gx, gy = 5.85, 2.18, 0.30, 0.28
 for i, (head, body) in enumerate(BLOCKS):
-    x = 0.73 + (i % 2) * (bw + gx)
-    y = 1.42 + (i // 2) * (bh2 + gy)
-    tile = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x),
-                              Inches(y), Inches(bw), Inches(bh2))
-    tile.fill.solid(); tile.fill.fore_color.rgb = BAND
-    tile.line.fill.background(); tile.shadow.inherit = False
-    tf = tile.text_frame; tf.word_wrap = True
-    tf.margin_left = tf.margin_right = Inches(0.22)
-    tf.margin_top = Inches(0.16); tf.margin_bottom = Inches(0.12)
-    p = tf.paragraphs[0]
-    r = p.add_run(); r.text = head
-    r.font.name = FONT; r.font.size = Pt(19); r.font.bold = True
-    r.font.color.rgb = NAVY
-    p = tf.add_paragraph(); p.space_before = Pt(6)
-    p.line_spacing = Pt(15.5 * 1.22)
-    r = p.add_run(); r.text = body
-    r.font.name = FONT; r.font.size = Pt(15.5); r.font.color.rgb = INK
+    x = 0.9 + (i % 2) * 6.05
+    y = 1.45 + (i // 2) * 2.45
+    add_text(s, x, y, 5.6, 0.5, [(head, 21, ACC, True, False, 0)])
+    add_text(s, x, y + 0.55, 5.6, 1.7, [(body, 17, INK, False, False, 0)])
+rule = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(0.9),
+                              Inches(6.35), Inches(12.43), Inches(6.35))
+rule.line.color.rgb = NAVY; rule.line.width = Pt(1.0)
 add_text(s, 0.9, 6.55, 11.8, 0.5,
          [("Across all three: economic security.", 20, NAVY, True, False,
            0)], align=C)
