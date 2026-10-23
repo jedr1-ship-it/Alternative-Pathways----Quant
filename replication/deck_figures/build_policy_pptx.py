@@ -314,6 +314,31 @@ for ci, (head, hc, fill, tc, items) in enumerate(COLS):
 message(s, "Are there more? Which ones matter most in your country?",
         y=5.95, lead="For discussion.")
 
+DRIVERS_NOTES = (
+ "Read each dot as the change in the probability of leaving, in "
+ "percentage points, against an average of about 7 in 100 teachers a "
+ "year. The hierarchy is clear. First, the contract: a full-year "
+ "contract goes with almost 8 points less leaving, and a part-time "
+ "contract with 4 points more. These are the largest effects on the "
+ "chart. Second, life events: a new baby or a disability each add about "
+ "4 points. Third, security: a pension plan and a public-school job each "
+ "cut leaving by about 2 points. Surprisingly, demographics matter much "
+ "less: being a woman, being Black or holding a master's degree moves "
+ "the rate by 2 points at most once contracts and life events are "
+ "accounted for. Pay is measured per hour, because weeks and hours are "
+ "already in the model: a 10 percent higher hourly pay goes with 0.1 "
+ "points less leaving, about 1.6 percent of the average rate. That does "
+ "not make pay irrelevant. Low pay comes bundled with part-year and "
+ "part-time contracts, which is where most of the action is, as the "
+ "next charts show.")
+
+s = new_slide(title="What correlates with leaving")
+chart(s, "ame_wage", (0.7, 1.05, 11.9, 5.15))
+message(s, "Contracts matter most, then life events and economic security. "
+        "Demographics matter far less, and pay works mostly through the "
+        "contract.", y=6.40, size=14.5)
+s.notes_slide.notes_text_frame.text = DRIVERS_NOTES
+
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
 message(s, "Teacher pay has not grown in 25 years.")
