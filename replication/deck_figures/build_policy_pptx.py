@@ -144,19 +144,42 @@ bullets(s, [
 
 # ================= 3. the data, in one slide =================
 s = new_slide(title="The data, in one slide")
-bullets(s, [
- ("One source.", "The Census Bureau's household survey (the CPS), which "
-  "records every worker's occupation each year."),
- ("One definition.", "A teacher is anyone whose main job last year was "
-  "school teaching; a leaver is a teacher no longer teaching a year "
-  "later."),
- ("One series.", "Twenty-eight consecutive years (1998–2025), "
-  "matching the official benchmark where it exists and filling the "
-  "years in between."),
-], y=2.20, size=22, gap=34)
-add_text(s, 0.9, 6.30, 11.8, 0.6,
-         [("The methodological detail is in the appendix of the long deck "
-           "and in the paper.", 14, MUT, False, True, 0)])
+TILES = [("28", "consecutive years\n(1998–2025)"),
+         ("100,000+", "adults interviewed\nevery March"),
+         ("104,545", "teachers observed\nover the period"),
+         ("51", "states, including the\nDistrict of Columbia")]
+tw, th, gap_, x0, ty = 2.92, 2.35, 0.14, 0.73, 1.70
+for i, (big, lab) in enumerate(TILES):
+    x = x0 + i * (tw + gap_)
+    tile = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x),
+                              Inches(ty), Inches(tw), Inches(th))
+    tile.fill.solid(); tile.fill.fore_color.rgb = BAND
+    tile.line.fill.background(); tile.shadow.inherit = False
+    tf = tile.text_frame; tf.word_wrap = True
+    tf.margin_left = tf.margin_right = Inches(0.08)
+    tf.margin_top = Inches(0.30 if len(big) <= 2 else 0.42)
+    tf.margin_bottom = 0
+    p = tf.paragraphs[0]; p.alignment = C
+    r = p.add_run(); r.text = big
+    r.font.name = FONT
+    r.font.size = Pt(44 if len(big) <= 2 else 30)
+    r.font.bold = True
+    r.font.color.rgb = NAVY
+    for j, line in enumerate(lab.split("\n")):
+        p = tf.add_paragraph(); p.alignment = C
+        p.space_before = Pt(10 if j == 0 else 0)
+        r = p.add_run(); r.text = line
+        r.font.name = FONT; r.font.size = Pt(14.5)
+        r.font.color.rgb = INK
+add_text(s, 0.9, 4.75, 11.8, 1.2, [[
+    [("Every March, the Census Bureau asks each adult about last year: "
+      "the main job held, weeks worked, earnings and benefits.",
+      20, INK, False, False)], 10],
+    [[("A teacher", 20, NAVY, True, False),
+      (" taught as last year's main job. ", 20, INK, False, False),
+      ("A leaver", 20, NAVY, True, False),
+      (" is a teacher no longer teaching this March.",
+       20, INK, False, False)], 0]])
 
 # ================= 4-10. results =================
 s = new_slide(title="Leaving teaching, 1997–2024")
@@ -170,6 +193,9 @@ chart(s, "leave_professions_deck", (0.7, 1.2, 11.9, 4.85))
 message(s, "Teachers leave at rates similar to or below the comparable "
         "professions. The distinctive part of teaching is who leaves and "
         "where they go, not how many.")
+
+s = new_slide(title="Who we compare teachers with")
+chart(s, "comparables_table", (1.6, 1.10, 10.1, 5.9))
 
 s = new_slide(title="Of every 100 leavers (average, 2020–2024)")
 chart(s, "flow_employed_5yr", (0.8, 1.15, 11.7, 4.95))
@@ -229,6 +255,13 @@ add_text(s, 0.9, 5.50, 11.8, 1.2, [
 # ================= 12-15. drivers =================
 s = new_slide(title="What correlates with leaving")
 chart(s, "ame_ext", (0.6, 1.12, 12.1, 6.1))
+
+s = new_slide(title="Early-career teachers respond to different levers")
+chart(s, "ame_byage", (0.8, 1.10, 11.7, 5.1))
+message(s, "For teachers under 35, a public-school job retains three times "
+        "more strongly than for the rest (−4.5 vs −1.6 points), and "
+        "a pension plan also retains more. Security keeps the young in the "
+        "classroom.", y=6.45, size=14.5)
 
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
