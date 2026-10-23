@@ -2,7 +2,7 @@
 deck (titles and key messages taken from it verbatim). Two methodology
 slides (the CPS in numbers; who counts as a leaver), the results block
 with section dividers, the author's Policy options
-slides, and a closing open-questions slide. Fifteen content slides. Reuses the figures in
+slides, and a closing open-questions slide. Thirteen content slides, all visual. Reuses the figures in
 report/data_cluster/_pngx. Writes report/data_cluster/Proyect_US_policy.pptx.
 Run from the repo root."""
 from PIL import Image
@@ -288,16 +288,6 @@ message(s, "Among early exits, more than half (57%) are mothers with a "
 
 # ================= part 3 =================
 divider("3", "Correlations: why they leave?")
-
-s = new_slide(title="What correlates with leaving")
-chart(s, "ame_ext", (0.6, 1.12, 12.1, 6.1))
-
-s = new_slide(title="Early-career teachers respond to different levers")
-chart(s, "ame_byage", (0.8, 1.10, 11.7, 5.1))
-message(s, "For teachers under 35, a public-school job retains three times "
-        "more strongly than for the rest (−4.5 vs −1.6 points), and "
-        "a pension plan also retains more. Security keeps the young in the "
-        "classroom.", y=6.45, size=14.5)
 
 s = new_slide(title="Relative pay since 1997")
 chart(s, "msgA3", (0.7, 1.2, 11.9, 4.85))
