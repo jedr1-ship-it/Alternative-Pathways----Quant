@@ -38,13 +38,12 @@ WBOX = dict(boxstyle="round,pad=0.12", fc="white", ec="none", alpha=0.9)
 Z = 2.576
 ax.fill_between(main["cal_year"], main["leaver_ba"] - Z * main["se_ba"],
                 main["leaver_ba"] + Z * main["se_ba"], color=BLUE,
-                alpha=0.08, lw=0, label="99% confidence interval")
+                alpha=0.08, lw=0)
 ax.plot([1996, 2024.6], [mean_ba, mean_ba], color=INK, lw=0.9, ls=":",
         zorder=1)
 ax.text(2024.9, mean_ba, f"average {mean_ba:.1f}", fontsize=8.5,
         color=INK, ha="left", va="center")
-ax.plot(main["cal_year"], main["leaver_ba"], color=BLUE, lw=2.4,
-        label="Leaving rate (annual recall)")
+ax.plot(main["cal_year"], main["leaver_ba"], color=BLUE, lw=2.4)
 last = main.iloc[-1]
 pk = main.loc[main["leaver_ba"].idxmax()]
 cov = main.loc[main["cal_year"] == 2019].iloc[0]
@@ -68,8 +67,7 @@ for x, v in zip(NC_Y, NC_V):
     ax.annotate(f"{v}", (x, v), xytext=(0, -12), textcoords="offset points",
                 ha="center", fontsize=8, color="#000000", bbox=WBOX,
                 zorder=7)
-ax.legend(loc="upper left", frameon=False, fontsize=8.5, handletextpad=0.5,
-          ncol=3, columnspacing=1.4, bbox_to_anchor=(0.0, 1.04))
+ax.legend(loc="upper left", frameon=False, fontsize=8.5, handletextpad=0.4)
 ax.set_ylim(0, 13.5)
 ax.set_xlim(1996, 2027.2)
 ax.set_xticks(range(1998, 2025, 2))
