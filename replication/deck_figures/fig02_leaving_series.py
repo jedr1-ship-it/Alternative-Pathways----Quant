@@ -36,7 +36,7 @@ ax.fill_between(main["cal_year"], main["leaver_ba"] - 1.96 * main["se_ba"],
                 main["leaver_ba"] + 1.96 * main["se_ba"], color=BLUE,
                 alpha=0.07, lw=0)
 ax.axhline(mean_ba, color=INK, lw=0.9, ls=":", zorder=1)
-ax.text(2014.0, 6.55, f"1997\u20132024 average: {mean_ba:.1f}",
+ax.text(2016.5, 6.55, f"1997\u20132024 average: {mean_ba:.1f}",
         fontsize=8, color=INK, ha="center", va="top")
 ax.plot(main["cal_year"], main["leaver_ba"], color=BLUE, lw=2.4)
 last = main.iloc[-1]
@@ -47,6 +47,17 @@ for r in (last, pk, cov):
     ax.annotate(f"{r['leaver_ba']:.1f}", (r["cal_year"], r["leaver_ba"]),
                 xytext=(0, 9), textcoords="offset points", ha="center",
                 fontsize=9, color=BLUE, fontweight="bold")
+# NCES follow-up survey waves, as in the definitions chart: at the survey
+# year, except 2000-01, placed at its exit year (2000) because the 2001
+# point of the recall series carries the recession spike the wave predates
+NC_Y, NC_V = [2000, 2005, 2009, 2013, 2022], [7.4, 8.4, 8.0, 7.7, 8.0]
+ax.plot(NC_Y, NC_V, ls="none", marker="D", ms=6.5, mfc="#000000",
+        mec="white", mew=1.1, zorder=6,
+        label="NCES follow-up survey (official benchmark)")
+for x, v in zip(NC_Y, NC_V):
+    ax.annotate(f"{v}", (x, v), xytext=(0, -12), textcoords="offset points",
+                ha="center", fontsize=8, color="#000000")
+ax.legend(loc="upper left", frameon=False, fontsize=8.5, handletextpad=0.4)
 ax.set_ylim(0, 13)
 ax.set_xlim(1996, 2025.5)
 ax.set_xticks(range(1998, 2025, 2))
