@@ -43,7 +43,9 @@ D3 = pd.DataFrame(rows)
 fig, ax = plt.subplots(figsize=(8.8,4.4))
 ax.bar(D3.d, D3.rate, width=0.62,
        color=[CORAL if d<=2 else "#D4DAE0" for d in D3.d], zorder=3)
-avg = np.average(T.leaver, weights=T.WGT) * 100
+# reference line: the headline 1997-2024 average leaving rate, the same
+# figure as on the series slide
+avg = pd.read_csv("outputs/p_series.csv").leaver_ba.mean()
 for _, r in D3.iterrows():
     # a label just under the average line goes inside its bar
     inside = avg - 2.2 < r["rate"] < avg
@@ -52,7 +54,7 @@ for _, r in D3.iterrows():
                 textcoords="offset points", ha="center", fontsize=9.5,
                 color=DARK, fontweight="bold", zorder=6)
 ax.axhline(avg, color=DARK, lw=1.0, ls=(0, (4, 2)), zorder=2)
-ax.text(10.45, avg + 0.6, f"average leaving rate  {avg:.1f}%",
+ax.text(10.45, avg + 0.6, f"1997\u20132024 average leaving rate  {avg:.1f}%",
         fontsize=9.5, color=DARK, fontweight="bold", ha="right",
         va="bottom")
 ax.set_xticks(range(1,11))
