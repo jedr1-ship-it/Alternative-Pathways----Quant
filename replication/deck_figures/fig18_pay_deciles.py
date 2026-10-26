@@ -8,7 +8,9 @@ import paperstyle  # noqa: F401
 OUT = "report/figures_deck"
 CORAL, DARK = "#C4534B", "#3B4046"
 
-M = pd.read_parquet("data/processed/asec_master.parquet",
+# optional argument: a master file covering 2016-2025 (e.g. tier A only)
+MASTER = sys.argv[1] if len(sys.argv) > 1 else "data/processed/asec_master.parquet"
+M = pd.read_parquet(MASTER,
                     columns=["asec_year","teacher","ba_plus","A_AGE","WGT",
                              "leaver","WSAL_VAL"])
 for c in M.columns:
@@ -41,13 +43,18 @@ D3 = pd.DataFrame(rows)
 fig, ax = plt.subplots(figsize=(8.8,4.4))
 ax.bar(D3.d, D3.rate, width=0.62,
        color=[CORAL if d<=2 else "#D4DAE0" for d in D3.d], zorder=3)
+avg = np.average(T.leaver, weights=T.WGT) * 100
 for _, r in D3.iterrows():
-    ax.annotate(f"{r['rate']:.0f}", (r["d"], r["rate"]), xytext=(0,5),
+    # a label just under the average line goes inside its bar
+    inside = avg - 2.2 < r["rate"] < avg
+    ax.annotate(f"{r['rate']:.0f}", (r["d"], r["rate"]),
+                xytext=(0, -15 if inside else 5),
                 textcoords="offset points", ha="center", fontsize=9.5,
-                color=DARK, fontweight="bold")
-ax.axvline(5.5, color=DARK, lw=1.0, ls=(0, (4, 2)), zorder=2)
-ax.text(5.65, 28.2, f"median teacher earnings  ${cut[5]:.0f}k",
-        fontsize=9.5, color=DARK, fontweight="bold")
+                color=DARK, fontweight="bold", zorder=6)
+ax.axhline(avg, color=DARK, lw=1.0, ls=(0, (4, 2)), zorder=2)
+ax.text(10.45, avg + 0.6, f"average leaving rate  {avg:.1f}%",
+        fontsize=9.5, color=DARK, fontweight="bold", ha="right",
+        va="bottom")
 ax.set_xticks(range(1,11))
 ax.set_xticklabels(labels, fontsize=8.6, rotation=45, ha="right")
 ax.set_xlabel("Within-year earnings decile among teachers ($1,000 of 2024)",
