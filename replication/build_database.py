@@ -69,8 +69,15 @@ L = pd.read_csv("outputs/layouts_official.csv")
 
 
 def find_file(y):
-    html = urllib.request.urlopen(BASE.format(y=y), timeout=40).read() \
-        .decode("utf-8", "ignore")
+    for attempt in range(6):
+        try:
+            html = urllib.request.urlopen(BASE.format(y=y), timeout=240) \
+                .read().decode("utf-8", "ignore")
+            break
+        except Exception as e:
+            print(f"{y}: listing attempt {attempt+1} failed ({e})", flush=True)
+    else:
+        raise RuntimeError(f"{y}: directory listing unavailable")
     files = re.findall(r'href="([^"]+)"', html)
     cand = [f for f in files if re.search(
         r"(mar|asec)[^\"]*\.(dat\.gz|cps\.gz|pub\.gz|zip)$", f, re.I)

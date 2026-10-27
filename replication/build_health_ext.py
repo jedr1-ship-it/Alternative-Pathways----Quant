@@ -89,7 +89,11 @@ for y in range(2011, 2019):
     print(f"{y}: data {dats} dict {dicts}", flush=True)
     best = None
     for dct in dicts:
-        pos = layout(fetch(y, dct))
+        try:
+            pos = layout(fetch(y, dct))
+        except AssertionError as e:
+            print(f"{y}: skipping {dct} ({e})", flush=True)
+            continue
         for dat in dats:
             d = extract(fetch(y, dat), pos, y)
             ok, nr, nd = match(d, y)
