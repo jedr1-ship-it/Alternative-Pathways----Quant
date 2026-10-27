@@ -1,6 +1,6 @@
 """Appendix coefficient plot: probit AMEs estimated separately on
 calendar 1997-2017 and on the main-deck window 2018-2024, with the
-controls available throughout. Writes report/figures_deck/
+controls available throughout, health and disability included. Writes report/figures_deck/
 ame_twoperiods.{pdf,png} and outputs/ame_twoperiods.csv."""
 import sys
 sys.path.insert(0, "replication")
@@ -20,16 +20,19 @@ d = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["cal_year", "teacher", "ba_plus", "ma_plus", "A_AGE",
              "A_MARITL", "female", "black", "married", "n_children",
              "child_u6", "new_baby", "pension", "parttime_ly",
-             "fullyear", "public_ly", "leaver"])
+             "fullyear", "public_ly", "leaver", "HEA", "DIS_HP"])
 for c in d.columns:
     d[c] = pd.to_numeric(d[c], errors="coerce")
 B = d[(d.teacher == 1) & (d.ba_plus == 1) & d.A_AGE.between(18, 70)
       & d.leaver.notna()].copy()
 B["sepdiv"] = B.A_MARITL.isin([4, 5]).astype(float)
+B["badhealth"] = B.HEA.isin([4, 5]).astype(float)
+B["disab"] = (B.DIS_HP == 1).astype(float)
 B["age"] = B.A_AGE
 B["age2"] = B.A_AGE ** 2
 XV = ["fullyear", "parttime_ly", "pension", "public_ly",
       "new_baby", "child_u6", "n_children", "married", "sepdiv",
+      "badhealth", "disab",
       "age", "age2", "female", "black", "ma_plus"]
 B = B.dropna(subset=XV + ["leaver"])
 
@@ -62,6 +65,8 @@ GROUPS = [
              ("n_children", "Number of children"),
              ("married", "Married"),
              ("sepdiv", "Separated or divorced")]),
+ ("Health", [("badhealth", "Fair or poor health"),
+             ("disab", "With a disability")]),
  # age enters as a quadratic, so its single AME is not interpretable
  ("Demographics", [("female", "Female"),
                    ("black", "Black"),

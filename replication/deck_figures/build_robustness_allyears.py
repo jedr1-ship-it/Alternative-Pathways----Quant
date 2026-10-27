@@ -1,8 +1,9 @@
 """All-years robustness: the probit AME coefficient plot and the
 LPM/logit/probit table estimated on every survey year (1998-2025,
-calendar 1997-2024) with the controls available throughout. Health,
-disability and household-income controls exist only from the 2019
-supplement, so they belong to the full specification (2019-2025).
+calendar 1997-2024) with the controls available throughout, including
+self-reported health and work-limiting disability (asked in every
+supplement). Household income is cached only from 2019, so it stays in
+the full specification (2019-2025).
 Writes report/figures_deck/ame_allyears.{pdf,png}, the LaTeX source
 report/data_cluster/robustness_allyears_table.tex and
 outputs/ame_allyears.csv. Run from the repo root."""
@@ -25,16 +26,20 @@ d = pd.read_parquet("data/processed/asec_master.parquet",
     columns=["asec_year", "cal_year", "teacher", "ba_plus", "ma_plus",
              "A_AGE", "A_MARITL", "female", "black", "married",
              "n_children", "child_u6", "new_baby", "pension",
-             "parttime_ly", "fullyear", "public_ly", "leaver"])
+             "parttime_ly", "fullyear", "public_ly", "leaver", "HEA",
+             "DIS_HP"])
 for c in d.columns:
     d[c] = pd.to_numeric(d[c], errors="coerce")
 R = d[(d.teacher == 1) & (d.ba_plus == 1) & d.A_AGE.between(18, 70)
       & d.leaver.notna() & d.cal_year.between(1997, 2024)].copy()
 R["sepdiv"] = R.A_MARITL.isin([4, 5]).astype(float)
+R["badhealth"] = R.HEA.isin([4, 5]).astype(float)
+R["disab"] = (R.DIS_HP == 1).astype(float)
 R["age"] = R.A_AGE
 R["age2"] = R.A_AGE ** 2
 XV = ["fullyear", "parttime_ly", "pension", "public_ly",
       "new_baby", "child_u6", "n_children", "married", "sepdiv",
+      "badhealth", "disab",
       "age", "age2", "female", "black", "ma_plus"]
 R = R.dropna(subset=XV + ["leaver"])
 N = len(R)
@@ -72,6 +77,8 @@ GROUPS = [
              ("n_children", "Number of children"),
              ("married", "Married"),
              ("sepdiv", "Separated or divorced")]),
+ ("Health", [("badhealth", "Fair or poor health"),
+             ("disab", "With a disability")]),
  # age enters as a quadratic, so its single AME is not interpretable
  ("Demographics", [("female", "Female"),
                    ("black", "Black"),
@@ -125,6 +132,8 @@ LAB = {"fullyear": "Full-year contract",
        "public_ly": "Public sector",
        "new_baby": "New baby during the year",
        "child_u6": "Child under 6",
+       "badhealth": "Fair or poor health",
+       "disab": "With a disability",
        "ma_plus": "Master's degree or higher"}
 def star(a, s):
     z = abs(a / s)
@@ -144,6 +153,8 @@ for v, lab in LAB.items():
     rows.append(" " + line2 + r" \\[0.2em]")
 body = "\n".join(rows)
 NS = f"{N:,}"
+FY = f"{out['Probit'][0]['fullyear']:+.2f}".replace("+", "")
+FY1 = f"{abs(out['Probit'][0]['fullyear']):.1f}"
 tex = (r"""\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -172,17 +183,16 @@ Observations       & """ + NS + " & " + NS + " & " + NS + r""" \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item \emph{Notes:} Entries are percentage points: $-9.93$ means a
-9.9-point lower annual probability of leaving teaching. Sample: all
+\item \emph{Notes:} Entries are percentage points: $""" + FY + r"""$ means a
+""" + FY1 + r"""-point lower annual probability of leaving teaching. Sample: all
 teachers with a bachelor's degree or higher, aged
 18--70, in the pooled March supplements of 1998--2025 (outcomes over
 calendar years 1997--2024); one observation per person and year,
 $N$ = """ + NS + r""". Controls beyond those shown: number of
 children, married, separated or divorced, age, age$^2$, female and
-Black. Health, disability and household-income controls exist only
-from the 2019 supplement and belong to the 2019--2025 full
-specification (Tables A1--A2); on that window they leave these margins
-essentially unchanged. Robust standard errors in parentheses (delta
+Black. Household
+income is available only from the 2019 supplement and belongs to the
+2019--2025 full specification (Tables A1--A2). Robust standard errors in parentheses (delta
 method for the logit and probit marginal effects). $^{*}$ $p<0.10$,
 $^{**}$ $p<0.05$, $^{***}$ $p<0.01$.
 \end{tablenotes}

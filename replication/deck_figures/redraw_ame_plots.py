@@ -23,6 +23,8 @@ GROUPS = [
              ("n_children", "Number of children"),
              ("married", "Married"),
              ("sepdiv", "Separated or divorced")]),
+ ("Health", [("badhealth", "Fair or poor health"),
+             ("disab", "With a disability")]),
  ("Demographics", [("female", "Female"),
                    ("black", "Black"),
                    ("ma_plus", "Master's degree or higher")]),

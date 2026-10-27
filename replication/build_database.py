@@ -18,7 +18,7 @@ WANT = {
     "MARSUPWT", "PERIDNUM", "PRDTRACE", "A-RACE", "A-PARENT", "A-SPOUSE",
     "A-FAMREL", "WSAL-VAL", "PEARNVAL", "A-MJOCC", "A-DTOCC", "PEMLR",
     "A-WKSTAT", "A-UNTYPE", "PUBLICEMP", "PH-SEQ", "A-LINENO", "A-EXPRRP",
-    "A-OCC",
+    "A-OCC", "HEA", "DIS-HP",
 }
 PAT = re.compile(r"\bD\s+([A-Z][A-Z0-9-]{1,11})\s+(\d{1,2})\s+(\d{1,4})\b")
 
@@ -206,6 +206,10 @@ def build_tier_a():
                 d[c] = pd.to_numeric(d[c], errors="coerce")
         parts.append(d)
     R = pd.concat(parts, ignore_index=True)
+    # health and disability, cached separately by build_health_ext.py
+    H = pd.read_parquet(f"{RAW}/health_tierA.parquet")
+    R = R.drop(columns=[c for c in ("HEA", "DIS_HP") if c in R.columns])
+    R = R.merge(H, on=["asec_year", "PH_SEQ", "A_LINENO"], how="left")
     R = add_children(R, ["A_PARENT", "PEPAR1", "PEPAR2"])
 
     R["WGT"] = R["MARSUPWT"] / 100.0
@@ -290,7 +294,7 @@ KEEP = ["asec_year", "cal_year", "tier", "PERIDNUM", "WGT", "teacher",
         "A_HGA", "ba_plus", "ma_plus", "n_children", "child_u6",
         "new_baby", "pension", "parttime_ly", "fullyear", "public_ly",
         "cur_parttime", "cur_public", "WSAL_VAL", "PEARNVAL", "WKSWORK",
-        "HRSWK", "PH_SEQ", "A_LINENO"]
+        "HRSWK", "PH_SEQ", "A_LINENO", "HEA", "DIS_HP"]
 for k in KEEP:
     if k not in M.columns:
         M[k] = np.nan
