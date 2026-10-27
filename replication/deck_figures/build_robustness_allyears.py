@@ -101,7 +101,7 @@ for gname, items in GROUPS:
         ax.plot([hi, hi], [yy - .10, yy + .10], color=BLACK, lw=1.0)
         ax.plot(a, yy, "o", ms=6.5, mfc=BLACK if sig else "white",
                 mec=BLACK, mew=1.1)
-        ax.annotate(f"{a:+.1f}", (a, yy), xytext=(0, 8),
+        ax.annotate("0.0" if abs(a) < 0.05 else f"{a:+.1f}", (a, yy), xytext=(0, 8),
                     textcoords="offset points", ha="center",
                     fontsize=9.5, color=INK)
         yticks.append(yy); ylabels.append(lab)

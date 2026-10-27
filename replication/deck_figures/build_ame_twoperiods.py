@@ -105,7 +105,7 @@ ax.legend(handles=[
            label=f"2018–2024 (the deck's window, N = {n2:,})"),
     Line2D([], [], marker="o", color=GRAY, mfc="white", lw=1.1,
            label=f"1997–2017 (N = {n1:,})")],
-    frameon=False, fontsize=10.5, loc="lower right")
+    frameon=False, fontsize=10.5, loc="upper right")
 for sp in ("top", "right", "left"):
     ax.spines[sp].set_visible(False)
 ax.tick_params(axis="y", length=0)
