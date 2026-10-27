@@ -79,9 +79,23 @@ def match(d, y):
     return ok, len(r), len(d)
 
 
+# file names as listed on the Census server, used when a listing comes
+# back empty
+KNOWN = {2016: ["asec2016_pubuse_v3.dat.gz", "asec2016_pubuse.dd.txt",
+                "Asec2016_Data_Dict_Full.txt"],
+         2017: ["asec2017_pubuse.dat.gz", "08ASEC2017_Data_Dict_Full.txt"],
+         2018: ["asec2018_pubuse.dat.gz", "08ASEC2018_Data_Dict_Full.txt"]}
+
 parts = []
 for y in range(2011, 2019):
+    cache = f"{RAW}/health_{y}.parquet"
+    if os.path.exists(cache):
+        parts.append(pd.read_parquet(cache))
+        print(f"{y}: cached", flush=True)
+        continue
     files = listing(y)
+    if not any(re.search(r"\.dat\.gz$", f) for f in files):
+        files = KNOWN.get(y, [])
     dats = [f for f in files if re.search(r"asec\d{4}.*\.dat\.gz$", f, re.I)
             and not re.search(r"repwgt", f, re.I)]
     dicts = [f for f in files if re.search(r"(dd\.txt|data_dict.*\.txt)$",
@@ -102,8 +116,9 @@ for y in range(2011, 2019):
             if best is None or ok > best[0]:
                 best = (ok, d)
     assert best and best[0] > 0.99, f"{y}: no raw file matches the cache"
-    parts.append(best[1][["asec_year", "PH_SEQ", "A_LINENO", "HEA",
-                          "DIS_HP"]])
+    keep = best[1][["asec_year", "PH_SEQ", "A_LINENO", "HEA", "DIS_HP"]]
+    keep.to_parquet(cache, index=False)
+    parts.append(keep)
 
 e = pd.read_parquet("data/processed/asec_ext.parquet",
                     columns=["asec_year", "PH_SEQ", "A_LINENO", "HEA",
