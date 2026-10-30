@@ -1,22 +1,54 @@
-import copy, re, sys
-sys.path.insert(0, '.')
+"""Insert Section 3 into the Former Teachers draft, touching nothing else.
+
+Usage: python3 build_section3_v2.py CONTENT_MODULE SRC.docx OUT.docx
+Formats are cloned from the draft: Heading 2/3 from Section 2, body text,
+Table 1 (tables), Box 1 (boxes), the 8.5pt "Source:" line and the
+reference-list paragraphs. Typography follows the OECD Style Guide (2025):
+hard spaces in numbers, currencies and dates; curly quotes.
+"""
+import copy, importlib, re, sys
 import docx
 from docx.oxml.ns import qn
 from docx.text.paragraph import Paragraph
-import section3_content as C
 
-SRC, OUT = sys.argv[1], sys.argv[2]
+C = importlib.import_module(sys.argv[1])
+SRC, OUT = sys.argv[2], sys.argv[3]
 d = docx.Document(SRC)
 body = d.element.body
-els = list(body)
+NB = "\u00a0"
+MONTHS = ("January|February|March|April|May|June|July|August|September|"
+          "October|November|December")
+CUR = "AUD|CAD|CHF|CNY|EUR|GBP|JPY|NZD|SEK|USD"
 
-def find_p(text, style=None):
+
+def typo(t, url_safe=True):
+    """OECD typography: hard spaces, curly apostrophes and quotes."""
+    parts = re.split(r'(https?://\S+)', t)
+    out = []
+    for i, s in enumerate(parts):
+        if i % 2:  # URL, leave untouched
+            out.append(s)
+            continue
+        for _ in range(2):
+            s = re.sub(r'\b(\d{1,3}) (\d{3})\b', r'\1' + NB + r'\2', s)
+        s = re.sub(r'\b(' + CUR + r') (?=\d)', r'\1' + NB, s)
+        s = re.sub(r'\b(\d{1,2}) (' + MONTHS + r')\b', r'\1' + NB + r'\2', s)
+        s = re.sub(r"(\w)'(\w)", "\\1\u2019\\2", s)
+        s = re.sub(r"s' ", "s\u2019 ", s)
+        s = re.sub(r'"(?=\w)', "\u201c", s)
+        s = s.replace('"', "\u201d")
+        out.append(s)
+    return ''.join(out)
+
+
+def find_p(text, style):
     for e in body:
         if e.tag == qn('w:p'):
             p = Paragraph(e, d)
-            if p.text.strip().startswith(text) and (style is None or p.style.name == style):
+            if p.style.name == style and p.text.strip().startswith(text):
                 return e
     raise KeyError(text)
+
 
 H1 = find_p('3. The policies', 'Heading 1')
 CONC = find_p('4. Conclusions', 'Heading 1')
@@ -26,23 +58,13 @@ T_P = find_p('Closely linked to the daily', 'Normal')
 T_CAP = find_p('Table 1. Reasons', 'Normal')
 T_SRC = find_p("Source: Authors' elaboration", 'Normal')
 tbls = [e for e in body if e.tag == qn('w:tbl')]
-T_TBL = tbls[0]   # Table 1
-T_BOX = tbls[1]   # Box 1
+T_TBL, T_BOX = tbls[0], tbls[1]
 assert 'Box 1' in ''.join(T_BOX.itertext())
 
-RUNLIKE = (qn('w:r'), qn('w:hyperlink'), qn('w:proofErr'), qn('w:bookmarkStart'),
-           qn('w:bookmarkEnd'), qn('w:ins'), qn('w:del'), qn('w:smartTag'))
 
 def first_run(p):
     return next(iter(p.iter(qn('w:r'))))
 
-def set_flag(rpr, tag, on):
-    for x in rpr.findall(qn(tag)):
-        rpr.remove(x)
-    if on:
-        el = rpr.makeelement(qn(tag), {})
-        # keep schema order loosely: b/i near the start
-        rpr.insert(0, el)
 
 def make_run(tpl_run, text, style=''):
     r = copy.deepcopy(tpl_run)
@@ -57,33 +79,102 @@ def make_run(tpl_run, text, style=''):
         for x in rpr.findall(qn(t)):
             rpr.remove(x)
     if 'i' in style:
-        set_flag(rpr, 'w:iCs', True); set_flag(rpr, 'w:i', True)
-    if 'b' in style:
-        set_flag(rpr, 'w:bCs', True); set_flag(rpr, 'w:b', True)
+        for t in ('w:iCs', 'w:i'):
+            rpr.insert(0, rpr.makeelement(qn(t), {}))
+    if style in ('b',):
+        for t in ('w:bCs', 'w:b'):
+            rpr.insert(0, rpr.makeelement(qn(t), {}))
+    if style == 'src':  # 8.5 pt, as the draft's Source lines
+        for t in ('w:sz', 'w:szCs'):
+            for x in rpr.findall(qn(t)):
+                rpr.remove(x)
+            rpr.append(rpr.makeelement(qn(t), {qn('w:val'): '17'}))
     t = r.makeelement(qn('w:t'), {})
-    t.text = text
+    t.text = typo(text)
     t.set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
     r.append(t)
     return r
 
-def make_par(tpl_p, runs, keep_bold=None):
-    """runs: list of (text, style). If keep_bold is True/False, overrides."""
+
+def split_italics(text, base=''):
+    out = []
+    for i, part in enumerate(text.split('*')):
+        if part:
+            out.append((part, 'i' if i % 2 else base))
+    return out
+
+
+def make_par(tpl_p, runs):
     tr = first_run(tpl_p)
     p = copy.deepcopy(tpl_p)
     for c in list(p):
         if c.tag != qn('w:pPr'):
             p.remove(c)
     for text, st in runs:
-        p.append(make_run(tr, text, st))
+        for tx, s2 in (split_italics(text, st) if st in ('', 'src') else [(text, st)]):
+            p.append(make_run(tr, tx, s2))
     return p
 
-def italic_runs(text):
-    """split *...* markers into italic runs"""
-    out = []
-    for i, part in enumerate(re.split(r'\*', text)):
-        if part:
-            out.append((part, 'i' if i % 2 else ''))
-    return out
+
+def keep_next(p):
+    ppr = p.find(qn('w:pPr'))
+    if ppr is None:
+        ppr = p.makeelement(qn('w:pPr'), {})
+        p.insert(0, ppr)
+    if ppr.find(qn('w:keepNext')) is None:
+        ps_ = ppr.find(qn('w:pStyle'))
+        kn = ppr.makeelement(qn('w:keepNext'), {})
+        if ps_ is not None:
+            ps_.addnext(kn)
+        else:
+            ppr.insert(0, kn)
+
+
+def make_table(spec):
+    widths, rows = spec['widths'], spec['rows']
+    ncol = len(widths)
+    t = copy.deepcopy(T_TBL)
+    trs = t.findall(qn('w:tr'))
+    for r in trs[len(rows):]:
+        t.remove(r)
+    while len(t.findall(qn('w:tr'))) < len(rows):
+        t.append(copy.deepcopy(t.findall(qn('w:tr'))[-1]))
+    grid = t.find(qn('w:tblGrid'))
+    gcs = grid.findall(qn('w:gridCol'))
+    while len(gcs) < ncol:
+        grid.append(copy.deepcopy(gcs[-1]))
+        gcs = grid.findall(qn('w:gridCol'))
+    for gc, w in zip(gcs, widths):
+        gc.set(qn('w:w'), str(w))
+    trs = t.findall(qn('w:tr'))
+    for n, (r, vals) in enumerate(zip(trs, rows)):
+        tcs = r.findall(qn('w:tc'))
+        while len(tcs) < ncol:
+            tcs[-1].addnext(copy.deepcopy(tcs[-1]))
+            tcs = r.findall(qn('w:tc'))
+        for tc, txt, w in zip(tcs, vals, widths):
+            tcw = tc.find(qn('w:tcPr')).find(qn('w:tcW'))
+            if tcw is not None:
+                tcw.set(qn('w:w'), str(w))
+                tcw.set(qn('w:type'), 'dxa')
+            ps = tc.findall(qn('w:p'))
+            tpl = ps[0]
+            rpr = first_run(tpl).find(qn('w:rPr'))
+            bold = rpr is not None and rpr.find(qn('w:b')) is not None
+            np_ = make_par(tpl, [(txt, 'b' if bold else '')])
+            for x in ps:
+                tc.remove(x)
+            tc.append(np_)
+            if n < len(rows) - 1:
+                keep_next(np_)
+        trpr = r.find(qn('w:trPr'))
+        if trpr is None:
+            trpr = r.makeelement(qn('w:trPr'), {})
+            r.insert(1 if r.find(qn('w:tblPrEx')) is not None else 0, trpr)
+        if trpr.find(qn('w:cantSplit')) is None:
+            trpr.insert(0, trpr.makeelement(qn('w:cantSplit'), {}))
+    return t
+
 
 new = []
 for blk in C.B:
@@ -96,55 +187,12 @@ for blk in C.B:
         new.append(make_par(T_P, [(blk[1], '')]))
     elif k == 'cap':
         cp = make_par(T_CAP, [(blk[1], 'b')])
-        ppr = cp.find(qn('w:pPr'))
-        if ppr.find(qn('w:keepNext')) is None:
-            ps_ = ppr.find(qn('w:pStyle'))
-            kn = ppr.makeelement(qn('w:keepNext'), {})
-            (ps_.addnext(kn) if ps_ is not None else ppr.insert(0, kn))
+        keep_next(cp)
         new.append(cp)
     elif k == 'src':
         new.append(make_par(T_SRC, [(blk[1], '')]))
-    elif k == 'table2':
-        t = copy.deepcopy(T_TBL)
-        rows = t.findall(qn('w:tr'))
-        for r in rows[len(C.TABLE2):]:
-            t.remove(r)
-        for r, (a, b) in zip(t.findall(qn('w:tr')), C.TABLE2):
-            for tc, txt in zip(r.findall(qn('w:tc')), (a, b)):
-                ps = tc.findall(qn('w:p'))
-                tpl = ps[0]
-                hdr_bold = any(x is not None for x in [first_run(tpl).find(qn('w:rPr'))]) and \
-                    first_run(tpl).find(qn('w:rPr')).find(qn('w:b')) is not None
-                np_ = make_par(tpl, [(txt, 'b' if hdr_bold else '')])
-                for x in ps:
-                    tc.remove(x)
-                tc.append(np_)
-        W = (2100, 6960)
-        for gc, w in zip(t.find(qn('w:tblGrid')).findall(qn('w:gridCol')), W):
-            gc.set(qn('w:w'), str(w))
-        for r in t.findall(qn('w:tr')):
-            for tc, w in zip(r.findall(qn('w:tc')), W):
-                tcw = tc.find(qn('w:tcPr')).find(qn('w:tcW'))
-                if tcw is not None:
-                    tcw.set(qn('w:w'), str(w)); tcw.set(qn('w:type'), 'dxa')
-        rows = t.findall(qn('w:tr'))
-        for n, r in enumerate(rows):
-            trpr = r.find(qn('w:trPr'))
-            if trpr is None:
-                trpr = r.makeelement(qn('w:trPr'), {}); r.insert(0 if r.find(qn('w:tblPrEx')) is None else 1, trpr)
-            if trpr.find(qn('w:cantSplit')) is None:
-                trpr.insert(0, trpr.makeelement(qn('w:cantSplit'), {}))
-            if n < len(rows) - 1:
-                for pp in r.iter(qn('w:p')):
-                    ppr = pp.find(qn('w:pPr'))
-                    if ppr is None:
-                        ppr = pp.makeelement(qn('w:pPr'), {}); pp.insert(0, ppr)
-                    if ppr.find(qn('w:keepNext')) is None:
-                        ps_ = ppr.find(qn('w:pStyle'))
-                        kn = ppr.makeelement(qn('w:keepNext'), {})
-                        if ps_ is not None: ps_.addnext(kn)
-                        else: ppr.insert(0, kn)
-        new.append(t)
+    elif k == 'table':
+        new.append(make_table(C.TABLES[blk[1]]))
     elif k == 'box':
         t = copy.deepcopy(T_BOX)
         tc = t.find('.//' + qn('w:tc'))
@@ -157,14 +205,19 @@ for blk in C.B:
             tc.remove(x)
         for x in paras:
             tc.append(x)
+        for r in t.findall(qn('w:tr')):  # keep each box on one page
+            trpr = r.find(qn('w:trPr'))
+            if trpr is None:
+                trpr = r.makeelement(qn('w:trPr'), {})
+                r.insert(1 if r.find(qn('w:tblPrEx')) is not None else 0, trpr)
+            if trpr.find(qn('w:cantSplit')) is None:
+                trpr.insert(0, trpr.makeelement(qn('w:cantSplit'), {}))
         new.append(t)
-        # spacer paragraph after each box, as after Box 1
         new.append(make_par(T_P, [('', '')]))
 
-# remove placeholders between "3. The policies" and "4. Conclusions"
-idx_h1 = list(body).index(H1)
-idx_c = list(body).index(CONC)
-for e in list(body)[idx_h1 + 1: idx_c]:
+# replace the placeholders between "3. The policies" and "4. Conclusions"
+els = list(body)
+for e in els[els.index(H1) + 1: els.index(CONC)]:
     body.remove(e)
 anchor = H1
 for e in new:
@@ -172,45 +225,35 @@ for e in new:
     anchor = e
 anchor.addnext(make_par(T_P, [('', '')]))
 
-# references: insert alphabetically after "References" heading
+# references: insert alphabetically into the existing list
 REFH = find_p('References', 'Heading 2')
-refs = []
-e = REFH.getnext()
-while e is not None and e.tag == qn('w:p'):
-    refs.append(e); e = e.getnext()
-tpl_ref = refs[0]
 
-def ref_runs(s):
-    # italicise the title: quoted article -> journal; otherwise first segment after "), "
-    m = re.match(r'^(.*?\(\d{4}[a-z]?\), )(.*)$', s)
-    head, rest = m.group(1), m.group(2)
-    if rest.startswith('"'):
-        m2 = re.match(r'^(".*?", )(.*?)(, (Vol\.|https|pp\.).*|$)', rest)
-        if m2 and not m2.group(2).startswith('in '):
-            return [(head + m2.group(1), ''), (m2.group(2), 'i'), (m2.group(3), '')]
-        m3 = re.match(r'^(".*?", in )(.*?)(, .*)$', rest)
-        if m3:
-            return [(head + m3.group(1), ''), (m3.group(2), 'i'), (m3.group(3), '')]
-        return [(s, '')]
-    j = rest.find(', ')
-    return [(head, ''), (rest[:j], 'i'), (rest[j:], '')]
+
+def ref_list():
+    out, e = [], REFH.getnext()
+    while e is not None and e.tag == qn('w:p'):
+        out.append(e)
+        e = e.getnext()
+    return out
+
 
 def key(s):
-    return re.sub(r'[^a-z0-9 ]', '', s.lower().replace('é', 'e').replace('ä', 'a').replace('ü', 'u').replace('ö', 'o'))
+    import unicodedata
+    s = unicodedata.normalize('NFKD', s.replace('*', '')).encode('ascii', 'ignore').decode()
+    return re.sub(r'[^a-z0-9 ]', '', s.lower())
 
+
+tpl_ref = ref_list()[0]
 for r in C.REFS:
-    np_ = make_par(tpl_ref, ref_runs(r))
+    np_ = make_par(tpl_ref, [(r, '')])
     k = key(r)
-    placed = False
+    refs = ref_list()
     for e in refs:
         if key(Paragraph(e, d).text) > k:
-            e.addprevious(np_); placed = True; break
-    if not placed:
+            e.addprevious(np_)
+            break
+    else:
         refs[-1].addnext(np_)
-    refs = []
-    e = REFH.getnext()
-    while e is not None and e.tag == qn('w:p'):
-        refs.append(e); e = e.getnext()
 
 d.save(OUT)
 print('saved', OUT)
