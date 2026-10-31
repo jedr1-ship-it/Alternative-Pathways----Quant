@@ -130,50 +130,120 @@ def keep_next(p):
             ppr.insert(0, kn)
 
 
+def _el(tag, **attrs):
+    from docx.oxml import OxmlElement
+    e = OxmlElement(tag)
+    for k, v in attrs.items():
+        e.set(qn('w:' + k), str(v))
+    return e
+
+
+def _cell(text, width, span=1, vmerge=None, fill=None, bold=False,
+          italic=False, center=False, size=17, top='single', bottom='single', keep=False):
+    tc = _el('w:tc')
+    pr = _el('w:tcPr')
+    pr.append(_el('w:tcW', w=width, type='dxa'))
+    if span > 1:
+        pr.append(_el('w:gridSpan', val=span))
+    if vmerge is not None:
+        pr.append(_el('w:vMerge', **({'val': 'restart'} if vmerge == 'restart' else {})))
+    b = _el('w:tcBorders')
+    b.append(_el('w:top', val=top, sz=8, space=0, color='888888' if fill else 'auto') if top != 'nil' else _el('w:top', val='nil'))
+    b.append(_el('w:left', val='nil'))
+    b.append(_el('w:bottom', val=bottom, sz=8, space=0, color='auto'))
+    b.append(_el('w:right', val='nil'))
+    pr.append(b)
+    if fill:
+        pr.append(_el('w:shd', val='clear', color='auto', fill=fill))
+    m = _el('w:tcMar')
+    for side, w in (('top', 40), ('left', 70), ('bottom', 40), ('right', 70)):
+        m.append(_el('w:' + side, w=w, type='dxa'))
+    pr.append(m)
+    pr.append(_el('w:vAlign', val='center' if center else 'top'))
+    tc.append(pr)
+    p = _el('w:p')
+    ppr = _el('w:pPr')
+    if keep:
+        ppr.append(_el('w:keepNext'))
+    ppr.append(_el('w:spacing', before=0, after=0, line=240, lineRule='auto'))
+    if center:
+        ppr.append(_el('w:jc', val='center'))
+    p.append(ppr)
+    if text:
+        r = _el('w:r')
+        rpr = _el('w:rPr')
+        if bold:
+            rpr.append(_el('w:b'))
+        if italic:
+            rpr.append(_el('w:i'))
+        rpr.append(_el('w:sz', val=size))
+        rpr.append(_el('w:szCs', val=size))
+        r.append(rpr)
+        t = _el('w:t')
+        t.text = typo(text)
+        t.set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
+        r.append(t)
+        p.append(r)
+    tc.append(p)
+    return tc
+
+
 def make_table(spec):
-    widths, rows = spec['widths'], spec['rows']
-    ncol = len(widths)
-    t = copy.deepcopy(T_TBL)
-    trs = t.findall(qn('w:tr'))
-    for r in trs[len(rows):]:
-        t.remove(r)
-    while len(t.findall(qn('w:tr'))) < len(rows):
-        t.append(copy.deepcopy(t.findall(qn('w:tr'))[-1]))
-    grid = t.find(qn('w:tblGrid'))
-    gcs = grid.findall(qn('w:gridCol'))
-    while len(gcs) < ncol:
-        grid.append(copy.deepcopy(gcs[-1]))
-        gcs = grid.findall(qn('w:gridCol'))
-    for gc, w in zip(gcs, widths):
-        gc.set(qn('w:w'), str(w))
-    trs = t.findall(qn('w:tr'))
-    for n, (r, vals) in enumerate(zip(trs, rows)):
-        tcs = r.findall(qn('w:tc'))
-        while len(tcs) < ncol:
-            tcs[-1].addnext(copy.deepcopy(tcs[-1]))
-            tcs = r.findall(qn('w:tc'))
-        for tc, txt, w in zip(tcs, vals, widths):
-            tcw = tc.find(qn('w:tcPr')).find(qn('w:tcW'))
-            if tcw is not None:
-                tcw.set(qn('w:w'), str(w))
-                tcw.set(qn('w:type'), 'dxa')
-            ps = tc.findall(qn('w:p'))
-            tpl = ps[0]
-            rpr = first_run(tpl).find(qn('w:rPr'))
-            bold = rpr is not None and rpr.find(qn('w:b')) is not None
-            np_ = make_par(tpl, [(txt, 'b' if bold else '')])
-            for x in ps:
-                tc.remove(x)
-            tc.append(np_)
-            if n < len(rows) - 1:
-                keep_next(np_)
-        trpr = r.find(qn('w:trPr'))
-        if trpr is None:
-            trpr = r.makeelement(qn('w:trPr'), {})
-            r.insert(1 if r.find(qn('w:tblPrEx')) is not None else 0, trpr)
-        if trpr.find(qn('w:cantSplit')) is None:
-            trpr.insert(0, trpr.makeelement(qn('w:cantSplit'), {}))
-    return t
+    W = spec['widths']
+    ncol = len(W)
+    c0, c1 = spec.get('center_from', 99), spec.get('center_to', -1)
+    SZ = spec.get('size', 17)
+    tbl = _el('w:tbl')
+    tp = _el('w:tblPr')
+    tp.append(_el('w:tblW', w=sum(W), type='dxa'))
+    tp.append(_el('w:tblLayout', type='fixed'))
+    tp.append(_el('w:tblLook', val='04A0', firstRow=1, lastRow=0,
+                  firstColumn=0, lastColumn=0, noHBand=1, noVBand=1))
+    tbl.append(tp)
+    g = _el('w:tblGrid')
+    for w in W:
+        g.append(_el('w:gridCol', w=w))
+    tbl.append(g)
+    HEAD = 'E8EEF4'
+    # header rows with colspan and rowspan
+    pending = {}  # grid col -> remaining rows of a vertical merge
+    nh = len(spec['head'])
+    for hi, hrow in enumerate(spec['head']):
+        tr = _el('w:tr')
+        trpr = _el('w:trPr')
+        trpr.append(_el('w:cantSplit'))
+        trpr.append(_el('w:tblHeader'))
+        tr.append(trpr)
+        col, it = 0, iter(hrow)
+        while col < ncol:
+            if pending.get(col, 0) > 0:
+                pending[col] -= 1
+                tr.append(_cell('', W[col], vmerge='cont', fill=HEAD, bold=True, size=SZ))
+                col += 1
+                continue
+            text, span, rspan = next(it)
+            w = sum(W[col:col + span])
+            vm = 'restart' if rspan > 1 else None
+            if rspan > 1:
+                pending[col] = rspan - 1
+            ctr = span > 1 or (c0 <= col <= c1)
+            tr.append(_cell(text, w, span=span, vmerge=vm, fill=HEAD, bold=True,
+                            center=ctr, size=SZ))
+            col += span
+        tbl.append(tr)
+    for row in spec['rows']:
+        tr = _el('w:tr')
+        trpr = _el('w:trPr')
+        trpr.append(_el('w:cantSplit'))
+        tr.append(trpr)
+        if row[0] == 'group':
+            tr.append(_cell(row[1], sum(W), span=ncol, fill='F4F7FA', bold=True,
+                            italic=True, size=SZ, top='nil', keep=True))
+        else:
+            for j, (txt, w) in enumerate(zip(row, W)):
+                tr.append(_cell(txt, w, center=(c0 <= j <= c1), size=SZ, top='nil'))
+        tbl.append(tr)
+    return tbl
 
 
 new = []
@@ -189,6 +259,10 @@ for blk in C.B:
         cp = make_par(T_CAP, [(blk[1], 'b')])
         keep_next(cp)
         new.append(cp)
+    elif k == 'sub':
+        sp = make_par(T_SRC, [(blk[1], 'i')])
+        keep_next(sp)
+        new.append(sp)
     elif k == 'src':
         new.append(make_par(T_SRC, [(blk[1], '')]))
     elif k == 'table':
