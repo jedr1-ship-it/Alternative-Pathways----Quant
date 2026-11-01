@@ -84,7 +84,7 @@ def make_run(tpl_run, text, style=''):
     if style in ('b',):
         for t in ('w:bCs', 'w:b'):
             rpr.insert(0, rpr.makeelement(qn(t), {}))
-    if style == 'src':  # 8.5 pt, as the draft's Source lines
+    if 'src' in style:  # 8.5 pt, as the draft's Source lines
         for t in ('w:sz', 'w:szCs'):
             for x in rpr.findall(qn(t)):
                 rpr.remove(x)
@@ -100,7 +100,7 @@ def split_italics(text, base=''):
     out = []
     for i, part in enumerate(text.split('*')):
         if part:
-            out.append((part, 'i' if i % 2 else base))
+            out.append((part, (base + 'i' if base == 'src' else 'i') if i % 2 else base))
     return out
 
 
@@ -246,6 +246,133 @@ def make_table(spec):
     return tbl
 
 
+def _tcell(text, width, top=None, bottom=None, left=None, vmerge=None,
+           span=1, bold=False, italic=False, center=False, size=16, keep=False):
+    """Cell in the style of OECD Education Working Paper No. 342."""
+    tc = _el('w:tc')
+    pr = _el('w:tcPr')
+    pr.append(_el('w:tcW', w=width, type='dxa'))
+    if span > 1:
+        pr.append(_el('w:gridSpan', val=span))
+    if vmerge is not None:
+        pr.append(_el('w:vMerge', **({'val': 'restart'} if vmerge == 'restart' else {})))
+    b = _el('w:tcBorders')
+    for side, spec in (('top', top), ('left', left), ('bottom', bottom), ('right', None)):
+        if spec is None:
+            b.append(_el('w:' + side, val='nil'))
+        else:
+            sz, color = spec
+            b.append(_el('w:' + side, val='single', sz=sz, space=0, color=color))
+    pr.append(b)
+    m = _el('w:tcMar')
+    for side, w in (('top', 30), ('left', 70), ('bottom', 30), ('right', 70)):
+        m.append(_el('w:' + side, w=w, type='dxa'))
+    pr.append(m)
+    pr.append(_el('w:vAlign', val='center' if center else 'top'))
+    tc.append(pr)
+    p = _el('w:p')
+    ppr = _el('w:pPr')
+    if keep:
+        ppr.append(_el('w:keepNext'))
+    ppr.append(_el('w:spacing', before=0, after=0, line=240, lineRule='auto'))
+    if center:
+        ppr.append(_el('w:jc', val='center'))
+    p.append(ppr)
+    if text:
+        r = _el('w:r')
+        rpr = _el('w:rPr')
+        if bold:
+            rpr.append(_el('w:b'))
+        if italic:
+            rpr.append(_el('w:i'))
+        rpr.append(_el('w:sz', val=size))
+        rpr.append(_el('w:szCs', val=size))
+        r.append(rpr)
+        t = _el('w:t')
+        t.text = typo(text)
+        t.set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
+        r.append(t)
+        p.append(r)
+    tc.append(p)
+    return tc
+
+
+def make_table_torres(spec):
+    BLUE, GREY = '4F81BD', 'BFBFBF'
+    W = spec['widths']
+    ncol = len(W)
+    SZ = spec.get('size', 16)
+    c0, c1 = spec.get('center_from', 99), spec.get('center_to', -1)
+    fbi = spec.get('first_bi', False)
+    icols = spec.get('italic_cols', ())
+    tbl = _el('w:tbl')
+    tp = _el('w:tblPr')
+    tp.append(_el('w:tblW', w=sum(W), type='dxa'))
+    tp.append(_el('w:tblLayout', type='fixed'))
+    tp.append(_el('w:tblLook', val='04A0', firstRow=1, lastRow=0,
+                  firstColumn=0, lastColumn=0, noHBand=1, noVBand=1))
+    tbl.append(tp)
+    g = _el('w:tblGrid')
+    for w in W:
+        g.append(_el('w:gridCol', w=w))
+    tbl.append(g)
+    nh = len(spec['head'])
+    pending = {}
+    for hi, hrow in enumerate(spec['head']):
+        tr = _el('w:tr')
+        trpr = _el('w:trPr')
+        trpr.append(_el('w:cantSplit'))
+        trpr.append(_el('w:tblHeader'))
+        tr.append(trpr)
+        top = (12, BLUE) if hi == 0 else None
+        col, it = 0, iter(hrow)
+        while col < ncol:
+            left = (4, GREY) if col > 0 else None
+            if pending.get(col, 0) > 0:
+                pending[col] -= 1
+                tr.append(_tcell('', W[col], top=top, bottom=(6, BLUE) if pending[col] == 0 else None,
+                                 left=left, vmerge='cont', size=SZ))
+                col += 1
+                continue
+            text, span, rspan = next(it)
+            if rspan > 1:
+                pending[col] = rspan - 1
+            last = hi + rspan - 1 == nh - 1
+            bottom = (6, BLUE) if last and rspan == 1 else ((4, GREY) if rspan == 1 else None)
+            tr.append(_tcell(text, sum(W[col:col + span]), top=top, bottom=bottom, left=left,
+                             vmerge='restart' if rspan > 1 else None, span=span,
+                             bold=True, center=True, size=SZ))
+            col += span
+        tbl.append(tr)
+    rows = spec['rows']
+    for ri, row in enumerate(rows):
+        tr = _el('w:tr')
+        trpr = _el('w:trPr')
+        trpr.append(_el('w:cantSplit'))
+        tr.append(trpr)
+        if row[0] == 'group':
+            tr.append(_tcell(row[1], sum(W), span=ncol, bottom=(4, GREY), bold=True,
+                             italic=True, size=SZ, keep=True))
+            tbl.append(tr)
+            continue
+        nxt = rows[ri + 1] if ri + 1 < len(rows) else None
+        for j, (txt, w) in enumerate(zip(row, W)):
+            left = (4, GREY) if j > 0 else None
+            cont_next = nxt is not None and nxt[0] != 'group' and nxt[j] is None
+            if txt is None:
+                vm = 'cont'
+            elif cont_next:
+                vm = 'restart'
+            else:
+                vm = None
+            bottom = None if cont_next else (4, GREY)
+            tr.append(_tcell(txt or '', w, bottom=bottom, left=left, vmerge=vm,
+                             bold=(fbi and j == 0), italic=(fbi and j == 0) or j in icols,
+                             center=(c0 <= j <= c1), size=SZ))
+        tbl.append(tr)
+    return tbl
+
+
 new = []
 for blk in C.B:
     k = blk[0]
@@ -266,7 +393,8 @@ for blk in C.B:
     elif k == 'src':
         new.append(make_par(T_SRC, [(blk[1], '')]))
     elif k == 'table':
-        new.append(make_table(C.TABLES[blk[1]]))
+        _spec = C.TABLES[blk[1]]
+        new.append(make_table_torres(_spec) if _spec.get('style') == 'torres' else make_table(_spec))
     elif k == 'box':
         t = copy.deepcopy(T_BOX)
         tc = t.find('.//' + qn('w:tc'))
