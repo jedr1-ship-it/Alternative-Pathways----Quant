@@ -7,7 +7,7 @@ Text of the authors' Sections 1 and 2 is not modified (only formatting);
 Section 1 receives the new introduction around the authors' paragraph.
 PAGES.json maps TOC entry texts to page numbers (from a first rendering).
 """
-import copy, json, re, sys, unicodedata
+import copy, json, os, re, sys, unicodedata
 import docx
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -109,6 +109,84 @@ def find_h(text, level):
 def style_id(name):
     return d.styles[name].style_id
 
+
+# ---------------------------------------------------------------- Section 2 corrections
+CORR = [
+ ("Here we instead, we first describe", "Here, we first describe"),
+ ("and posteriorly develop", "and then develop"),
+ ("In USA, which holds one of", "In the United States, which has one of"),
+ ("and lead to three main conclusions", "and leads to three main conclusions"),
+ ("and retired teacher who returns", "and a retired teacher who returns"),
+ ("does not follows on its own", "does not follow on its own"),
+ ("maintaining a valid teaching license", "maintaining a valid teaching licence"),
+ ("Thirdly, financial factors", "Third, financial factors"),
+ ("Organisational Factors", "Organisational factors"),
+ ("Teachers\u2019 salary compared to other tertiary-educated workers earnings",
+  "Teachers\u2019 salaries compared with the earnings of other tertiary-educated workers"),
+ ("A great example is observed in England, where",
+  "This is illustrated by evidence from England, where"),
+ ("Similarly in the United States and Sweden the same event has long driven female exits",
+  "Similarly, in the United States the same event has long driven female exits"),
+ ("grey bars report the total rate only", "light blue bars report the total rate only"),
+ ("led by Portugal at 128% of the benchmark",
+  "led by Peru at 151% of the benchmark, followed by Costa Rica (131%) and Portugal (128%)"),
+]
+
+
+def replace_in_par(p, old, new):
+    runs = [r for r in p.iter(qn('w:r')) if r.find(qn('w:t')) is not None]
+    full = ''.join(r.find(qn('w:t')).text or '' for r in runs)
+    i = full.find(old)
+    if i < 0:
+        return False
+    j = i + len(old)
+    pos = 0
+    first = True
+    for r in runs:
+        t = r.find(qn('w:t'))
+        s = t.text or ''
+        a, b = pos, pos + len(s)
+        pos = b
+        if b <= i or a >= j:
+            continue
+        lo, hi = max(i, a) - a, min(j, b) - a
+        if first:
+            t.text = s[:lo] + new + s[hi:]
+            first = False
+        else:
+            t.text = s[:lo] + s[hi:]
+        t.set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
+    return True
+
+
+for old, new in CORR:
+    done = sum(replace_in_par(p, old, new) for p in body.iter(qn('w:p'))
+               if old in Paragraph(p, d).text)
+    assert done == 1, (old, done)
+
+# ---------------------------------------------------------------- figures (EAG layout)
+FIG_DIR = os.environ.get('FIG_DIR')
+if FIG_DIR:
+    from PIL import Image as _Img
+    figs = ['figure1_leaving_rate.png', 'figure2_relative_salaries.png',
+            'figure3_age_profiles.png']
+    blips = list(body.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}blip'))
+    assert len(blips) == 3, len(blips)
+    CX = int(16.4 / 2.54 * 914400)
+    for blip, fname in zip(blips, figs):
+        path = os.path.join(FIG_DIR, fname)
+        rid, _ = d.part.get_or_add_image(path)
+        blip.set(qn('r:embed'), rid)
+        w, h = _Img.open(path).size
+        cy = int(CX * h / w)
+        inline = blip
+        while inline is not None and not inline.tag.endswith('}inline') and not inline.tag.endswith('}anchor'):
+            inline = inline.getparent()
+        ext = inline.find('{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}extent')
+        ext.set('cx', str(CX)); ext.set('cy', str(cy))
+        for x in inline.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}ext'):
+            if x.get('cx') is not None:
+                x.set('cx', str(CX)); x.set('cy', str(cy))
 
 # ---------------------------------------------------------------- bullets
 numbering = d.part.numbering_part.element
