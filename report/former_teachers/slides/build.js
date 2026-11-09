@@ -21,74 +21,78 @@ async function icon(Comp, color) {
   const s = pres.addSlide();
   s.background = { color: "FFFFFF" };
 
-  const X0 = 0.75, COLW = 3.65, GAP = 0.42;
+  const GUIDES = process.argv[3] === "guides";
+  const X0 = 0.67, COLW = 3.68, GAP = 0.35;
   const colX = i => X0 + i * (COLW + GAP);
   const T = (text, o) => s.addText(text, Object.assign({ isTextBox: true, margin: 0, fontFace: "Calibri" }, o));
 
-  // Title
-  T("Former and retired teachers", { x: X0, y: 0.45, w: 11.8, h: 0.6, fontSize: 30, bold: true, color: NAVY });
+  if (GUIDES) { // preview only: template header band, title and corner triangle
+    s.addShape(pres.shapes.RECTANGLE, { x: 0.27, y: 0.13, w: 12.95, h: 0.98, fill: { color: "EAF5F8" }, line: { type: "none" } });
+    T("Former and retired teachers", { x: 1.25, y: 0.38, w: 8, h: 0.5, fontSize: 24, bold: true, color: "0B2545" });
+    s.addShape(pres.shapes.RIGHT_TRIANGLE, { x: 12.1, y: 5.44, w: 1.233, h: 2.06, flipH: true, fill: { color: "2BB3A0" }, line: { type: "none" } });
+  }
 
-  // Key figures
+  // Key figures in boxes
   const stats = [["30+", "policies mapped across 18 countries", NAVY],
                  ["62%", "use financial incentives", TEAL],
                  ["3/4", "combine two or more instruments", PURPLE]];
   stats.forEach(([n, lab, c], i) => {
-    T(n, { x: colX(i), y: 1.4, w: COLW, h: 0.8, fontSize: 48, bold: true, color: c, valign: "bottom" });
-    T(lab, { x: colX(i), y: 2.22, w: COLW, h: 0.35, fontSize: 15, color: GREY });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: colX(i), y: 1.42, w: COLW, h: 1.38, rectRadius: 0.16,
+      fill: { color: "DCE8F1" }, line: { color: c, width: 1.25 } });
+    T(n, { x: colX(i), y: 1.55, w: COLW, h: 0.72, fontSize: 40, bold: true, color: c, align: "center", valign: "middle" });
+    T(lab, { x: colX(i), y: 2.3, w: COLW, h: 0.34, fontSize: 15, color: INK, align: "center", valign: "middle" });
   });
-  s.addShape(pres.shapes.LINE, { x: X0, y: 2.95, w: colX(2) + COLW - X0, h: 0, line: { color: LINE, width: 0.75 } });
 
-  // Column headers
+  // Column headers, same baseline
   const heads = [["Three profiles", NAVY], ["Five policy instruments", TEAL], ["Fit, not just barriers", PURPLE]];
-  heads.forEach(([h, c], i) => T(h, { x: colX(i), y: 3.25, w: COLW, h: 0.4, fontSize: 19, bold: true, color: c }));
+  heads.forEach(([h, c], i) => T(h, { x: colX(i), y: 3.12, w: COLW, h: 0.42, fontSize: 20, bold: true, color: c, valign: "middle" }));
 
-  const Y1 = 3.9;
+  const Y1 = 3.75;
 
-  // Column 1: profiles with icons
+  // Column 1: profiles
   const profiles = [[fa.FaBriefcase, "Switchers", "moved to another occupation"],
                     [fa.FaHome, "Leavers", "left the labour market"],
                     [fa.FaHourglassEnd, "Retired teachers", "reached the end of their career"]];
   for (let k = 0; k < profiles.length; k++) {
     const [I, name, desc] = profiles[k];
-    const y = Y1 + k * 0.72;
-    s.addShape(pres.shapes.OVAL, { x: colX(0), y, w: 0.5, h: 0.5, fill: { color: TINT[NAVY] }, line: { type: "none" } });
-    s.addImage({ data: await icon(I, NAVY), x: colX(0) + 0.14, y: y + 0.14, w: 0.22, h: 0.22 });
+    const y = Y1 + k * 0.78;
+    s.addShape(pres.shapes.OVAL, { x: colX(0), y, w: 0.56, h: 0.56, fill: { color: TINT[NAVY] }, line: { type: "none" } });
+    s.addImage({ data: await icon(I, NAVY), x: colX(0) + 0.165, y: y + 0.165, w: 0.23, h: 0.23 });
     T([{ text: name, options: { bold: true, color: INK, fontSize: 15, breakLine: true } },
        { text: desc, options: { color: GREY, fontSize: 14 } }],
-      { x: colX(0) + 0.68, y: y - 0.04, w: COLW - 0.68, h: 0.6, valign: "middle" });
+      { x: colX(0) + 0.76, y, w: COLW - 0.76, h: 0.56, valign: "middle" });
   }
 
-  // Column 2: numbered instruments
+  // Column 2: instruments, spread over the same height as column 1
   const inst = ["Financial incentives", "Information and nudges", "Support and training",
                 "Flexible re-certification", "Flexible positions"];
+  const step2 = (2 * 0.78 + 0.56 - 0.38) / 4;
   inst.forEach((t, k) => {
-    const y = Y1 + 0.05 + k * 0.43;
-    s.addShape(pres.shapes.OVAL, { x: colX(1), y, w: 0.32, h: 0.32, fill: { color: TEAL }, line: { type: "none" } });
-    T(String(k + 1), { x: colX(1), y, w: 0.32, h: 0.32, fontSize: 12, bold: true, color: "FFFFFF", align: "center", valign: "middle" });
-    T(t, { x: colX(1) + 0.5, y: y - 0.02, w: COLW - 0.5, h: 0.36, fontSize: 15, color: INK, valign: "middle" });
+    const y = Y1 + k * step2;
+    s.addShape(pres.shapes.OVAL, { x: colX(1) + 0.09, y, w: 0.38, h: 0.38, fill: { color: TEAL }, line: { type: "none" } });
+    T(String(k + 1), { x: colX(1) + 0.09, y, w: 0.38, h: 0.38, fontSize: 13, bold: true, color: "FFFFFF", align: "center", valign: "middle" });
+    T(t, { x: colX(1) + 0.76, y, w: COLW - 0.76, h: 0.38, fontSize: 15, color: INK, valign: "middle" });
   });
 
-  // Column 3: two messages with icons
+  // Column 3: two messages
   const msgs = [[fa.FaUnlockAlt, "Removing barriers is not enough",
                  "if returners face the conditions that contributed to their departure."],
                 [fa.FaPuzzlePiece, "Differentiated roles",
                  "Part-time, mentoring and tutoring roles make a better fit."]];
   for (let k = 0; k < msgs.length; k++) {
     const [I, head, body] = msgs[k];
-    const y = Y1 + k * 1.08;
-    s.addShape(pres.shapes.OVAL, { x: colX(2), y, w: 0.5, h: 0.5, fill: { color: TINT[PURPLE] }, line: { type: "none" } });
-    s.addImage({ data: await icon(I, PURPLE), x: colX(2) + 0.14, y: y + 0.14, w: 0.22, h: 0.22 });
+    const y = Y1 + k * 1.15;
+    s.addShape(pres.shapes.OVAL, { x: colX(2), y, w: 0.56, h: 0.56, fill: { color: TINT[PURPLE] }, line: { type: "none" } });
+    s.addImage({ data: await icon(I, PURPLE), x: colX(2) + 0.165, y: y + 0.165, w: 0.23, h: 0.23 });
     T([{ text: head, options: { bold: true, color: INK, fontSize: 15, breakLine: true } },
        { text: body, options: { color: GREY, fontSize: 14 } }],
-      { x: colX(2) + 0.68, y: y - 0.02, w: COLW - 0.68, h: 0.9, valign: "top" });
+      { x: colX(2) + 0.76, y: y + 0.02, w: COLW - 0.76, h: 0.95, valign: "top" });
   }
 
-  // Take-away lines, aligned across columns
-  const take = ["Reasons for leaving differ, and so must the policies that re-attract them.",
-                "Most policies combine several instruments."];
-  take.forEach((t, i) => T(t, { x: colX(i), y: 6.2, w: COLW, h: 0.55, fontSize: 14, italic: true, color: [NAVY, TEAL, PURPLE][i], valign: "top" }));
+  // Take-away under column 1
+  T("Reasons for leaving differ, and so must the policies that re-attract them!",
+    { x: colX(0), y: 6.2, w: COLW, h: 0.62, fontSize: 15, color: NAVY, valign: "top" });
 
-  T("Unclassified - Non classifié", { x: 0, y: 7.1, w: 13.333, h: 0.25, fontSize: 10, color: "7B7FD6", align: "center" });
-
+  if (GUIDES) T("Unclassified - Non classifié", { x: 0, y: 7.2, w: 13.333, h: 0.25, fontSize: 10, color: "7B7FD6", align: "center" });
   await pres.writeFile({ fileName: process.argv[2] });
 })();
