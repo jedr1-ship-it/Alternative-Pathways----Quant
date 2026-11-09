@@ -21,16 +21,30 @@ async function icon(Comp, color) {
   const s = pres.addSlide();
   s.background = { color: "FFFFFF" };
 
-  const GUIDES = process.argv[3] === "guides";
   const X0 = 0.67, COLW = 3.68, GAP = 0.35;
   const colX = i => X0 + i * (COLW + GAP);
   const T = (text, o) => s.addText(text, Object.assign({ isTextBox: true, margin: 0, fontFace: "Calibri" }, o));
 
-  if (GUIDES) { // preview only: template header band, title and corner triangle
-    s.addShape(pres.shapes.RECTANGLE, { x: 0.27, y: 0.13, w: 12.95, h: 0.98, fill: { color: "EAF5F8" }, line: { type: "none" } });
-    T("Former and retired teachers", { x: 1.25, y: 0.38, w: 8, h: 0.5, fontSize: 24, bold: true, color: "0B2545" });
-    s.addShape(pres.shapes.RIGHT_TRIANGLE, { x: 12.1, y: 5.44, w: 1.233, h: 2.06, flipH: true, fill: { color: "2BB3A0" }, line: { type: "none" } });
-  }
+  // Template frame: header band, logo, title, corner triangle (measured from the OECD template slide)
+  const PX = 13.333 / 1200;
+  s.addShape(pres.shapes.RECTANGLE, { x: 26 * PX, y: 13 * PX, w: (1188 - 26) * PX, h: (101 - 13) * PX,
+    fill: { color: "EBF7F9" }, line: { type: "none" }, objectName: "Header band" });
+  const chev = dx => `<polygon fill="#19A3AA" points="${52+dx},20 ${70+dx},47.5 ${65+dx},55 ${52+dx},36.5"/>` +
+                     `<polygon fill="#102448" points="${70+dx},48.5 ${70+dx},65.5 ${52+dx},93 ${52+dx},77 ${65.5+dx},55.5"/>`;
+  const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 18 42 77" width="420" height="770">${chev(0)}${chev(20)}</svg>`;
+  const logo = await sharp(Buffer.from(logoSvg)).png().toBuffer();
+  s.addImage({ data: "image/png;base64," + logo.toString("base64"), x: 50 * PX, y: 18 * PX, w: 42 * PX, h: 77 * PX,
+    altText: "OECD logo", objectName: "Logo" });
+  T("Former and retired teachers", { x: 113 * PX, y: 13 * PX, w: 9, h: (101 - 13) * PX, fontSize: 24, bold: true,
+    color: "022249", valign: "middle", objectName: "Title" });
+  const triSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="432" height="750" viewBox="0 0 108 187">
+    <defs><linearGradient id="g" x1="1" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#33BB95"/>
+    <stop offset="1" stop-color="#3294C4"/></linearGradient></defs><polygon fill="url(#g)" points="108,0 108,187 0,187"/></svg>`;
+  const tri = await sharp(Buffer.from(triSvg)).png().toBuffer();
+  s.addImage({ data: "image/png;base64," + tri.toString("base64"), x: 1092 * PX, y: 488 * PX, w: 108 * PX, h: 187 * PX,
+    objectName: "Corner triangle" });
+  s.addText("Unclassified - Non classifié", { isTextBox: true, margin: 0, x: 0, y: 646 * PX, w: 13.333, h: 20 * PX,
+    fontSize: 10, fontFace: "Arial", color: "7F7FFF", align: "center", valign: "middle", objectName: "Classification" });
 
   // Key figures in boxes
   const stats = [["30+", "policies mapped across 18 countries", NAVY],
@@ -93,6 +107,5 @@ async function icon(Comp, color) {
   T("Reasons for leaving differ, and so must the policies that re-attract them!",
     { x: colX(0), y: 6.2, w: COLW, h: 0.62, fontSize: 15, color: NAVY, valign: "top" });
 
-  if (GUIDES) T("Unclassified - Non classifié", { x: 0, y: 7.2, w: 13.333, h: 0.25, fontSize: 10, color: "7B7FD6", align: "center" });
   await pres.writeFile({ fileName: process.argv[2] });
 })();
